@@ -406,5 +406,58 @@ public class UserController {
         return "member/user/uploadTestPro";
     }
 
+    @PostMapping("member/requestId")
+    @ResponseBody
+    public String requestId(@ModelAttribute("user_name") String user_name,
+                            @ModelAttribute("user_phone1") String user_phone1){
+
+        System.out.println(user_name);
+        System.out.println(user_phone1);
+
+        User user = userService.findUserId(user_name,user_phone1);
+
+        if(user != null){
+
+            return user.getUserId();
+        }
+
+        return "error";
+
+    }
+
+
+    @PostMapping("member/requestPw")
+    @ResponseBody
+    public String requestPw(@ModelAttribute("user_id") String user_id,
+                            @ModelAttribute("user_phone2") String user_phone2){
+
+        System.out.println(user_id);
+        System.out.println(user_phone2);
+
+        User user = userService.findUserPw(user_id,user_phone2);
+
+        if(user != null){ // 가입시 입력한 아이디와 입력한 폰번호가 같다면 인증번호를 전송해준다.
+
+            String ranNum = smsService.makeRanNum();
+
+//        Map<String,Object> result = smsService.authUser(user_phone2);
+//        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
+//        String ran_num = (String) result.get("ran_num");
+//        System.out.println("ran_num" + ran_num);
+//        System.out.println("srrd  : " + ssrd);
+//        String response = "";
+//        System.out.println(ran_num);
+//        if(ssrd.getStatusCode().equals("202")){
+
+            return ranNum; // 실제로는 문자를 전송한다.
+
+
+        }
+
+        return "error";
+
+    }
+
+
 
 }

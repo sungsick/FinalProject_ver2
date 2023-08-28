@@ -31,4 +31,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUser(@Param("user")User user);
 
 
+    User findByUserNameAndUserPhone(@Param("user_name")String user_name,
+                                    @Param("user_phone1")String user_phone1);
+
+
+    User findByUserIdAndUserPhone(@Param("user_id")String user_id,
+                                  @Param("user_phone2")String user_phone2);
 }
