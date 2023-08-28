@@ -1,6 +1,34 @@
+$('#flight_search_btn').click(function () {
+    $('.loading_wrap').css('display', 'block');
+    $.ajax({
+        url: '/tour/flight/searchFlight',
+        type: 'get',
+        data: {
+            startAirport: $('#start_airport').val(),
+            endAirport: $('#end_airport').val(),
+            startDay: $('#flight_date').val()
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            let item = data.response.body.items.item;
+
+            console.log(item);
+            $('#flight_list').empty();
+
+            $('.loading_wrap').css('display', 'none');
+
+        },
+        error: function (request, status, error) {
+
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            $('.loading_wrap').css('display', 'none');
+        }
+    });
+});
 
 
-
+/*
     $(function () {
     $.ajax({
         url: '/airportlist',
@@ -145,3 +173,4 @@
     alert('클릭');
 });
 
+*/

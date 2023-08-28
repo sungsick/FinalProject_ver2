@@ -4,6 +4,7 @@ import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicket;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,11 +58,11 @@ public class FlightController {
         return result.toString();
     }
 
-    @PostMapping("/searchflight")
-    public String searchFlight(@RequestParam("startAirport") String startAirport,
-                               @RequestParam("endAirport") String endAirport,
-                               @RequestParam("startDay") String startDay,
-                               Model model){
+    @GetMapping("/tour/flight/searchFlight")
+    public ResponseEntity<?> searchFlight(@RequestParam("startAirport") String startAirport,
+                                       @RequestParam("endAirport") String endAirport,
+                                       @RequestParam("startDay") String startDay,
+                                       Model model){
 
         System.out.println(startDay.replace("-",""));
         String flightInfoUrl = flightOpratInfoUrl;
@@ -87,7 +88,7 @@ public class FlightController {
             e.printStackTrace();
         }
 
-        return result.toString();
+        return ResponseEntity.ok(result.toString());
     }
 
     @PostMapping("/saveFlight")

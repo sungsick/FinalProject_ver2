@@ -719,9 +719,9 @@ h6 > b {
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: 350px;
+    height: 335px;
     z-index: -1;
-    bottom: 2px;
+    bottom: 10px;
     background-color: rgba(29, 27, 27, 0.5);
     background-blend-mode: multiply;
 }
@@ -731,7 +731,7 @@ h6 > b {
     margin: 0 auto;
     text-align: center;
     padding-top: 150px;
-    height: 200px;
+    height: 350px;
 
 }
 
@@ -979,4 +979,5 @@ h6 > b {
 
 .mySwiper img{
     height: 300px;
+    width: 100%;
 }
