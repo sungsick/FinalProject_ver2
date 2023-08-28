@@ -1,30 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/member/findPw.css">
 </head>
 <body>
-<h1>비밀번호 찾기</h1>
+
+<header th:include="/header2.html ::header"></header>
+
+<div class="idpw-container">
 
 
+    <div class="idpw-container-inner">
 
-<div class="second-box">
-    <div style="position: relative; height: 20px; background: rgb(246, 246, 246); box-shadow: rgb(246, 246, 246) -16px 26px 16px 39px;"></div>
-    <!--                        차량 옵션정보 (table만든 데이터 집어넣기)-->
-    <div class="second-box-tabs">
-        <div class="second-box-tabs-non-click" data-a="0" style="color:#00ce7c; font-weight:600">
-            예약정보
+
+        <h2>아이디 비밀번호 찾기</h2>
+
+
+        <!--                        차량 옵션정보 (table만든 데이터 집어넣기)-->
+        <div class="idpw-box-tabs">
+            <div id="find-id-btn" class="idpw-box-tabs-non-click" data-a="0" style=" font-weight:600">
+                아이디
+            </div>
+            <div id="find-pw-btn" class="idpw-box-tabs-non-click" data-a="1">
+                비밀번호
+            </div>
+
+            <div class="idpw-box-tabs-clicked-bar"></div>
         </div>
-        <div class="second-box-tabs-non-click" data-a="1">
-            보험/유의사항
+
+
+        <!-- 아이디 찾기시 보여질 div-->
+
+        <div class="idpw-container-inner1 ">
+
+            <h3>아이디 찾기</h3>
+            <div class="idpw-content ">
+                가입시 입력한 성함과 생년월일 정보를 입력해 주세요.
+            </div>
+
+
+            <div class="real_name">
+                <p>성함</p>
+                <input type="text" name="user_name" placeholder="성함을 입력해주세요.">
+            </div>
+
+
+            <div class="real_phone">
+                <p>생년월일</p>
+                <input type="text" name="user_date" placeholder="생년월일을 입력해 주세요.">
+            </div>
+
+            <div class="find-id-block">
+                <button id="find-id-button">아이디(이메일 주소) 받기</button>
+            </div>
+
+
         </div>
-        <div class="second-box-tabs-non-click" data-a="2">
-            업체/리뷰
+
+
+        <!-- 비밀번호 선택시 보여질 div-->
+        <div class="idpw-container-inner2 disappear">
+
+
+            <h3>비밀번호 찾기</h3>
+            <div class="idpw-content ">
+                본인인증 받으신 정보를 입력해 주세요. 휴대폰 번호로 아이디(이메일 주소)를 보내드립니다.
+            </div>
+
+
+            <div class="real_name">
+                <p>아이디</p>
+                <input type="text" name="user_id" placeholder="아이디(이메일)를 입력해주세요.">
+            </div>
+
+
+            <div class="real_phone">
+                <p>휴대폰 번호</p>
+                <input type="text" name="user_phone" placeholder="휴대폰 번호를 입력해 주세요.">
+            </div>
+
+            <div class="disappear">
+
+            </div>
+
+            <div class="find-id-block">
+                <button id="find-pw-button">비밀번호 재설정 인증번호 받기</button>
+            </div>
+
+
         </div>
-        <div class="second-box-tabs-clicked-bar"></div>
     </div>
 </div>
 
+<script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
+<script src="/jq/jquery-3.7.0.min.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/member/findPw.js"></script>
 </body>
 </html>

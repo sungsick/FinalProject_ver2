@@ -128,7 +128,7 @@ public class UserController {
     @GetMapping("member/findPw")
     public String findPw() {
 
-        return "member/findPw";
+        return "member/user/findPw";
     }
 
 

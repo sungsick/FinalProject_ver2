@@ -1,14 +1,34 @@
-var $tablink = $('.second-box-tabs div').click(function (e) {
-    var idx = $tablink.index(this);
-    $('.second-box-tabs div').css('color', 'rgb(170, 170, 170)');
-    $('.second-box-tabs div').css('font-weight', '400');
-    $(this).css('color', '#00ce7c');
-    $(this).css('font-weight', '600');
+$(document).ready(() => {
 
-    var marginLeftValue = idx * 33.3333;
-    $('.second-box-tabs-clicked-bar').animate({
-        'margin-left': marginLeftValue + '%'
-    }, 200)
-    $('.sections-con').removeClass('show');
-    $('.third-box section:first > div').eq(idx).addClass('show')
-});
+
+    var $tablink = $('.idpw-box-tabs div').click(function (e) {
+        var idx = $tablink.index(this);
+        $('.idpw-box-tabs div').css('color', 'rgb(170, 170, 170)');
+        $('.idpw-box-tabs div').css('font-weight', '400');
+        $(this).css('color', 'black');
+        $(this).css('font-weight', '600');
+
+        var marginLeftValue = idx * 50;
+        $('.idpw-box-tabs-clicked-bar').animate({
+            'margin-left': marginLeftValue + '%'
+        }, 200)
+
+    });
+
+    $('#find-id-btn').click(()=>{
+
+        console.log("아이디 버튼클릭.")
+        $('.idpw-container-inner1').removeClass('disappear');
+        $('.idpw-container-inner2').addClass('disappear');
+    })
+
+    $('#find-pw-btn').click(()=>{
+
+        $('.idpw-container-inner2').removeClass('disappear');
+        $('.idpw-container-inner1').addClass('disappear');
+
+    })
+
+
+
+})
