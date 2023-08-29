@@ -304,7 +304,6 @@ public class UserController {
             @RequestParam("user_year") int user_year,
             @RequestParam("user_month") int user_month,
             @RequestParam("user_day") int user_day,
-
             @ModelAttribute("user") User session_user,
             UserForm userForm,
             Model model
@@ -484,6 +483,13 @@ public class UserController {
 
 
         return "/member/user/updatePwPro";
+    }
+
+    @GetMapping("/member/user/modaltest")
+    public String modalTest(){
+
+
+        return "member/user/test";
     }
 
 
