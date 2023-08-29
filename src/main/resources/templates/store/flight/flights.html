@@ -7,6 +7,7 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/store/flight/flight.css">
+
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -39,7 +40,7 @@
                                             <div class="airline_btn">
                                                 <h4>출발</h4>
                                                 <select class="form-select" id="start_airport">
-                                                    <option value="NAARKJB">
+                                                    <!--<option value="NAARKJB">
                                                         무안
                                                     </option>
                                                     <option value="NAARKJK">
@@ -83,7 +84,7 @@
                                                     </option>
                                                     <option value="NAARKTU">
                                                         청주
-                                                    </option>
+                                                    </option>-->
                                                 </select>
                                             </div>
                                             <div class="airline_btn">
@@ -94,7 +95,7 @@
                                             <div class="airline_btn">
                                                 <h4>도착</h4>
                                                 <select class="form-select" id="end_airport">
-                                                    <option value="NAARKJB">
+                                                    <!--<option value="NAARKJB">
                                                         무안
                                                     </option>
                                                     <option value="NAARKJK">
@@ -138,7 +139,7 @@
                                                     </option>
                                                     <option value="NAARKTU">
                                                         청주
-                                                    </option>
+                                                    </option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -163,41 +164,55 @@
 
         <div class="result_container">
             <div class="result_title">
-                <span>김포</span>
+                <!--<span id="result_start_airport">김포</span>
                 <i></i>
-                <span>제주</span>
+                <span id="result_end_airport">제주</span>
+                <span id="result_flight_date">2023.08.03(월)</span>
+                <hr/>
+                <h6>검색결과 : <b id="total_count">10</b>건</h6>-->
             </div>
-            <hr/>
-            <div class="result_table">
-                <div class="result_table_inner">
-                    <div class="result_schedule">
-                        <div class="schedule_item">
-                            <div class="airline_box">
-                                <div class="airline_item">
-                                    <div class="airline_logos">
-                                        <img src="/img/store/flight/tway.jpg">
+            <div class="none_result_table" id="none_result">
+                <h5>검색하신 항공편이 없습니다</h5>
+                <p>
+                    선택하신 조건으로 검색된 항공편이 없습니다
+                    <br>
+                    다른 조건으로 다시 검색해주세요
+                </p>
+            </div>
+            <div class="result_table_wrap">
+                <!--<div class="result_table">
+                    <div class="result_table_inner">
+                        <div class="result_schedule">
+                            <div class="schedule_item">
+                                <div class="airline_box">
+                                    <div class="airline_item">
+                                        <div class="airline_logos">
+                                            <img src="/img/store/flight/tway.jpg">
+                                        </div>
+                                        <b class="airline_name">티웨이항공</b>
                                     </div>
-                                    <b class="airline_name">티웨이항공</b>
+                                </div>
+                                <div class="airline_route">
+                                    <span class="start_route">
+                                    <b>김포(08:30)</b>
+                                    </span>
+                                    <span class="end_route">
+                                    <b>제주(09:30)</b>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="airline_route">
-                            <span class="start_route">
-                                <b>김포(08:30)</b>
-                            </span>
-                                <span class="end_route">
-                                <b>제주(09:30)</b>
-                            </span>
+                        </div>
+                        <div class="airline_price">
+                            <div>
+                                <b>₩53,600</b>
                             </div>
                         </div>
                     </div>
-                    <div class="airline_price">
-                        <div>
-                            <b>₩53,600</b>
-                        </div>
-                    </div>
-                </div>
+                </div>-->
             </div>
-            <div class="hr-sect">더 많은 검색 결과</div>
+            <div>
+                <div class="hr-sect">더 많은 검색 결과</div>
+            </div>
         </div>
     </div>
     <button onclick="location.href='/tourism'">관광정보 샘플</button>

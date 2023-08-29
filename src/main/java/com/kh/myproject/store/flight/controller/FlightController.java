@@ -3,6 +3,7 @@ package com.kh.myproject.store.flight.controller;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicket;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import java.net.URL;
 
 @RestController
 @SessionAttributes("user")
+@Slf4j
 public class FlightController {
 
     @Autowired
@@ -38,8 +40,8 @@ public class FlightController {
         return mav;
     }
 
-    @GetMapping("/airportlist")
-    public String flight(){
+    @GetMapping("/tour/flight/airportList")
+    public ResponseEntity<?> getAirportList(){
         StringBuilder result = new StringBuilder();
         try{
             URL url = new URL(airportUrl);
@@ -52,22 +54,24 @@ public class FlightController {
             }
             br.close();
             conn.disconnect();
+            log.info("result={}", result);
         } catch(Exception e){
             e.printStackTrace();
         }
-        return result.toString();
+        return ResponseEntity.ok(result.toString());
     }
 
     @GetMapping("/tour/flight/searchFlight")
     public ResponseEntity<?> searchFlight(@RequestParam("startAirport") String startAirport,
                                        @RequestParam("endAirport") String endAirport,
-                                       @RequestParam("startDay") String startDay,
+                                       @RequestParam("startDate") String startDate,
+                                       @RequestParam("pageNo") int pageNo,
                                        Model model){
 
-        System.out.println(startDay.replace("-",""));
+        System.out.println(startDate.replace("-",""));
         String flightInfoUrl = flightOpratInfoUrl;
-        flightInfoUrl += "depAirportId=" + startAirport + "&arrAirportId=" + endAirport +
-                        "&depPlandTime=" + startDay.replace("-","") + "&_type=json";
+        flightInfoUrl += "pageNo=" + pageNo + "&depAirportId=" + startAirport + "&arrAirportId=" + endAirport +
+                        "&depPlandTime=" + startDate.replace("-","") + "&_type=json";
 
         StringBuilder result = new StringBuilder();
 

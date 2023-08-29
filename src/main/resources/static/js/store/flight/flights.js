@@ -1,32 +1,231 @@
-$('#flight_search_btn').click(function () {
-    $('.loading_wrap').css('display', 'block');
+var pageNo = 1;
+var numOfRows = 10;
+
+$(function () {
+    $.ajax({
+        url: '/tour/flight/airportList',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            var item = data.response.body.items.item;
+
+            /* 출발 */
+            for (var i = 0; i < item.length; i++) {
+                var content = `<option value=${item[i].airportId}>
+                                  ${item[i].airportNm}
+                                  </option>`;
+
+                if (item[i].airportNm === '김포') {
+                    content = `<option value=${item[i].airportId} selected>
+                                  ${item[i].airportNm}
+                                  </option>`;
+                    $('#start_airport').append(content);
+                    continue;
+                }
+                $('#start_airport').append(content);
+            }
+
+            /* 도착 */
+            for (var i = 0; i < item.length; i++) {
+                var content = `<option value=${item[i].airportId}>
+                                  ${item[i].airportNm}
+                                  </option>`;
+
+                if (item[i].airportNm === '제주') {
+                    content = `<option value=${item[i].airportId} selected>
+                                  ${item[i].airportNm}
+                                  </option>`;
+                    $('#end_airport').append(content);
+                    continue;
+                }
+                $('#end_airport').append(content);
+            }
+
+        }
+    });
+});
+
+
+$('#flight_search_btn').on('click', function () {
+    pageNo = 1;
+    $('.loading_wrap').css('display', 'block'); //검색 모달
+
+    $('.result_title').empty();
+    $('.result_table_wrap').empty();
+
+    searchFlight(pageNo, numOfRows);
+});
+$('.hr-sect').on('click', function () {
+    pageNo++;
+    searchFlight(pageNo, numOfRows);
+});
+
+function searchFlight(pageNo, numOfRows) {
+
+    var totalCount;
+
     $.ajax({
         url: '/tour/flight/searchFlight',
         type: 'get',
         data: {
             startAirport: $('#start_airport').val(),
             endAirport: $('#end_airport').val(),
-            startDay: $('#flight_date').val()
+            startDate: $('#flight_date').val(),
+            pageNo: pageNo,
+            numOfRows: numOfRows
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data);
-            let item = data.response.body.items.item;
+            var itemList = data.response.body.items.item;
+            totalCount = data.response.body.totalCount;
+            var startAirport = $('#start_airport option:checked').text();
+            var endAirport = $('#end_airport option:checked').text();
+            var startDate = $('#flight_date').val();
+            var dayOfWeek = getDayOfWeek(startDate);
+            var item;
 
-            console.log(item);
-            $('#flight_list').empty();
 
-            $('.loading_wrap').css('display', 'none');
+            if (pageNo === 1) {
+                var title = `<span>${startAirport}</span>` +
+                    '<i></i>' +
+                    `<span>${endAirport}</span>` +
+                    `<span id="result_flight_date">${startDate}(${dayOfWeek})</span>` +
+                    `<hr/>` +
+                    `<h6>검색결과 : <b id="total_count">${totalCount}</b>건</h6>`
 
+                $('.result_title').append(title);
+            }
+
+            if (totalCount === 0) {
+                $('.result_table_wrap').empty();
+                $('.none_result_table').css('display', 'block');
+
+                $('.loading_wrap').css('display', 'none');
+                return;
+            } else {
+                $('.none_result_table').css('display', 'none');
+            }
+
+            if (itemList.length === undefined) {
+                item = itemList;
+                appendFlight(item);
+            } else {
+                for (var i = 0; i < itemList.length; i++) {
+                    item = itemList[i];
+                    appendFlight(item);
+
+                }
+            }
+            if ((pageNo * numOfRows) < totalCount) {
+                $('.hr-sect').css('display', 'flex');
+            } else {
+                $('.hr-sect').css('display', 'none');
+            }
+            $('.loading_wrap').css('display', 'none'); //모달 종료
         },
         error: function (request, status, error) {
 
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             $('.loading_wrap').css('display', 'none');
         }
     });
-});
+}
 
+function getDayOfWeek(date) { //ex) getDayOfWeek('2022-06-13')
+
+    const week = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const dayOfWeek = week[new Date(date).getDay()];
+
+    return dayOfWeek;
+}
+
+function getLogo(airlineName) {
+
+    switch (airlineName) {
+        case "아시아나항공" :
+            return "asiana.jpg";
+        case "에어부산" :
+            return "airbusan.jpg";
+        case "에어서울" :
+            return "airseoul.jpg";
+        case "이스타항공" :
+            return "eastar.jpg";
+        case "플라이강원":
+            return "flygangwon.jpg";
+        case "하이에어":
+            return "hiair.png";
+        case "제주항공" :
+            return "jejuair.jpg";
+        case "진에어" :
+            return "jinair.jpg";
+        case "대한항공" :
+            return "korean.jpg";
+        case "티웨이항공" :
+            return "tway.jpg";
+    }
+}
+
+function appendFlight(item) {
+
+    var logo = getLogo(item.airlineNm);
+    var startMin = item.depPlandTime.toString().slice(-2);
+    var startHour = item.depPlandTime.toString().slice(-4, 10);
+    var startTime = startHour + ":" + startMin;
+    var endMin = item.arrPlandTime.toString().slice(-2);
+    var endHour = item.arrPlandTime.toString().slice(-4, 10);
+    var endTime = endHour + ":" + endMin;
+
+    var price = item.economyCharge;
+
+    var img = `<div class="airline_box">
+                            <div class="airline_item">
+                            <div class="airline_logos">
+                            <img src="/img/store/flight/${logo}">
+                            </div>
+                            <b class="airline_name">${item.airlineNm}</b>
+                            </div>
+                            </div>`;
+
+    var route = `<div class="airline_route">
+                            <span class="start_route">
+                            <b>${item.depAirportNm}(${startTime})</b>
+                            </span>
+                            <span class="end_route">
+                            <b>${item.arrAirportNm}(${endTime})</b>
+                            </span>
+                            </div>`;
+
+    if (price === undefined) {
+        price = `<div class="airline_price">
+                            <div>
+                            <b style="color: red">항공사 문의</b>
+                            </div>
+                            </div>`;
+    } else {
+        price = `<div class="airline_price">
+                            <div>
+                            <b>₩${price.toLocaleString("ko-KR")}</b>
+                            </div>
+                            </div>`;
+    }
+
+    var content = `
+                            <div class="result_table">
+                            <div class="result_table_inner">
+                            <div class="result_schedule">
+                            <div class="schedule_item">
+                            ${img}
+                            ${route}
+                            </div>
+                            </div>
+                            ${price}
+                            </div>
+                            </div>`;
+
+    $('.result_table_wrap').append(content);
+}
 
 /*
     $(function () {
