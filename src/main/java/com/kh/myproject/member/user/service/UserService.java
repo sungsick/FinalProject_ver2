@@ -132,30 +132,12 @@ public class UserService {
             e.printStackTrace();
         }
 
+
+
+
+
     }
 
-    public User findUserId(String user_name, String user_phone1){
-
-        User user = userRepository.findByUserNameAndUserPhone(user_name,user_phone1);
-
-        return user;
-    }
-
-    public User findUserPw(String user_id, String user_phone2){
-
-        User user = userRepository.findByUserIdAndUserPhone(user_id,user_phone2);
-
-        return user;
-    }
-
-    public int updatePw(String user_number, String new_pw1){
-
-
-        int result = userRepository.updatePw(Long.parseLong(user_number), new_pw1);
-
-        return result;
-
-    }
 }
 
 
