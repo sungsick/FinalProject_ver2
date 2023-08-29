@@ -1,6 +1,10 @@
 $(document).ready(() => {
 
+    const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/; // 휴대폰 형식검사 정규 표현식
+    var auth_num = false; // 인증번호요청을 했는지 확인하는 체크값.
+    var user_number = ""; // 인증번호 요청이 성공했을때 가지고 있어야할 유저 넘버.
 
+    // 아이디 / 비밀번호 탭 이동 기능 구현
     var $tablink = $('.idpw-box-tabs div').click(function (e) {
         var idx = $tablink.index(this);
         $('.idpw-box-tabs div').css('color', 'rgb(170, 170, 170)');
@@ -30,13 +34,18 @@ $(document).ready(() => {
     })
 
 
-    $('#find-id-button').click(()=>{ // 아이디 찾기 버튼 클릭시
+
+
+    // 아이디 (이메일 주 소)받기 버튼 클릭시.
+    $('#find-id-button').click(()=>{
 
         var query = {
             user_name : $('[name=user_name]').val(),
-            user_phone : $('[name=user_phone1]').val()
+            user_phone1 : $('[name=user_phone1]').val()
 
         }
+
+        console.log(query);
 
         $.ajax({
 
@@ -63,40 +72,111 @@ $(document).ready(() => {
         })
     })
 
-    $('#find-pw-button').click(()=>{ // 비번찾기 버튼 클릭시
+    // 비밀번호 재설정 인증번호 받기.
+    $('#find-pw-button').click(()=>{
 
         var query = {
             user_id : $('[name=user_id]').val(),
-            user_phone : $('[name=user_phone2]').val()
+            user_phone2 : $('[name=user_phone2]').val()
         };
 
-        $.ajax({
+        console.log(auth_num)
 
-            url:'/member/requestPw',
-            method:'POST',
-            data:query,
-            success:function(result){
+        if((auth_num == false) && phoneNumberPattern.test($('[name=user_phone2]').val())) { // 아직 인증번호를 받지 않았을 때만 인증번호를 전송한다.
 
-                if(result !== 'error'){
+            $.ajax({
 
-                    // 아이디와 휴대폰번호에 일치하는 유저정보가 있다는 뜻이므로 실제로
-                    // 인증번호를 전송해주고 모달창이나 아래쪽 div를 열어준다.
-                    // 혹은 모달창을 띄워준다.
+                url: '/member/requestPw',
+                method: 'POST',
+                data: query,
+                success: function (result) {
+
+                    if (result !== 'error') { // 유저정보가 있다면 해당 유저 정보가 뭔지 가지고 와야한다.
+
+                        var ran_num = result.split('/')[0]; // 생성된 난수.
+                        user_number = result.split('/')[1]; // 회원번호.
+                        // 지금은 콘솔창을 통해 확인하고자 난수를 전달받는다. 나중에는 유저number만 전달받는다.
+
+                        // 아이디와 휴대폰번호에 일치하는 유저정보가 있다는 뜻이므로 실제로
+                        // 인증번호를 전송해주고 모달창이나 아래쪽 div를 열어준다.
+                        // 혹은 모달창을 띄워준다.
+
+                        $('#auth_block').removeClass('disappear');
+                        console.log(ran_num);
+                        console.log(user_number);
+                        auth_num = ran_num;
+                        $('#find-pw-button').text('인증하기');
+                        $('[name=user_id]').prop('disabled',true);
+                        $('[name=user_phone2]').prop('disabled',true);
 
 
 
-                }else{
+                    } else {
 
-                    alert("입력하신 아이디와 휴대폰 번호와 일치하는 회원정보가 없습니다.");
+                        alert("입력하신 아이디와 휴대폰 번호와 일치하는 회원정보가 없습니다.");
+                    }
+
+                }, error: function () {
+
+
                 }
 
-                console.log("requestPw success");
-            },error:function(){
+            })
 
+        }else if(!phoneNumberPattern.test($('[name=user_phone2]').val())){ // 휴대폰번호가 틀려서 인증요청이 실패한 경우.
+
+            alert("휴대폰 번호 형식이 유효하지 않습니다.")
+
+        }
+        else if(auth_num != false){ // 인증번호를 받았을 경우에는 같은 버튼을 클릭했다하더라도 인증번호로 인증하기 기능이 구현돼야한다.
+
+            console.log("auth넘값." + auth_num);
+            if(auth_num === $('#auth_num').val()) { // 만약에 에러뜨면 컨트롤러 반환타입이랑 input val타입이 다른 것.
+
+                var new_pw1 = prompt("새로 사용하실 비밀번호를 입력해주세요.");
+                var new_pw2 = prompt("비밀번호를 한번 더 입력해주세요.");
+
+                var data = {
+
+                    user_number: user_number,
+                    new_pw1: new_pw1
+                }
+                if (new_pw1 === new_pw2) {
+
+                    $.ajax({
+
+                        url: '/member/updatePw',
+                        data: data,
+                        method: 'POST',
+                        success: function (result) {
+
+                            console.log("result " + result);
+                            if(result === "1") {
+
+                                window.location.href = '/member/updatePwPro';
+                            }else{
+                                alert('비밀번호 변경에 실패했습니다.');
+                            }
+                            // location 처리해야할 수도 있음.
+
+                        }, error: function () {
+
+                            alert("에러가 발생했습니다. (관리자 문의)");
+                        }
+                    })
+                } else { // 입력한 패스워드가 다를 경우.
+
+                    alert('입력하신 비밀번호가 다릅니다.');
+                }
+
+            }else{ // 인증번호가 다를 떄
+
+                alert("인증번호가 다릅니다.");
 
             }
 
-        })
+
+        }
     })
 
 

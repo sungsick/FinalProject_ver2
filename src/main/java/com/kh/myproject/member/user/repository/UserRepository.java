@@ -19,6 +19,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserIdAndUserPassword(@Param("user_id") String user_id,
                                      @Param("user_password") String user_password);
 
+    @Modifying
+    @Transactional
+    @Query("update User u " +
+            "set u.userPassword = :new_pw1 " +
+            "where u.userNumber = :user_number")
+    int updatePw(@Param("user_number")Long user_number, @Param("new_pw1")String new_pw1);
+
 
     @Modifying
     @Transactional

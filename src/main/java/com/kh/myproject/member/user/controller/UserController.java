@@ -16,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -408,8 +409,10 @@ public class UserController {
 
     @PostMapping("member/requestId")
     @ResponseBody
-    public String requestId(@ModelAttribute("user_name") String user_name,
-                            @ModelAttribute("user_phone1") String user_phone1){
+    public String requestId(
+            @ModelAttribute("user_name") String user_name,
+                            @ModelAttribute("user_phone1") String user_phone1
+    ){
 
         System.out.println(user_name);
         System.out.println(user_phone1);
@@ -449,7 +452,7 @@ public class UserController {
 //        System.out.println(ran_num);
 //        if(ssrd.getStatusCode().equals("202")){
 
-            return ranNum; // 실제로는 문자를 전송한다.
+            return ranNum + "/" +  user.getUserNumber(); // 실제로는 문자를 전송한다.
 
 
         }
@@ -458,6 +461,30 @@ public class UserController {
 
     }
 
+    @PostMapping("/member/updatePw")
+    @ResponseBody
+    public String updatePw(@ModelAttribute("user_number")String user_number,
+                           @ModelAttribute("new_pw1")String new_pw1,
+                           RedirectAttributes ra){
+
+
+        System.out.println(new_pw1);
+        System.out.println(user_number);
+
+        int result = userService.updatePw(user_number,new_pw1);
+        System.out.println("updatePw실행결과 반환값 :" + result);
+        ra.addFlashAttribute("result",result);
+
+
+        return result+"";
+    }
+
+    @GetMapping("/member/updatePwPro")
+    public String updatePwPro(Model model){
+
+
+        return "/member/user/updatePwPro";
+    }
 
 
 }

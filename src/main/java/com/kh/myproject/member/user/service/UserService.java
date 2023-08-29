@@ -147,6 +147,15 @@ public class UserService {
 
         return user;
     }
+
+    public int updatePw(String user_number, String new_pw1){
+
+
+        int result = userRepository.updatePw(Long.parseLong(user_number), new_pw1);
+
+        return result;
+
+    }
 }
 
 

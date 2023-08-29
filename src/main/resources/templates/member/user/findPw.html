@@ -51,7 +51,7 @@
 
             <div class="real_phone">
                 <p>휴대폰 번호</p>
-                <input type="text" name="user_phone1" placeholder="휴대폰 번호를 입력해 주세요.(-제외)">
+                <input type="text" name="user_phone1" maxlength="11" placeholder="휴대폰 번호를 입력해 주세요.(-제외)">
             </div>
 
 
@@ -81,17 +81,17 @@
 
             <div class="real_phone">
                 <p>휴대폰 번호</p>
-                <input type="text" name="user_phone2" placeholder="휴대폰 번호를 입력해 주세요.(-제외)">
+                <input type="text" name="user_phone2" maxlength = "11" placeholder="휴대폰 번호를 입력해 주세요.(-제외)">
             </div>
 
-            <div>
-                <input type="text" name = "auth_num" id =auth_num"">
-            </div>
-            <div class="disappear">
 
+            <div id = "auth_block" class = "disappear">
+                <p>인증번호</p>
+                <input  type="text" name = "auth_num" id ="auth_num" >
             </div>
 
-            <div class="find-id-block">
+
+            <div class="find-pw-block">
                 <button id="find-pw-button">비밀번호 재설정 인증번호 받기</button>
             </div>
 

@@ -134,3 +134,8 @@
 
     box-sizing : border-box;
 }
+
+.disappear{
+
+    display: none;
+}
