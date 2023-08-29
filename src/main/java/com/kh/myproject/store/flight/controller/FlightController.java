@@ -3,6 +3,7 @@ package com.kh.myproject.store.flight.controller;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicket;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
+import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,44 +22,43 @@ import java.net.URL;
 public class FlightController {
 
     @Autowired
-    FlightTicketRepository repository;
+    FlightService flightService;
     //공항리스트
-    final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&_type=json";
+    final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?";
     //노선목록
-    final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
+    final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
+    private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
 
-    @GetMapping("/store/flight/flights")
+    /*@GetMapping("/store/flight/flights")
     public ModelAndView flightMain(ModelAndView mav){
 
         mav.setViewName("store/flight/flights");
         return mav;
-    }
+    }*/
+    @GetMapping("/store/flight/flights")
+    public ModelAndView flightMain(@RequestParam(value = "startAirport", required = false) String startAirport,
+                                   @RequestParam(value = "endAirport", required = false) String endAirport,
+                                   @RequestParam(value = "startDate", required = false) String startDate,
+                                   ModelAndView mav){
 
-    @GetMapping("/store/flight/flightDetail")
-    public ModelAndView flightReservation(ModelAndView mav){
-        mav.setViewName("store/flight/flightDetail");
+        log.info("startAirport={}", startAirport);
+        log.info("endAirport={}", endAirport);
+
+        if(startAirport != null) {
+            mav.addObject("startAirport", startAirport);
+            mav.addObject("endAirport", endAirport);
+            mav.addObject("startDate", startDate);
+        }
+
+        mav.setViewName("store/flight/flights");
+
         return mav;
     }
-
-    @GetMapping("/tour/flight/airportList")
+    @GetMapping("/store/flight/airportList")
     public ResponseEntity<?> getAirportList(){
-        StringBuilder result = new StringBuilder();
-        try{
-            URL url = new URL(airportUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-
-            while((line = br.readLine()) != null){
-                result.append(line);
-            }
-            br.close();
-            conn.disconnect();
-            log.info("result={}", result);
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok(result.toString());
+        String url = airportUrl;
+        url += serviceKey + "&_type=json";
+        return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
     @GetMapping("/tour/flight/searchFlight")
@@ -68,31 +68,13 @@ public class FlightController {
                                        @RequestParam("pageNo") int pageNo,
                                        Model model){
 
-        System.out.println(startDate.replace("-",""));
-        String flightInfoUrl = flightOpratInfoUrl;
-        flightInfoUrl += "pageNo=" + pageNo + "&depAirportId=" + startAirport + "&arrAirportId=" + endAirport +
+
+        String url = flightOpratInfoUrl;
+        url += serviceKey + "pageNo=" + pageNo + "&depAirportId=" + startAirport + "&arrAirportId=" + endAirport +
                         "&depPlandTime=" + startDate.replace("-","") + "&_type=json";
 
-        StringBuilder result = new StringBuilder();
 
-        try{
-            URL url = new URL(flightInfoUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-
-            while((line = br.readLine()) != null){
-                result.append(line);
-            }
-            br.close();
-            conn.disconnect();
-            System.out.println(result);
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return ResponseEntity.ok(result.toString());
+        return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
     @PostMapping("/saveFlight")
@@ -100,7 +82,6 @@ public class FlightController {
         System.out.println(ticket);
         FlightTicket entity = ticket.toEntity();
 
-        repository.save(entity);
         return "";
     }
 }

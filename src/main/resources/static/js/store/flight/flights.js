@@ -1,9 +1,20 @@
 var pageNo = 1;
 var numOfRows = 10;
-
+var thStartAirport = "";
+var thEndAirport = "";
+var thStartDate = "";
+/* 공항 리스트 */
 $(function () {
+
+    if($('#thStartAirport') !== undefined){
+        thStartAirport = $('#thStartAirport').val();
+        thEndAirport = $('#thEndAirport').val();
+        thStartDate = $('#thStartDate').val();
+    }
+
+    console.log(thStartAirport);
     $.ajax({
-        url: '/tour/flight/airportList',
+        url: '/store/flight/airportList',
         type: 'get',
         dataType: 'json',
         success: function (data) {
@@ -16,7 +27,13 @@ $(function () {
                                   ${item[i].airportNm}
                                   </option>`;
 
-                if (item[i].airportNm === '김포') {
+                if (item[i].airportNm === '김포' && thStartAirport === undefined) {
+                    content = `<option value=${item[i].airportId} selected>
+                                  ${item[i].airportNm}
+                                  </option>`;
+                    $('#start_airport').append(content);
+                    continue;
+                } else if(thStartAirport !== undefined && item[i].airportId === thStartAirport){
                     content = `<option value=${item[i].airportId} selected>
                                   ${item[i].airportNm}
                                   </option>`;
@@ -41,12 +58,16 @@ $(function () {
                 }
                 $('#end_airport').append(content);
             }
-
         }
     });
+
+    if(thStartAirport !== ""){
+
+    }
 });
 
 
+/* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
     pageNo = 1;
     $('.loading_wrap').css('display', 'block'); //검색 모달
@@ -56,6 +77,8 @@ $('#flight_search_btn').on('click', function () {
 
     searchFlight(pageNo, numOfRows);
 });
+
+/* 더보기 */
 $('.hr-sect').on('click', function () {
     pageNo++;
     searchFlight(pageNo, numOfRows);
