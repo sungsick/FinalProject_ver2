@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>plan_write_kakaomap.html</title>
@@ -471,7 +471,7 @@
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
     function placesSearchCB(data, status, pagination) {
         if (status === kakao.maps.services.Status.OK) {
-
+            console.log(data);
             // 정상적으로 검색이 완료됐으면
             // 검색 목록과 마커를 표출합니다
             displayPlaces(data);
@@ -744,5 +744,7 @@
 
 
 </script>
+
+<script src="/jq/jquery-3.7.0.min.js"></script>
 </body>
 </html>
