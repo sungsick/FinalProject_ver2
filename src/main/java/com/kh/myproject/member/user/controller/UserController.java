@@ -284,6 +284,7 @@ public class UserController {
         model.addAttribute("user_day", user_day);
 
 
+
         User newUser = userService.getUserById(user.getUserId());
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
