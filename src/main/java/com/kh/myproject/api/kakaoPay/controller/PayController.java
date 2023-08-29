@@ -19,6 +19,7 @@ public class PayController {
 
     private final PayService payService;
 
+    // 결제버튼 클릭시 결제 페이지
     @GetMapping("/pay/payButton")
     public ModelAndView payButton() {
         ModelAndView payButton = new ModelAndView();
@@ -26,6 +27,7 @@ public class PayController {
         return payButton;
     }
 
+    // 제품 구매할시 결제정보, 입력 페이지
     @GetMapping("/pay/paymentPage")
     public ModelAndView paymentPage() {
         ModelAndView paymentPage = new ModelAndView();
@@ -33,7 +35,7 @@ public class PayController {
         return paymentPage;
     }
 
-    // 결제요청
+    // api 결제요청
     @GetMapping("/kakaoPay")
     // RedirectView 형식으로 html에서 카카오 api 호출시 CORS오류 (보안정책이라고 함). @ResponseBody로 POST 캡슐화 후 readyResponse 직접 호출하니 해결됨.
     public @ResponseBody KakaoPayReadyVO kakaoPay() {
@@ -46,7 +48,7 @@ public class PayController {
         return readyResponse;
     }
 
-    // 결제 승인요청
+    // api 결제 승인요청
     @GetMapping("/pay/success")
     public ModelAndView kakaoPayCompleted(@RequestParam("pg_token") String pg_token, Model model) throws URISyntaxException {
         log.info("kakaoPaySuccess get......................");
@@ -76,7 +78,7 @@ public class PayController {
     @GetMapping("/pay/cancel")
     public ModelAndView payCancel() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/pay/cancel");
+        modelAndView.setViewName("pay/cancel");
         return modelAndView;
     }
 
@@ -84,14 +86,15 @@ public class PayController {
     @GetMapping("/pay/fail")
     public ModelAndView payFail() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/pay/fail");
+        modelAndView.setViewName("pay/fail");
         return modelAndView;
     }
 
+    // test 전용
     @GetMapping("/pay/test11")
     public ModelAndView successFront() {
         ModelAndView successFront = new ModelAndView();
-        successFront.setViewName("success");
+        successFront.setViewName("pay/test11");
         return successFront;
     }
 

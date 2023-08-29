@@ -1269,6 +1269,7 @@ tbody {
     font-feature-settings: "tnum";
     pointer-events: none;
     position: relative;
+    top: 100px;
     width: auto;
     max-width: calc(100vw - 16px);
     margin: 8px auto;
@@ -1283,7 +1284,7 @@ tbody {
 
 .contentBox .ant-modal-content {
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 4px 0px;
 }
 
 .ant-modal-content {
