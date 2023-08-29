@@ -279,6 +279,7 @@ public class UserController {
         String user_month = formatted_date[1];
         String user_day = formatted_date[2];
 
+
         model.addAttribute("user_year", user_year);
         model.addAttribute("user_month", user_month);
         model.addAttribute("user_day", user_day);
