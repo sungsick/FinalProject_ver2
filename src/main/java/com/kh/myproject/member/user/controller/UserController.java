@@ -3,6 +3,7 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
+import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.member.user.model.dto.UserForm;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.UserService;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -40,11 +42,8 @@ public class UserController {
     public String home() {
 
 
-
         return "community/home";
     }
-
-
 
 
     @GetMapping("member/login")
@@ -86,14 +85,14 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("member/checkId")
-    public String checkId(@ModelAttribute("user_id") String user_id){
+    public String checkId(@ModelAttribute("user_id") String user_id) {
 
         System.out.println("넘어온값 :" + user_id);
         User user = userService.getUserById(user_id);
-        if(user == null){
+        if (user == null) {
 
             return "success";
-        }else{
+        } else {
 
             return "fail";
         }
@@ -154,24 +153,20 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("member/joinAuth")
-    public String joinAuth(@ModelAttribute("user_phone")String user_phone){
+    public String joinAuth(@ModelAttribute("user_phone") String user_phone) {
 
-//
-//        System.out.println("join_auth 메서드 실행");
-//        Map<String,Object> result = smsService.authUser(user_phone);
+
+//        Map<String, Object> result = smsService.authUser(user_phone);
 //        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
-//        String ran_num = (String) result.get("ran_num");
-//        System.out.println("ran_num" + ran_num);
-//        System.out.println("srrd  : " + ssrd);
-//        String response = "";
-//        System.out.println(ran_num);
-//        if(ssrd.getStatusCode().equals("202")){
+//        String ran_num = "";
 //
-//            response = ran_num;
+//        if (ssrd.getStatusCode().equals("202")) {
 //
-//        }else{
+//            ran_num = (String)result.get(ran_num);
 //
-//            response = "fail";
+//        } else {
+//
+//            ran_num = "fail";
 //
 //        }
 
@@ -189,7 +184,6 @@ public class UserController {
             }
 
         }
-
 
 
         return ran_num;
@@ -221,14 +215,14 @@ public class UserController {
         String user_img = userForm.getUser_img(); // img 경로
 
         // 카카오로 가입한게 아니라면 img는 null일 것이다.
-        if ( (user_img == null || user_img.equals("")  )  && userForm.getUser_gender().equals("M")) {
+        if ((user_img == null || user_img.equals("")) && userForm.getUser_gender().equals("M")) {
 
             userForm.setUser_img("default1.png"); // 남성일 경우 default1.png, 여성일 경우 default2.png설정
 
-        } else if ( (user_img == null || user_img.equals("")  ) && userForm.getUser_gender().equals("F")) {
+        } else if ((user_img == null || user_img.equals("")) && userForm.getUser_gender().equals("F")) {
 
             userForm.setUser_img("default2.png"); // 남성일 경우 default1.png, 여성일 경우 default2.png설정
-        } else if(user_img !=null || !user_img.equals("")){
+        } else if (user_img != null || !user_img.equals("")) {
 
             // 기본 프로필 이미지가 있을 경우에는 해당 url에 접속해 이미지 파일을 서버에 저장한다.
 
@@ -270,9 +264,10 @@ public class UserController {
     public String mypage(HttpSession session, Model model) {
 
 
-        User user = (User)session.getAttribute("user");; // @ModelAttribute로 받게되면 처음에 session 설정이 돼있지 않기 때문에 에러발생.
+        User user = (User) session.getAttribute("user");
+        ; // @ModelAttribute로 받게되면 처음에 session 설정이 돼있지 않기 때문에 에러발생.
         System.out.println(user);
-        if(user == null){ // 세션값이 없다면
+        if (user == null) { // 세션값이 없다면
 
             return "redirect:/";
         }
@@ -292,7 +287,7 @@ public class UserController {
         User newUser = userService.getUserById(user.getUserId());
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
-        model.addAttribute("user",newUser);
+        model.addAttribute("user", newUser);
 
 
         return "/member/user/mypage";
@@ -410,15 +405,15 @@ public class UserController {
     @ResponseBody
     public String requestId(
             @ModelAttribute("user_name") String user_name,
-                            @ModelAttribute("user_phone1") String user_phone1
-    ){
+            @ModelAttribute("user_phone1") String user_phone1
+    ) {
 
         System.out.println(user_name);
         System.out.println(user_phone1);
 
-        User user = userService.findUserId(user_name,user_phone1);
+        User user = userService.findUserId(user_name, user_phone1);
 
-        if(user != null){
+        if (user != null) {
 
             return user.getUserId();
         }
@@ -431,62 +426,61 @@ public class UserController {
     @PostMapping("member/requestPw")
     @ResponseBody
     public String requestPw(@ModelAttribute("user_id") String user_id,
-                            @ModelAttribute("user_phone2") String user_phone2){
-
-        System.out.println(user_id);
-        System.out.println(user_phone2);
-
-        User user = userService.findUserPw(user_id,user_phone2);
-
-        if(user != null){ // 가입시 입력한 아이디와 입력한 폰번호가 같다면 인증번호를 전송해준다.
-
-            String ranNum = smsService.makeRanNum();
-
-//        Map<String,Object> result = smsService.authUser(user_phone2);
-//        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
-//        String ran_num = (String) result.get("ran_num");
-//        System.out.println("ran_num" + ran_num);
-//        System.out.println("srrd  : " + ssrd);
-//        String response = "";
-//        System.out.println(ran_num);
-//        if(ssrd.getStatusCode().equals("202")){
-
-            return ranNum + "/" +  user.getUserNumber(); // 실제로는 문자를 전송한다.
+                            @ModelAttribute("user_phone2") String user_phone2) {
 
 
-        }
+        String ran_num = smsService.makeRanNum();
 
-        return "error";
+        User user = userService.findUserPw(user_id, user_phone2);
+//
+//        if(user != null) { // 가입시 입력한 아이디와 입력한 폰번호가 같다면 인증번호를 전송해준다.
+//
+//
+//            Map<String, Object> result = smsService.authUser(user_phone2);
+//            SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
+//            String ran_num = (String) result.get("ran_num");
+//            System.out.println("ran_num" + ran_num);
+//            System.out.println("srrd  : " + ssrd);
+//            String response = "";
+//            System.out.println(ran_num);
+//            if (ssrd.getStatusCode().equals("202")) {
+//
+//            }
 
-    }
+        return ran_num + "/" + user.getUserNumber(); // 실제로는 문자를 전송한다.
+
+
+
+}
+
 
     @PostMapping("/member/updatePw")
     @ResponseBody
-    public String updatePw(@ModelAttribute("user_number")String user_number,
-                           @ModelAttribute("new_pw1")String new_pw1,
-                           RedirectAttributes ra){
+    public String updatePw(@ModelAttribute("user_number") String user_number,
+                           @ModelAttribute("new_pw1") String new_pw1,
+                           RedirectAttributes ra) {
 
 
         System.out.println(new_pw1);
         System.out.println(user_number);
 
-        int result = userService.updatePw(user_number,new_pw1);
+        int result = userService.updatePw(user_number, new_pw1);
         System.out.println("updatePw실행결과 반환값 :" + result);
-        ra.addFlashAttribute("result",result);
+        ra.addFlashAttribute("result", result);
 
 
-        return result+"";
+        return result + "";
     }
 
     @GetMapping("/member/updatePwPro")
-    public String updatePwPro(Model model){
+    public String updatePwPro(Model model) {
 
 
         return "/member/user/updatePwPro";
     }
 
     @GetMapping("/member/user/modaltest")
-    public String modalTest(){
+    public String modalTest() {
 
 
         return "member/user/test";

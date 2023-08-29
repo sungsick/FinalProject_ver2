@@ -2,7 +2,7 @@ $(document).ready(() => {
 
     const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/; // 휴대폰 형식검사 정규 표현식
     const pwd_pattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // 패스워드 정규 표현식
-    var auth_num = false; // 인증번호요청을 했는지 확인하는 체크값.
+    var auth_num = ""; // 인증번호요청을 했는지 확인하는 체크값.
     var user_number = ""; // 인증번호 요청이 성공했을때 가지고 있어야할 유저 넘버.
 
     // 아이디 / 비밀번호 탭 이동 기능 구현
@@ -137,21 +137,19 @@ $(document).ready(() => {
 
         // 인증번호를 받았을 경우에는 같은 버튼을 클릭했다하더라도 인증번호로 인증하기 기능이 구현돼야한다.
 
-            console.log("auth넘값." + auth_num);
-            if (auth_num === $('#auth_num').val()) { // 만약에 에러뜨면 컨트롤러 반환타입이랑 input val타입이 다른 것.
+        console.log("auth넘값." + auth_num);
+        if (auth_num === $('#auth_num').val()) { // 만약에 에러뜨면 컨트롤러 반환타입이랑 input val타입이 다른 것.
 
-                $('#update-block').removeClass('disappear'); // 나타난다
-                $('#find-pw-block2').addClass('disappear'); // 없어진다.
-                $('#find-pw-block3').removeClass('disappear'); // 나타난다.
-                $('#auth_num').prop('disabled',true); // 인증이 완료되면 인증번호 수정을 막아버린다.
-
-
-            } else { // 인증번호가 다를 떄
-                Swal.fire('인증번호가 일치하지 않습니다.', '', 'error')
-
-            }
+            $('#update-block').removeClass('disappear'); // 나타난다
+            $('#find-pw-block2').addClass('disappear'); // 없어진다.
+            $('#find-pw-block3').removeClass('disappear'); // 나타난다.
+            $('#auth_num').prop('disabled', true); // 인증이 완료되면 인증번호 수정을 막아버린다.
 
 
+        } else { // 인증번호가 다를 떄
+            Swal.fire('인증번호가 일치하지 않습니다.', '', 'error')
+
+        }
 
 
     })
@@ -167,7 +165,15 @@ $(document).ready(() => {
             user_number: user_number,
             new_pw1: new_pw1
         }
-        if (new_pw1 === new_pw2) {
+        if (!pwd_pattern.test(new_pw1)) {
+
+            Swal.fire('비밀번호 형식에 맞게 작성해주세요', '', 'error');
+
+        } else if (new_pw1 !== new_pw2) {
+
+            Swal.fire('1차 비밀번호와 2차 비밀번호는 일치해야 합니다.', '', 'error');
+
+        } else if (new_pw1 === new_pw2 && pwd_pattern.test(new_pw1)) { // 비밀번호 유효성 검사.
 
             $.ajax({
 
@@ -179,7 +185,7 @@ $(document).ready(() => {
                     console.log("result " + result);
                     if (result === "1") {
 
-                        Swal.fire('비밀번호가 변경됐습니다', '', 'success').then((result)=>{
+                        Swal.fire('비밀번호가 변경됐습니다', '', 'success').then((result) => {
 
                             window.location.href = '/';
 
