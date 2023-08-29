@@ -37,53 +37,69 @@ $(document).ready(function () {
 
     })
 
+
+    // 질문 등록
     $('#question_btn_submit').click(() => {
         console.log("submit click");
-        const line = " <tr>\n" +
-            "                        <td>\n" +
-            "                            <button color=\"#F1F9F6\" class=\"qna_btn\">답변대기</button>\n" +
-            "                        </td>\n" +
-            "                        <td>" + $('[name=question_title]').val() + "</td>\n" +
-            "                        <td>" + $('[name=question_content]').val() + "</td>\n" +
-            "                        <td>"+year + '-' + month + '-' + date+"</br>"+hours + ':' + minutes + ':' + seconds+"</td>\n" +
-            "                    </tr>"
-        $('#question_tbody').append(line);
-        $('.ask_content').removeClass("disappear");
-        $('#question_table').removeClass("disappear");
-        $('.question').addClass("disappear");
-        $('.write_btn').removeClass("disappear");
+        if($('[name=question_title]').val() != "" && $('[name=question_content]').val() != "") {
+            const line = " <tr>\n" +
+                "                        <td>\n" +
+                "                            <button color=\"#F1F9F6\" class=\"qna_btn\">답변대기</button>\n" +
+                "                        </td>\n" +
+                "                        <td>" + $('[name=question_title]').val() + "</td>\n" +
+                "                        <td>" + $('[name=question_content]').val() + "</td>\n" +
+                "                        <td>" + year + '-' + month + '-' + date + "</br>" + hours + ':' + minutes + ':' + seconds + "</td>\n" +
+                "                    </tr>"
+            $('#question_tbody').append(line);
+            $('.ask_content').removeClass("disappear");
+            $('#question_table').removeClass("disappear");
+            $('.question').addClass("disappear");
+            $('.write_btn').removeClass("disappear");
+
+            var query = {
+                qna_title: $('[name=question_title]').val(),
+                qna_content: $('[name=question_content]').val(),
+            }
+
+            var check = false;
+
+            for (var key in query) {
+                if (query.hasOwnProperty(key)) {
+
+                    check = true;
+                }
+            }
+
+            if (check) {
+                $.ajax({
+                    url: '/member/questionSubmit',
+                    method: 'POST',
+                    data: query,
+                    success: function (data) {
+                        console.log("questionSubmit ajax통신 성공")
+                    },
+                    error: function () {
+                        console.log("questionSubmit ajax통신 실패")
+                    }
+                });
+            }
+        }else{
+            alert("빈 칸 채워");
+        }
         $('[name=question_title]').val("");
         $('[name=question_content]').val("");
+    })
 
-        var query = {
+    // 답변완료시 답변 확인
+    $('.qna_btn').click(()=>{
+        console.log("질문 클릭");
 
+        if($('.question_a').is(':visible')){
+            $('.question_a').slideUp();
+        }else{
+            $('.question_a').slideDown();
         }
 
-        var check = false;
-
-        for (var key in query) {
-            if (query.hasOwnProperty(key)) {
-
-                check = true;
-            }
-        }
-
-        if (check) {
-            $.ajax({
-                url: '/member/questionSubmit',
-                method: 'POST',
-                data: query,
-                success: function (data) {
-
-                    console.log("questionSubmit ajax통신 성공")
-                    // window.location.href = "/member/questionSubmit";
-
-                },
-                error: function () {
-                    console.log("questionSubmit ajax통신 실패")
-                }
-            });
-        }
     })
 
     $('.submit_btn').click(function () { // form 제출 시
