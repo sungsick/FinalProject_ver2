@@ -1,5 +1,6 @@
 package com.kh.myproject.store.flight.model.entity;
 
+import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,17 +31,11 @@ public class FlightTicket {
     private String ticFromLocation;
     @Column
     private String ticToLocation;
+    @Column
+    private String ticVihicleId;
 
-//    public FlightTicketDto toDto(FlightTicket entity){
-//        return FlightTicketDto.builder()
-//                .ticTicketId(entity.getTicTicketId())
-//                .ticFlightDepartureDate(entity.getTicFlightDepartureDate())
-//                .ticFlightArrivalDate(entity.getTicFlightArrivalDate())
-//                .ticSeatGrade(entity.getTicSeatGrade())
-//                .ticAirlineName(entity.getTicAirlineName())
-//                .ticFee(entity.getTicFee())
-//                .ticFromLocation(entity.getTicFromLocation())
-//                .ticToLocation(entity.getTicToLocation())
-//                .build();
-//    }
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "userNumber")
+    private User user;
 }

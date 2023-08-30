@@ -1,5 +1,6 @@
 package com.kh.myproject.store.flight.controller;
 
+import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicket;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
@@ -28,6 +29,7 @@ public class FlightController {
     //노선목록
     final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
     private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
+    private FlightTicketDto ticketDto;
 
     /*@GetMapping("/store/flight/flights")
     public ModelAndView flightMain(ModelAndView mav){
@@ -54,6 +56,15 @@ public class FlightController {
 
         return mav;
     }
+
+    @GetMapping("/store/flight/flightTest1")
+    public ModelAndView flightTest(ModelAndView mav)
+                                   {
+        log.info("ticketDto={}", ticketDto);
+        mav.addObject("ticket", ticketDto);
+        mav.setViewName("/store/flight/flightTest");
+        return mav;
+    }
     @GetMapping("/store/flight/airportList")
     public ResponseEntity<?> getAirportList(){
         String url = airportUrl;
@@ -68,6 +79,11 @@ public class FlightController {
                                        @RequestParam("pageNo") int pageNo,
                                        Model model){
 
+        log.info("startAirport={}", startAirport);
+        log.info("endAirport={}", endAirport);
+        log.info("startDate={}", startDate);
+        log.info("pageNo={}", pageNo);
+
 
         String url = flightOpratInfoUrl;
         url += serviceKey + "pageNo=" + pageNo + "&depAirportId=" + startAirport + "&arrAirportId=" + endAirport +
@@ -77,11 +93,21 @@ public class FlightController {
         return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
-    @PostMapping("/saveFlight")
-    public String saveFlight(@RequestBody FlightTicketDto ticket){
-        System.out.println(ticket);
-        FlightTicket entity = ticket.toEntity();
+    @PostMapping("/store/flight/saveFlight")
+    public void saveFlight(@RequestBody FlightTicketDto ticket,
+                                   @ModelAttribute("user") User user,
+                                   ModelAndView mav){
+        log.info("ticket={}", ticket);
+        log.info("user={}",user.getUserId());
+        ticket.setUser(user);
+//        mav.addObject("ticket",ticket);
+        ticketDto = ticket;
+        FlightTicket flightTicket = ticketDto.toEntity();
 
-        return "";
+        flightService.saveFlight(flightTicket);
+        mav.setViewName("redirect:/store/flight/flightTest1");
+
     }
+
+
 }

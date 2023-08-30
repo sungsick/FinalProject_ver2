@@ -3,10 +3,12 @@ var numOfRows = 10;
 var thStartAirport = "";
 var thEndAirport = "";
 var thStartDate = "";
+
 /* 공항 리스트 */
 $(function () {
 
-    if($('#thStartAirport') !== undefined){
+    console.log($('#sessionUser').val());
+    if ($('#thStartAirport') !== undefined) {
         thStartAirport = $('#thStartAirport').val();
         thEndAirport = $('#thEndAirport').val();
         thStartDate = $('#thStartDate').val();
@@ -33,7 +35,7 @@ $(function () {
                                   </option>`;
                     $('#start_airport').append(content);
                     continue;
-                } else if(thStartAirport !== undefined && item[i].airportId === thStartAirport){
+                } else if (thStartAirport !== undefined && item[i].airportId === thStartAirport) {
                     content = `<option value=${item[i].airportId} selected>
                                   ${item[i].airportNm}
                                   </option>`;
@@ -49,7 +51,13 @@ $(function () {
                                   ${item[i].airportNm}
                                   </option>`;
 
-                if (item[i].airportNm === '제주') {
+                if (item[i].airportNm === '제주' && thEndAirport === undefined) {
+                    content = `<option value=${item[i].airportId} selected>
+                                  ${item[i].airportNm}
+                                  </option>`;
+                    $('#end_airport').append(content);
+                    continue;
+                } else if (thEndAirport !== undefined && item[i].airportId === thEndAirport) {
                     content = `<option value=${item[i].airportId} selected>
                                   ${item[i].airportNm}
                                   </option>`;
@@ -57,16 +65,29 @@ $(function () {
                     continue;
                 }
                 $('#end_airport').append(content);
+
+            }
+            if (thStartDate !== undefined) {
+                $('#flight_date').val(thStartDate);
+
+                console.log($('#start_airport').val());
+                console.log($('#end_airport').val());
+                console.log($('#flight_date').val());
+                pageNo = 1;
+                $('.loading_wrap').css('display', 'block');
+                searchFlight(pageNo, numOfRows);
             }
         }
     });
 
-    if(thStartAirport !== ""){
 
-    }
 });
 
-
+// $('window').load(function() {
+//     console.log($('#start_airport').val());
+//     console.log($('#end_airport').val());
+//     console.log($('#flight_date').val());
+// });
 /* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
     pageNo = 1;
@@ -84,20 +105,26 @@ $('.hr-sect').on('click', function () {
     searchFlight(pageNo, numOfRows);
 });
 
+/* 검색 */
 function searchFlight(pageNo, numOfRows) {
 
     var totalCount;
+    var data;
+
+
+    data = {
+        startAirport: $('#start_airport').val(),
+        endAirport: $('#end_airport').val(),
+        startDate: $('#flight_date').val(),
+        pageNo: pageNo,
+        numOfRows: numOfRows
+    };
+
 
     $.ajax({
         url: '/tour/flight/searchFlight',
         type: 'get',
-        data: {
-            startAirport: $('#start_airport').val(),
-            endAirport: $('#end_airport').val(),
-            startDate: $('#flight_date').val(),
-            pageNo: pageNo,
-            numOfRows: numOfRows
-        },
+        data: data,
         dataType: 'json',
         success: function (data) {
             var itemList = data.response.body.items.item;
@@ -136,22 +163,30 @@ function searchFlight(pageNo, numOfRows) {
             } else {
                 for (var i = 0; i < itemList.length; i++) {
                     item = itemList[i];
-                    appendFlight(item);
+                    appendFlight(item, i);
 
                 }
             }
+
             if ((pageNo * numOfRows) < totalCount) {
                 $('.hr-sect').css('display', 'flex');
             } else {
                 $('.hr-sect').css('display', 'none');
             }
+
             $('.loading_wrap').css('display', 'none'); //모달 종료
+
+
+
         },
         error: function (request, status, error) {
 
             console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             $('.loading_wrap').css('display', 'none');
         }
+    });
+    $('.result_table').on('click', function(){
+        console.log(1);
     });
 }
 
@@ -190,8 +225,10 @@ function getLogo(airlineName) {
     }
 }
 
-function appendFlight(item) {
+/* 검색 결과 생성 */
+function appendFlight(item, index) {
 
+    var param = JSON.stringify(item);
     var logo = getLogo(item.airlineNm);
     var startMin = item.depPlandTime.toString().slice(-2);
     var startHour = item.depPlandTime.toString().slice(-4, 10);
@@ -235,7 +272,7 @@ function appendFlight(item) {
     }
 
     var content = `
-                            <div class="result_table">
+                            <div class="result_table" onclick='dataTest(${param})'>
                             <div class="result_table_inner">
                             <div class="result_schedule">
                             <div class="schedule_item">
@@ -248,151 +285,61 @@ function appendFlight(item) {
                             </div>`;
 
     $('.result_table_wrap').append(content);
+
+
+
+
 }
 
-/*
-    $(function () {
+function dataTest(param){
+
+    /*ticFlightDepartureDate: $("#flight_list tr .depPlandTime")[flight].innerText,
+        ticFlightArrivalDate: $("#flight_list tr .arrPlandTime")[flight].innerText,
+        ticSeatGrade: "이코노미",
+        ticAirlineName: $("#flight_list tr .airlineNm")[flight].innerText,
+        ticFee: $("#flight_list tr .economyCharge")[flight].innerText,
+        ticFromLocation: $("#flight_list tr .depAirportNm")[flight].innerText,
+        ticToLocation: $("#flight_list tr .arrAirportNm")[flight].innerText,*/
+    var parameter = {
+        ticFlightDepartureDate: param.depPlandTime,
+        ticFlightArrivalDate: param.arrAirportNm,
+        ticSeatGrade: "이코노미",
+        ticAirlineName: param.airlineNm,
+        ticFee: param.economyCharge,
+        ticFromLocation: param.depAirportNm,
+        ticToLocation: param.arrAirportNm,
+        ticVihicleId: param.vihicleId
+    };
+
+    /*console.log(parameter);
+    var form = document.createElement('form');
+
+    var input;
+    input = document.createElement('input');
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('name', 'ticket');
+    input.setAttribute('value', JSON.stringify(parameter));
+
+    form.appendChild(input);
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '/store/tour/saveFlight');
+    document.body.appendChild(form);
+    form.submit();*/
+
+
+    if($('#sessionUser').val() === ''){
+        alert('로그인후 이용하세요');
+        location.href='/store/home';
+    } else {
     $.ajax({
-        url: '/airportlist',
-        type: 'get',
-        dataType: 'text',
-        success: function (data) {
-            let item = JSON.parse(data).response.body.items.item;
-            console.log(item);
-
-            for (let i = 0; i < item.length; i++) {
-                let option = `<option value=${item[i].airportId}>
-                                  ${item[i].airportNm}
-                                  </option>`;
-
-                $('#start_airport').append(option);
-                // document.getElementById("airport").innerHTML = option;
-            }
-        },
-        error: function (request, status, error) {
-
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
-        }
-    });
-
-
-});
-    $("#start_airport").change(function (e) {
-    console.log(e.target.value);
-
-    $.ajax({
-    url: '/airportlist',
-    type: 'get',
-    dataType: 'text',
-    success: function (data) {
-
-
-    let item = JSON.parse(data).response.body.items.item;
-
-    $('#end_airport').empty();
-    for (let i = 0; i < item.length; i++) {
-    if (e.target.value !== item[i].airportId) {
-    let option = `<option value=${item[i].airportId}>${item[i].airportNm}</option>`;
-    $('#end_airport').append(option);
-}
-
-    // document.getElementById("airport").innerHTML = option;
-}
-},
-    error: function (request, status, error) {
-
-    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
-}
-});
-
-});
-
-    $('#flight_search_btn').click(function () {
-
-    $.ajax({
-        url: '/searchflight',
+        url: '/store/flight/saveFlight',
         type: 'post',
-        data: {
-            startAirport: $('#start_airport').val(),
-            endAirport: $('#end_airport').val(),
-            startDay: $('#flight_date').val()
-        },
-        dataType: 'text',
-        success: function (data) {
-
-            let item = JSON.parse(data).response.body.items.item;
-
-            console.log(item);
-            $('#flight_list').empty();
-            if (item === undefined) {
-                let flightInfo = "<tr><td colspan='8'>" + "해당 공항의 항공편이 없습니다." + "</td></tr>"
-                $('#flight_list').append(flightInfo);
-            } else {
-
-                for (let i = 0; i < item.length; i++) {
-                    let airlineNm = item[i].airlineNm; //항공사
-                    let depAirportNm = item[i].depAirportNm; //출발공항
-                    let arrAirportNm = item[i].arrAirportNm; //도착공항
-                    let depPlandTime = item[i].depPlandTime; //출발시간
-                    let arrPlandTime = item[i].arrPlandTime; //도착시간
-                    let economyCharge = item[i].economyCharge; //이코노미
-                    let prestigeCharge = item[i].prestigeCharge;//비즈니스
-                    let vihicleId = item[i].vihicleId; //항공편
-
-                    let flightInfo = `<tr>
-                                      <td class="airlineNm">${airlineNm}</td>
-                                      <td class="depAirportNm">${depAirportNm}</td>
-                                      <td class="arrAirportNm">${arrAirportNm}</td>
-                                      <td class="depPlandTime">${depPlandTime}</td>
-                                      <td class="arrPlandTime">${arrPlandTime}</td>
-                                      <td class="economyCharge">${economyCharge}</td>
-                                      <td class="prestigeCharge">${prestigeCharge}</td>
-                                      <td class="vihicleId">${vihicleId}</td>
-                                      <td><button type="button" onclick="resFlight(${i})">예약하기</button></td>
-                                      </tr>`;
-                    $('#flight_list').append(flightInfo);
-                }
-            }
-
-        },
-        error: function (request, status, error) {
-
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
-        }
-    });
-});
-
-    function resFlight(index) {
-    $.ajax({
-        url: '/saveFlight',
-        type: 'post',
+        data: JSON.stringify(parameter),
         contentType: 'application/json',
-        data: JSON.stringify({
-            ticFlightDepartureDate: $("#flight_list tr .depPlandTime")[flight].innerText,
-            ticFlightArrivalDate: $("#flight_list tr .arrPlandTime")[flight].innerText,
-            ticSeatGrade: "이코노미",
-            ticAirlineName: $("#flight_list tr .airlineNm")[flight].innerText,
-            ticFee: $("#flight_list tr .economyCharge")[flight].innerText,
-            ticFromLocation: $("#flight_list tr .depAirportNm")[flight].innerText,
-            ticToLocation: $("#flight_list tr .arrAirportNm")[flight].innerText,
-        }),
-        success: function (data) {
-            alert("저장완료");
-
-        },
-        error: function (request, status, error) {
-
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-
+        success: function(data){
+            location.href="/store/flight/flightTest1";
         }
     });
+
+    }
 }
-
-    $('.flight_result_col').on('click', function () {
-    alert('클릭');
-});
-
-*/

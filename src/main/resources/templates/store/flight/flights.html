@@ -214,12 +214,19 @@
                 <div class="hr-sect">더 많은 검색 결과</div>
             </div>
         </div>
+        <th:block th:if="${session.user == null}">
+            <div>
+                <input type="hidden" id="sessionUser" th:value="${session.user}">
+            </div>
+        </th:block>
+        <th:block th:if="${startAirport != null}">
+            <div>
+                <input type="hidden" id="thStartAirport" th:value="${startAirport}"/>
+                <input type="hidden" id="thEndAirport" th:value="${endAirport}"/>
+                <input type="hidden" id="thStartDate" th:value="${startDate}"/>
+            </div>
+        </th:block>
     </div>
-    <th:block th:if="${startAirport != null}">
-        <input type="hidden" id="thStartAirport" th:value="${startAirport}"/>
-        <input type="hidden" id="thEndAirport" th:value="${endAirport}"/>
-        <input type="hidden" id="thStartDate" th:value="${startDate}"/>
-    </th:block>
     <div th:include="/footer.html :: footer"></div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
