@@ -91,11 +91,11 @@ public class PayController {
     }
 
     // test 전용
-    @GetMapping("/pay/test11")
-    public ModelAndView successFront() {
-        ModelAndView successFront = new ModelAndView();
-        successFront.setViewName("pay/test11");
-        return successFront;
+    @GetMapping("/pay/flightPaymentPage")
+    public ModelAndView flightPaymentPage() {
+        ModelAndView flightPaymentPage = new ModelAndView();
+        flightPaymentPage.setViewName("pay/flightPaymentPage");
+        return flightPaymentPage;
     }
 
 }

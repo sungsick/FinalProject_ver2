@@ -7,7 +7,7 @@ $(function () {
         $(this).css('color', '#00ce7c');
         $(this).css('font-weight', '600');
 
-        var marginLeftValue = idx * 33.3333;
+        var marginLeftValue = idx * 50;
         $('.second-box-tabs-clicked-bar').animate({
             'margin-left': marginLeftValue + '%'
         }, 200)
