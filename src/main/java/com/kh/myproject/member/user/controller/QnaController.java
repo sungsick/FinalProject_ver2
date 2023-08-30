@@ -46,6 +46,6 @@ public class QnaController {
 
         qnaService.submitQna(qna);
 
-        return "redirect:/member/mypage";
+        return "member/user/mypage";
     }
 }

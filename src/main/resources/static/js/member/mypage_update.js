@@ -42,17 +42,15 @@ $(document).ready(function () {
     $('#question_btn_submit').click(() => {
         console.log("submit click");
         if($('[name=question_title]').val() != "" && $('[name=question_content]').val() != "") {
-            const line = " <tr>\n" +
-                "                        <td>\n" +
-                "                            <button color=\"#F1F9F6\" class=\"qna_btn\">답변대기</button>\n" +
-                "                        </td>\n" +
-                "                        <td>" + $('[name=question_title]').val() + "</td>\n" +
-                "                        <td>" + $('[name=question_content]').val() + "</td>\n" +
-                "                        <td>" + year + '-' + month + '-' + date + "</br>" + hours + ':' + minutes + ':' + seconds + "</td>\n" +
-                "                    </tr>"
-            $('#question_tbody').append(line);
+            const line = "<div class=\"mql_list\">\n" +
+                "                        <div class=\"ml_1\"><button color=\"#F1F9F6\" class=\"qna_status\">답변대기</button></div>\n" +
+                "                        <div class=\"ml_2\">"+$('[name=question_title]').val()+"</div>\n" +
+                "                        <div class=\"ml_3\">"+$('[name=question_content]').val()+"</div>\n" +
+                "                        <div class=\"ml_4\">"+ year + '-' + month + '-' + date + "</br>" + hours + ':' + minutes + ':' + seconds+"</div>\n" +
+                "                    </div>"
+            $('.my_question_list').append(line);
             $('.ask_content').removeClass("disappear");
-            $('#question_table').removeClass("disappear");
+            $('.my_question_list').removeClass("disappear");
             $('.question').addClass("disappear");
             $('.write_btn').removeClass("disappear");
 
@@ -91,13 +89,13 @@ $(document).ready(function () {
     })
 
     // 답변완료시 답변 확인
-    $('.qna_btn').click(()=>{
+    $('.mql_list').click(()=>{
         console.log("질문 클릭");
 
-        if($('.question_a').is(':visible')){
-            $('.question_a').slideUp();
+        if($('.mql_answer').is(':visible')){
+            $('.mql_answer').slideUp();
         }else{
-            $('.question_a').slideDown();
+            $('.mql_answer').slideDown();
         }
 
     })

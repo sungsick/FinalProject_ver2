@@ -271,7 +271,7 @@ public class UserController {
         return "member/user/logout";
     }
 
-    @GetMapping("/member/mypage")
+    @GetMapping("member/mypage")
     public String mypage(HttpSession session, Model model) {
         System.out.println("UserController의 mypage함수 실행");
         User user = (User)session.getAttribute("user"); // @ModelAttribute로 받게되면 처음에 session 설정이 돼있지 않기 때문에 에러발생.
@@ -301,7 +301,7 @@ public class UserController {
         model.addAttribute("user",newUser);
         model.addAttribute("qlist",qlist);
         System.out.println("asd"+qlist);
-        return "member/user/mypage";
+        return "/member/user/mypage";
     }
 
 
