@@ -27,12 +27,20 @@ public class PayController {
         return payButton;
     }
 
-    // 제품 구매할시 결제정보, 입력 페이지
+    // rentcar 예약 페이지
     @GetMapping("/pay/paymentPage")
     public ModelAndView paymentPage() {
         ModelAndView paymentPage = new ModelAndView();
         paymentPage.setViewName("pay/paymentPage");
         return paymentPage;
+    }
+
+    // flight 예약 페이지
+    @GetMapping("/pay/flightPaymentPage")
+    public ModelAndView flightPaymentPage() {
+        ModelAndView flightPaymentPage = new ModelAndView();
+        flightPaymentPage.setViewName("pay/flightPaymentPage");
+        return flightPaymentPage;
     }
 
     // api 결제요청
@@ -91,11 +99,11 @@ public class PayController {
     }
 
     // test 전용
-    @GetMapping("/pay/flightPaymentPage")
-    public ModelAndView flightPaymentPage() {
-        ModelAndView flightPaymentPage = new ModelAndView();
-        flightPaymentPage.setViewName("pay/flightPaymentPage");
-        return flightPaymentPage;
+    @GetMapping("/pay/test11")
+    public ModelAndView test11() {
+        ModelAndView test11 = new ModelAndView();
+        test11.setViewName("pay/test11");
+        return test11;
     }
 
 }

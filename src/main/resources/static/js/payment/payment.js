@@ -15,8 +15,7 @@ $(function () {
         $('.third-box section:first > div').eq(idx).addClass('show')
     });
 
-
-// 대여 가능 여부 생년 검사
+    // 대여 가능 여부 생년 검사
     $('#input_birth').keyup(() => {
 
         var input_birth = document.getElementById('input_birth');
