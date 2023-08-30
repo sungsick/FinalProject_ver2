@@ -18,6 +18,7 @@ $(document).ready(() => {
             'margin-left': marginLeftValue + '%'
         }, 200)
 
+
     });
 
     $('#find-id-tab').click(() => {
