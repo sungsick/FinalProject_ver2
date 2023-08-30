@@ -6,12 +6,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ticket_info")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
-public class FlightTicket {
+public class TicketInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class FlightTicket {
     private String ticVihicleId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "userNumber")
     private User user;
 }

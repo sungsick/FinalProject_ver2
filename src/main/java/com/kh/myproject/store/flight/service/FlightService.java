@@ -1,6 +1,6 @@
 package com.kh.myproject.store.flight.service;
 
-import com.kh.myproject.store.flight.model.entity.FlightTicket;
+import com.kh.myproject.store.flight.model.entity.TicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -18,8 +19,17 @@ public class FlightService {
     @Autowired
     private FlightTicketRepository flightRepository;
 
-    public void saveFlight(FlightTicket flightTicket){
-        flightRepository.save(flightTicket);
+    public void saveFlight(TicketInfo TicketInfo){
+
+        flightRepository.save(TicketInfo);
+    }
+
+    public List<TicketInfo> getTicketList(Long userNum){
+        return flightRepository.findByUser_UserNumber(userNum);
+    }
+
+    public void removeTicket(Long ticketId){
+        flightRepository.deleteById(ticketId);
     }
     public String getFlightList(String url){
 

@@ -83,11 +83,7 @@ $(function () {
 
 });
 
-// $('window').load(function() {
-//     console.log($('#start_airport').val());
-//     console.log($('#end_airport').val());
-//     console.log($('#flight_date').val());
-// });
+
 /* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
     pageNo = 1;
@@ -177,7 +173,6 @@ function searchFlight(pageNo, numOfRows) {
             $('.loading_wrap').css('display', 'none'); //모달 종료
 
 
-
         },
         error: function (request, status, error) {
 
@@ -185,7 +180,7 @@ function searchFlight(pageNo, numOfRows) {
             $('.loading_wrap').css('display', 'none');
         }
     });
-    $('.result_table').on('click', function(){
+    $('.result_table').on('click', function () {
         console.log(1);
     });
 }
@@ -222,6 +217,35 @@ function getLogo(airlineName) {
             return "korean.jpg";
         case "티웨이항공" :
             return "tway.jpg";
+        case "에어로케이" :
+            return "aerok.png";
+    }
+}
+
+function getUrl(airlineName) {
+    switch (airlineName) {
+        case "아시아나항공" :
+            return "https://flyasiana.com/C/KR/KO/index";
+        case "에어부산" :
+            return "https://www.airbusan.com/content/individual/";
+        case "에어서울" :
+            return "https://flyairseoul.com/";
+        case "이스타항공" :
+            return "https://www.eastarjet.com/newstar/PGWHC00001";
+        case "플라이강원":
+            return "https://flygangwon.com/ko/main/main.do";
+        case "하이에어":
+            return "https://www.hi-airlines.com/";
+        case "제주항공" :
+            return "https://www.jejuair.net/ko/main/base/index.do";
+        case "진에어" :
+            return "https://www.jinair.com/booking/index";
+        case "대한항공" :
+            return "https://www.koreanair.com/?hl=ko";
+        case "티웨이항공" :
+            return "https://www.twayair.com/app/main";
+        case "에어로케이" :
+            return "https://www.aerok.com/kr";
     }
 }
 
@@ -287,59 +311,40 @@ function appendFlight(item, index) {
     $('.result_table_wrap').append(content);
 
 
-
-
 }
 
-function dataTest(param){
-
-    /*ticFlightDepartureDate: $("#flight_list tr .depPlandTime")[flight].innerText,
-        ticFlightArrivalDate: $("#flight_list tr .arrPlandTime")[flight].innerText,
-        ticSeatGrade: "이코노미",
-        ticAirlineName: $("#flight_list tr .airlineNm")[flight].innerText,
-        ticFee: $("#flight_list tr .economyCharge")[flight].innerText,
-        ticFromLocation: $("#flight_list tr .depAirportNm")[flight].innerText,
-        ticToLocation: $("#flight_list tr .arrAirportNm")[flight].innerText,*/
-    var parameter = {
-        ticFlightDepartureDate: param.depPlandTime,
-        ticFlightArrivalDate: param.arrAirportNm,
-        ticSeatGrade: "이코노미",
-        ticAirlineName: param.airlineNm,
-        ticFee: param.economyCharge,
-        ticFromLocation: param.depAirportNm,
-        ticToLocation: param.arrAirportNm,
-        ticVihicleId: param.vihicleId
-    };
-
-    /*console.log(parameter);
-    var form = document.createElement('form');
-
-    var input;
-    input = document.createElement('input');
-    input.setAttribute('type', 'hidden');
-    input.setAttribute('name', 'ticket');
-    input.setAttribute('value', JSON.stringify(parameter));
-
-    form.appendChild(input);
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', '/store/tour/saveFlight');
-    document.body.appendChild(form);
-    form.submit();*/
+function dataTest(param) {
 
 
-    if($('#sessionUser').val() === ''){
-        alert('로그인후 이용하세요');
-        location.href='/store/home';
+    if (param.economyCharge === undefined) {
+        window.open(getUrl(param.airlineNm), '_blank');
     } else {
-    $.ajax({
-        url: '/store/flight/saveFlight',
-        type: 'post',
-        data: JSON.stringify(parameter),
-        contentType: 'application/json',
-        success: function(data){
-            location.href="/store/flight/flightTest1";
+        var parameter = {
+            ticFlightDepartureDate: param.depPlandTime,
+            ticFlightArrivalDate: param.arrPlandTime,
+            ticSeatGrade: "이코노미",
+            ticAirlineName: param.airlineNm,
+            ticFee: param.economyCharge,
+            ticFromLocation: param.depAirportNm,
+            ticToLocation: param.arrAirportNm,
+            ticVihicleId: param.vihicleId
+        };
+
+
+        if ($('#sessionUser').val() === '') {
+            alert('로그인후 이용하세요');
+            location.href = '/store/home';
+        } else {
+            $.ajax({
+                url: '/store/flight/saveFlight',
+                type: 'post',
+                data: JSON.stringify(parameter),
+                contentType: 'application/json',
+                success: function (data) {
+                    location.href = "/store/flight/flightTest1";
+                }
+            });
         }
-    });
 
     }
 }
