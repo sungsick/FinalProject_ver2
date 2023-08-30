@@ -1,4 +1,8 @@
 
+body{
+    zoom: 1.1;
+}
+
 @media screen and (max-width: 1199px)
 ._next {
     overflow: hidden;
@@ -29,7 +33,7 @@
 
 }
 
-.googlemaps {
+.kakaomaps {
 
     position: sticky;
     top: 165px;
@@ -41,7 +45,7 @@
     border-radius: 10px;
 }
 
-.googlemaps_in {
+.kakaomaps_in {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -147,8 +151,64 @@
     margin-top: 15px;
 }
 
+.sdf_form_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.select_date_input {
+    width: 282px;
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+    padding: 30px 0 30px 15px;
+    height: 120px;
+    margin-right: 50px; /* 조정된 부분 */
+}
+
+.select_date_input:last-child{
+    margin-right: 0; /* 마지막 요소의 간격 제거 */
+}
+
+.select_date_box {
+    padding: 10px 0;
+}
+
+#select_start_date {
+    line-height: 30px;
+    letter-spacing: inherit;
+    box-sizing: border-box;
+    background: #fff;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #000;
+    border: 0;
+    height: 30px;
+    width: 100%;
+}
+
+#select_end_date {
+    line-height: 30px;
+    letter-spacing: inherit;
+    box-sizing: border-box;
+    background: #fff;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #000;
+    border: 0;
+    height: 30px;
+    width: 100%;
+}
+
+/*
 .art1_1btn{
-    /*background: rgb(251, 251, 251);*/
+    background: rgb(251, 251, 251);
     width: 100%;
     height: 73px;
     border-radius: 10px;
@@ -214,6 +274,7 @@
     border: 0px;
 }
 
+*/
 
 .article2 {
     /*<!-- 여기서부터 아래 2번째 상자 hjiFwe-->*/
@@ -979,7 +1040,7 @@
     white-space: pre-wrap;
     border: transparent;
 }
-.hKoDxD{
+.place_add_btn, .memo_add_btn{
     width: 110px;
     height: 35px;
     margin: 0px 5px;
@@ -997,7 +1058,7 @@
     color: #ffffff;
 
 }
-.dODYKH{
+.article4{
     width: 100%;
     height: auto;
     padding: 0px 18px;
@@ -1006,13 +1067,13 @@
     word-break: break-all;
     white-space: pre-wrap;
 }
-.fXoRpx{
+.article4_line{
     position: relative;
     box-sizing: border-box;
     width: 100%;
     padding: 10px 0px 24px;
 }
-.fXoRpx::before {
+.article4_line::before {
     content: "";
     position: absolute;
     top: 10px;
@@ -1021,7 +1082,7 @@
     height: 1px;
     background: rgb(233, 233, 233);
 }
-.eviLym{
+.add_place_area{
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -1032,7 +1093,7 @@
     height: auto;
     margin-top: 10px;
 }
-.ditPOi{
+.add_place_area_icon{
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -1043,7 +1104,7 @@
     background-color: rgb(236, 236, 255);
     border-radius: 10px;
 }
-.bXRoJG{
+.add_place_button{
     cursor: pointer;
     display: flex;
     -webkit-box-align: center;
@@ -1060,15 +1121,15 @@
     border-radius: 14px;
     border: transparent;
 }
-.bXRoJG > span {
+.add_place_button > span {
     margin-left: 10px;
 }
 
-.YIEaf{
+.see_otherplan_area{
     width: 92%;
     margin: 30px 4% 0px;
 }
-.hwLFpI{
+.see_otherplan_btn{
     width: 100%;
     height: 48px;
     background: #00b8ff;

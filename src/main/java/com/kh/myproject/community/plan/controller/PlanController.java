@@ -56,15 +56,7 @@ public class PlanController {
 
 
 
-/*
-    @GetMapping("/community/plan/write/{item}") // http://localhost:8080/community/plan/write
-    public String communityplanwrite2(@PathVariable Item item) {
 
-        System.out.println(item);
-        return "community/plan/plan_write";
-    }
-
- */
 
     @PostMapping("/community/plan/move")
     @ResponseBody

@@ -19,7 +19,7 @@ public class AccompanyController {
 
 
     //동행 리스트(동행 메인)
-    @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
+    @GetMapping("/community/accompany") // http://localhost:8080/community/accompany
     public String communityaccompany() {
 
 
@@ -27,7 +27,7 @@ public class AccompanyController {
     }
 
     //동행 글 정보
-    @GetMapping("/community/accompany/detail") // http://localhost:8070/community/accompany/detail
+    @GetMapping("/community/accompany/detail") // http://localhost:8080/community/accompany/detail
     public String communityaccompanydetail() {
 
 
@@ -35,7 +35,7 @@ public class AccompanyController {
     }
 
     //동행 글 쓰기
-    @GetMapping("/community/accompany/write") // http://localhost:8070/community/accompany/write
+    @GetMapping("/community/accompany/write") // http://localhost:8080/community/accompany/write
     public String communityaccompanywrite() {
 
 

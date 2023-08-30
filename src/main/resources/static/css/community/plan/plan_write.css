@@ -3,6 +3,7 @@ body{
     zoom: 1.1;
 }
 
+
 @media screen and (max-width: 1199px)
 ._next {
     overflow: hidden;
@@ -17,6 +18,7 @@ body{
     height: auto;
     margin: 0px auto;
     padding: 145px 0px 220px;
+
 
 }
 @media screen and (max-width: 1199px)
@@ -33,7 +35,7 @@ body{
 
 }
 
-.googlemaps {
+.kakaomaps {
 
     position: sticky;
     top: 165px;
@@ -45,7 +47,7 @@ body{
     border-radius: 10px;
 }
 
-.googlemaps_in {
+.kakaomaps_in {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -144,72 +146,127 @@ body{
     border: transparent;
 }
 
-.art1_1btn{
-    background: rgb(251, 251, 251);
-    width: 100%;
-    height: 73px;
-    border-radius: 10px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0px 118px;
-    border: transparent;
-}
-.art1_1btn > svg{
-    width: 15px;
-    height: 17px;
-    fill: #0064DE;
-}
-
-.art1_1btn > svg:not(:root) {
-    overflow: initial;
-    overflow-clip-margin: content-box;
-}
-
-.art1_1btn_span_icon {
-    overflow: initial;
-    width: 15px;
-    height: 17px;
-    fill: #0064DE;
-}
-
-.art1_1btn_span_st {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    padding-left: 10px;
-    box-sizing: border-box;
+.sdf_form_form {
     display: flex;
     justify-content: center;
+    align-items: center;
+
 }
 
-.art1_1btn_span_md {
-    width: 9px;
-    height: 2px;
-    background: rgb(210, 210, 210);
-    margin-left: 10px;
-}
-
-.art1_1btn_span_ed {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    padding-left: 10px;
+.select_date_input{
+    width: 282px;
     box-sizing: border-box;
+    float: left;
+    position: relative;
+    padding: 30px 0 30px 15px;
+    height: 120px;
+    margin-right: 50px; /* 조정된 부분 */
 }
 
-.art1_1btn_span2 {
-    margin: 0px;
-    padding: 0px;
-    font-style: normal;
-    border: 0px;
+.select_date_input:last-child{
+    margin-right: 0; /* 마지막 요소의 간격 제거 */
 }
+
+.select_date_box {
+    padding: 10px 0;
+}
+
+#select_start_date {
+    line-height: 30px;
+    letter-spacing: inherit;
+    box-sizing: border-box;
+    background: #fff;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #000;
+    border: 0;
+    height: 30px;
+    width: 100%;
+}
+
+#select_end_date {
+    line-height: 30px;
+    letter-spacing: inherit;
+    box-sizing: border-box;
+    background: #fff;
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #000;
+    border: 0;
+    height: 30px;
+    width: 100%;
+}
+
+/*.art1_1btn{*/
+/*    background: rgb(251, 251, 251);*/
+/*    width: 100%;*/
+/*    height: 73px;*/
+/*    border-radius: 10px;*/
+/*    font-weight: 400;*/
+/*    font-size: 14px;*/
+/*    line-height: 21px;*/
+/*    display: flex;*/
+/*    -webkit-box-pack: justify;*/
+/*    justify-content: space-between;*/
+/*    -webkit-box-align: center;*/
+/*    align-items: center;*/
+/*    box-sizing: border-box;*/
+/*    padding: 0px 118px;*/
+/*    border: transparent;*/
+/*}*/
+/*.art1_1btn > svg{*/
+/*    width: 15px;*/
+/*    height: 17px;*/
+/*    fill: #0064DE;*/
+/*}*/
+
+/*.art1_1btn > svg:not(:root) {*/
+/*    overflow: initial;*/
+/*    overflow-clip-margin: content-box;*/
+/*}*/
+
+/*.art1_1btn_span_icon {*/
+/*    overflow: initial;*/
+/*    width: 15px;*/
+/*    height: 17px;*/
+/*    fill: #0064DE;*/
+/*}*/
+
+/*.art1_1btn_span_st {*/
+/*    font-weight: 400;*/
+/*    font-size: 14px;*/
+/*    line-height: 21px;*/
+/*    padding-left: 10px;*/
+/*    box-sizing: border-box;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*.art1_1btn_span_md {*/
+/*    width: 9px;*/
+/*    height: 2px;*/
+/*    background: rgb(210, 210, 210);*/
+/*    margin-left: 10px;*/
+/*}*/
+
+/*.art1_1btn_span_ed {*/
+/*    font-weight: 400;*/
+/*    font-size: 14px;*/
+/*    line-height: 21px;*/
+/*    padding-left: 10px;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*.art1_1btn_span2 {*/
+/*    margin: 0px;*/
+/*    padding: 0px;*/
+/*    font-style: normal;*/
+/*    border: 0px;*/
+/*}*/
 
 
 .article2 {
@@ -954,7 +1011,7 @@ body{
     white-space: pre-wrap;
     border: transparent;
 }
-.hKoDxD{
+.place_add_btn, .memo_add_btn{
     width: 110px;
     height: 35px;
     margin: 0px 5px;
@@ -971,7 +1028,7 @@ body{
     border: transparent;
     color: #ffffff;
 }
-.dODYKH{
+.article4{
     width: 100%;
     height: auto;
     padding: 0px 18px;
@@ -980,13 +1037,13 @@ body{
     word-break: break-all;
     white-space: pre-wrap;
 }
-.fXoRpx{
+.article4_line{
     position: relative;
     box-sizing: border-box;
     width: 100%;
     padding: 10px 0px 24px;
 }
-.fXoRpx::before {
+.article4_line::before {
     content: "";
     position: absolute;
     top: 10px;
@@ -995,7 +1052,7 @@ body{
     height: 1px;
     background: rgb(233, 233, 233);
 }
-.eviLym{
+.add_place_area{
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -1006,7 +1063,7 @@ body{
     height: auto;
     margin-top: 10px;
 }
-.ditPOi{
+.add_place_area_icon{
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -1017,7 +1074,7 @@ body{
     background-color: rgb(236, 236, 255);
     border-radius: 10px;
 }
-.bXRoJG{
+.add_place_button{
     cursor: pointer;
     display: flex;
     -webkit-box-align: center;
@@ -1034,15 +1091,15 @@ body{
     border-radius: 14px;
     border: transparent;
 }
-.bXRoJG > span {
+.add_place_button > span {
     margin-left: 10px;
 }
 
-.YIEaf{
+.complete_write_area{
     width: 92%;
     margin: 30px 4% 0px;
 }
-.hwLFpI{
+.complete_write_btn{
     width: 100%;
     height: 48px;
     background: #00b8ff;
