@@ -9,11 +9,6 @@
     <link href="/css/payment/payment.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<!--####################################################################################################################
-
-                타임리프로 입력값 넣기
-
-#####################################################################################################################-->
 <script src="/jq/jquery-3.7.0.min.js" type="text/javas cript"></script>
 <script src="/js/payment/payment.js" type="text/javascript"></script>
 <div class="successPop">
@@ -61,7 +56,7 @@
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 30px; position: relative; bottom: 0px; padding-right: 10px;">
                             <button type="button" class="modal-btn _button_default_1vx5o_3"
-                                    style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인 했습니다
+                                    style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인
                             </button>
                         </div>
                     </div>
@@ -70,18 +65,5 @@
         </div>
     </div>
 </div>
-
-<!--####################################################################################################################
-
-              결제 성공시 inputDatas
-
-#####################################################################################################################-->
-<!--결제일시: [[${info.approved_at}]]<br/>-->
-<!--주문번호: [[${info.partner_order_id}]]<br/>-->
-<!--상품명: [[${info.item_name}]]<br/>-->
-<!--상품수량: [[${info.quantity}]]<br/>-->
-<!--결제금액: [[${info.amount.total}]]<br/>-->
-<!--결제방법: [[${info.payment_method_type}]]<br/>-->
-<!--<h2>[[${info}]]</h2>-->
 </body>
 </html>
