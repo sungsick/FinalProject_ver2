@@ -134,7 +134,7 @@ public class UserController {
     @GetMapping("member/findPw")
     public String findPw() {
 
-        return "member/findPw";
+        return "member/user/findPw";
     }
 
 
@@ -299,9 +299,11 @@ public class UserController {
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user",newUser);
-        model.addAttribute("qlist",qlist);
+
+        model.addAttribute("qlist", qlist);
+
         System.out.println("asd"+qlist);
-        return "/member/user/mypage";
+        return "member/user/mypage";
     }
 
 

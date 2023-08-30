@@ -11,7 +11,6 @@ $(document).ready(function () {
     let year = today.getFullYear(); // 년도
     let month = today.getMonth() + 1;  // 월
     let date = today.getDate();  // 날짜
-    let day = today.getDay();  // 요일
     let hours = today.getHours(); // 시
     let minutes = today.getMinutes();  // 분
     let seconds = today.getSeconds();  // 초
@@ -42,11 +41,11 @@ $(document).ready(function () {
     $('#question_btn_submit').click(() => {
         console.log("submit click");
         if($('[name=question_title]').val() != "" && $('[name=question_content]').val() != "") {
-            const line = "<div class=\"mql_list\">\n" +
+            const line = "<div class=\"mql_list_new\">\n" +
                 "                        <div class=\"ml_1\"><button color=\"#F1F9F6\" class=\"qna_status\">답변대기</button></div>\n" +
                 "                        <div class=\"ml_2\">"+$('[name=question_title]').val()+"</div>\n" +
                 "                        <div class=\"ml_3\">"+$('[name=question_content]').val()+"</div>\n" +
-                "                        <div class=\"ml_4\">"+ year + '-' + month + '-' + date + "</br>" + hours + ':' + minutes + ':' + seconds+"</div>\n" +
+                "                        <div class=\"ml_4\">"+ year + '-' + month + '-' + date +' '+ hours + ':' + minutes + ':' + seconds+"</div>\n" +
                 "                    </div>"
             $('.my_question_list').append(line);
             $('.ask_content').removeClass("disappear");
@@ -88,17 +87,6 @@ $(document).ready(function () {
         $('[name=question_content]').val("");
     })
 
-    // 답변완료시 답변 확인
-    $('.mql_list').click(()=>{
-        console.log("질문 클릭");
-
-        if($('.mql_answer').is(':visible')){
-            $('.mql_answer').slideUp();
-        }else{
-            $('.mql_answer').slideDown();
-        }
-
-    })
 
     $('.submit_btn').click(function () { // form 제출 시
 
@@ -143,4 +131,14 @@ $(document).ready(function () {
             });
         }
     })
+})
+$(document).on('click', '.mql_list', function(e){
+    e.preventDefault();
+
+    if($(this).next().is(':visible')) {
+        $(this).next().slideUp();
+    }else{
+        $(this).next().slideDown();
+        $('.mql_list').not($(this)).next().slideUp();
+    }
 })
