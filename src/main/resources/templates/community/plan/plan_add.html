@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>plan_add.html</title>
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/community/plan/plan_add.css">
+</head>
+<body>
+<div class="next">
+  <header th:include="header.html :: header"></header>
+  <div class="m">
+    <!-- 메인부분 코드 작성 -->
+
+    <div style="flex: 1 1 0%;">
+      <div class="_next">
+        <div class="container">
+          <div class="googlemaps">
+            <div class="googlemaps_in">
+              <div class="map_wrap">
+                <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+              </div>
+            </div>
+          </div>
+          <!--여기까지 카카오맵-->
+
+          <div class="content">
+
+            <div id="menu_wrap" class="bg_white">
+              <div class="option">
+                <div>
+                  <form onsubmit="searchPlaces(); return false;">
+                    <!--키워드 :--> <input  type="text" value="제주도" id="keyword" size="15" placeholder="가고싶은 장소를 검색해보세요!">
+                    <button type="submit" id="search_btn">검색하기</button>
+                  </form>
+                </div>
+              </div>
+              <hr>
+              <ul id="placesList"></ul>
+
+              <div id="pagination"></div>
+            </div>
+
+
+            <div width="100%" height="71px" display="flex" class="btm_btn">
+              <button class="sc-e2da28cc-20 hKoDxD">장소 추가</button>
+              <button class="sc-e2da28cc-20 hKoDxD">메모 추가</button>
+            </div>
+
+
+            <div height="auto" class="sc-b9ae8689-0 dODYKH">
+              <div class="sc-1ee6e84e-9 fXoRpx"></div>
+              <div class="sc-1ee6e84e-0 eviLym">
+                <div class="sc-1ee6e84e-2 ditPOi">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.9387 10.7632C19.9387 15.0508 12.4693 21.8536 12.4693 21.8536C12.4693 21.8536 5 15.0508 5 10.7632C5 6.47572 8.34413 3 12.4693 3C16.5945 3 19.9387 6.47572 19.9387 10.7632Z"
+                          fill="#7D7DFF"></path>
+                    <circle cx="12.4699" cy="9.91282" r="3.37327" fill="white"></circle>
+                  </svg>
+                </div>
+                <button class="sc-1ee6e84e-3 bXRoJG">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 1V12" stroke="#000" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                    <path d="M12 6.5L1 6.5" stroke="#000" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                  </svg>
+                  <span>여행지 추가</span></button>
+              </div>
+            </div>
+
+
+            <div class="sc-e6a1c59a-15 YIEaf">
+              <button color="#fff" class="sc-1dca83dc-0 hwLFpI" id="btn">장소 추가하기</button>
+            </div>
+          </div> <!-- 여기까지 content 한 세트-->
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div th:include="/footer.html :: footer"></div>
+
+
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+<script src="/jq/jquery-3.7.0.min.js"></script>
+<script src="/js/header.js"></script>
+
+<!-- 카카오맵 js -->
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769&libraries=services,clusterer,drawing"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script src="/js/community/plan/plan_add.js"></script>
+
+</body>
+</html>

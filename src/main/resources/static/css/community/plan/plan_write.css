@@ -1,4 +1,8 @@
 
+body{
+    zoom: 1.1;
+}
+
 @media screen and (max-width: 1199px)
 ._next {
     overflow: hidden;
