@@ -23,7 +23,6 @@ public class SessionInterceptor implements HandlerInterceptor {
 
             // 인터셉터 처음 감지시에는 세션값이 없기 때문에 감지시에는 당연히 세션값이 없을 것이다.
             Manager manager = (Manager) request.getSession().getAttribute("manager");
-            System.out.println("manager값" + manager);
 
             if (manager == null) {
                 // 세션에 관리자 정보가 없을 경우 리다이렉트
@@ -39,13 +38,11 @@ public class SessionInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
         // 핸들러 메서드가 실행된 후 처리
-        System.out.println("posthandle 실행");
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 Exception ex) throws Exception {
         // 요청 처리 완료 후 호출
-        System.out.println("after completion 실행");
     }
 }

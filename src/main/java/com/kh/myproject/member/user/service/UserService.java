@@ -165,6 +165,21 @@ public class UserService {
         return result;
 
     }
+
+    public List<User> getSomeUser(){
+
+        List<User> userlist = userRepository.findTop5ByOrderByUserDateDesc();
+
+        return userlist;
+    }
+
+    public List<User> findAll(){
+
+        List<User> userlist = userRepository.findAll();
+
+        return userlist;
+    }
+
 }
 
 
