@@ -69,7 +69,7 @@ public class UserController {
 
         }
 
-        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다.
+        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다....
 
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
