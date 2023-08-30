@@ -306,117 +306,19 @@ h5, span{
 
 
 
-/*장소추가, 메모추가 버튼*/
-.btm_btn{
-
-    width: 100%;
-    height: 71px;
-    padding: 0px;
-    margin: 0px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    box-sizing: border-box;
-    word-break: break-all;
-    white-space: pre-wrap;
-    border: transparent;
-}
-.hKoDxD{
-    width: 110px;
-    height: 35px;
-    margin: 0px 5px;
-    background-color: #00b8ff;
-    border-radius: 14px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 35px;
-    border: transparent;
-    color: #ffffff;
-}
 
 
-/*여행지 추가 버튼*/
-.dODYKH{
-    width: 100%;
-    height: auto;
-    padding: 0px 18px;
-    margin: 0px;
-    box-sizing: border-box;
-    word-break: break-all;
-    white-space: pre-wrap;
-}
-.fXoRpx{
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 10px 0px 24px;
-}
-.fXoRpx::before {
-    content: "";
-    position: absolute;
-    top: 10px;
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: rgb(233, 233, 233);
-}
-.eviLym{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    box-sizing: border-box;
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-.ditPOi{
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: rgb(236, 236, 255);
-    border-radius: 10px;
-}
-.bXRoJG{
-    cursor: pointer;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: calc(100% - 46px);
-    height: 35px;
-    padding: 6px 10px;
-    font-size: 13px;
-    font-weight: 500;
-    background: rgb(248, 248, 248);
-    border-radius: 14px;
-    border: transparent;
-}
-.bXRoJG > span {
-    margin-left: 10px;
-}
 
 
 /*내 일정으로 이동 버튼*/
-.YIEaf{
+
+
+.add_place_btnarea{
     width: 92%;
     margin: 30px 4% 0px;
 }
-.hwLFpI{
+
+.add_place_btn{
     width: 100%;
     height: 48px;
     background: #00b8ff;
@@ -429,4 +331,5 @@ h5, span{
     font-size: 15px;
     font-weight: 400;
     box-sizing: inherit;
+
 }

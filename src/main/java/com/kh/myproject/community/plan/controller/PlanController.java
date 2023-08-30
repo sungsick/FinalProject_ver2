@@ -1,16 +1,24 @@
 package com.kh.myproject.community.plan.controller;
 
 
+import com.kh.myproject.community.plan.model.dto.PlanDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 //@RestController
 @SessionAttributes("user")
 public class PlanController {
 
+
+    private List<PlanDTO> planList = new ArrayList<PlanDTO>();
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
     public String communityplan() {
@@ -29,10 +37,13 @@ public class PlanController {
 
     //일정 글 쓰기
     @GetMapping("/community/plan/write") // http://localhost:8080/community/plan/write
-    public String communityplanwrite() {
+    public String communityplanwrite(Model model) {
 
-
+        if(!planList.isEmpty()) {
+            model.addAttribute("planList", planList);
+        }
         return "community/plan/plan_write";
+        //return "communtity/plan/plan_write";
     }
 
     //일정 글쓰기 - 장소추가
@@ -55,13 +66,18 @@ public class PlanController {
 
  */
 
-//    @PostMapping("/community/plan/move")
-//    public ModelAndView move(@RequestParam(value = "age")int age, ModelAndView mav){
-//        mav.addObject("age",age);
-//        System.out.println(age);
-//        mav.setViewName("community/plan/plan_write");
-//        return mav;
-//    }
+    @PostMapping("/community/plan/move")
+    @ResponseBody
+    public void move(@RequestBody PlanDTO[] map){
+
+        for (PlanDTO planDTO : map) {
+            planList.add(planDTO);
+            System.out.println(planList);
+        }
+
+
+
+    }
 
 
 

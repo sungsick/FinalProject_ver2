@@ -500,6 +500,9 @@
 
                                                     <div class="ctn1_des_list_span12"> <!-- 제주공항박스 -->
                                                         <p class="ctn1_des_list_span1p2">제주국제공항</p>
+                                                        <th:block th:each="plan : ${planList}">
+                                                            <h2 th:text="${plan.place_name}"></h2>
+                                                        </th:block>
                                                         <span class="ctn1_des_list_span1sp2">공항</span>
                                                     </div>
 

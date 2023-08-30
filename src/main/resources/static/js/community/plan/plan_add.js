@@ -1,12 +1,3 @@
-//장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
-const MoveMySchedule = document.querySelector('.sc-1dca83dc-0.hwLFpI');
-
-MoveMySchedule.addEventListener('click', () => {
-
-    // window.location.href =`../plan/write/${item}`;
-    window.location.href = '../plan/write';
-});
-
 // -----------------------------------------------------------------------------------------------------
 
 // 카카오맵 js
@@ -148,7 +139,7 @@ function getListItem(index, places) {
     itemStr += '  <span class="tel">' + places.phone + '</span>' +
         '</div>';
 
-    itemStr +=`<div><button class="select_placebtn">선택</button></div>`;
+    itemStr += `<div><button class="select_placebtn">선택</button></div>`;
     el.innerHTML = itemStr;
     el.className = 'item';
 
@@ -159,26 +150,55 @@ function getListItem(index, places) {
         //console.log(places.place_name);
     });
 
-    //작업중
+    //장소 검색 후 '선택' 클릭 시 콘솔창에 출력 ->
     var placebtn = el.querySelector('.select_placebtn');
-    placebtn.addEventListener('click', function(){
-        //console.log(places.place_name);
+
+    placebtn.addEventListener('click', function () {
+
         temp = {
-            name : places.place_name,
-            addr : places.address_name
+            place_name: places.place_name,
+            address_name: places.address_name,
+            category_group_name: places.category_group_name,
+            id: places.id
         };
 
         item.push(temp);
         console.log(item);
+
+
     });
+
 
     return el;
 
 }
 
-function getPlaceName(places) {
-    console.log(places);
-}
+// 장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
+$('.add_place_btn').on('click', function () {
+
+    $.ajax({
+        url: '/community/plan/move',
+        type: 'post',
+        data: JSON.stringify(item),
+        contentType: 'application/json',
+        success: function (data) {
+            location.href = "/community/plan/write";
+
+        }
+
+    });
+});
+
+// 장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
+// const MoveMySchedule = document.querySelector('.add_place_btn');
+//
+// MoveMySchedule.addEventListener('click', () => {
+//
+//     // window.location.href =`../plan/write/${item}`;
+//     window.location.href = '../plan/write';
+// });
+
+
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
     var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -254,6 +274,10 @@ function removeAllChildNods(el) {
         el.removeChild(el.lastChild);
     }
 }
+
+
+// 추가 기능
+
 
 //2. 지도에 컨트롤 올리기 추가
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
