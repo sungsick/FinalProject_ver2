@@ -4,10 +4,8 @@ $(document).ready(function () {
 
     //월선택에 따른 일자 출력 변경
 
-    $('#user_day').click(function () {
-        console.log('gg')
+    $('#user_month').on('change',function () {
 
-        console.log($('#user_month option:selected').val());
 
         var month = $('#user_month option:selected').val();
 
@@ -18,19 +16,26 @@ $(document).ready(function () {
 
             for (var j = 0; j < month_list[i].length; j++) {
 
+                console.log(month_list[i][j])
                 if (month_list[i][j] == month) {
                     // 31일, 29일, 30일을 선택한다.
                     if (i == 0) {
                         // 31일로 바꾸게끔 처리.
-                        console.log('31');
+
+                        $('#day30').removeClass('disappear');
+                        $('#day31').removeClass('disappear');
+
                         break out;
                     } else if (i == 1) {
                         // 29일로 바꾸게끔 처리
-                        console.log('29');
+                        $('#day30').addClass('disappear');
+                        $('#day31').addClass('disappear');
                         break out;
                     } else if (i == 2) {
                         // 30일로 바꾸게끔 처리.
                         console.log('30');
+                        $('#day30').removeClass('disappear');
+                        $('#day31').addClass('disappear');
                         break out;
 
                     }
@@ -38,8 +43,6 @@ $(document).ready(function () {
             }
         }
 
-        console.log(document.getElementById("day_sequence"));
-        console.log($('#day_sequence2'));
 
 
         // 로직처리.
