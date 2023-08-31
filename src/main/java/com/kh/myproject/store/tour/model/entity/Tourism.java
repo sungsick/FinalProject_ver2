@@ -1,22 +1,21 @@
 package com.kh.myproject.store.tour.model.entity;
 
-import com.kh.myproject.store.tour.model.dto.AreaTourismDto;
+import com.kh.myproject.store.tour.model.dto.TourismDto;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.List;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "area_tourism")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-public class AreaTourism {
-
+public class Tourism {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long areaId;
+    @Column
     private String areaName;
     @Column
     private String areaNameKo;
@@ -25,8 +24,9 @@ public class AreaTourism {
     @Column
     private String placeName;
 
-    public AreaTourismDto toDto(){
-        return AreaTourismDto.builder()
+    public TourismDto toDto(){
+        return TourismDto.builder()
+                .areaId(areaId)
                 .areaName(areaName)
                 .areaNameKo(areaNameKo)
                 .placeId(placeId)

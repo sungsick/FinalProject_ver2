@@ -344,6 +344,9 @@ function dataTest(param) {
                 type: 'post',
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
+                success: function(data){
+                    location.href='/pay/flightPayment';
+                }
             });
         }
 

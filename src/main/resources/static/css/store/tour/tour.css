@@ -796,7 +796,7 @@ h6 > b {
     font-weight: bold;
 }
 
-.cities_nav_link::after {
+/*.cities_nav_link::after {
     position: absolute;
     content: '';
     height: 1px;
@@ -811,7 +811,7 @@ h6 > b {
 .cities_nav_link:hover::after {
     opacity: 1;
     font-weight: bold;
-}
+}*/
 
 .cities_card_container {
     margin: 0 auto;
@@ -859,38 +859,6 @@ h6 > b {
     background-size: cover;
     background-position: center;
     text-align: center;
-}
-
-#place1 {
-    background-image: url("http://tong.visitkorea.or.kr/cms/resource/33/2678633_image2_1.jpg");
-}
-
-#place2 {
-    background-image: url("https://korean.visitseoul.net/comm/getImage?srvcId=MEDIA&parentSn=51629&fileTy=MEDIA&fileNo=1");
-}
-
-#place3 {
-    background-image: url("http://tong.visitkorea.or.kr/cms/resource/81/2668981_image2_1.jpg");
-}
-
-#place4 {
-    background-image: url("https://i.namu.wiki/i/5gF-6k-Y1fZyVNeMrxYfNRQCF5enA1nrBwUj5RrcaLrlppOeoL1PKeKqCOc8YdWOM7uG5aPoq9OwOTiaugHhIw.webp");
-}
-
-#place5 {
-    background-image: url("https://offloadmedia.feverup.com/secretseoul.com/wp-content/uploads/2022/10/07213201/shutterstock_1089015854-1-1024x683.jpg");
-}
-
-#place6 {
-    background-image: url("https://tong.visitkorea.or.kr/cms/resource/06/2512006_image2_1.jpg");
-}
-
-#place7 {
-    background-image: url("https://www.sisul.or.kr/open_content/cheonggye/images/visual_mb.jpg");
-}
-
-#place8 {
-    background-image: url("http://tong.visitkorea.or.kr/cms/resource/72/2658572_image2_1.jpg");
 }
 
 .cities_card button {

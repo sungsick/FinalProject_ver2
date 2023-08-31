@@ -2,6 +2,8 @@ package com.kh.myproject.store.tour.contoller;
 
 import com.kh.myproject.store.tour.CallTourAPI;
 import com.kh.myproject.api.naverBlog.BlogSearch;
+import com.kh.myproject.store.tour.model.dto.TourismDto;
+import com.kh.myproject.store.tour.model.entity.Tourism;
 import com.kh.myproject.store.tour.service.TourService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -43,7 +47,12 @@ public class TourController {
     @GetMapping("/store/tour/cities")
     public ModelAndView cities(@RequestParam("cityName") String cityName,
                                ModelAndView mav) {
+        log.info("cityName={}", cityName);
         mav.addObject("cityName", cityName);
+        List<TourismDto> list = tourService.getTourism(cityName);
+
+        log.info("tourismList={}", list);
+        mav.addObject("tourismList", list);
         mav.setViewName("store/tour/cities");
 
         return mav;

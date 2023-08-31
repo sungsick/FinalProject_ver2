@@ -64,7 +64,7 @@ public class FlightController {
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
 //        mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("/pay/flightPaymentPage");
+        mav.setViewName("pay/flightPaymentPage");
         return mav;
     }
 
@@ -97,19 +97,18 @@ public class FlightController {
     }
 
     @PostMapping("/store/flight/reservationFlight")
-    public ModelAndView saveFlight(@RequestBody FlightTicketDto ticket,
-                           @ModelAttribute("user") User user,
-                           ModelAndView mav) {
+    public void saveFlight(@RequestBody FlightTicketDto ticket,
+                           @ModelAttribute("user") User user/*,
+                           ModelAndView mav*/) {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보
         ticket.setUser(user); //dto에 유저정보 저장
 //        mav.addObject("ticket",ticket);
         ticketDto = ticket; //전역변수에 저장
-        mav.addObject("ticket", ticket);
+//        mav.addObject("ticket", ticket);
         //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
-        mav.setViewName("redirect:/pay/flightPayment");
+//        mav.setViewName("/pay/flightPaymentPage");
         //flightService.saveFlight(ticketInfo); //db에 저장
-        return mav;
     }
 
     @GetMapping("/store/flight/remove")
