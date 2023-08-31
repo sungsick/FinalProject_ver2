@@ -196,14 +196,4 @@ $(function () {
         $('.insurance-info').removeClass('showTale');
         $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
     });
-
-})
-;
-// if (idx === 0) {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '0px')
-// } else if (idx === 1) {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '243px')
-// } else {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '486px')
-// }
-
+});
