@@ -31,8 +31,7 @@ public class ManagerController {
     // 처음 메인 페이지를 보여주고
     // 그다음 여러개의 관리 페이지를 둔다.
     // 일정 게시글, 동행 , 렌트카 예약내역, 항공권 예약내역, 문의글 (답변 가능해야함)
-
-    @GetMapping("/manager/home")
+    @GetMapping("/manager/managerHome")
     public ModelAndView managerHome(
             @ModelAttribute("check_manager") Manager check_manager,
             ModelAndView modelAndView,
@@ -43,7 +42,7 @@ public class ManagerController {
         if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
             //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
 
-            modelAndView.setViewName("/member/manager/home");
+            modelAndView.setViewName("/member/manager/managerHome");
             List<User> userList = userService.getSomeUser();
 
             modelAndView.addObject("manager", check_manager);
@@ -72,6 +71,11 @@ public class ManagerController {
 
         return "member/manager/manageUser";
     }
+//    @GetMapping("/manager/managerHome")
+//    public String homehome() {
+//
+//        return "member/manager/managerHome";
+//    }
 
     @GetMapping("/manager/manageBoard")
     public String accompanyList() {

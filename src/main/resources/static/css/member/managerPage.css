@@ -35,7 +35,7 @@
     height: 500px;
 }
 
-#manager-title1{
+.manager-title1{
 
 
     font-size : 20px;
@@ -44,7 +44,7 @@
 
 }
 
-#manager-title2{
+.manager-title2{
 
     width: 150px;
     display : flex;
@@ -52,18 +52,18 @@
 
 }
 
-#manager-title3{
+.manager-title3{
 
     font-size : 14px;
 }
 
-#manager-title2:hover{
+.manager-title2:hover{
     cursor:pointer
 }
-#kkuk-block div{
+.kkuk-block div{
     height: 15px;
 }
-#kkuk-block{
+.kkuk-block{
     width: 20px;
     height: 20px;
     text-align: center;
@@ -71,7 +71,7 @@
     display : flex;
     align-items: center;
 }
-#kkuk{
+.kkuk{
     width: 15px;
     height: 15px;
     background-color: white;
@@ -79,11 +79,11 @@
 
 }
 
-#kkuk:hover{
+.kkuk:hover{
     cursor : pointer;
 }
 
-#manager-title{
+.manager-title{
 
     display :flex;
     align-items: end;

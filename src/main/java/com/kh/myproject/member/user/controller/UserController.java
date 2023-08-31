@@ -4,7 +4,6 @@ package com.kh.myproject.member.user.controller;
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
 import com.kh.myproject.member.user.model.entity.Manager;
-import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.member.user.model.dto.UserForm;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
@@ -28,7 +27,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -123,7 +121,7 @@ public class UserController {
 
         if(check_manager instanceof Manager){
 
-            modelAndView.setViewName("redirect:/manager/home"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
+            modelAndView.setViewName("redirect:/manager/managerHome"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
             ra.addFlashAttribute("check_manager",check_manager);
             // 로그인을 통해 매니저 컨트롤러론 넘어갔다는 사실을 확인해야한다.
 
@@ -505,7 +503,7 @@ public class UserController {
     @GetMapping("/sideheader")
     public String sideheader(){
 
-        return "member/manager/sideheader";
+        return "home";
     }
 
 
