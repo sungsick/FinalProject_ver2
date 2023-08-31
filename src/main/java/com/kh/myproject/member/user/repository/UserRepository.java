@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -18,6 +19,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUserIdAndUserPassword(@Param("user_id") String user_id,
                                      @Param("user_password") String user_password);
+
+    @Modifying
+    @Transactional
+    @Query("update User u " +
+            "set u.userPassword = :new_pw1 " +
+            "where u.userNumber = :user_number")
+    int updatePw(@Param("user_number")Long user_number, @Param("new_pw1")String new_pw1);
 
 
     @Modifying
@@ -31,4 +39,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUser(@Param("user")User user);
 
 
+    User findByUserNameAndUserPhone(@Param("user_name")String user_name,
+                                    @Param("user_phone1")String user_phone1);
+
+
+    User findByUserIdAndUserPhone(@Param("user_id")String user_id,
+                                  @Param("user_phone2")String user_phone2);
+
+
+//    @Query("select u from User u order by u.userDate desc limit 5")
+//    List<User> selectLimitUser();
+
+    List<User> findTop5ByOrderByUserDateDesc();
 }
