@@ -4,8 +4,11 @@ package com.kh.myproject.member.user.controller;
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
 import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.member.user.model.dto.UserForm;
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -32,6 +37,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QnaService qnaService;
 
     @Autowired
     SmsService smsService;
@@ -68,7 +76,7 @@ public class UserController {
 
         }
 
-        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다....
+        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다.
 
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
@@ -302,10 +310,12 @@ public class UserController {
 
 
         User newUser = userService.getUserById(user.getUserId());
+        List<Qna> qlist = qnaService.getQna(user.getUserId());
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user", newUser);
 
+        model.addAttribute("qlist", qlist);
 
         return "/member/user/mypage";
     }
@@ -449,7 +459,7 @@ public class UserController {
         String ran_num = smsService.makeRanNum();
 
         User user = userService.findUserPw(user_id, user_phone2);
-//
+
 //        if(user != null) { // 가입시 입력한 아이디와 입력한 폰번호가 같다면 인증번호를 전송해준다.
 //
 //
@@ -463,7 +473,10 @@ public class UserController {
 //            if (ssrd.getStatusCode().equals("202")) {
 //
 //            }
+        if(user == null){
+            return "error";
 
+        }
         return ran_num + "/" + user.getUserNumber(); // 실제로는 문자를 전송한다.
 
 
@@ -478,31 +491,22 @@ public class UserController {
                            RedirectAttributes ra) {
 
 
+        System.out.println(new_pw1);
+        System.out.println(user_number);
+
         int result = userService.updatePw(user_number, new_pw1);
+        System.out.println("updatePw실행결과 반환값 :" + result);
         ra.addFlashAttribute("result", result);
 
 
         return result + "";
     }
 
-    @GetMapping("/member/updatePwPro")
-    public String updatePwPro(Model model) {
-
-
-        return "/member/user/updatePwPro";
-    }
-
-    @GetMapping("/member/user/modaltest")
-    public String modalTest() {
-
-        return "member/user/test";
-    }
-
-
     @GetMapping("/sideheader")
-    public String managetest(){
+    public String sideheader(){
 
         return "member/manager/sideheader";
     }
+
 
 }

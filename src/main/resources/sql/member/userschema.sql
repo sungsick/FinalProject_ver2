@@ -18,7 +18,7 @@ CREATE TABLE if not exists `user`
     `user_mbti`     varchar(4)  NULL,
     `user_img`      varchar(20) NULL
 
-);
+    );
 
 alter table finalproject.user auto_increment = 1;
 
@@ -51,9 +51,19 @@ CREATE TABLE if not exists `manager`
     `manager_id`       varchar(30) NOT NULL,
     `manager_password` varchar(30) NOT NULL
 
-);
+    );
 
 delete from finalproject.manager;
 
 
+delete from finalproject.qna;
+
+CREATE TABLE if not exists `qna` (
+                        `qna_number`int	NOT NULL primary key auto_increment,
+                        `qna_writer`	varchar(30)	NOT NULL,
+                        `qna_title`	varchar(100)	NOT NULL,
+                        `qna_content`	varchar(5000)	NOT NULL,
+                        `qna_date`	date	NULL,
+                        `qna_answer`	varchar(500)	NULL
+);
 

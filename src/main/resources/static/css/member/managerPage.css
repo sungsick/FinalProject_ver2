@@ -1,0 +1,183 @@
+
+
+/* 여기서부터 관리자 페이지 전용 header2에 적용될 css*/
+
+
+#manage-home,#manage-user,#manage-board,#manage-reservation{
+    width: auto;
+    height: 58px;
+    padding: 19px 0px;
+    margin: 0px 13px;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    border-bottom: none;
+    color: rgb(106, 106, 106);
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.main-container{
+
+    box-sizing: border-box;
+    width: 1200px;
+    margin: 0 auto;
+
+}
+
+.manager-user-block{ /*회원관리 , 게시글관리, 결제내역 관리 div*/
+
+    box-sizing : border-box;
+    border : 1px solid black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
+    border-radius: 10px;
+
+    height: 500px;
+}
+
+#manager-title1{
+
+
+    font-size : 20px;
+    font-weight: 600;
+    margin-right: 10px;
+
+}
+
+#manager-title2{
+
+    width: 150px;
+    display : flex;
+    align-items: center;
+
+}
+
+#manager-title3{
+
+    font-size : 14px;
+}
+
+#manager-title2:hover{
+    cursor:pointer
+}
+#kkuk-block div{
+    height: 15px;
+}
+#kkuk-block{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height : 20px;
+    display : flex;
+    align-items: center;
+}
+#kkuk{
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    transform : rotate(-90deg);
+
+}
+
+#kkuk:hover{
+    cursor : pointer;
+}
+
+#manager-title{
+
+    display :flex;
+    align-items: end;
+    width: 300px;
+    height: 80px;
+    margin-bottom: 10px;
+
+
+}
+
+
+
+.user-table {
+    margin : 0 auto;
+    display: table;
+    width: 900px;
+}
+
+.user-table-row {
+
+    border : none;
+    box-sizing : border-box;
+    background-color: white;
+    color : black;
+    border-bottom: 1px solid black;
+    height: 50px;
+    display : flex;
+    align-items: center;
+
+}
+
+
+.user-table-cell {
+    display: table-cell;
+    text-align: center;
+
+
+}
+
+#about{
+
+    width: 20px;
+}
+
+.manager-user-title{
+
+    border-radius: 30px;
+    margin :0 auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    background-color: white;
+    color : black;
+    border : 1px solid black;
+    width: 900px;
+    height: 50px;
+    display : flex;
+    /*justify-content: space-around;*/
+    align-items: center;
+}
+
+li{
+    box-sizing: border-box;
+    all:unset;
+    font-size : 16px;
+    text-align: center;
+    display : inline-block;
+
+}
+
+.manager-user-title :nth-child(1),.user-table-row :nth-child(1){
+    width: 200px;
+}
+
+.manager-user-title :nth-child(2),.user-table-row :nth-child(2){
+    width: 50px;
+}
+.manager-user-title :nth-child(3),.user-table-row :nth-child(3){
+    width: 100px;
+}
+.manager-user-title :nth-child(4),.user-table-row :nth-child(4){
+    width: 150px;
+}
+.manager-user-title :nth-child(5),.user-table-row :nth-child(5){
+    width: 150px;
+}
+.manager-user-title :nth-child(6),.user-table-row :nth-child(6){
+    width: 100px;
+}
+.manager-user-title :nth-child(7),.user-table-row :nth-child(7){
+    width: 100px;
+}
+
+
+#about:hover{
+    cursor:pointer;
+}
+

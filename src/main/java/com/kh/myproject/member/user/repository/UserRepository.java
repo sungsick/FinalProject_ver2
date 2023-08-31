@@ -46,9 +46,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserIdAndUserPhone(@Param("user_id")String user_id,
                                   @Param("user_phone2")String user_phone2);
 
-
-//    @Query("select u from User u order by u.userDate desc limit 5")
-//    List<User> selectLimitUser();
-
     List<User> findTop5ByOrderByUserDateDesc();
 }
