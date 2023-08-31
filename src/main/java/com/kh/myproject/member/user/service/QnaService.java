@@ -17,7 +17,6 @@ public class QnaService {
 
     public List<Qna> getQna(String qna_writer){
         System.out.println("QnaService의 getQna 실행");
-        System.out.println(qnaRepository.findAllByWriter(qna_writer));
         return qnaRepository.findAllByWriter(qna_writer);
     }
 

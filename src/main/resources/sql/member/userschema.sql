@@ -22,7 +22,7 @@ CREATE TABLE if not exists `qna` (
                         `qna_number`int	NOT NULL primary key auto_increment,
                         `qna_writer`	varchar(30)	NOT NULL,
                         `qna_title`	varchar(100)	NOT NULL,
-                        `qna_content`	varchar(1000)	NOT NULL,
+                        `qna_content`	varchar(5000)	NOT NULL,
                         `qna_date`	date	NULL,
                         `qna_answer`	varchar(500)	NULL
 );

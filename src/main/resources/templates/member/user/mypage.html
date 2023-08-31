@@ -218,25 +218,15 @@
                         <div class="ml_3" th:text="${qlist.qnaContent}"></div>
                         <div class="ml_4" th:text="${#strings.substring(qlist.qnaDate,0,10)+ ' '+#strings.substring(qlist.qnaDate,11,19)}"></div>
                     </div>
-                    <div class="mql_answer hide">
+                    <div class="mql_answer hide" th:if="${qlist.qnaAnswer != null}">
                         <div class="answer_content">
-                        <i class="fa-solid fa-arrow-turn-up fa-rotate-90" style="color: #8ad2ff;"></i>
-                        <div th:if="${qlist.qnaAnswer != null}">
-                                <div th:text="${qlist.qnaAnswer}"></div>
-                        </div>
-                        <div th:if="${qlist.qnaAnswer == null}">
-                            아직 답변이 달리지 않았습니다.
-                        </div>
+                            <i class="fa-solid fa-arrow-turn-up fa-rotate-90" style="color: #8ad2ff;"></i>
+                            <div th:text="${qlist.qnaAnswer}"></div>
                         </div>
                     </div>
                 </th:block>
                     <!-- 방금 입력한 질문-->
-
-
                 </div>
-
-
-
                 <div class="question disappear">
                     <p>제목</p>
                     <input name="question_title" type="text" placeholder="제목을 입력해주세요">

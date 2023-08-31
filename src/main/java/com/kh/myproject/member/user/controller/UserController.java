@@ -302,7 +302,6 @@ public class UserController {
 
         model.addAttribute("qlist", qlist);
 
-        System.out.println("asd"+qlist);
         return "member/user/mypage";
     }
 
