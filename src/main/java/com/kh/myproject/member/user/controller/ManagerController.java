@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -94,6 +95,17 @@ public class ManagerController {
         return "member/manager/manageUserInfo";
     }
 
+
+    @GetMapping("/manager/logout")
+    public String flightList(SessionStatus sessionStatus) {
+
+        sessionStatus.setComplete(); // 매니저 세션을 죽인다.
+
+        return "redirect:/";
+    }
+
+
+
 //    @GetMapping("/manager/rentcarList")
 //    public String rentcarList() {
 //
@@ -105,6 +117,7 @@ public class ManagerController {
 //
 //        return "manageBoard";
 //    }
+
 
 
 }

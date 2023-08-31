@@ -398,7 +398,6 @@ i{
     box-sizing: border-box;
     width: 1200px;
     margin: 0 auto;
-    border : 1px solid black;
 
 }
 
@@ -531,7 +530,7 @@ li{
 }
 
 .manager-user-title :nth-child(1),.user-table-row :nth-child(1){
-    width: 150px;
+    width: 200px;
 }
 
 .manager-user-title :nth-child(2),.user-table-row :nth-child(2){
@@ -541,15 +540,20 @@ li{
     width: 100px;
 }
 .manager-user-title :nth-child(4),.user-table-row :nth-child(4){
-    width: 100px;
+    width: 150px;
 }
 .manager-user-title :nth-child(5),.user-table-row :nth-child(5){
     width: 150px;
 }
 .manager-user-title :nth-child(6),.user-table-row :nth-child(6){
-    width: 150px;
+    width: 100px;
 }
 .manager-user-title :nth-child(7),.user-table-row :nth-child(7){
-    width: 150px;
+    width: 100px;
+}
+
+
+#about:hover{
+    cursor:pointer;
 }
 

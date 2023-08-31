@@ -495,9 +495,14 @@ public class UserController {
     @GetMapping("/member/user/modaltest")
     public String modalTest() {
 
-
         return "member/user/test";
     }
 
+
+    @GetMapping("/sideheader")
+    public String managetest(){
+
+        return "member/manager/sideheader";
+    }
 
 }
