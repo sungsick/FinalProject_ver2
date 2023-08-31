@@ -185,10 +185,14 @@
 }
 
 .fsTop {
-
     display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
     margin-bottom: 25px;
-
 }
 
 .ReservationInfo {
@@ -229,7 +233,6 @@
 .prodPrice {
     font-size: 18px;
     font-weight: 500;
-    margin-top: 16px;
 }
 
 .card-top {
@@ -246,9 +249,23 @@
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 15px;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    flex: 0.21 1 0%;
+}
+
+.card-top-info-time {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sit-info {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 15px;
+    -webkit-box-pack: justify;
     flex: 0.21 1 0%;
 }
 
@@ -265,22 +282,21 @@
     line-height: 26px;
 }
 
-.card-top-info-time {
-    font-size: 18px;
-    font-weight: 600;
+@media (min-width: 1060px)
+
+.itinerary__to[_ngcontent-wej-c25]:before {
+    margin: 0 1.6rem;
+    vertical-align: 0;
 }
 
-.card-top-round-day {
-    width: auto;
-    height: 26px;
-    padding: 0px 10px;
-    background: rgb(132, 140, 148);
-    border-radius: 13px;
-    text-align: center;
-    color: rgb(255, 255, 255);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 26px;
+.itinerary__to[_ngcontent-wej-c25]:before {
+    content: "";
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin: 0 0.8rem;
+    background: url(https://www.koreanair.com/itinerary__to.svg) 50% 50%/16px 16px no-repeat;
+    vertical-align: -0.2rem;
 }
 
 .card-bottom {
@@ -348,7 +364,7 @@
     position: absolute;
     bottom: 0px;
     left: 0%;
-    width: 33.3333%;
+    width: 50%;
     height: 2px;
     background: #00ce7c;
     transition: left 0.3s ease 0s;
@@ -1454,3 +1470,283 @@ tbody {
     width: 100%;
 }
 
+.fsTopInfoRight {
+    margin-bottom: 10px;
+}
+
+.container h3.flight_title:before {
+    content: '';
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    margin-right: 10px;
+    width: 23px;
+    height: 16px;
+    background: url(https://flyasiana.com/C/pc/image/common/ico_tab_plane_red.png) no-repeat left center;
+}
+
+.gender[_ngcontent-gmg-c37] {
+    display: flex;
+    justify-content: space-between;
+    margin-top: .5rem
+}
+
+.gender__item[_ngcontent-gmg-c37] {
+    width: 100%;
+    position: relative
+}
+
+.gender__item[_ngcontent-gmg-c37]:first-child {
+    padding-right: .5rem
+}
+
+.gender__item[_ngcontent-gmg-c37]:last-child {
+    padding-left: .5rem
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][_ngcontent-gmg-c37] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    white-space: nowrap;
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    position: absolute;
+    width: calc(100% - .5rem);
+    height: 4rem;
+    margin: 0;
+    padding: 0;
+    border: 0
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][_ngcontent-gmg-c37]:focus ~ label[_ngcontent-gmg-c37] {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem #fff, 0 0 0 .3rem #0064de
+}
+
+.gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37] {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 46px;
+    padding: 15px;
+    border: 1px solid #767676;
+    border-radius: .2rem;
+    box-sizing: border-box;
+    color: #555;
+    font-size: 14px;
+}
+
+.gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37]:focus, .gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37]:hover {
+    outline: 0;
+    border-radius: .2rem !important;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px #0064de
+}
+
+.app[_ngcontent-gmg-c37] .gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37]:focus, .app[_ngcontent-gmg-c37] .gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37]:hover {
+    outline: 0 !important;
+    box-shadow: none !important
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][_ngcontent-gmg-c37]:checked ~ label[_ngcontent-gmg-c37] {
+    border-color: #0064de;
+    color: #0064de
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][_ngcontent-gmg-c37]:checked ~ label[_ngcontent-gmg-c37]:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: .8rem;
+    right: .8rem;
+    width: 2.4rem;
+    height: 10px;
+    background: url(https://www.koreanair.com/gender__radio--checked.svg) 50% 50%/24px 24px no-repeat
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][_ngcontent-gmg-c37]:checked ~ label[_ngcontent-gmg-c37]:before {
+    top: 1.1rem
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][aria-disabled=true][_ngcontent-gmg-c37] ~ label[_ngcontent-gmg-c37] {
+    border-color: #f8f9fc;
+    background-color: #f8f9fc;
+    color: #555;
+    cursor: not-allowed
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][aria-disabled=true][_ngcontent-gmg-c37]:checked ~ label[_ngcontent-gmg-c37] {
+    border-color: #f8f9fc;
+    background-color: #f8f9fc;
+    color: #555
+}
+
+.gender__item[_ngcontent-gmg-c37] [type=radio][aria-disabled=true][_ngcontent-gmg-c37]:checked ~ label[_ngcontent-gmg-c37]:before {
+    background: url(https://www.koreanair.com/gender__radio--checked.svg) 50% 50%/24px 24px no-repeat
+}
+
+.payment-divider[_ngcontent-gmg-c37] {
+    display: flex
+}
+
+.payment-divider[_ngcontent-gmg-c37] .opener[_ngcontent-gmg-c37] {
+    margin-top: -.9rem
+}
+
+@media (min-width: 1060px)
+
+.gender__item[_ngcontent-gmg-c37] label[_ngcontent-gmg-c37] {
+    width: 100%;
+    height: 46px;
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+}
+
+@media (min-width: 1060px)
+
+.column.-expand.-half {
+    width: 100%;
+    padding-right: calc(50% + 2rem);
+}
+
+.forms select {
+    padding-right: 2.4rem;
+    background: url(https://www.koreanair.com/ico-select.svg) right center/24px 24px no-repeat #fff;
+}
+
+@media (min-width: 1060px)
+
+.forms [type=email], .forms [type=number], .forms [type=password], .forms [type=search], .forms [type=tel], .forms [type=text], .forms select, .forms textarea {
+    height: 4.8rem;
+    font-size: 1.8rem;
+    line-height: 1.56;
+}
+
+.forms {
+    position: relative;
+}
+
+.forms [type=email], .forms [type=number], .forms [type=password], .forms [type=search], .forms [type=tel], .forms [type=text], .forms select, .forms textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    display: block;
+    opacity: 1;
+    width: 48%;
+    height: 46px;
+    padding: 12px;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #00256c;
+    border-radius: 0;
+    color: #000;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border .2s .3s, color .2s .3s, box-shadow .2s .3s;
+}
+
+select {
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    box-sizing: border-box;
+    align-items: center;
+    white-space-collapse: preserve;
+    -webkit-rtl-ordering: logical;
+    cursor: default;
+    margin: 0em;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-radius: 0px;
+}
+
+.dialog__aligner p {
+    margin-top: 16px;
+}
+
+.pcca .dialog__aligner {
+    margin-top: 2rem;
+}
+
+.mb4020 {
+    margin-bottom: 2rem !important;
+}
+
+.insurance-info .thead__th {
+    padding: 1.6rem;
+    border-bottom: 1px solid #dee0e2;
+    background-color: #f8f9fc;
+    color: #000000;
+    font-size: 17px;
+    line-height: 1.58;
+    text-align: center;
+    border-top: 1px solid black;
+}
+
+.insurance-info tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.insurance-info .tbody__td {
+    padding: 1.6rem;
+    border-top: 1px solid #dee0e2;
+    background-color: #fff;
+    color: #555;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: left;
+}
+
+.tbody__td + .tbody__td {
+    border-left: 1px solid #dee0e2;
+}
+
+*[class]._center {
+    text-align: center !important;
+}
+
+.tbody__tr:first-child .tbody__td {
+    border-top: 0;
+}
+
+.insurance-info showTale {
+    border-bottom: 1px solid black;
+}
+
+.caption:before {
+    content: "";
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 0.4rem;
+    background: url(https://www.koreanair.com/etc.clientlibs/koreanair/clientlibs/clientlib-base/resources/images/common/ico-caption.svg) no-repeat center center;
+    background-size: 16px 16px;
+    vertical-align: -0.3rem;
+}
+
+.caption {
+    margin: 0.8rem 0;
+    padding-left: 2rem;
+    text-indent: -2rem;
+    color: #555;
+    font-weight: 400;
+    font-size: 14px;
+}

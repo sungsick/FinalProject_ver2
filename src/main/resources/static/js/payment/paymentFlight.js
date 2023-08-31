@@ -7,7 +7,7 @@ $(function () {
         $(this).css('color', '#00ce7c');
         $(this).css('font-weight', '600');
 
-        var marginLeftValue = idx * 33.3333;
+        var marginLeftValue = idx * 50;
         $('.second-box-tabs-clicked-bar').animate({
             'margin-left': marginLeftValue + '%'
         }, 200)
@@ -15,13 +15,15 @@ $(function () {
         $('.third-box section:first > div').eq(idx).addClass('show')
     });
 
-    // 대여 가능 여부 생년 검사
+
+// 대여 가능 여부 생년 검사
     $('#input_birth').keyup(() => {
 
         var input_birth = document.getElementById('input_birth');
         var warningDiv = document.getElementById('warning');
         var inputYear = parseInt(input_birth.value.substring(0, 2));
         var currentYear = new Date().getFullYear() % 100;
+        const birthpattern = /^(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0,1])$/;
         var btnKakaoPay = document.getElementById('btnKakaoPay');
 
         if (input_birth.value >= 2) {
@@ -43,7 +45,7 @@ $(function () {
                 warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
                 warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
                 btnKakaoPay.disabled = false;
-            } else {
+            } else if (absolute < 20) {
                 console.log('20이하');
                 // 20세 미만
                 warningDiv.textContent = "20세 미만입니다.";
@@ -51,26 +53,44 @@ $(function () {
                 btnKakaoPay.disabled = true;
             }
 
+        } else if (!birthpattern.test(input_birth.value)) {
+            // 정규식 제대로 작동 안함. 이전에 조건에 의해 조건이 끝나는듯
+            console.log(birthpattern.test(input_birth.value) || input_birth.value.length > 6);
+            warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
+            warningDiv.style.color = "red";
+            btnKakaoPay.disabled = true;
         } else {
-            warningDiv.textContent = ""; // 경고 메시지 초기화
+            warningDiv.textContent = "'-' 을 제외한 생년월일 6자리를 입력하세요"; // 경고 메시지 초기화
             btnKakaoPay.disabled = true;
         }
     });
+
     // 카카오결제
     $("#btnKakaoPay").click(function () {
-        // 결제버튼
-        const input_name = document.getElementById('input_name');
-        const input_phone = document.getElementById('input_phone');
-        const input_birth = document.getElementById('input_birth');
-        // const nameValue = input_name.value;
-        // const phoneValue = input_phone.value;
-        // const birthValue = input_birth.value;
-        // console.log(nameValue);
-        // console.log(phoneValue);
-        // console.log(birthValue);
-        if (input_name.value === '' || input_phone.value === '' || input_birth.value === '') {
-            alert('필수 항목을 입력하세요');
-            (this).focus();
+
+        var query = {
+            input_name: $("#input_name").val(),
+            input_phone: $("#input_phone").val(),
+            input_birth: $("#input_birth").val(),
+            checkVal: $("input[formcontrolname=gender]:checked")
+        }
+        const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/; // 휴대폰 형식검사 정규 표현식
+
+        if (query.input_name === '') {
+            alert('이름을 입력하세요.');
+            query.input_name.focus();
+        } else if (query.input_phone === '') {
+            alert('핸드폰 번호를 입력하세요.');
+            query.input_birth.focus();
+        } else if (iquery.input_birth === '') {
+            alert('생년월일을 입력하세요.');
+            query.input_birth.focus();
+        } else if (!phoneNumberPattern.test(query.input_phone.value)) {
+            alert("휴대폰 번호를 올바르게 입력하세요.");
+            query.input_birth.focus();
+        } else if (!query.checkVal) {
+            alert("성별을 선택해 주세요.");
+            focus(input[formcontrolname = gender]);
         } else {
 
             // 필수입력값을 확인.
