@@ -1,7 +1,9 @@
 package com.kh.myproject.member.user.service;
 
 
+import com.kh.myproject.member.user.model.entity.Manager;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.user.repository.ManagerRepository;
 import com.kh.myproject.member.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ManagerRepository managerRepository;
 
     // Article 전체 목록 조회 실행
     public List<User> index() {
@@ -56,12 +61,16 @@ public class UserService {
     }
 
 
-    public User getUser(String user_id, String user_password) {
+    public Object getUser(String user_id, String user_password) {
 
-        int result = 0;
-        User user_result = userRepository.findByUserIdAndUserPassword(user_id, user_password);
 
-        return user_result;
+        Object manager_check = managerRepository.findByManagerIdAndManagerPassword(user_id, user_password);
+
+
+        if(manager_check == null) {
+            manager_check  = userRepository.findByUserIdAndUserPassword(user_id, user_password);
+        }
+        return manager_check;
     }
 
     public User getUserById(String user_id) {
@@ -156,6 +165,21 @@ public class UserService {
         return result;
 
     }
+
+    public List<User> getSomeUser(){
+
+        List<User> userlist = userRepository.findTop5ByOrderByUserDateDesc();
+
+        return userlist;
+    }
+
+    public List<User> findAll(){
+
+        List<User> userlist = userRepository.findAll();
+
+        return userlist;
+    }
+
 }
 
 

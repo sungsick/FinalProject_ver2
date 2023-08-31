@@ -3,6 +3,7 @@ package com.kh.myproject.api.kakaoPay.controller;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
 import com.kh.myproject.api.kakaoPay.service.PayService;
+import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
@@ -37,8 +38,9 @@ public class PayController {
 
     // flight 예약 페이지
     @GetMapping("/pay/flightPaymentPage")
-    public ModelAndView flightPaymentPage() {
+    public ModelAndView flightPaymentPage(@ModelAttribute("ticket")FlightTicketDto ticket) {
         ModelAndView flightPaymentPage = new ModelAndView();
+        flightPaymentPage.addObject("ticket", ticket);
         flightPaymentPage.setViewName("pay/flightPaymentPage");
         return flightPaymentPage;
     }

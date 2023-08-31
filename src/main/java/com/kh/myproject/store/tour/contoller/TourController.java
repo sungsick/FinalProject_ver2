@@ -30,7 +30,7 @@ public class TourController {
     }
 
     @GetMapping("/store/tour/tourSearch")
-    public ModelAndView tourism(ModelAndView mav) {
+    public ModelAndView tourSearch(ModelAndView mav) {
         mav.setViewName("store/tour/tourSearch");
 
         return mav;

@@ -164,6 +164,9 @@ h6 > b {
 .type_keyword {
     display: none;
 }
+.tour_container{
+    margin-top: 150px;
+}
 
 .tour_container button {
     border: none;
@@ -176,7 +179,9 @@ h6 > b {
     position: relative;
     padding-top: 35px;
 }
+.tour_detail_container{
 
+}
 .search_type_container {
     width: 300px;
     position: relative;
@@ -423,7 +428,7 @@ h6 > b {
 .btn_list .sigungu_btn {
     display: inline-block;
     float: left;
-    margin-right: 12px;
+    margin-right: 6px;
 }
 
 .modal_content_type_box.btn_list {
@@ -511,7 +516,7 @@ h6 > b {
     width: 1150px;
 
     margin: 0 auto;
-    padding-top: 35px;
+    margin-top: 150px;
 }
 
 .tour_main_box, .flight_rank_box {
@@ -705,6 +710,10 @@ h6 > b {
 }
 
 /*지역 페이지*/
+
+.cities_container{
+    margin-top: 115px;
+}
 .cities_title_container {
     width: 100%;
     position: relative;
@@ -719,9 +728,9 @@ h6 > b {
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: 350px;
+    height: 335px;
     z-index: -1;
-    bottom: 2px;
+    bottom: 10px;
     background-color: rgba(29, 27, 27, 0.5);
     background-blend-mode: multiply;
 }
@@ -731,7 +740,7 @@ h6 > b {
     margin: 0 auto;
     text-align: center;
     padding-top: 150px;
-    height: 200px;
+    height: 350px;
 
 }
 
@@ -979,4 +988,5 @@ h6 > b {
 
 .mySwiper img{
     height: 300px;
+    width: 100%;
 }

@@ -10,7 +10,7 @@ $('.search_area_btn').on('click', function(){
    $('.area_container').addClass('modal_on');
 
    $.ajax({
-      url: 'tour/getArea',
+      url: '/tour/getArea',
       type: 'get',
       dataType: 'text',
       success: function(data){
@@ -46,7 +46,7 @@ function insertArea(e){
    console.log('code=' + areaCode + ', name = ' + areaName);
 
    $.ajax({
-      url: 'tour/getSigungu',
+      url: '/tour/getSigungu',
       type: 'get',
       data: {
          areaCode : areaCode

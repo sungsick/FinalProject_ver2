@@ -3,7 +3,7 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
-import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
+import com.kh.myproject.member.user.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.UserForm;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.UserService;
@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -69,7 +68,7 @@ public class UserController {
 
         }
 
-        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다.
+        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다....
 
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
@@ -103,13 +102,30 @@ public class UserController {
     @PostMapping("member/loginPro")
     public ModelAndView loginPro(@RequestParam("user_id") String user_id,
                                  @RequestParam("user_password") String user_password,
-                                 ModelAndView modelAndView) {
+                                 ModelAndView modelAndView,
+                                 RedirectAttributes ra
+                                 ) {
 
         System.out.println(user_id);
         System.out.println(user_password);
 
-        User result = userService.getUser(user_id, user_password);
+        Object check_manager = userService.getUser(user_id, user_password);
+        User result = null;
         String msg = "";
+
+        if(check_manager instanceof Manager){
+
+            modelAndView.setViewName("redirect:/manager/home"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
+            ra.addFlashAttribute("check_manager",check_manager);
+            // 로그인을 통해 매니저 컨트롤러론 넘어갔다는 사실을 확인해야한다.
+
+            return modelAndView;
+        }
+        else if(check_manager instanceof User){
+            result = (User) check_manager;
+        }
+
+
         if (result != null) {
             msg = String.format("반갑습니다 %s님", result.getUserName());
             modelAndView.addObject("user", result); // 세션을 설정한다.
@@ -462,11 +478,7 @@ public class UserController {
                            RedirectAttributes ra) {
 
 
-        System.out.println(new_pw1);
-        System.out.println(user_number);
-
         int result = userService.updatePw(user_number, new_pw1);
-        System.out.println("updatePw실행결과 반환값 :" + result);
         ra.addFlashAttribute("result", result);
 
 
@@ -483,9 +495,14 @@ public class UserController {
     @GetMapping("/member/user/modaltest")
     public String modalTest() {
 
-
         return "member/user/test";
     }
 
+
+    @GetMapping("/sideheader")
+    public String managetest(){
+
+        return "member/manager/sideheader";
+    }
 
 }

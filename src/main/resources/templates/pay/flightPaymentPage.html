@@ -14,6 +14,10 @@
 <body>
 <div id="root">
     <header th:include="/header.html :: header"></header>
+    <h1 th:text="${ticket}"></h1>
+    <h1 th:text="${ticket.ticAirlineName}"></h1>
+    <h1 th:text="${ticket.user.userName}"></h1>
+    <h1>[[${ticket}]]</h1>
     <div class="mainBody">
         <div class="container">
             <div class="contents">
