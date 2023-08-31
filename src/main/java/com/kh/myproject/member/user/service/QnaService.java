@@ -23,4 +23,9 @@ public class QnaService {
     public void submitQna(Qna qna){
         qnaRepository.save(qna);
     }
+
+    public List<Qna> getAllQna(){
+
+        return qnaRepository.findAll();
+    }
 }

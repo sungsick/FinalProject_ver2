@@ -67,7 +67,7 @@
                     <div class="user-table-cell" th:text="${user.userGender}"></div>
                     <!-- date타입 파싱 -->
 
-                    <div class="user-table-cell" th:text="${#dates.format(user.userDate, 'yyyy-MM-dd')}"></div>
+                    <div class="user-table-cell" th:text="${#dates.format(user.userDate, 'yyyy-MM-dd HH:mm:ss')}"></div>
                     <div class="user-table-cell" th:text="'가입일'"></div>
                     <div class="user-table-cell" th:text="'1(임의)'"></div>
                     <div class="user-table-cell" th:text="'N임의'"></div>

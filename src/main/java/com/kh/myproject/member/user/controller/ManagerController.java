@@ -2,8 +2,10 @@ package com.kh.myproject.member.user.controller;
 
 
 import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.repository.UserRepository;
+import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,9 @@ public class ManagerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QnaService qnaService;
 
 
     // 매니저 뷰페이지는 크게 N가지로 나눈다.
@@ -106,17 +111,17 @@ public class ManagerController {
 
 
 
-//    @GetMapping("/manager/rentcarList")
-//    public String rentcarList() {
-//
-//        return "managerRentcar";
-//    }
-//
-//    @GetMapping("/manager/qnaList")
-//    public String qnaList() {
-//
-//        return "manageBoard";
-//    }
+
+    // 문의글 가져오기
+    @GetMapping("/qnaList")
+    public String qnaList(Model model) {
+
+        List<Qna> qnaList = qnaService.getAllQna();
+        model.addAttribute("qnaList",qnaList);
+
+        return "member/manager/qnaList";
+    }
+
 
 
 

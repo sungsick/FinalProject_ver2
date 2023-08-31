@@ -181,3 +181,34 @@ li{
     cursor:pointer;
 }
 
+
+.manager-container{
+    width: 1200px;
+}
+/* 여기서부터 매니저 */
+.manager-top-block{
+
+    display : flex;
+
+    justify-content: space-around;
+}
+
+.manager-top-block div{
+
+    width: 350px;
+    border : none;
+    box-sizing : border-box;
+    background-color : lightskyblue;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.manager-top-block-card{
+    text-align : center;
+}
+
+.manager-top-card-inner{
+
+    width: 310px;
+    padding : 20px
+}

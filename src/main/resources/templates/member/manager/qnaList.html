@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/member/managerPage.css">
+</head>
+<body>
+
+
+<table border="1">
+
+    <tr>
+        <td> 작성자</td>
+        <td> 문의글 제목</td>
+        <td> 문의글 내용</td>
+        <td> 작성일자</td>
+        <td> 문의글 답변</td>
+    </tr>
+
+    <th:block th:each="qna : ${qnaList}">
+        <tr>
+            <td th:text="${qna.qnaWriter}"></td>
+            <td th:text="${qna.qnaTitle}"></td>
+            <td th:text="${qna.qnaContent}"></td>
+
+
+            <td th:text="${#temporals.format(qna.qnaDate, 'yyyy년MM월dd일HH시mm분')}"></td>
+
+            <!--    <p>Formatted LocalDateTime: <span th:text="${#temporals.format(${qna.qnaDate}, 'yyyy-MM-dd HH:mm:ss')}"></span></p>-->
+            <!--    <td  th:text="${#dates.format(qna.qnaDate, 'yyyy-MM-dd HH:mm:ss')}"> </td>-->
+            <td th:text="${qna.qnaAnswer}"></td>
+
+
+        </tr>
+    </th:block>
+
+
+</table>
+
+
+<div class="manager-container">
+
+    <div class="manager-top-block">
+
+
+
+
+    <div class = "manager-top-card">
+        <div class = "manager-top-card-inner">
+        <p>일 방문자 수</p>
+
+        <h4>100명</h4>
+
+        <p>전일대비 증가 방문자 수 : 10명</p>
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div>
+    </div>
+</div>
+
+
+
+
+
+</div>
+
+</body>
+</html>
