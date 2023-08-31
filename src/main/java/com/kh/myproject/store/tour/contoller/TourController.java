@@ -2,7 +2,9 @@ package com.kh.myproject.store.tour.contoller;
 
 import com.kh.myproject.store.tour.CallTourAPI;
 import com.kh.myproject.api.naverBlog.BlogSearch;
+import com.kh.myproject.store.tour.service.TourService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class TourController {
 
 
+    @Autowired
+    TourService tourService;
     final String TOURAPI_URL = "https://apis.data.go.kr/B551011/KorService1/";
 
     final String SERVICE_KEY = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D";
@@ -25,7 +29,7 @@ public class TourController {
 
     @GetMapping("store/home")
     public ModelAndView storeHome(ModelAndView mav) {
-        mav.setViewName("store/tour/tourmain");
+        mav.setViewName("store/tour/tourMain");
         return mav;
     }
 
@@ -37,7 +41,9 @@ public class TourController {
     }
 
     @GetMapping("/store/tour/cities")
-    public ModelAndView cities(ModelAndView mav) {
+    public ModelAndView cities(@RequestParam("cityName") String cityName,
+                               ModelAndView mav) {
+        mav.addObject("cityName", cityName);
         mav.setViewName("store/tour/cities");
 
         return mav;

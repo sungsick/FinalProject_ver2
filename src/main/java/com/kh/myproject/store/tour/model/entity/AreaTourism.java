@@ -1,5 +1,6 @@
 package com.kh.myproject.store.tour.model.entity;
 
+import com.kh.myproject.store.tour.model.dto.AreaTourismDto;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class AreaTourism {
 
     @Id
@@ -22,6 +24,15 @@ public class AreaTourism {
     private int placeId;
     @Column
     private String placeName;
+
+    public AreaTourismDto toDto(){
+        return AreaTourismDto.builder()
+                .areaName(areaName)
+                .areaNameKo(areaNameKo)
+                .placeId(placeId)
+                .placeName(placeName)
+                .build();
+    }
 
 
 }

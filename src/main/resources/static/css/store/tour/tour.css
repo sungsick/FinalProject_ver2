@@ -827,6 +827,8 @@ h6 > b {
     margin: 30px 0px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    height: 500px;
 }
 
 .cities_card {

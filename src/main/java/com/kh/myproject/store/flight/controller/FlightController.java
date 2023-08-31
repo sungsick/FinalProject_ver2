@@ -2,7 +2,6 @@ package com.kh.myproject.store.flight.controller;
 
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
-import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @RestController
 @SessionAttributes("user")
@@ -56,12 +52,12 @@ public class FlightController {
 
     @GetMapping("/pay/flightPayment")
     public ModelAndView flightTest(ModelAndView mav,
-                                   @ModelAttribute("user") User user
-                                   ) {
+                                   @ModelAttribute("user") User user,
+                                   @ModelAttribute("ticket") FlightTicketDto ticket) {
 
 //        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
-
+        log.info("ticket={}", ticket);
 //        for (FlightTicketInfo item : list) {
 //            log.info("ticketItem={}", item);
 //        }
@@ -101,16 +97,19 @@ public class FlightController {
     }
 
     @PostMapping("/store/flight/reservationFlight")
-    public void saveFlight(@RequestBody FlightTicketDto ticket,
-                           @ModelAttribute("user") User user) {
+    public ModelAndView saveFlight(@RequestBody FlightTicketDto ticket,
+                           @ModelAttribute("user") User user,
+                           ModelAndView mav) {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보
         ticket.setUser(user); //dto에 유저정보 저장
 //        mav.addObject("ticket",ticket);
         ticketDto = ticket; //전역변수에 저장
+        mav.addObject("ticket", ticket);
         //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
-
+        mav.setViewName("redirect:/pay/flightPayment");
         //flightService.saveFlight(ticketInfo); //db에 저장
+        return mav;
     }
 
     @GetMapping("/store/flight/remove")
@@ -118,7 +117,7 @@ public class FlightController {
                                      ModelAndView mav){
         flightService.removeTicket(ticketId);
 
-        mav.setViewName("store/tour/tourmain");
+        mav.setViewName("tourMain");
         return mav;
     }
 
