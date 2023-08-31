@@ -53,20 +53,20 @@ public class FlightController {
         return mav;
     }
 
-    @GetMapping("/store/flight/flightTest1")
+    @GetMapping("/pay/flightPaymentPage")
     public ModelAndView flightTest(ModelAndView mav,
                                    @ModelAttribute("user") User user) {
 
-        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
+//        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
 
-        for (FlightTicketInfo item : list) {
-            log.info("ticketItem={}", item);
-        }
+//        for (FlightTicketInfo item : list) {
+//            log.info("ticketItem={}", item);
+//        }
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
-        mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("store/pay/flightPaymentPage");
+//        mav.addObject("ticketList", list); //티켓 리스트
+        mav.setViewName("pay/flightPaymentPage");
         return mav;
     }
 
@@ -98,18 +98,17 @@ public class FlightController {
         return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
-    @PostMapping("/store/flight/saveFlight")
+    @PostMapping("/store/flight/reservationFlight")
     public void saveFlight(@RequestBody FlightTicketDto ticket,
-                           @ModelAttribute("user") User user,
-                           ModelAndView mav) {
-        log.info("ticket={}", ticket);
-        log.info("user={}", user.getUserId());
-        ticket.setUser(user);
+                           @ModelAttribute("user") User user) {
+        log.info("ticket={}", ticket); //티켓 정보
+        log.info("user={}", user.getUserId()); //로긴한 유저 정보
+        ticket.setUser(user); //dto에 유저정보 저장
 //        mav.addObject("ticket",ticket);
-        ticketDto = ticket;
-        FlightTicketInfo ticketInfo = ticketDto.toEntity();
+        ticketDto = ticket; //전역변수에 저장
+        //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
 
-        flightService.saveFlight(ticketInfo);
+        //flightService.saveFlight(ticketInfo); //db에 저장
     }
 
     @GetMapping("/store/flight/remove")

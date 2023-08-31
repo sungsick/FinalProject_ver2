@@ -340,12 +340,12 @@ function dataTest(param) {
             location.href = '/member/login';
         } else {
             $.ajax({
-                url: '/store/flight/saveFlight',
+                url: '/store/flight/reservationFlight',
                 type: 'post',
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
                 success: function (data) {
-                    location.href = "/store/flight/flightTest1";
+                    location.href = "/pay/flightPaymentPage";
                 }
             });
         }
