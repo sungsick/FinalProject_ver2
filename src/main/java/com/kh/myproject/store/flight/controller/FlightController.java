@@ -66,7 +66,7 @@ public class FlightController {
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
         mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("/store/flight/flightTest");
+        mav.setViewName("store/pay/flightPaymentPage");
         return mav;
     }
 
