@@ -55,11 +55,12 @@
 
 }
 
-#title{
+#title, #join_logo{
 
     margin-top: 30px;
     width: 150px;
     height: 100px;
+    margin-bottom: 30px;
 }
 
 .login_block{
@@ -68,6 +69,7 @@
     height: 50px;
     margin: 0 auto;
     margin-bottom: 20px;
+
 
 
 }
@@ -79,8 +81,8 @@
     height: 40px;
     border-radius: 5px;
     border : 1px solid grey;
-    color : grey;
     outline : none;
+    color : black;
 
 }
 
@@ -114,7 +116,7 @@
     border-radius: 5px;
     color : #2B96EC;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 #join_btn:active{
@@ -268,11 +270,6 @@
 
 }
 
-#join_logo{
-
-    width: 150px;
-    height: 120px;
-}
 
 .phone_block{
 
@@ -289,7 +286,7 @@
     background-color: #05B6CE;
     border : none;
     border-radius: 5px;
-    width: 90px;
+    width: 100px;
     height: 40px;
     color:white;
 
@@ -327,7 +324,7 @@
 .right_phone_block{
 
     color :white;
-    font-size: 14px;
+    font-size: 13px;
 
 }
 

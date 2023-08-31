@@ -16,6 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j // 데이터베이스 로그를 확인
@@ -184,6 +187,25 @@ public class UserService {
 
         return userlist;
     }
+
+    public List<Integer> getUserJoinCount(){
+
+        List<Integer> countList = new ArrayList<>();
+
+        for(int i = 0 ; i < 10 ; i++){
+
+
+            countList.add(userRepository.countByDate(i));
+        }
+
+
+        System.out.println(countList);
+
+
+        return countList;
+    }
+
+
 
 
 }

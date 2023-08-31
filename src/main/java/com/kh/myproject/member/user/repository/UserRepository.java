@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 
@@ -47,4 +48,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
                                   @Param("user_phone2")String user_phone2);
 
     List<User> findTop5ByOrderByUserDateDesc();
+
+
+//    @Query("SELECT " +
+//            "   (SELECT COUNT(u.userId) FROM User u WHERE DATEDIFF(NOW(), u.userRegdate) = 0) AS day0, " +
+//            "   (SELECT COUNT(u.userId) FROM User u WHERE DATEDIFF(NOW(), u.userRegdate) = 1) AS day1, " +
+//            "   (SELECT COUNT(u.userId) FROM User u WHERE DATEDIFF(NOW(), u.userRegdate) = 2) AS day2, " +
+//            "   (SELECT COUNT(u.userId) FROM User u WHERE DATEDIFF(NOW(), u.userRegdate) = 3) AS day3, " +
+//            "   (SELECT COUNT(u.userId) FROM User u WHERE DATEDIFF(NOW(), u.userRegdate) = 4) AS day4 ")
+//    List<Long> countUsersByDateDiff();
+
+    //select count(*) from user where datediff( now(), user_regdate) < 4 group by datediff(now(), user_regdate);
+
+    @Query("select count(*) from  User u where datediff(now(), u.userRegdate) = :count")
+
+    int countByDate(@Param("count")int count);
 }
