@@ -502,6 +502,11 @@ public class UserController {
         return result + "";
     }
 
+    @GetMapping("/sideheader")
+    public String sideheader(){
+
+        return "member/manager/sideheader";
+    }
 
 
 }
