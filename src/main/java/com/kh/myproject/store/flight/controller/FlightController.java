@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -53,9 +54,10 @@ public class FlightController {
         return mav;
     }
 
-    @GetMapping("/pay/flightPaymentPage")
+    @GetMapping("/pay/flightPayment")
     public ModelAndView flightTest(ModelAndView mav,
-                                   @ModelAttribute("user") User user) {
+                                   @ModelAttribute("user") User user
+                                   ) {
 
 //        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
@@ -66,7 +68,7 @@ public class FlightController {
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
 //        mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("pay/flightPaymentPage");
+        mav.setViewName("/pay/flightPaymentPage");
         return mav;
     }
 
