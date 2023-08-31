@@ -333,7 +333,7 @@ function dataTest(param) {
 
         if ($('#sessionUser').val() === '') {
             alert('로그인후 이용하세요');
-            location.href = '/store/home';
+            location.href = '/member/login';
         } else {
             $.ajax({
                 url: '/store/flight/saveFlight',

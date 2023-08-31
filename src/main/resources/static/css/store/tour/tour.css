@@ -164,6 +164,9 @@ h6 > b {
 .type_keyword {
     display: none;
 }
+.tour_container{
+    margin-top: 150px;
+}
 
 .tour_container button {
     border: none;
@@ -511,7 +514,7 @@ h6 > b {
     width: 1150px;
 
     margin: 0 auto;
-    padding-top: 35px;
+    margin-top: 150px;
 }
 
 .tour_main_box, .flight_rank_box {
@@ -705,6 +708,10 @@ h6 > b {
 }
 
 /*지역 페이지*/
+
+.cities_container{
+    margin-top: 115px;
+}
 .cities_title_container {
     width: 100%;
     position: relative;

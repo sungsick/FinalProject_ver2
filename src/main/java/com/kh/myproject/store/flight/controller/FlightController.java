@@ -2,7 +2,7 @@ package com.kh.myproject.store.flight.controller;
 
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
-import com.kh.myproject.store.flight.model.entity.TicketInfo;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 @RestController
@@ -61,12 +57,15 @@ public class FlightController {
     public ModelAndView flightTest(ModelAndView mav,
                                    @ModelAttribute("user") User user) {
 
-        List<TicketInfo> list = flightService.getTicketList(user.getUserNumber());
+        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
-        for (TicketInfo item : list) {
+
+        for (FlightTicketInfo item : list) {
             log.info("ticketItem={}", item);
         }
-        mav.addObject("ticket", ticketDto);
+
+        mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
+        mav.addObject("ticketList", list); //티켓 리스트
         mav.setViewName("/store/flight/flightTest");
         return mav;
     }
@@ -108,7 +107,7 @@ public class FlightController {
         ticket.setUser(user);
 //        mav.addObject("ticket",ticket);
         ticketDto = ticket;
-        TicketInfo ticketInfo = ticketDto.toEntity();
+        FlightTicketInfo ticketInfo = ticketDto.toEntity();
 
         flightService.saveFlight(ticketInfo);
     }

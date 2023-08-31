@@ -1,6 +1,6 @@
 package com.kh.myproject.store.flight.service;
 
-import com.kh.myproject.store.flight.model.entity.TicketInfo;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ public class FlightService {
     @Autowired
     private FlightTicketRepository flightRepository;
 
-    public void saveFlight(TicketInfo TicketInfo){
+    public void saveFlight(FlightTicketInfo TicketInfo){
 
         flightRepository.save(TicketInfo);
     }
 
-    public List<TicketInfo> getTicketList(Long userNum){
+    public List<FlightTicketInfo> getTicketList(Long userNum){
         return flightRepository.findByUser_UserNumber(userNum);
     }
 

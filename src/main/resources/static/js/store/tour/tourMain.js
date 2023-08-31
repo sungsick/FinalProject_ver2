@@ -1,6 +1,11 @@
-
-
-function easyFlightSearch(num) {
+$('.test_tour_main').on('click', function(){
+   console.log($(this).attr('id'));
+});
+$('.flight_rank_card').on('click', function(){
+    var index = $(this).index();
+    easyFlightSearch(index);
+});
+function easyFlightSearch(index) {
     var startAirport = "";
     var endAirport = "";
 
@@ -12,8 +17,7 @@ function easyFlightSearch(num) {
 
     startDate = year + "-" + month + "-" + date;
 
-    console.log(startDate);
-    switch (num) {
+    switch (index) {
         case 0:
             startAirport = "NAARKSS";
             endAirport = "NAARKPC";
@@ -31,7 +35,7 @@ function easyFlightSearch(num) {
             endAirport = "NAARKTU";
             break;
     }
-    console.log(num);
+    console.log(index);
     console.log(startAirport);
     console.log(endAirport);
     location.href="/store/flight/flights?startAirport=" + startAirport + "&endAirport=" + endAirport + "&startDate=" + startDate + "&pageNo=" + 1;

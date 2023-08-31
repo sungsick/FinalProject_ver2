@@ -28,6 +28,9 @@ h1 {
     color: #00b8ff;
 }
 
+.flight_search_container{
+    margin-top: 150px;
+}
 
 .flight_search_container:after {
     content: "";

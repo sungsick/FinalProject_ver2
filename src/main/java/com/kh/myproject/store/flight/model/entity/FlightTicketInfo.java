@@ -6,12 +6,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ticket_info")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class TicketInfo {
+public class FlightTicketInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
