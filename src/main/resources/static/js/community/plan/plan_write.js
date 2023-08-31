@@ -1,13 +1,46 @@
-// -----------------------------------------------------------------------------------------------------
+//버튼 관련
 
-// 카카오맵 js
+//내 일정으로 이동 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
+const MoveMySchedule = document.querySelector('.complete_write_btn');
 
-var item = []; //일정 선택을 담을 배열
+MoveMySchedule.addEventListener('click', () => {
+    window.location.href = '../plan';
+});
 
+//여행지 추가 버튼 클릭 시 plan_add로 이동
+const MovePlanAdd = document.querySelector('.add_place_button');
+
+MovePlanAdd.addEventListener('click', () => {
+    window.location.href = '../plan/add';
+});
+
+
+// 날짜 선택 관련
+// 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
+document.getElementById('select_start_date').addEventListener('change', function() {
+    // 선택한 날짜 값을 가져옵니다.
+    var selectedStartDate = this.value;
+
+    // <div class="sc_date_start"> 요소의 내용을 선택한 날짜로 업데이트합니다.
+    document.querySelector('.sc_date_start').textContent = selectedStartDate;
+});
+
+// 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
+document.getElementById('select_end_date').addEventListener('change', function() {
+    // 선택한 날짜 값을 가져옵니다.
+    var selectedEndDate = this.value;
+
+    // <div class="sc_date_start"> 요소의 내용을 선택한 날짜로 업데이트합니다.
+    document.querySelector('.sc_date_end').textContent = selectedEndDate;
+});
+
+
+
+//카카오맵 관련
 // 마커를 담을 배열입니다
 var markers = [];
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div.
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
@@ -139,64 +172,13 @@ function getListItem(index, places) {
     itemStr += '  <span class="tel">' + places.phone + '</span>' +
         '</div>';
 
-    itemStr += `<div><button class="select_placebtn">선택</button></div>`;
     el.innerHTML = itemStr;
     el.className = 'item';
-
-    // 장소 누르면 카카오 플레이스 이동
-    var infoDiv = el.querySelector('.info');
-    infoDiv.addEventListener('click', function () {
-        window.open(places.place_url, "_blank", "width=900, height=750");
-        //console.log(places.place_name);
-    });
-
-    //장소 검색 후 '선택' 클릭 시 콘솔창에 출력 ->
-    var placebtn = el.querySelector('.select_placebtn');
-
-    placebtn.addEventListener('click', function () {
-
-        temp = {
-            place_name: places.place_name,
-            address_name: places.address_name,
-            category_group_name: places.category_group_name,
-            id: places.id
-        };
-
-        item.push(temp);
-        console.log(item);
-
-
-    });
-
-
+    el.addEventListener('click', function () {
+        window.open(places.place_url, "_blank", "width=900, height=500")
+    }); //place map 보여주는 함수
     return el;
-
 }
-
-// 장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
-$('.add_place_btn').on('click', function () {
-
-    $.ajax({
-        url: '/community/plan/move',
-        type: 'post',
-        data: JSON.stringify(item),
-        contentType: 'application/json',
-        success: function (data) {
-            location.href = "/community/plan/write";
-        }
-
-    });
-});
-
-// 장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
-// const MoveMySchedule = document.querySelector('.add_place_btn');
-//
-// MoveMySchedule.addEventListener('click', () => {
-//
-//     // window.location.href =`../plan/write/${item}`;
-//     window.location.href = '../plan/write';
-// });
-
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {
@@ -273,10 +255,6 @@ function removeAllChildNods(el) {
         el.removeChild(el.lastChild);
     }
 }
-
-
-// 추가 기능
-
 
 //2. 지도에 컨트롤 올리기 추가
 // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
@@ -368,6 +346,7 @@ var toolbox = new kakao.maps.Drawing.Toolbox({drawingManager: manager});
 // 지도 위에 Toolbox를 표시합니다
 // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOP은 위 가운데를 의미합니다.
 map.addControl(toolbox.getElement(), kakao.maps.ControlPosition.TOP);
+
 
 
 

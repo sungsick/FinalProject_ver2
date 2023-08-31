@@ -33,6 +33,9 @@ body{
     width: 100%;
     height: auto;
 
+    margin: 0 auto;
+    max-width: 1200px;
+
 }
 
 .kakaomaps {
@@ -45,6 +48,9 @@ body{
     margin-top: 10px;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 10px;
+
+    flex: 1;
+    margin-right: 20px;
 }
 
 .kakaomaps_in {
@@ -58,10 +64,12 @@ body{
     position: relative;
     width: 588px;
     height: auto;
+
+    flex: 1;
+    margin-left: 20px;
 }
 
 .article {
-
 
     z-index: 99;
     top: 145px;
@@ -159,7 +167,7 @@ body{
     float: left;
     position: relative;
     padding: 30px 0 30px 15px;
-    height: 120px;
+    height: 150px;
     margin-right: 50px; /* 조정된 부분 */
 }
 
@@ -336,19 +344,7 @@ body{
 }
 
 
-.sc_des_div2_des {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: rgb(213, 240, 255);
-    border-radius: 10px;
 
-
-}
 
 .sc_des_div2_des > svg {
     width: 24px;
@@ -383,6 +379,7 @@ body{
     background-color: rgb(213, 240, 255);
     color: rgb(213, 240, 255);
     border-radius: 10px;
+    margin-right: 10px;
 }
 
 .sc_des_div2_in {
@@ -391,29 +388,25 @@ body{
 
 }
 
-.sc_des_div2_span {
-    font-style: normal;
-    margin-left: 10px;
-}
 
-.sc_des_div3 {
+
+
+.form-select_place{
     display: flex;
+    justify-content: center;
     -webkit-box-align: center;
     align-items: center;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
+    -webkit-box-pack: center;
+    width: auto;
+    height: 34px;
+    border: 1px solid rgb(0, 100, 200);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+
 }
 
-.sc_des_mark_icon {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    border: 1px solid blue;
-}
+
 
 
 .sc_des2 {
@@ -454,18 +447,6 @@ body{
     padding: 6px 0px;
 }
 
-.sc_des2_div2_des {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background-color: rgb(213, 240, 255);
-    border-radius: 10px;
-}
-
 .sc_des2_div2_des > svg {
     width: 24px;
     height: 24px;
@@ -502,29 +483,9 @@ body{
     align-items: center;
 }
 
-.sc_des2_div2_span {
-    font-style: normal;
-    margin-left: 10px;
-}
 
-.sc_des2_div3 {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-}
 
-.sc_des2_mark_icon {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-    border: 1px solid blue;
-}
+
 
 .sc_date_start {
     margin-left: 10px;
@@ -535,36 +496,10 @@ body{
 }
 
 
-.sc_ct {
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-}
 
-.sc_ctn_front {
-    width: 10%;
-    height: 24px;
-}
 
-.sc_ctn {
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    width: 70%;
-    height: 24px;
-    margin-left: 9px;
-    font-size: 16px;
-    font-weight: 500;
-    justify-content: space-between;
-}
 
-.ctn1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
-}
+
 
 .ctn1_span2 {
     display: flex;
@@ -584,35 +519,13 @@ body{
     margin-left: 10px;
 }
 
-.ctn1_btn_span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-}
-
-.ctn1_btn {
-    display: flex;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    width: 120px;
-    height: 34px;
-    border: 1px solid rgb(0, 100, 200);
-    border-radius: 10px;
-    color: rgb(0, 100, 200);
-    background-color: rgb(255, 255, 255);
-}
 
 .day1_span {
     color: #d3d5e0;
     font-weight: 500;
 }
 
-.ctn1_div {
-    margin-left: 10px;
-}
 
 
 
@@ -643,46 +556,11 @@ body{
     background: rgb(255, 255, 255);
     box-shadow: none;
 }
-.sc_ctn_destination {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
 
-    margin-right:5px;
-}
 
-.sc_ctn_destination::before {
-    display: block;
-    width: 1px;
-    height: 100%;
-    content: "";
-    position: absolute;
-    left: 74px;
-    top: 0px;
-    border-right: 1px dashed rgb(219, 219, 219);
-    margin-top: 30px;
-}
-.sc_ctn_destination2 {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
 
-}
 
-.sc_ctn_destination2::before {
-    display: block;
-    width: 1px;
-    height: 100%;
-    content: "";
-    position: absolute;
-    left: 74px;
-    top: 0px;
-    border: transparent;
-}
+
 /*.sc_ctn_des {
     width: 100%;
     height: auto;
@@ -705,68 +583,12 @@ body{
     border-right: 1px dashed rgb(219, 219, 219);
 }*/
 
-.sc_ctn_des_front{
-    width: 98%;
-    height: auto;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    align-items: flex-start;
-    box-sizing: border-box;
-    position: relative;
-    margin-right: 5px;
-    margin-top: 10px;
 
 
-}
-.sc_ctn_des_front2{
-    width: 98%;
-    height: auto;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    align-items: flex-start;
-    box-sizing: border-box;
-    position: relative;
-    margin-right: 5px;
-    margin-top: 10px;
-}
-.sc_ctn_des_icon{
-    margin-left: 10px;
-    margin-top: 35px;
-}
-.sc_ctn_des_guri{ /* ok */
-    width: 66px;
-    margin-top: 40px;
-    height: 20px;
-    display: flex;
-    -webkit-box-pack: end;
-    justify-content: flex-end;
-    -webkit-box-align: center;
-    align-items: center;
-    color: rgb(106, 106, 106);
-    font-weight: 400;
-    font-size: 13px;
-    position: relative;
-}
 
-.ctn1_des_{
-    user-select: none;
-    height: auto;
-    box-sizing: border-box;
-    background: rgb(255, 255, 255);
-    box-shadow: none;
-}
 
-.ctn1_des_div_in{
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+
+
 .ctn1_des_num{
     width: 20px;
     height: 20px;
@@ -781,220 +603,22 @@ body{
     -webkit-box-align: center;
     align-items: center;
 }
-.ctn1_des_li{
-    width: 100%;
-    height: 40px;
-    overflow: hidden;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-@media screen and (max-width: 1199px)
-.ctn1_des_list{
-    border: 1px solid rgb(233, 233, 233);
-}
-.ctn1_des_list{
-    margin: 0px 10px;
-    width: calc(100% - 20px);
-    height: 40px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    box-sizing: border-box;
-    padding: 0px 6px 0px 10px;
-    border: 1px solid rgb(0, 100, 200);
-}
-@media screen and (max-width: 1199px)
-.ctn1_des_list_span1 {
-    width: 190px;
-}
-.ctn1_des_list_span1 {
-    width: 240px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-}
-.ctn1_des_list_span1p { /*제주국제공항*/
-    max-width: 70%;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.ctn1_des_list_span1sp { /* 공항 */
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 24px;
-    color: rgb(255, 168, 0);
-    margin-left: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    user-select: none;
-    -webkit-user-drag: none;
-    max-width: 30%;
-}
-.ctn1_des_list_place{
-    width: 24px;
-    height: 24px;
-    position: relative;
-}
-.ctn1_des_list_place::before {
-    display: block;
-    content: "";
-    width: 16px;
-    height: 2px;
-    position: absolute;
-    background: rgb(154, 154, 154);
-    border-radius: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 9px;
-}
-.ctn1_des_list_place::after {
-    display: block;
-    content: "";
-    width: 16px;
-    height: 2px;
-    position: absolute;
-    background: rgb(154, 154, 154);
-    border-radius: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 14px;
-}
 
 
 
 
 
 
-/* 여기서부터 2번 박스 */
-.ctn1_des_div_in2{
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-.ctn1_des_num2{
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: rgb(252, 112, 112);
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-    font-size: 13px;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-}
-.ctn1_des_li2{
-    width: 100%;
-    height: 40px;
-    overflow: hidden;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-@media screen and (max-width: 1199px)
-.ctn1_des_list2{
-    border: 1px solid rgb(233, 233, 233);
-}
-.ctn1_des_list2{
-    margin: 0px 10px;
-    width: calc(100% - 20px);
-    height: 40px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    box-sizing: border-box;
-    padding: 0px 6px 0px 10px;
-    border: 1px solid rgb(0, 100, 200);
-}
-@media screen and (max-width: 1199px)
-.ctn1_des_list_span12 {
-    width: 190px;
-}
-.ctn1_des_list_span12 {
-    width: 240px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-}
-.ctn1_des_list_span1p2 { /*제주국제공항*/
-    max-width: 70%;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    user-select: none;
-    -webkit-user-drag: none;
-}
 
-.ctn1_des_list_span1sp2 { /* 공항 */
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 24px;
-    color: rgb(255, 168, 0);
-    margin-left: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre;
-    user-select: none;
-    -webkit-user-drag: none;
-    max-width: 30%;
-}
-.ctn1_des_list_place2{
-    width: 24px;
-    height: 24px;
-    position: relative;
-}
-.ctn1_des_list_place2::before {
-    display: block;
-    content: "";
-    width: 16px;
-    height: 2px;
-    position: absolute;
-    background: rgb(154, 154, 154);
-    border-radius: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 9px;
-}
-.ctn1_des_list_place2::after {
-    display: block;
-    content: "";
-    width: 16px;
-    height: 2px;
-    position: absolute;
-    background: rgb(154, 154, 154);
-    border-radius: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 14px;
-}
+
+
+
+
+
+
+
+
+
 .btm_btn{
 
     width: 100%;
@@ -1112,4 +736,16 @@ body{
     font-size: 15px;
     font-weight: 400;
     box-sizing: inherit;
+}
+
+
+
+
+
+
+/*수정중*/
+.article3{
+    width: 100%;
+    height: auto;
+
 }

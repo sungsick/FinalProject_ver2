@@ -55,9 +55,6 @@ public class PlanController {
     }
 
 
-
-
-
     @PostMapping("/community/plan/move")
     @ResponseBody
     public void move(@RequestBody PlanDTO[] map){
@@ -70,13 +67,6 @@ public class PlanController {
 
 
     }
-
-
-
-
-
-
-
 
 
 
