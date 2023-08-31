@@ -179,7 +179,9 @@ h6 > b {
     position: relative;
     padding-top: 35px;
 }
+.tour_detail_container{
 
+}
 .search_type_container {
     width: 300px;
     position: relative;
@@ -426,7 +428,7 @@ h6 > b {
 .btn_list .sigungu_btn {
     display: inline-block;
     float: left;
-    margin-right: 12px;
+    margin-right: 6px;
 }
 
 .modal_content_type_box.btn_list {

@@ -86,13 +86,17 @@ $(function () {
 
 /* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
-    pageNo = 1;
-    $('.loading_wrap').css('display', 'block'); //검색 모달
+    if ($('#flight_date').val() === '') {
+        alert("날짜를 선택해주세요");
+    } else {
+        pageNo = 1;
+        $('.loading_wrap').css('display', 'block'); //검색 모달
 
-    $('.result_title').empty();
-    $('.result_table_wrap').empty();
+        $('.result_title').empty();
+        $('.result_table_wrap').empty();
+        searchFlight(pageNo, numOfRows);
+    }
 
-    searchFlight(pageNo, numOfRows);
 });
 
 /* 더보기 */

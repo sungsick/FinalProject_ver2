@@ -1,6 +1,12 @@
 $('.test_tour_main').on('click', function(){
-   console.log($(this).attr('id'));
+   var cityName = $(this).attr('id')
+   console.log(city);
+
 });
+
+function citiesDetail(cityName){
+    location.href=`/store/tour/cities?cityName=${cityName}`;
+}
 $('.flight_rank_card').on('click', function(){
     var index = $(this).index();
     easyFlightSearch(index);
