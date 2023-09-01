@@ -192,13 +192,9 @@ public class UserService {
 
         List<Integer> countList = new ArrayList<>();
 
-        for(int i = 0 ; i < 10 ; i++){
-
-
+        for(int i = 9 ; i >= 0 ; i--){
             countList.add(userRepository.countByDate(i));
         }
-
-
         System.out.println(countList);
 
 

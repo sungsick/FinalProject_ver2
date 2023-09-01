@@ -216,6 +216,8 @@
                         </div>
                         <div class="ml_2" th:text="${qlist.qnaTitle}"></div>
                         <div class="ml_3" th:text="${qlist.qnaContent}"></div>
+
+<!--                        <div class = "ml_4" th:text="${#temporals.format(qlist.qnaDate, 'yyyy년MM월dd일HH시mm분')}"></div>-->
                         <div class="ml_4" th:text="${#strings.substring(qlist.qnaDate,0,10)+ ' '+#strings.substring(qlist.qnaDate,11,19)}"></div>
                     </div>
                     <div class="mql_answer hide" th:if="${qlist.qnaAnswer != null}">

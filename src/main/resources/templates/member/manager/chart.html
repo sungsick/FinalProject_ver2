@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #chart{
+            width: 500px;
+        }
+    </style>
 </head>
 <body>
 
-<div>
+<div id = "chart">
     <canvas id="myChart"></canvas>
 </div>
 
@@ -61,7 +66,9 @@
 
     function showChart(countList,dayList) {
 
+        console.log(countList);
         new Chart(ctx, {
+
             type: 'line',
             data: {
                 labels: dayList,
