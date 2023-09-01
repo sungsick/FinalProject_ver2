@@ -191,4 +191,64 @@ $(function () {
         $('.insurance-info').removeClass('showTale');
         $('.insurance-info').eq(idx).addClass('showTale'); // sections-con.show > section:nth-child(3) > table
     });
+
+    // 핸드폰 인증
+    var auth_num = '';
+    var auth_check = false;
+    var id_check = false;
+
+    // 인증번호 요청, 재요청 클릭시
+    $('#verifyBtn').click(function () {
+        const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+        const input_phone = $("#input_phone").val();
+
+        if (phoneNumberPattern.test(input_phone)) {
+
+            $('.auth').removeClass('auth');
+            $('#verifyBtn').text('재요청');
+
+        } else {
+            alert("잘못된 번호입니다")
+            $("#input_phone").focus();
+        }
+
+        if (!auth_check) { // 인증완료가 아직 안됐을 경우.
+
+            $.ajax({
+                url: '/member/joinAuth',
+                method: 'POST',
+                data: {input_phone: input_phone},
+                success: function (data) {
+
+
+                    console.log(data); // controller에서 넘긴 data를 받아온다.
+                    auth_num = data;
+
+                    // 인증번호 칸 열기
+
+                },
+                error: function () {
+
+                }
+
+            });
+        } else {
+
+            alert("이미 인증이 완료됐습니다.");
+        }
+    })
+
+    $('#verifyConfirmBtn').click(function () {
+
+        if (auth_num === $('#input_auth').val() || auth_check) {
+
+            alert('인증이 완료됐습니다.');
+            auth_check = true;
+            $('#input_phone').val("인증완료");
+            $('#input_phone').prop('disabled', true);
+            $('.auth').addClass('auth')
+
+        }
+    })
+
 });

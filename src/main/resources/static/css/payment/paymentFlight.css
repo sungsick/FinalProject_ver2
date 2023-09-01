@@ -607,6 +607,14 @@ input:not([type="range"]), label, select, summary, textarea {
     background-color: #fff;
 }
 
+#input_phone {
+    width: 59%;
+}
+
+#input_auth {
+    width: 59%;
+}
+
 button, input {
     overflow: visible;
 }
@@ -1796,4 +1804,8 @@ sel-nation-ADT-0 {
 
     border-color: #0064de;
     color: #0064de
+}
+
+.auth {
+    display: none;
 }
