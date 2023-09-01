@@ -54,8 +54,9 @@ public class AccompanyController {
 
     @GetMapping ("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
     public String communityaccompanywritePro(AccompanyForm form,
+                                             @RequestParam("ac_region")String ac_region,
                                              @RequestParam("ac_startdate")String ac_startdate,
-                                             @RequestParam("ac_startdate")String ac_enddate,
+                                             @RequestParam("ac_enddate")String ac_enddate,
                                              @RequestParam("ac_title")String ac_title,
                                              @RequestParam("ac_text")String ac_text,
                                              @RequestParam("ac_people")String ac_people,
@@ -63,9 +64,9 @@ public class AccompanyController {
                                                 ) {
 
         System.out.println(form);
-
+        System.out.println("ac_region" + ac_region);
         System.out.println("ac_startdate" + ac_startdate);
-        System.out.println("ac_startdate" + ac_startdate);
+        System.out.println("ac_enddate" + ac_enddate);
         System.out.println("ac_title" + ac_title);
         System.out.println("ac_text" + ac_text);
         System.out.println("ac_people" + ac_people);

@@ -113,4 +113,26 @@
 
 
 
+function ShowSliderValue(sVal) {
+    const obValueView = document.getElementById("slider_value_view");
+    obValueView.innerHTML = sVal
+}
+    const RangeSlider = function(){
+    const range=$('.form-range');
 
+    range.on('input',function(){
+        ShowSliderValue(this.value);
+    })
+    }
+
+RangeSlider();
+
+/*안됨*/
+    const slider = document.getElementById("customRange1");
+    const sliderValue = document.getElementsByClassName("form-label");
+
+    slider.addEventListener("input", function () {
+        sliderValue.textContent = this.value;
+        // 파란색 점을 따라다니게 하려면 추가적인 작업이 필요합니다.
+        // 파란색 점을 원하는 위치로 이동시키는 코드를 여기에 추가하세요.
+    });
