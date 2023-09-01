@@ -115,7 +115,7 @@
                                                     인증번호
                                                 </button>
                                             </div>
-                                            <div class="driver-info-section-inputs-text-phone auth" id="verify">
+                                            <div class="driver-info-section-inputs-text-phone auth hideClass">
                                                 <div style="flex: 1 1 0%;">
                                                     <input class="_input_default_pczwv_3 StylesInpuWithBottomText-gVruQj cwqtNt"
                                                            id="input_auth"
@@ -1530,11 +1530,9 @@
     defaultUserNameElement.value = defaultUserName;
     defaultUserPhoneNumElement.value = defaultUserPhoneNum;
 
-    if (![[${user.userName}]] === '') {
+    if (![[${user.userName}]] === '' || ![[${user.userPhone}]] === '') {
         defaultUserNameElement.disabled = ture;
         defaultUserNameElement.backgroundColor = rgb(246, 246, 246);
-        // $('#input_name').css('color', '#0064de');
-        // $('#input_name').css('border-color', '#0064de');
     }
 
     // 유저 성별 정보 가져오기

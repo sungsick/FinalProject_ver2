@@ -200,11 +200,11 @@ $(function () {
     // 인증번호 요청, 재요청 클릭시
     $('#verifyBtn').click(function () {
         const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
-        const user_phone = $("#input_phone").val();
+        const input_phone = $("#input_phone").val();
 
-        if (phoneNumberPattern.test(user_phone)) {
+        if (phoneNumberPattern.test(input_phone)) {
 
-            $('#verify').removeClass('auth');
+            $('.auth').removeClass('auth');
             $('#verifyBtn').text('재요청');
 
         } else {
@@ -217,7 +217,7 @@ $(function () {
             $.ajax({
                 url: '/member/joinAuth',
                 method: 'POST',
-                data: {user_phone: user_phone},
+                data: {input_phone: input_phone},
                 success: function (data) {
 
 
@@ -244,11 +244,13 @@ $(function () {
 
             alert('인증이 완료됐습니다.');
             auth_check = true;
-            $('#verify').addClass('auth');
             $('#input_phone').val("인증완료");
-            $('#input_phone').css('color', '#0064de');
-            $('#input_phone').css('border-color', '#0064de');
             $('#input_phone').prop('disabled', true);
+<<<<<<< HEAD
+=======
+            $('.auth').addClass('auth')
+
+>>>>>>> parent of e7573aa (flightpayment 완료)
         }
     })
 });
