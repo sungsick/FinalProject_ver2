@@ -2,71 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/css/member/mana">
+    <title>관리자 페이지 메인</title>
+    <link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">
+    <link rel="stylesheet" href="/css/member/manager/qna.css">
 </head>
 <body>
-
-
-<table border="1">
-
-    <tr>
-        <td> 작성자</td>
-        <td> 문의글 제목</td>
-        <td> 문의글 내용</td>
-        <td> 작성일자</td>
-        <td> 문의글 답변</td>
-    </tr>
-
-    <th:block th:each="qna : ${qnaList}">
-        <tr>
-            <td th:text="${qna.qnaWriter}"></td>
-            <td th:text="${qna.qnaTitle}"></td>
-            <td th:text="${qna.qnaContent}"></td>
-
-
-            <td th:text="${#temporals.format(qna.qnaDate, 'yyyy년MM월dd일HH시mm분')}"></td>
-
-            <!--    <p>Formatted LocalDateTime: <span th:text="${#temporals.format(${qna.qnaDate}, 'yyyy-MM-dd HH:mm:ss')}"></span></p>-->
-            <!--    <td  th:text="${#dates.format(qna.qnaDate, 'yyyy-MM-dd HH:mm:ss')}"> </td>-->
-            <td th:text="${qna.qnaAnswer}"></td>
-
-
-        </tr>
-    </th:block>
-
-
-</table>
-
-
-<div class="manager-container">
-
-    <div class="manager-top-block">
-
-
-
-
-    <div class = "manager-top-card">
-        <div class = "manager-top-card-inner">
-        <p>일 방문자 수</p>
-
-        <h4>100명</h4>
-
-        <p>전일대비 증가 방문자 수 : 10명</p>
+<!--<header th:include="/manager_header.html :: header"></header>-->
+<header>
+    <div class="header_main">
+        <div class="header_logo"><img src="/img/member/logo.png"></div>
+        <div class="header_icons">로그아웃 아이콘</div>
+    </div>
+</header>
+<div class="side_nav">
+    <div class="side_nav_content snc_user">유저 정보 관리</div>
+    <div class="side_nav_content">동행 글 관리</div>
+    <div class="side_nav_content">일정 글 관리</div>
+    <div class="side_nav_content">문의글 관리</div>
+    <div class="side_nav_content">항공권 예약 관리</div>
+    <div class="side_nav_content">렌트카 예약 관리</div>
+</div>
+<div class="section">
+    <div class="main_content">
+        <h4 class="content_title">
+            유저 정보 관리
+        </h4>
+        <div class="content_boxes">
+            <div class="content_box">
+                유저1
+            </div>
+            <div class="content_box">
+                유저2
+            </div>
+            <div class="content_box">
+                유저3
+            </div>
         </div>
-    </div>
-    <div>
 
-    </div>
-    <div>
+
+
+        <table border="1">
+            <thead>
+            <tr>
+                <td>번호</td>
+                <td>아이디</td>
+                <td>이름</td>
+                <td>패스워드</td>
+                <td>전화번호</td>
+                <td>성별</td>
+                <td>가입 날짜</td>
+                <td>mbti</td>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${userList}">
+                <tr>
+                    <td th:text="${user.userNumber}"></td>
+                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.userName}"></td>
+                    <td th:text="${user.userPassword}"></td>
+                    <td th:text="${user.userPhone}"></td>
+                    <td th:text="${user.userGender}"></td>
+                    <td th:text="${user.userDate}"></td>
+                    <td th:text="${user.userMbti}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
     </div>
 </div>
-
-
-
-
-
-</div>
-
 </body>
+
+
 </html>
