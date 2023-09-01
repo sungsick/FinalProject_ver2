@@ -8,6 +8,10 @@ import com.kh.myproject.member.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -16,7 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Slf4j // 데이터베이스 로그를 확인
 @Service
@@ -30,14 +35,7 @@ public class UserService {
     private ManagerRepository managerRepository;
 
     // Article 전체 목록 조회 실행
-    public List<User> index() {
 
-        log.info("ArticleService index()실행");
-
-
-        return userRepository.findAll();
-
-    }
 
     public int joinUser(User user) {
 
@@ -141,7 +139,12 @@ public class UserService {
             e.printStackTrace();
         }
 
+
+
+
+
     }
+
 
     public User findUserId(String user_name, String user_phone1){
 
@@ -173,12 +176,64 @@ public class UserService {
         return userlist;
     }
 
-    public List<User> findAll(){
+    public List<User> findAllUser(){
 
         List<User> userlist = userRepository.findAll();
 
         return userlist;
     }
+
+    public List<Integer> getUserJoinCount(){
+
+        List<Integer> countList = new ArrayList<>();
+
+        for(int i = 9 ; i >= 0 ; i--){
+            countList.add(userRepository.countByDate(i));
+        }
+
+
+        return countList;
+    }
+
+    public List<Object[]> getUserAgeCount(){
+
+        return userRepository.getUserAgeCount();
+    }
+
+//    public Map<Integer,Integer> getUserAgeCount(){
+//
+//        Map<Integer,Integer> ageMap = new HashMap<>();
+//        userRepository.selectUserByAge();
+//
+//        return ;
+//    }
+
+
+    public void deleteUser(String user_number){
+
+        userRepository.deleteById(Long.parseLong(user_number));
+    }
+
+
+    public int selectUserCount(){
+
+        int count = userRepository.selectUserCount();
+        return count;
+    }
+
+    public List<User> findUserByPage(int pageNo){
+
+//        userRepository.findUserByPage(startNo,endNo);
+        System.out.println("repository의 srtatno" + pageNo);
+        Pageable pageable = PageRequest.of(pageNo,10, Sort.by("userNumber").descending());
+        Page<User> users = userRepository.findAll(pageable);
+        List<User> userList = users.getContent();
+        System.out.println("pageable 값 " + userList);
+
+        return userList;
+    }
+
+
 
 }
 

@@ -82,7 +82,7 @@ $(function () {
         } else if (query.input_phone === '') {
             alert('핸드폰 번호를 입력하세요.');
             query.input_birth.focus();
-        } else if (iquery.input_birth === '') {
+        } else if (query.input_birth === '') {
             alert('생년월일을 입력하세요.');
             query.input_birth.focus();
         } else if (!phoneNumberPattern.test(query.input_phone.value)) {
