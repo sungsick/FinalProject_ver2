@@ -249,8 +249,6 @@ $(function () {
             $('#input_phone').css('color', '#0064de');
             $('#input_phone').css('border-color', '#0064de');
             $('#input_phone').prop('disabled', true);
-
         }
     })
-
 });

@@ -1357,8 +1357,8 @@
                         </div>
                         <!--                        컨트롤러 임시 호출 결제시 totalPrice데이터 넘기기-->
                         <button class="_button_default_1vx5o_3 StyledPaymentButton-bNriOy jLwBLr hover:cursor-not-allowed"
-                                disabled=true id="btnKakaoPay">
-                            20,130원 바로 결제하기
+                                disabled=true id="btnKakaoPay" value="">
+                            원 결제하기
                         </button>
                     </section>
                 </div>
@@ -1548,6 +1548,12 @@
     } else if (userGender === "F") {
         radioFemale.checked = true;
     }
+
+    const totalPrice = [[${ticket.ticFee}]]
+
+    var btnKakaoPay = document.getElementById(("btnKakaoPay"))
+
+    btnKakaoPay.val()
     /*]]>*/
 </script>
 </body>
