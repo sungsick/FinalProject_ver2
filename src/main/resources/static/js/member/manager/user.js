@@ -210,7 +210,7 @@
                         // 추가한 버튼의 이벤트 핸들러를 추가한다.
                         Swal.fire('삭제가 완료됐습니다.', '', 'success').then((result) => {
 
-                            location.href = '/manager/user';
+                            location.href = '/pageTest';
 
                         })
                     }, error: function () {
