@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 페이지 메인</title>
+    <link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">
+    <link rel="stylesheet" href="/css/member/manager/user.css">
+</head>
+<body>
+<!--<header th:include="/manager_header.html :: header"></header>-->
+<header>
+    <div class="header_main">
+        <div class="header_logo"><img src="/img/member/logo.png"></div>
+        <div class="header_icons">로그아웃 아이콘</div>
+    </div>
+</header>
+<div class="side_nav">
+    <div class="side_nav_content snc_user">유저 정보 관리</div>
+    <div class="side_nav_content">동행 글 관리</div>
+    <div class="side_nav_content">일정 글 관리</div>
+    <div class="side_nav_content">문의글 관리</div>
+    <div class="side_nav_content">항공권 예약 관리</div>
+    <div class="side_nav_content">렌트카 예약 관리</div>
+</div>
+<div class="section">
+    <div class="main_content">
+        <h4 class="content_title">
+            유저 정보 관리
+        </h4>
+        <div class="content_boxes">
+            <div class="content_box">
+                유저1
+            </div>
+            <div class="content_box">
+                유저2
+            </div>
+            <div class="content_box">
+                유저3
+            </div>
+        </div>
+        <div class="graphes">
+            <div class="mygraph mg1">
+
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
+            </div>
+            <div class="mygraph mg2">
+                그래프 2번
+            </div>
+        </div>
+
+
+        <table border="1">
+            <thead>
+            <tr>
+                <td>번호</td>
+                <td>아이디</td>
+                <td>이름</td>
+                <td>패스워드</td>
+                <td>전화번호</td>
+                <td>성별</td>
+                <td>가입 날짜</td>
+                <td>mbti</td>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="user : ${userList}">
+                <tr>
+                    <td th:text="${user.userNumber}"></td>
+                    <td th:text="${user.userId}"></td>
+                    <td th:text="${user.userName}"></td>
+                    <td th:text="${user.userPassword}"></td>
+                    <td th:text="${user.userPhone}"></td>
+                    <td th:text="${user.userGender}"></td>
+                    <td th:text="${user.userDate}"></td>
+                    <td th:text="${user.userMbti}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script>
+    // A point click event that uses the Renderer to draw a label next to the point
+    // On subsequent clicks, move the existing label instead of creating a new one.
+    Highcharts.addEvent(Highcharts.Point, 'click', function () {
+        if (this.series.options.className.indexOf('popup-on-click') !== -1) {
+            const chart = this.series.chart;
+            const date = Highcharts.dateFormat('%A, %b %e, %Y', this.x);
+            const text = `<b>${date}</b><br/>${this.y} ${this.series.name}`;
+
+            const anchorX = this.plotX + this.series.xAxis.pos;
+            const anchorY = this.plotY + this.series.yAxis.pos;
+            const align = anchorX < chart.chartWidth - 200 ? 'left' : 'right';
+            const x = align === 'left' ? anchorX + 10 : anchorX - 10;
+            const y = anchorY - 30;
+            if (!chart.sticky) {
+                chart.sticky = chart.renderer
+                    .label(text, x, y, 'callout',  anchorX, anchorY)
+                    .attr({
+                        align,
+                        fill: 'rgba(0, 0, 0, 0.75)',
+                        padding: 10,
+                        zIndex: 7 // Above series, below tooltip
+                    })
+                    .css({
+                        color: 'white'
+                    })
+                    .on('click', function () {
+                        chart.sticky = chart.sticky.destroy();
+                    })
+                    .add();
+            } else {
+                chart.sticky
+                    .attr({ align, text })
+                    .animate({ anchorX, anchorY, x, y }, { duration: 250 });
+            }
+        }
+    });
+
+
+    Highcharts.chart('container', {
+
+        chart: {
+            scrollablePlotArea: {
+                minWidth: 700
+            }
+        },
+
+        data: {
+            csvURL: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/analytics.csv',
+            beforeParse: function (csv) {
+                return csv.replace(/\n\n/g, '\n');
+            }
+        },
+
+        title: {
+            text: '유저수 그래프',
+            align: 'left'
+        },
+
+        subtitle: {
+            text: '',
+            align: 'left'
+        },
+
+        xAxis: {
+            tickInterval: 7 * 24 * 3600 * 1000, // one week
+            tickWidth: 0,
+            gridLineWidth: 1,
+            labels: {
+                align: 'left',
+                x: 3,
+                y: -3
+            }
+        },
+
+        yAxis: [{ // left y axis
+            title: {
+                text: null
+            },
+            labels: {
+                align: 'left',
+                x: 3,
+                y: 16,
+                format: '{value:.,0f}'
+            },
+            showFirstLabel: false
+        }, { // right y axis
+            linkedTo: 0,
+            gridLineWidth: 0,
+            opposite: true,
+            title: {
+                text: null
+            },
+            labels: {
+                align: 'right',
+                x: -3,
+                y: 16,
+                format: '{value:.,0f}'
+            },
+            showFirstLabel: false
+        }],
+
+        legend: {
+            align: 'left',
+            verticalAlign: 'top',
+            borderWidth: 0
+        },
+
+        tooltip: {
+            shared: true,
+            crosshairs: true
+        },
+
+        plotOptions: {
+            series: {
+                cursor: 'pointer',
+                className: 'popup-on-click',
+                marker: {
+                    lineWidth: 1
+                }
+            }
+        },
+
+        series: [{
+            name: 'All sessions',
+            lineWidth: 4,
+            marker: {
+                radius: 4
+            }
+        }, {
+            name: 'New users'
+        }]
+    });
+
+</script>
+</html>

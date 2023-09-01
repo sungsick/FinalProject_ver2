@@ -1,0 +1,42 @@
+table{
+    background-color: #fff;
+
+}
+.snc_user{
+    background-color: pink;
+    color: #fff;
+    font-weight: 600;
+}
+.content_boxes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.content_box{
+    width: 400px;
+    height: 260px;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
+}
+.graphes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0px;
+}
+.mygraph{
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
+    border-radius: 10px;
+}
+.mg1{
+    width: 700px;
+    height:500px;
+}
+
+.mg2{
+    width: 500px;
+    height: 500px;
+}

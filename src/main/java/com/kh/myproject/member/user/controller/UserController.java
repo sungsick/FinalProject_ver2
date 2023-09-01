@@ -121,7 +121,7 @@ public class UserController {
 
         if(check_manager instanceof Manager){
 
-            modelAndView.setViewName("redirect:/manager/managerHome"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
+            modelAndView.setViewName("redirect:/manager/user"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
             ra.addFlashAttribute("check_manager",check_manager);
             // 로그인을 통해 매니저 컨트롤러론 넘어갔다는 사실을 확인해야한다.
 

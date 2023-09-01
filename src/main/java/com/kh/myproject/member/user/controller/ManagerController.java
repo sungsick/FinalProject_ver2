@@ -3,7 +3,6 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.member.user.model.entity.Manager;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.user.repository.UserRepository;
 import com.kh.myproject.member.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +30,8 @@ public class ManagerController {
     // 처음 메인 페이지를 보여주고
     // 그다음 여러개의 관리 페이지를 둔다.
     // 일정 게시글, 동행 , 렌트카 예약내역, 항공권 예약내역, 문의글 (답변 가능해야함)
-    @GetMapping("/manager/managerHome")
-    public ModelAndView managerHome(
+    @GetMapping("/manager/user")
+    public ModelAndView managerUser(
             @ModelAttribute("check_manager") Manager check_manager,
             ModelAndView modelAndView,
             HttpSession session) {
@@ -42,7 +41,7 @@ public class ManagerController {
         if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
             //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
 
-            modelAndView.setViewName("/member/manager/managerHome");
+            modelAndView.setViewName("member/manager/user");
             List<User> userList = userService.getSomeUser();
 
             modelAndView.addObject("manager", check_manager);
