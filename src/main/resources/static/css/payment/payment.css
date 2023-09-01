@@ -209,7 +209,7 @@
     margin-right: 15px;
 }
 
-.fsTopInfoLeft  {
+.fsTopInfoLeft {
     width: 185px;
     margin: auto;
     display: flex;
@@ -1446,4 +1446,11 @@ tbody {
     transform-origin: 216.5px 845px;
     border-radius: 10px;
     width: 500px !important;
+}
+
+.modal-open {
+    overflow: hidden;
+    padding-right: 15px; /* 스크롤바의 너비 만큼 패딩 추가 */
+    position: fixed;
+    width: 100%;
 }

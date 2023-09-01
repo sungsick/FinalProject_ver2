@@ -53,7 +53,7 @@ public class PayController {
         log.info("kakaoPaySuccess pg_token : " + pg_token);
 
         // 카카오 결재 요청하기
-        KakaoPayApprovalVO approveResponse = payService.rentcarInsert(pg_token);
+        KakaoPayApprovalVO approveResponse = payService.payApprove(pg_token);
         model.addAttribute("info", approveResponse);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("pay/success");
@@ -91,7 +91,7 @@ public class PayController {
     @GetMapping("/pay/test11")
     public ModelAndView successFront() {
         ModelAndView successFront = new ModelAndView();
-        successFront.setViewName("/pay/test11");
+        successFront.setViewName("success");
         return successFront;
     }
 

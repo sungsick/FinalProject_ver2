@@ -106,20 +106,7 @@ public class SmsService {
     public Map<String,Object> authUser(String phone_number){
 
         // 내용은 임의의 난수를 생성해서 보내준다.
-
-        String ran_num = "";
-        int i = 0;
-
-        while(i < 6){
-
-            int ran = (int)(Math.random()*10);// 난수 생성.
-            if(!ran_num.contains(ran+"")){
-
-                ran_num += ran+"";
-                i++;
-            }
-
-        }
+        String ran_num = makeRanNum();
 
         SendSmsResponseDto ssrd = null;
         Map<String, Object> result = new HashMap<>();
@@ -142,5 +129,24 @@ public class SmsService {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    public String makeRanNum(){
+
+        String ran_num = "";
+        int i = 0;
+
+        while(i < 6){
+
+            int ran = (int)(Math.random()*10);// 난수 생성.
+            if(!ran_num.contains(ran+"")){
+
+                ran_num += ran+"";
+                i++;
+            }
+
+        }
+
+        return ran_num;
     }
 }

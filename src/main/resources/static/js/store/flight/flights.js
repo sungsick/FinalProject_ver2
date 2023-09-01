@@ -1,7 +1,7 @@
 
 
 
-    $(function () {
+$(function () {
     $.ajax({
         url: '/airportlist',
         type: 'get',
@@ -28,38 +28,38 @@
 
 
 });
-    $("#start_airport").change(function (e) {
+$("#start_airport").change(function (e) {
     console.log(e.target.value);
 
     $.ajax({
-    url: '/airportlist',
-    type: 'get',
-    dataType: 'text',
-    success: function (data) {
+        url: '/airportlist',
+        type: 'get',
+        dataType: 'text',
+        success: function (data) {
 
 
-    let item = JSON.parse(data).response.body.items.item;
+            let item = JSON.parse(data).response.body.items.item;
 
-    $('#end_airport').empty();
-    for (let i = 0; i < item.length; i++) {
-    if (e.target.value !== item[i].airportId) {
-    let option = `<option value=${item[i].airportId}>${item[i].airportNm}</option>`;
-    $('#end_airport').append(option);
-}
+            $('#end_airport').empty();
+            for (let i = 0; i < item.length; i++) {
+                if (e.target.value !== item[i].airportId) {
+                    let option = `<option value=${item[i].airportId}>${item[i].airportNm}</option>`;
+                    $('#end_airport').append(option);
+                }
 
-    // document.getElementById("airport").innerHTML = option;
-}
-},
-    error: function (request, status, error) {
+                // document.getElementById("airport").innerHTML = option;
+            }
+        },
+        error: function (request, status, error) {
 
-    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
-}
+        }
+    });
+
 });
 
-});
-
-    $('#flight_search_btn').click(function () {
+$('#flight_search_btn').click(function () {
 
     $.ajax({
         url: '/searchflight',
@@ -115,7 +115,7 @@
     });
 });
 
-    function resFlight(index) {
+function resFlight(index) {
     $.ajax({
         url: '/saveFlight',
         type: 'post',
@@ -141,7 +141,7 @@
     });
 }
 
-    $('.flight_result_col').on('click', function () {
+$('.flight_result_col').on('click', function () {
     alert('클릭');
 });
 
