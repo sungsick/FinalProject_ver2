@@ -5,6 +5,16 @@
     <title>관리자 페이지 메인</title>
     <link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">
     <link rel="stylesheet" href="/css/member/manager/user.css">
+
+    <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
 <!--<header th:include="/manager_header.html :: header"></header>-->
@@ -41,188 +51,75 @@
         <div class="graphes">
             <div class="mygraph mg1">
 
-                <figure class="highcharts-figure">
-                    <div id="container"></div>
-                </figure>
+
+                <canvas id="myChart"></canvas>
+
             </div>
             <div class="mygraph mg2">
                 그래프 2번
             </div>
         </div>
 
+        <h4 class="content_title">
+            유저 목록
+        </h4>
+        <div class="usertable">
 
-        <table border="1">
-            <thead>
-            <tr>
-                <td>번호</td>
-                <td>아이디</td>
-                <td>이름</td>
-                <td>패스워드</td>
-                <td>전화번호</td>
-                <td>성별</td>
-                <td>가입 날짜</td>
-                <td>mbti</td>
-            </tr>
-            </thead>
-            <tbody>
-            <th:block th:each="user : ${userList}">
-                <tr>
-                    <td th:text="${user.userNumber}"></td>
-                    <td th:text="${user.userId}"></td>
-                    <td th:text="${user.userName}"></td>
-                    <td th:text="${user.userPassword}"></td>
-                    <td th:text="${user.userPhone}"></td>
-                    <td th:text="${user.userGender}"></td>
-                    <td th:text="${user.userDate}"></td>
-                    <td th:text="${user.userMbti}"></td>
-                </tr>
-            </th:block>
-            </tbody>
-        </table>
+            <div class="usertable-inner">
+                <div class="field-bar">
+                    <div>
+                        아이디
+                    </div>
+
+                    <div>이름</div>
+                    <div>성별</div>
+                    <div>생년월일</div>
+                    <div>가입일</div>
+                    <div>삭제하기</div>
+                </div>
+
+                <th:block th:each="user : ${userList}">
+                    <div class="userinfo-box">
+
+
+
+                        <div th:text="${user.userId}"></div>
+                        <div th:text="${user.userName}"></div>
+                        <div th:text="${user.userGender}"></div>
+
+                        <div class="ml_4" th:text="${#dates.format(user.userDate, 'yyyy년 MM월 dd일')}"></div>
+
+                        <div class="ml_4" th:text="${#temporals.format(user.userRegdate, 'yyyy년 MM월 dd일')}"></div>
+
+                        <!--                        <div th:text="${user.userRegdate}">가입일</div>-->
+
+                        <div class = "ml_4 user-del-btn" th:id = "${user.userNumber}" onclick="deluser(this)">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" >
+                                <style>svg {
+                                    fill: #ff0000
+                                }</style>
+                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                </th:block>
+            </div>
+        </div>
 
     </div>
+
+
 </div>
+
+
 </body>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/series-label.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    // A point click event that uses the Renderer to draw a label next to the point
-    // On subsequent clicks, move the existing label instead of creating a new one.
-    Highcharts.addEvent(Highcharts.Point, 'click', function () {
-        if (this.series.options.className.indexOf('popup-on-click') !== -1) {
-            const chart = this.series.chart;
-            const date = Highcharts.dateFormat('%A, %b %e, %Y', this.x);
-            const text = `<b>${date}</b><br/>${this.y} ${this.series.name}`;
-
-            const anchorX = this.plotX + this.series.xAxis.pos;
-            const anchorY = this.plotY + this.series.yAxis.pos;
-            const align = anchorX < chart.chartWidth - 200 ? 'left' : 'right';
-            const x = align === 'left' ? anchorX + 10 : anchorX - 10;
-            const y = anchorY - 30;
-            if (!chart.sticky) {
-                chart.sticky = chart.renderer
-                    .label(text, x, y, 'callout',  anchorX, anchorY)
-                    .attr({
-                        align,
-                        fill: 'rgba(0, 0, 0, 0.75)',
-                        padding: 10,
-                        zIndex: 7 // Above series, below tooltip
-                    })
-                    .css({
-                        color: 'white'
-                    })
-                    .on('click', function () {
-                        chart.sticky = chart.sticky.destroy();
-                    })
-                    .add();
-            } else {
-                chart.sticky
-                    .attr({ align, text })
-                    .animate({ anchorX, anchorY, x, y }, { duration: 250 });
-            }
-        }
-    });
+<script src="/jq/jquery-3.7.0.min.js"></script>
+<script src="/js/member/manager/user.js"></script>
 
 
-    Highcharts.chart('container', {
-
-        chart: {
-            scrollablePlotArea: {
-                minWidth: 700
-            }
-        },
-
-        data: {
-            csvURL: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/analytics.csv',
-            beforeParse: function (csv) {
-                return csv.replace(/\n\n/g, '\n');
-            }
-        },
-
-        title: {
-            text: '유저수 그래프',
-            align: 'left'
-        },
-
-        subtitle: {
-            text: '',
-            align: 'left'
-        },
-
-        xAxis: {
-            tickInterval: 7 * 24 * 3600 * 1000, // one week
-            tickWidth: 0,
-            gridLineWidth: 1,
-            labels: {
-                align: 'left',
-                x: 3,
-                y: -3
-            }
-        },
-
-        yAxis: [{ // left y axis
-            title: {
-                text: null
-            },
-            labels: {
-                align: 'left',
-                x: 3,
-                y: 16,
-                format: '{value:.,0f}'
-            },
-            showFirstLabel: false
-        }, { // right y axis
-            linkedTo: 0,
-            gridLineWidth: 0,
-            opposite: true,
-            title: {
-                text: null
-            },
-            labels: {
-                align: 'right',
-                x: -3,
-                y: 16,
-                format: '{value:.,0f}'
-            },
-            showFirstLabel: false
-        }],
-
-        legend: {
-            align: 'left',
-            verticalAlign: 'top',
-            borderWidth: 0
-        },
-
-        tooltip: {
-            shared: true,
-            crosshairs: true
-        },
-
-        plotOptions: {
-            series: {
-                cursor: 'pointer',
-                className: 'popup-on-click',
-                marker: {
-                    lineWidth: 1
-                }
-            }
-        },
-
-        series: [{
-            name: 'All sessions',
-            lineWidth: 4,
-            marker: {
-                radius: 4
-            }
-        }, {
-            name: 'New users'
-        }]
-    });
-
-</script>
 </html>

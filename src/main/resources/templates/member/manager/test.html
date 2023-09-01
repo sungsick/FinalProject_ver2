@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart with Data Labels</title>
+    <!-- Chart.js CDN 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <!-- chartjs-plugin-datalabels CDN 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+</head>
+<style>
+    #myBarChart{
+        margin-top: 100px;
+    }
+</style>
+<body>
+<!-- 막대 그래프를 그릴 캔버스 요소 추가 -->
+<canvas id="myBarChart"></canvas>
+
+<script>
+    // 그래프 데이터 설정
+    const data = {
+        labels: ['A', 'B', 'C', 'D', 'E'],
+        datasets: [{
+            label: '값',
+            data: [10, 20, 30, 40, 50],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    // 그래프 옵션 설정
+    const options = {
+        plugins: {
+            datalabels: {
+                display: true, // 데이터 레이블 표시 여부
+                color: 'black', // 텍스트 색상 설정
+                anchor: 'end', // 텍스트 위치 설정
+                align: 'end', // 텍스트 정렬 설정
+                font: {
+                    size: 16 // 텍스트 크기 설정
+                }
+            }
+        }
+    };
+
+    // 막대 그래프 생성
+    const ctx = document.getElementById('myBarChart').getContext('2d');
+    const myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: options
+    });
+</script>
+</body>
+</html>

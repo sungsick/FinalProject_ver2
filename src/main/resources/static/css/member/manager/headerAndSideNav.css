@@ -42,6 +42,7 @@ header{
     display: flex;
     flex-direction: column;
     background-color: #fff;
+    z-index: 999;
 }
 .section{
     display: flex;

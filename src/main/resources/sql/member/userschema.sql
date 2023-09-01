@@ -6,6 +6,10 @@ use finalproject;
 
 # drop table if exists user;
 
+
+delete from finalproject.user;
+alter table finalproject.user auto_increment = 1;
+
 CREATE TABLE if not exists `user`
 (
     `user_number`   int         NOT NULL primary key auto_increment,
@@ -21,14 +25,6 @@ CREATE TABLE if not exists `user`
 
     );
 
-alter table finalproject.user auto_increment = 1;
-
-
-
-delete
-from finalproject.user;
-
-select * from user;
 
 
 drop table if exists manager;
@@ -40,6 +36,8 @@ CREATE TABLE if not exists `manager`
     `manager_password` varchar(30) NOT NULL
 
     );
+
+delete from finalproject.user;
 
 delete from finalproject.manager;
 

@@ -17,9 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Slf4j // 데이터베이스 로그를 확인
 @Service
@@ -33,14 +31,7 @@ public class UserService {
     private ManagerRepository managerRepository;
 
     // Article 전체 목록 조회 실행
-    public List<User> index() {
 
-        log.info("ArticleService index()실행");
-
-
-        return userRepository.findAll();
-
-    }
 
     public int joinUser(User user) {
 
@@ -181,7 +172,7 @@ public class UserService {
         return userlist;
     }
 
-    public List<User> findAll(){
+    public List<User> findAllUser(){
 
         List<User> userlist = userRepository.findAll();
 
@@ -195,10 +186,31 @@ public class UserService {
         for(int i = 9 ; i >= 0 ; i--){
             countList.add(userRepository.countByDate(i));
         }
-        System.out.println(countList);
+
+
+        System.out.println(userRepository.getUserAgeCount());
 
 
         return countList;
+    }
+
+    public List<Object[]> getUserAgeCount(){
+
+        return userRepository.getUserAgeCount();
+    }
+
+//    public Map<Integer,Integer> getUserAgeCount(){
+//
+//        Map<Integer,Integer> ageMap = new HashMap<>();
+//        userRepository.selectUserByAge();
+//
+//        return ;
+//    }
+
+
+    public void deleteUser(String user_number){
+
+        userRepository.deleteById(Long.parseLong(user_number));
     }
 
 

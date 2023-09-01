@@ -14,9 +14,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("manager")
@@ -48,7 +51,7 @@ public class ManagerController {
 
 
             modelAndView.setViewName("/member/manager/user");
-            List<User> userList = userService.getSomeUser();
+            List<User> userList = userService.findAllUser();
 
             modelAndView.addObject("manager", check_manager);
             modelAndView.addObject("userList", userList);
@@ -119,12 +122,29 @@ public class ManagerController {
 
     @PostMapping("/test/getUserChart")
     @ResponseBody
-    public String getUserChart(){
+    public Map<String, Object> getUserChart(){
 
         List<Integer> countList = userService.getUserJoinCount();
+        List<Object[]> list = userService.getUserAgeCount();
+        Map<String,BigInteger> ageMap = new HashMap<>();
 
 
-        return countList.toString();
+        System.out.println(list);
+        for(int i = 0 ; i < list.size() ; i ++){
+
+            for(int j = 0 ; j < list.get(i).length / 2 ; j++){
+
+                ageMap.put((String)list.get(i)[j*2],(BigInteger)list.get(i)[j*2+1]);
+
+            }
+        }
+
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("countList",countList);
+        resultMap.put("ageMap",ageMap);
+
+        return resultMap;
     }
 
 
@@ -133,6 +153,25 @@ public class ManagerController {
 
 
         return "member/manager/chart";
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/deleteUser")
+    public List<User> deleteUser(@ModelAttribute(name = "user_number")
+                             String user_number){
+
+
+        System.out.println(user_number);
+        userService.deleteUser(user_number);
+
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        List<User> userList = userService.findAllUser();
+
+
+        System.out.println(userList);
+
+        return userList;
+
     }
 
 
