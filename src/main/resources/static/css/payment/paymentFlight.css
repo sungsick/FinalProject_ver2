@@ -534,6 +534,7 @@
     border-radius: 8px;
     padding: 16px 20px;
     margin-top: 23px;
+    margin-bottom: 80px;
     display: flex;
     flex-direction: column;
 }
@@ -1074,6 +1075,11 @@ button {
     width: 100%;
     font-size: 14px;
     display: none;
+}
+
+.insurance-info-modalTable {
+    width: 100%;
+    font-size: 14px;
 }
 
 table {

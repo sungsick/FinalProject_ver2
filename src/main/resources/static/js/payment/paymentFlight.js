@@ -67,7 +67,7 @@ $(function () {
             checkVal: $("input[formcontrolname=gender]:checked")
         }
         const phoneNumberPattern = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 형식검사 정규 표현식
-        const birthpattern = /^(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0,1])$/;
+        const birthpattern = /^(\d\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/;
         var btnKakaoPay = document.getElementById('btnKakaoPay');
         var warningDiv = document.getElementById('warning');
 
@@ -90,7 +90,7 @@ $(function () {
             alert('생년월일을 입력하세요.');
             $("#input_birth").focus();
             btnKakaoPay.disabled = true;
-        } else if (!birthpattern.test(query.monthDay)) {
+        } else if (!birthpattern.test(query.input_birth)) {// || input_birth.value.length !== 6
             console.log(birthpattern.test(input_birth.value));
             warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
             warningDiv.style.color = "red";
