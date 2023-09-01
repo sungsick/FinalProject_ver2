@@ -22,25 +22,3 @@ CREATE TABLE if not exists `user`(
     `user_date`     date        NOT NULL,
     `user_mbti`     varchar(4)  NULL,
     `user_img`      varchar(20) NULL);
-
-# CREATE TABLE if not exists `ticket_info`
-# (
-#     `tic_ticket_id`             bigint       NOT NULL,
-#     `tic_flight_departure_date` varchar(100) NOT NULL,
-#     `tic_flight_arrival_date`   varchar(100) NOT NULL,
-#     `tic_seat_grade`            varchar(100) NOT NULL,
-#     `tic_airline_name`          varchar(100) NOT NULL,
-#     `tic_fee`                   int          NOT NULL,
-#     `tic_from_location`         varchar(100) NOT NULL,
-#     `tic_to_location`           varchar(100) NOT NULL,
-#     `tic_vihicle_id`            varchar(100) NOT NULL,
-#     `user_number`               bigint       NOT NULL
-# );
-#
-# CREATE TABLE if not exists `area_tourism`(
-#     `area_id` bigint not null primary key auto_increment,
-#     `area_name` varchar(100) not null ,
-#     `area_name_ko` varchar(100) not null ,
-#     `place_id` int not null ,
-#     `place_name` varchar(100) not null
-# );

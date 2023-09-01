@@ -35,7 +35,7 @@ $('.search_area_btn').on('click', function(){
          /* 시/도 리스트 생성 */
          for(var i = 0; i < item.length; i++){
             var content =
-                           `<button class="modal_btn" value="${item[i].code}">` +
+                           `<button class="modal_btn" value="${item[i].code}" onclick="insertArea(this)">` +
                            item[i].name + '</button>'
 
             if(i === Math.floor(item.length / 2)){
@@ -54,10 +54,10 @@ $('.search_area_btn').on('click', function(){
    });
 });
 
-$('.area_btn').on('click', function(){
+/*$('.area_btn').on('click', function(){
    $('.area_btn').not($(this).remove('sel'));
    $(this).add('sel');
-});
+});*/
 
 function insertArea(e){
    areaCode = e.value;
