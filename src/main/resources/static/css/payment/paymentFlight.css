@@ -1702,7 +1702,7 @@ select {
     margin-bottom: 2rem !important;
 }
 
-.insurance-info .thead__th {
+.insurance-info-modalTable .thead__th {
     padding: 1.6rem;
     border-bottom: 1px solid #dee0e2;
     background-color: #f8f9fc;
@@ -1713,13 +1713,13 @@ select {
     border-top: 1px solid black;
 }
 
-.insurance-info tr {
+.insurance-info-modalTable tr {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
 }
 
-.insurance-info .tbody__td {
+.insurance-info-modalTable .tbody__td {
     padding: 1.6rem;
     border-top: 1px solid #dee0e2;
     background-color: #fff;
@@ -1741,7 +1741,7 @@ select {
     border-top: 0;
 }
 
-.insurance-info showTale {
+.insurance-info-modalTable {
     border-bottom: 1px solid black;
 }
 
@@ -1786,4 +1786,14 @@ select {
     font-size: 14px;
     line-height: 1.58;
     margin-bottom: 8px;
+}
+
+#btnKakaoPay {
+    margin-top: 60px;
+}
+
+sel-nation-ADT-0 {
+
+    border-color: #0064de;
+    color: #0064de
 }

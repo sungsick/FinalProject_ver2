@@ -64,7 +64,8 @@ $(function () {
             input_phone: $("#input_phone").val(),
             input_birth: $("#input_birth").val(),
             monthDay: $("#input_birth").val().substring(2),
-            checkVal: $("input[formcontrolname=gender]:checked")
+            checkVal: $("input[formcontrolname=gender]:checked"),
+            selectBox: $("select[name='selectBox']").val()
         }
         const phoneNumberPattern = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 형식검사 정규 표현식
         const birthpattern = /^(\d\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/;
@@ -72,10 +73,12 @@ $(function () {
         var warningDiv = document.getElementById('warning');
 
         if (query.input_name === '') {
+            /*######이름 입력 검사######*/
             alert('이름을 입력하세요.');
             $("#input_name").focus();
             btnKakaoPay.disabled = true;
         } else if (query.input_phone === '') {
+            /*######핸드폰 입력 검사######*/
             alert('핸드폰 번호를 입력하세요.');
             $("#input_phone").focus();
             btnKakaoPay.disabled = true;
@@ -87,35 +90,27 @@ $(function () {
             //     btnKakaoPay.disabled = true;
         // }
         else if (query.input_birth === '') {
+            /*######생년월일 입력 검사######*/
             alert('생년월일을 입력하세요.');
             $("#input_birth").focus();
             btnKakaoPay.disabled = true;
         } else if (!birthpattern.test(query.input_birth)) {// || input_birth.value.length !== 6
+            /*######생년월일 유효성 검사######*/
             console.log(birthpattern.test(input_birth.value));
             warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
             warningDiv.style.color = "red";
             btnKakaoPay.disabled = true;
             $("#input_birth").focus();
         } else if (!query.checkVal) {
+            /*######설별 선택 검사######*/
             alert("성별을 선택해 주세요.");
             btnKakaoPay.disabled = true;
             $("input[formcontrolname='gender']:checked").focus();
+        } else if (query.selectBox === "") {
+            alert("국적을 선택해 주세요.");
+            $("select[name='selectBox']").focus();
         } else {
-            btnKakaoPay.disabled = false;
-            // 필수입력값을 확인.
-            var name = $("#form-payment input[name='pay-name']").val();
-            var tel = $("#form-payment input[name='pay-tel']").val();
-            var email = $("#form-payment input[name='pay-email']").val();
-
-            if (name === "") {
-                $("#form-payment input[name='pay-name']").focus()
-            }
-            if (tel === "") {
-                $("#form-payment input[name='pay-tel']").focus()
-            }
-            if (email === "") {
-                $("#form-payment input[name='pay-email']").focus()
-            }
+            // 결제 진입
 
             // 결제 정보를 form에 저장한다.
             let totalPayPrice = parseInt($("#total-pay-price").text().replace(/,/g, ''))
@@ -194,6 +189,6 @@ $(function () {
         $(this).addClass('locationClick');
 
         $('.insurance-info').removeClass('showTale');
-        $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
+        $('.insurance-info').eq(idx).addClass('showTale'); // sections-con.show > section:nth-child(3) > table
     });
 });
