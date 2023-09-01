@@ -18,8 +18,6 @@ public class Tourism {
     @Column
     private String areaName;
     @Column
-    private String areaNameKo;
-    @Column
     private int placeId;
     @Column
     private String placeName;
@@ -28,7 +26,6 @@ public class Tourism {
         return TourismDto.builder()
                 .areaId(areaId)
                 .areaName(areaName)
-                .areaNameKo(areaNameKo)
                 .placeId(placeId)
                 .placeName(placeName)
                 .build();

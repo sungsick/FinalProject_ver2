@@ -14,7 +14,6 @@ public class TourismDto {
 
     private Long areaId;
     private String areaName;
-    private String areaNameKo;
     private int placeId;
     private String placeName;
 
@@ -22,7 +21,6 @@ public class TourismDto {
         return Tourism.builder()
                 .areaId(areaId)
                 .areaName(areaName)
-                .areaNameKo(areaNameKo)
                 .placeId(placeId)
                 .placeName(placeName)
                 .build();

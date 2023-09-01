@@ -205,11 +205,12 @@ h6 > b {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 5px;
 }
 
-.type_btn button {
-    font-size: 17px;
-    padding: 10px 0;
-    width: 150px;
-    border-radius: 25px;
+.type_btn {
+        padding: 10px 15px;
+        margin: 0 15px;
+        font-size: 22px;
+        font-weight: 600;
+        border-radius: 15px;
 }
 
 .on {
@@ -265,13 +266,7 @@ h6 > b {
     border-radius: 10px;
 }
 
-.type_area_btn, .type_keyword_btn {
-    padding: 10px 15px;
-    margin: 0 15px;
-    font-size: 22px;
-    font-weight: 600;
-    border-radius: 15px;
-}
+
 
 .tour_search_col:first-child {
     width: 15%;

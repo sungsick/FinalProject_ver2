@@ -20,7 +20,8 @@ public class TourService {
 
     @Autowired
     TourismRepository tourismRepository;
-    public String getApiData(String url) throws Exception {
+
+    public String getApiData(String url) {
 
         StringBuilder result = new StringBuilder();
 
@@ -35,20 +36,17 @@ public class TourService {
             }
             br.close();
             conn.disconnect();
-            System.out.println(result);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return result.toString();
     }
 
-    public List<TourismDto> getTourism(String areaName){
+    public List<TourismDto> getTourism(String areaName) {
         List<Tourism> list = tourismRepository.findAllByAreaName(areaName);
         List<TourismDto> dtoList = new ArrayList<>();
 
-        for(Tourism item : list){
+        for (Tourism item : list) {
             dtoList.add(item.toDto());
         }
         return dtoList;
