@@ -1,6 +1,8 @@
 package com.kh.myproject.member.user.repository;
 
 import com.kh.myproject.member.user.model.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -67,6 +69,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    @Query("")
 
     @Query(value = "SELECT CASE " +
+            "WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM u.user_date) BETWEEN 10 AND 19 THEN 'ten' " +
             "WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM u.user_date) BETWEEN 20 AND 29 THEN 'two' " +
             "WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM u.user_date) BETWEEN 30 AND 39 THEN 'three' " +
             "WHEN EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM u.user_date) BETWEEN 40 AND 49 THEN 'four' " +
@@ -78,5 +81,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "GROUP BY age_group " +
             "ORDER BY age_group DESC", nativeQuery = true)
     List<Object[]> getUserAgeCount();
+
+    @Query("select count(*) from User u")
+    int selectUserCount();
+
+    @Query("select u from User u order by u.userRegdate desc")
+    int findUserByPage(int startNo, int endNo);
+
+    Page<User> findAll(Pageable pageable);
 
 }

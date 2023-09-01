@@ -1,58 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bar Chart with Data Labels</title>
-    <!-- Chart.js CDN 추가 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <!-- chartjs-plugin-datalabels CDN 추가 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <style type="text/css">
+
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+    </style>
 </head>
-<style>
-    #myBarChart{
-        margin-top: 100px;
-    }
-</style>
 <body>
-<!-- 막대 그래프를 그릴 캔버스 요소 추가 -->
-<canvas id="myBarChart"></canvas>
+
+<div id="container"></div>
+
 
 <script>
-    // 그래프 데이터 설정
-    const data = {
-        labels: ['A', 'B', 'C', 'D', 'E'],
-        datasets: [{
-            label: '값',
-            data: [10, 20, 30, 40, 50],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    };
 
-    // 그래프 옵션 설정
-    const options = {
-        plugins: {
-            datalabels: {
-                display: true, // 데이터 레이블 표시 여부
-                color: 'black', // 텍스트 색상 설정
-                anchor: 'end', // 텍스트 위치 설정
-                align: 'end', // 텍스트 정렬 설정
-                font: {
-                    size: 16 // 텍스트 크기 설정
-                }
-            }
-        }
-    };
+    anychart.onDocumentReady(function () {
+        // create pie chart with passed data
+        var chart = anychart.pie([
+            ['Apples', 6371664],
+            ['Pears', 789622],
+            ['Bananas', 7216301],
+            ['Grapes', 1486621],
+            ['Oranges', 1200000]
+        ]);
 
-    // 막대 그래프 생성
-    const ctx = document.getElementById('myBarChart').getContext('2d');
-    const myBarChart = new Chart(ctx, {
-        type: 'bar',
-        data: data,
-        options: options
+        // set chart title text settings
+        chart.title('Fruits imported in 2015 (in kg)');
+        // set chart labels position to outside
+        chart.labels().position('outside');
+        // set legend title settings
+        chart
+            .legend()
+            .title()
+            .enabled(true)
+            .text('Retail channels')
+            .padding([0, 0, 10, 0]);
+
+        // set legend position and items layout
+        chart
+            .legend()
+            .position('center-bottom')
+            .itemsLayout('horizontal')
+            .align('center');
+
+        // set container id for the chart
+        chart.container('container');
+        // initiate chart drawing
+        chart.draw();
     });
+
 </script>
 </body>
 </html>
+                

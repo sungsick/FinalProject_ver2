@@ -8,6 +8,10 @@ import com.kh.myproject.member.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -188,9 +192,6 @@ public class UserService {
         }
 
 
-        System.out.println(userRepository.getUserAgeCount());
-
-
         return countList;
     }
 
@@ -213,6 +214,24 @@ public class UserService {
         userRepository.deleteById(Long.parseLong(user_number));
     }
 
+
+    public int selectUserCount(){
+
+        int count = userRepository.selectUserCount();
+        return count;
+    }
+
+    public List<User> findUserByPage(int pageNo){
+
+//        userRepository.findUserByPage(startNo,endNo);
+        System.out.println("repository의 srtatno" + pageNo);
+        Pageable pageable = PageRequest.of(pageNo,10, Sort.by("userNumber").descending());
+        Page<User> users = userRepository.findAll(pageable);
+        List<User> userList = users.getContent();
+        System.out.println("pageable 값 " + userList);
+
+        return userList;
+    }
 
 
 

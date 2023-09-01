@@ -7,7 +7,7 @@ use finalproject;
 # drop table if exists user;
 
 
-delete from finalproject.user;
+# delete from finalproject.user;
 alter table finalproject.user auto_increment = 1;
 
 CREATE TABLE if not exists `user`
@@ -37,7 +37,7 @@ CREATE TABLE if not exists `manager`
 
     );
 
-delete from finalproject.user;
+# delete from finalproject.user;
 
 delete from finalproject.manager;
 

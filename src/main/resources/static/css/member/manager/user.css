@@ -40,9 +40,16 @@ table{
 }
 
 .mg2{
-    width: 500px;
+    width: 600px;
     height: 500px;
+    border-radius: 10px !important;
 }
+
+path ,#container{
+    border-radius: 10px !important;
+
+}
+
 
 #myChart{
     width: 500px;
@@ -66,7 +73,7 @@ table{
 .usertable-inner{
 
     width: 100%;
-    padding :  20px 0px;
+    padding :  20px 20px;
     box-sizing: border-box;
 }
 
@@ -75,7 +82,7 @@ table{
     display : flex;
     justify-content: space-around;
     align-items: center;
-    height: 40px;
+    height: 50px;
     width: 100%;
     font-size : 14px;
     box-sizing: border-box;
@@ -169,4 +176,50 @@ table{
     color : black !important;
     border : 2px solid #2B96EC !important;
     box-shadow: none !important;
+}
+
+.content_box_inner{
+
+    width: 360px;
+    padding: 20px 20px;
+
+    box-sizing: border-box;
+}
+
+.page-block{
+
+    display : flex;
+    width: 60%;
+    margin : 0 auto;
+    height: 40px;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+.page-number-block{
+
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border : 1px solid #2B96EC;
+    border-radius: 2px;
+    text-align: center;
+    display :flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color : #2B96EC;
+
+}
+
+.page-number-block:hover{
+
+    cursor:pointer;
+}
+
+.page-number-block:active{
+
+    background-color:#E7F4FD;
+    cursor: pointer;
 }

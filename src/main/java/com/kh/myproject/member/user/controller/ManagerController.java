@@ -175,6 +175,75 @@ public class ManagerController {
     }
 
 
+    // 유저게시판이 보여지는 페이지. 페이징 처리 구현.
+    @GetMapping("pageTest")
+    public String pageTest(Model model,
+                           @RequestParam(value = "pageNo", defaultValue = "1")int pageNo){
+
+
+
+
+        int userCount = userService.selectUserCount();
+
+//        model.addAttribute("pageNo",user)
+        // 테이블이 아래쪽에 있기 때문에 페이지를 이동했을때 location.href로 페이지를
+
+        // 여기서 pageNo는 1,2,3,4,5 페이지를 뜻한다.
+        // startNo는 글의 번호라고 생각하면 된다.
+//        int endNo = 0; // 페이지 번호의 끝. -> 쿼리문 조회시 필요했으나 필요없을 듯.
+
+        int startNo = 0; // 보여줘야할 페이지 번호의 시작 ex) pageno = 3일 경우 startno = 21, endno = 30
+        int pageStartNo = 0; // 페이지 시작돼야할 번호. ex) 글이70개면 1번부터 7번까지, 71개면 1번부터 8번까지.
+        int pageEndNo = 0; // 페이지 끝나야 할 번호.
+        int endNo = 0;
+
+        // pageNo =
+        // pageEndNo =
+
+
+        //유저 데이터가 150개다
+        // 현재 페이지가 1~10페이지면 괜찮다. 그러나.
+        // 현재페이지가 11~20이라면 20까지 보여줘서는 안된다
+        // 따라서 userCOunt/10의 값이 pageEndNo보다 작을 경우 pageEndNo를 바꿔준다.
+            startNo =  (pageNo-1) * 10 + 1;
+            pageStartNo = pageNo / 10 * 10 + 1;
+            pageStartNo = pageNo % 10 == 0 ? pageStartNo-10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+            pageEndNo = ( (pageNo / 10 +1) * 10);
+            pageEndNo = pageNo % 10 == 0 ? pageEndNo-10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+
+        System.out.println(pageStartNo);
+        System.out.println(pageEndNo);
+
+        if(userCount / 10 <= pageEndNo){ // 유저가 100보다 크면 10페이지는 무조건 보여주면되고 100보다 작으면 그 몫에 나머지 있으면 +1만큼 보여준다.
+
+            System.out.println(pageEndNo);
+            pageEndNo =  userCount/10 ;
+            pageEndNo = userCount%10 > 0 ? pageEndNo+1 : pageEndNo;
+
+        }else{
+//            pageEndNo = userCount / 10;
+//            pageEndNo = userCount % 10 > 0 ? pageEndNo+1 : pageEndNo;
+        }
+
+        List<User> userList =  userService.findUserByPage(pageNo); // pageNo만큼 쿼리문을 조회한다.
+
+
+        // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+
+        model.addAttribute("pageStartNo",pageStartNo);
+        model.addAttribute("pageEndNo",pageEndNo);
+        model.addAttribute("userList",userList);
+        model.addAttribute("pageNo",pageNo);
+
+
+        return "member/manager/user";
+    }
+
+
+
+
+
 }
 
 
