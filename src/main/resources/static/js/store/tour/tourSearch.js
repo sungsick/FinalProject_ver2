@@ -35,7 +35,7 @@ $('.search_area_btn').on('click', function(){
          /* 시/도 리스트 생성 */
          for(var i = 0; i < item.length; i++){
             var content =
-                           `<button class="modal_btn" onclick="insertArea(this)" value="${item[i].code}">` +
+                           `<button class="modal_btn" value="${item[i].code}">` +
                            item[i].name + '</button>'
 
             if(i === Math.floor(item.length / 2)){
@@ -54,14 +54,20 @@ $('.search_area_btn').on('click', function(){
    });
 });
 
+$('.area_btn').on('click', function(){
+   $('.area_btn').not($(this).remove('sel'));
+   $(this).add('sel');
+});
+
 function insertArea(e){
    areaCode = e.value;
    areaName = e.textContent;
 
-   console.log('code=' + areaCode + ', name = ' + areaName);
+
 
    sigunguCode = '';
    sigunguName = '';
+
 
    console.log("insertArea: "+sigunguName);
    $.ajax({
@@ -96,7 +102,7 @@ $('#area_confirm_btn').on('click', function(){
    if(sigunguCode === ''){
       sigunguName = '전체';
    }
-   
+
    var areaInput = '광역시/도 : ' + areaName + ' , 시/군/구 : ' + sigunguName;
 
    if(searchType === '지역별') {
@@ -147,7 +153,7 @@ $('.search_category_btn').on('click', function(){
 
          for(var i = 0; i < item.length; i++){
             var content =
-                `<button class="modal_btn" name="cat1" value="${item[i].code}" onclick="insertCat1(this)">
+                `<button class="modal_btn" name="cat1" value="${item[i].code}">
                 ${item[i].name}
                 </button>`;
             $('.cat1').append(content);
@@ -155,6 +161,7 @@ $('.search_category_btn').on('click', function(){
       }
    });
 });
+
 
 function insertCat1(e){
    cat1 = e.value;
