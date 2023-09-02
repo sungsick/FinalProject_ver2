@@ -39,6 +39,8 @@ public class FlightTicketInfo {
     private String ticVihicleId;
 
 
+    // 어떤 유저의 ticket인지 user_number FK 설정
+    // 한명의 유저가 많은 예약정보를 가질 수 있으니 ManyToOne
     @ManyToOne()
     @JoinColumn(name = "userNumber")
     private User user;

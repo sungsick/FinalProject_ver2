@@ -35,7 +35,7 @@ $('.search_area_btn').on('click', function(){
          /* 시/도 리스트 생성 */
          for(var i = 0; i < item.length; i++){
             var content =
-                           `<button class="modal_btn" value="${item[i].code}" onclick="insertArea(this)">` +
+                           `<button class="modal_btn area_btn" value="${item[i].code}" onclick="insertArea(this)">` +
                            item[i].name + '</button>'
 
             if(i === Math.floor(item.length / 2)){
@@ -63,7 +63,8 @@ function insertArea(e){
    areaCode = e.value;
    areaName = e.textContent;
 
-
+   $('.area_btn').removeClass('sel');
+   e.classList.add('sel');
 
    sigunguCode = '';
    sigunguName = '';
@@ -80,9 +81,17 @@ function insertArea(e){
       success: function(data){
          console.log(data);
          var item = data.response.body.items.item;
+
+         $('.all_sigungu').empty();
          $('.sigungu_list').empty();
+         var content = `<button class="modal_btn sigungu_btn sel" value="" onClick="">
+                                전체
+                                </button>`;
+
+         $('.all_sigungu').append(content);
+
          for(var i = 0; i < item.length; i++){
-            var content = `<button class="modal_btn sigungu_btn" onclick = "insertAreaCode(this)" value="${item[i].code}">` +
+            content = `<button class="modal_btn sigungu_btn" onclick = "insertAreaCode(this)" value="${item[i].code}">` +
                         item[i].name +'</button>';
             $('.sigungu_list').append(content);
          }
@@ -95,6 +104,8 @@ function insertAreaCode(e){
    sigunguCode = e.value;
    sigunguName = e.textContent;
 
+   $('.sigungu_btn').removeClass('sel');
+   e.classList.add('sel');
 }
 
 //지역 확인 버튼 누르면
@@ -124,6 +135,10 @@ $('.search_content_btn').on('click', function(){
 $('.modal_btn[name=contentTypeId]').on('click', function(){
    contentTypeId = $(this).val();
    contentTypeName = $(this).text();
+
+   $('.modal_btn[name=contentTypeId]').removeClass('sel');
+   $(this).addClass('sel');
+
    console.log('contentTypeId:'+contentTypeId);
    console.log('contentTypeName:'+contentTypeName);
 });
@@ -153,7 +168,7 @@ $('.search_category_btn').on('click', function(){
 
          for(var i = 0; i < item.length; i++){
             var content =
-                `<button class="modal_btn" name="cat1" value="${item[i].code}">
+                `<button class="modal_btn" name="cat1" value="${item[i].code}" onclick="insertCat1(this)">
                 ${item[i].name}
                 </button>`;
             $('.cat1').append(content);
@@ -166,6 +181,9 @@ $('.search_category_btn').on('click', function(){
 function insertCat1(e){
    cat1 = e.value;
    cat1Name = e.textContent;
+
+   $('.modal_btn[name=cat1]').removeClass('sel');
+   e.classList.add('sel');
 
    var data = {
       contentTypeId: contentTypeId,
@@ -203,6 +221,9 @@ function insertCat2(e){
    cat2 = e.value;
    cat2Name = e.textContent;
 
+   $('.modal_btn[name=cat2]').removeClass('sel');
+   e.classList.add('sel');
+
    var data = {
       contentTypeId: contentTypeId,
       cat1: cat1,
@@ -239,6 +260,10 @@ function insertCat2(e){
 function insertCat3(e){
    cat3 = e.value;
    cat3Name = e.textContent;
+
+   $('.modal_btn[name=cat3]').removeClass('sel');
+   e.classList.add('sel');
+
 }
 $('#service_confirm_btn').on('click', function(){
 
@@ -310,8 +335,50 @@ $('.type_btn').on('click', function(){
 
 });
 
-$('.type_area_btn').on('click', function(){
+$('#search_area_btn').on('click', function(){
 
+   console.log('지역기반 조회버튼 클릭');
+
+   $.ajax({
+      url: '/store/tour/getAreaBaseList',
+      data: {
+         contentTypeId: contentTypeId,
+         areaCode: areaCode,
+         sigunguCode: sigunguCode,
+         cat1: cat1,
+         cat2: cat2,
+         cat3: cat3
+      },
+      type: 'get',
+      dataType: 'json',
+      success: function(data){
+
+         console.log(data);
+         var item = data.response.body.items.item;
+         var resultCount = data.response.body.totalCount;
+
+         var content = `<h6>검색결과 : <b>${resultCount}</b>건</h6>`;
+         $('.content_container').prepend(content);
+
+         for (var i = 0; i < item.length; i++){
+            content =
+                                 `<div class="content_card">
+                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
+                                        <span class="thumb_img">
+                                            <img src="${item[i].firstimage}">
+                                        </span>
+                                        <strong class="thumb_name">${item[i].title}</strong>
+                                    </a>
+                                </div>`;
+
+            $('.content_card_box').append(content);
+         }
+
+      },
+      error: function(){
+         console.log('에러');
+      }
+   });
 });
 
 

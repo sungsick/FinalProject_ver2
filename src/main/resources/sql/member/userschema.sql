@@ -5,13 +5,13 @@ use finalproject;
 
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
-# delete from finalproject.user;
+delete from finalproject.user;
 delete from finalproject.manager;
 delete from finalproject.qna;
 
 
 
-alter table finalproject.user auto_increment = 1;
+alter table finalproject.qna auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
 alter table finalproject.ticket_info auto_increment = 1;
@@ -34,7 +34,7 @@ CREATE TABLE if not exists `user`
 
 CREATE TABLE if not exists `ticket_info`
 (
-    `tic_ticket_id`             bigint       NOT NULL,
+    `tic_ticket_id`             bigint       NOT NULL primary key auto_increment,
     `tic_flight_departure_date` varchar(100) NOT NULL,
     `tic_flight_arrival_date`   varchar(100) NOT NULL,
     `tic_seat_grade`            varchar(100) NOT NULL,
