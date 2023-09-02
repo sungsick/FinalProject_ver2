@@ -1,0 +1,46 @@
+package com.kh.myproject.store.rentcar.model;
+
+
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
+public class RentcarInfoEntity {
+
+    @Id
+    @GeneratedValue
+    private Long carInfo_id;
+
+    @Column
+    private String car_name;
+    @Column
+    private String car_nation;
+    @Column
+    private String car_type;
+    @Column
+    private String oil_type;
+    @Column
+    private String driver_age;
+    @Column
+    private int car_people;
+    @Column
+    private int car_price;
+    @Column
+    private int car_discount;
+    @Column
+    private int com_id;
+    @Column
+    private String car_option;
+
+
+}

@@ -2,25 +2,57 @@ package com.kh.myproject.store.rentcar.cotroller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @Slf4j
 @SessionAttributes("user")
 public class RentcarController {
 
 
+    @GetMapping("/store/rentcar/rentcarMain")
+    public String rentcarMain() {
+
+        return "store/rentcar/rentcarMain";
+
+    }
 
 
-/* @GetMapping("/store/rentcar/rentcarMain")
-    public String rentcarMain(){
+    @GetMapping("/store/rentcar/rentcarChoice")
+    public String rentcarChoice() {
 
-    return "store/rentcar/rentcarMain";
+        return "store/rentcar/rentcarChoice";
 
-}*/
+    }
 
 
+    @RequestMapping("/store/rentcar/MainSearch")
+    public String sample(@RequestParam String input_location,
+                         @RequestParam String depart_date,
+                         @RequestParam String arrive_date,
+                         @RequestParam String input_birth,
+                         Model model) {
+
+        System.out.println(input_location);
+        System.out.println(depart_date);
+        System.out.println(arrive_date);
+        System.out.println(input_birth);
+
+        model.addAttribute("input_location", input_location);
+        model.addAttribute("depart_date", depart_date);
+        model.addAttribute("arrive_date", arrive_date);
+        model.addAttribute("input_birth", input_birth);
+
+        return "store/rentcar/rentcarReserve";
+
+    }
+
+
+
+
+/*
     @GetMapping("/store/rentcar/rentcarMain")
     public ModelAndView rentcarMain(ModelAndView mav) {
 
@@ -78,5 +110,7 @@ public class RentcarController {
 
     }
 
+
+ */
 
 }

@@ -47,17 +47,17 @@
                                 </div>
                                 <input class="search_input_round search_input_detail" id="input_location"
                                        readonly=""
-                                       placeholder="대여 위치를 선택해 주세요."></div>
+                                       placeholder="대여 위치를 선택해 주세요." th:value="${input_location}"></div>
                             <div class="input_grid_number"></div>
                             <div class="input_title_and_detail">
                                 <div class="input_title"><img alt="이미지" class="input_title_icon"
                                                               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAIVBMVEVHcEwoKCgoKCgoKCgoKCgmJiYnJycnJycnJycnJycoKCgaae9ZAAAACnRSTlMAgD9AwCfmW9CrPNuh5QAAAKhJREFUOMtjYKAbYC/AZIFB1UIYS2o5isSsJTCW10oUCa8lmCwGViUlpa4VSlAAZgWAJaJWYYClYAkrTInFEIllLi5ZQAwBIFYWVGIhuuVSCAkpuCNnLUSRCEuFSYBYUAlWJQxAtnOXCKIBL4TlqADmqpXods9aTMAOKlo+KjEgEitQkxqrUhdEggM5UlPBCbABkkSzUNNg1KplAdAcjBTdBSBuAZ0KEQCFxaxY4wVeUAAAAABJRU5ErkJggg==">
                                     <div class="input_title_text">날짜 및 시간</div>
                                 </div>
-                                <input class="search_input_round_date search_input_detail" id="depart_date"
+                                <input class="search_input_round_date search_input_detail" id="depart_date" th:value="${depart_date}"
                                        readonly=""
                                        placeholder="대여날짜 선택">
-                                <input class="search_input_round_date search_input_detail" id="arrive_date"
+                                <input class="search_input_round_date search_input_detail" id="arrive_date" th:value="${arrive_date}"
                                        readonly=""
                                        placeholder="반납날짜 선택"></div>
                             <div class="input_grid_number"></div>
@@ -70,7 +70,7 @@
                                     <input type="text"
                                            class="search_input_round search_input_detail"
                                            id="input_birth"
-                                           placeholder="YYMMDD"
+                                           placeholder="YYMMDD" th:value="${input_birth}"
                                            style="height: 20px; margin-top: 0px;">
                                 </div>
                             </div>
