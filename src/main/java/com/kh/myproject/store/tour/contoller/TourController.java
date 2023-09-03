@@ -115,7 +115,8 @@ public class TourController {
                                              @RequestParam("sigunguCode") String sigunguCode,
                                              @RequestParam("cat1") String cat1,
                                              @RequestParam("cat2") String cat2,
-                                             @RequestParam("cat3") String cat3) {
+                                             @RequestParam("cat3") String cat3,
+                                             @RequestParam("pageNo") int pageNo) {
 
         log.info("contentTypeId={}", contentTypeId);
         log.info("areaCode={}", areaCode);
@@ -125,7 +126,92 @@ public class TourController {
         log.info("cat3={}", cat3);
 
         String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
-        url += "&numOfRows=12&pageNo=1";
+        url += "&numOfRows=12" + "&pageNo=" + pageNo;
+        url += "&listYN=Y&arrange=A";
+        url += "&contentTypeId=" + contentTypeId;
+        url += "&areaCode=" + areaCode;
+        url += "&sigunguCode=" + sigunguCode;
+        url += "&cat1=" + cat1;
+        url += "&cat2=" + cat2;
+        url += "&cat3=" + cat3 + LAST_URL;
+
+        return ResponseEntity.ok(tourService.getApiData(url));
+    }
+
+    @GetMapping("/store/tour/getPreviousPageList")
+    public ResponseEntity<?> getPreviousPageList(@RequestParam("contentTypeId") String contentTypeId,
+                                                 @RequestParam("areaCode") String areaCode,
+                                                 @RequestParam("sigunguCode") String sigunguCode,
+                                                 @RequestParam("cat1") String cat1,
+                                                 @RequestParam("cat2") String cat2,
+                                                 @RequestParam("cat3") String cat3,
+                                                 @RequestParam("pageNo") int pageNo){
+
+        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
+        url += "&numOfRows=12" + "&pageNo=" + pageNo;
+        url += "&listYN=Y&arrange=A";
+        url += "&contentTypeId=" + contentTypeId;
+        url += "&areaCode=" + areaCode;
+        url += "&sigunguCode=" + sigunguCode;
+        url += "&cat1=" + cat1;
+        url += "&cat2=" + cat2;
+        url += "&cat3=" + cat3 + LAST_URL;
+
+        return ResponseEntity.ok(tourService.getApiData(url));
+    }
+    @GetMapping("/store/tour/getMainPageList")
+    public ResponseEntity<?> getMainPageList(@RequestParam("contentTypeId") String contentTypeId,
+                                                 @RequestParam("areaCode") String areaCode,
+                                                 @RequestParam("sigunguCode") String sigunguCode,
+                                                 @RequestParam("cat1") String cat1,
+                                                 @RequestParam("cat2") String cat2,
+                                                 @RequestParam("cat3") String cat3,
+                                                 @RequestParam("pageNo") int pageNo){
+
+        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
+        url += "&numOfRows=12" + "&pageNo=" + pageNo;
+        url += "&listYN=Y&arrange=A";
+        url += "&contentTypeId=" + contentTypeId;
+        url += "&areaCode=" + areaCode;
+        url += "&sigunguCode=" + sigunguCode;
+        url += "&cat1=" + cat1;
+        url += "&cat2=" + cat2;
+        url += "&cat3=" + cat3 + LAST_URL;
+
+        return ResponseEntity.ok(tourService.getApiData(url));
+    }
+    @GetMapping("/store/tour/getNextPageList")
+    public ResponseEntity<?> getNextPageList(@RequestParam("contentTypeId") String contentTypeId,
+                                                 @RequestParam("areaCode") String areaCode,
+                                                 @RequestParam("sigunguCode") String sigunguCode,
+                                                 @RequestParam("cat1") String cat1,
+                                                 @RequestParam("cat2") String cat2,
+                                                 @RequestParam("cat3") String cat3,
+                                                 @RequestParam("pageNo") int pageNo){
+
+        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
+        url += "&numOfRows=12" + "&pageNo=" + pageNo;
+        url += "&listYN=Y&arrange=A";
+        url += "&contentTypeId=" + contentTypeId;
+        url += "&areaCode=" + areaCode;
+        url += "&sigunguCode=" + sigunguCode;
+        url += "&cat1=" + cat1;
+        url += "&cat2=" + cat2;
+        url += "&cat3=" + cat3 + LAST_URL;
+
+        return ResponseEntity.ok(tourService.getApiData(url));
+    }
+    @GetMapping("/store/tour/getLastPageList")
+    public ResponseEntity<?> getLastPageList(@RequestParam("contentTypeId") String contentTypeId,
+                                                 @RequestParam("areaCode") String areaCode,
+                                                 @RequestParam("sigunguCode") String sigunguCode,
+                                                 @RequestParam("cat1") String cat1,
+                                                 @RequestParam("cat2") String cat2,
+                                                 @RequestParam("cat3") String cat3,
+                                                 @RequestParam("pageNo") int pageNo){
+
+        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
+        url += "&numOfRows=12" + "&pageNo=" + pageNo;
         url += "&listYN=Y&arrange=A";
         url += "&contentTypeId=" + contentTypeId;
         url += "&areaCode=" + areaCode;
