@@ -90,10 +90,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    int countByUserName(String user_name);
 
-    int countByUserId(String user_id);
+//    @Query("select u from User u where u.userId = :user_id order by u.userRegdate desc")
+//    List<User> selectByUserId(@Param("user_id")String user_id);
+//
+//    @Query("select u from User u where u.userName = :user_name order by u.userRegdate desc")
+//    List<User> selectByUserName(@Param("user_name")String user_name);
 
 
+    Page<User> findByUserNameLike(Pageable pageable,String user_name);
+    Page<User> findByUserIdLike(Pageable pageable,String user_id);
+
+    int countByUserNameLike(String user_name);
+    int countByUserIdLike(String user_id);
 
 }

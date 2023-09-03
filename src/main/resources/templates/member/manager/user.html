@@ -73,7 +73,7 @@
                 <div class="user-search-bar">
                     <div>
                         <select name="user-search-option" id="user-search-option">
-                            <option value="no" selected>전체</option>
+                            <option value="all">전체</option>
                             <option value="user_id">유저 아이디</option>
                             <option value="user_name">유저 이름</option>
 
@@ -113,11 +113,12 @@
                         <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
                     </svg>
                 </div>
-                <div>표시할 유저 정보가 없습니다.</div>
+                <div class = "warning-title">표시할 유저 정보가 없습니다.</div>
             </div>
 
-            <th:block th:each="user : ${userList}">
-                <div class="userinfo-box">
+
+            <th:block  th:if ="${!noUser}">
+                <div class="userinfo-box"th:each="user : ${userList}">
 
 
                     <div th:text="${user.userId}"></div>
@@ -144,8 +145,8 @@
             </th:block>
 
 
-
             <!-- 검색어가 없을떄의 페이징 처리-->
+            <th:block  th:if ="${!noUser}">
             <div class="page-block">
 
                 <th:block th:if="${pageEndNo > 10}">
@@ -161,13 +162,20 @@
                 <!--                    </th:block>-->
 
 
+
+<!--                <div th:each="page : ${#numbers.sequence(pageStartNo, pageEndNo)}"-->
+<!--                     class="page-number-block page-select-btn"-->
+<!--                     th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${page}+'\''"-->
+<!--                     th:id="${page}">-->
+
                 <div th:each="page : ${#numbers.sequence(pageStartNo, pageEndNo)}"
                      class="page-number-block page-select-btn"
-                     th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${page}+'\''"
+                     onclick="pageChange(this)"
                      th:id="${page}">
 
 
-                    <p th:text="${page}"></p>
+
+                <p th:text="${page}"></p>
                 </div>
 
                 <th:block th:if="${lastPageCheck}">
@@ -207,6 +215,7 @@
                 -->
 
             </div>
+            </th:block>
 
 
 

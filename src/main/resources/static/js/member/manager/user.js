@@ -212,30 +212,45 @@ $('#search-input').on('keyup', function (e) {
         var search_word = $('#search-input').val();
         var search_option = $('#user-search-option').val();
         console.log(search_word);
-        if (search_word === "") {
+        if(search_option === "all" ){
+            location.href = `/pageTest`;
+
+        }
+        else if (search_word === "") {
             Swal.fire('검색어를 입력해주세요.', '', 'warning')
         } else {
-            location.href = `/pageTest?search_word=${search_word}&search_option=${search_option}`;
+            location.href = `/pageTest?pageNo=1&search_word=${search_word}&search_option=${search_option}`;
         }
     }
 })
 
 
-// search option selected설정하기.
-
-var selected_option = $('#search_option').val(); // hidden값
-console.log(selected_option);
+var search_option = $('#search_option').val(); // hidden값
+console.log(search_option);
 
 
 // hidden값으로 이전에 지정했던 설정을 저장하고 있는다.
-var selected = document.querySelector(`select [value=${selected_option}]`);
+var selected = document.querySelector(`select [value=${search_option}]`);
 selected.selected = true;
 
 
 // hiiden값으로 아까 검색했던 검색어를 검색창에 집어넣ㄴ는다.
-var search_word = $('#search-input').text($('#search_word').val());
+$('#search-input').val($('#search_word').val());
+var search_word = $('#search-input').val();
+
+
+function pageChange(element){ // 페이지 버튼 클릭할시
+
+    var pageNo = element.id;
+
+    if(search_word === "") { // 검색어 없을 경우 그냥 페이지만 변경한다.
+        location.href = `/pageTest?pageNo=${pageNo}`;
+    }else if(search_word !== ""){ // 검색어가 있을 경우 페이지NO과 함꼐 검색어와 option도 계속 전달한다.
+        location.href = `/pageTest?pageNo=${pageNo}&search_word=${search_word}&search_option=${search_option}`;
+
+    }
+
+}
 
 
 
-// 검색어를 입력하면 .. 컨트롤러에서 userList를 다시 받아온다 .
-// 단 이떄 pageBlock은 다르게 구성돼야한다.
