@@ -126,7 +126,24 @@ public class AccompanyController {
         return "community/accompany/accompany_detail";
     }
 
+    // index에서 해당 글로 연결
+    @GetMapping("/community/accompany/detail/{ac_num}")
+    public String AccompanyDetail(@PathVariable Long ac_num, Model model){
+        System.out.println("컨트롤러의 AccompanyDetail() 메서드를 실행");
+        System.out.println("ac_num = " + ac_num);
 
+        //수정할 데이터를 얻어온다.
+
+        Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
+
+        //테이블에서 데이터를 가져와서 accompany_Detail파일로 넘기기 위해서
+        // model 인터페이스 객체에 넣어준다.
+
+        model.addAttribute("accompany", accompanyEntity);
+
+        return "community/accompany/accompany_detail";
+
+    }
 
 
 //    // 글 번호 가지고 수정하는 메서드
