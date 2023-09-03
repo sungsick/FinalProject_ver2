@@ -3,22 +3,19 @@ package com.kh.myproject.store.rentcar.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
+@Table(name="car_info")
 public class RentcarInfoEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carInfo_id;
 
     @Column
@@ -41,6 +38,27 @@ public class RentcarInfoEntity {
     private int com_id;
     @Column
     private String car_option;
+    @Column
+    private String car_img;
+
+
+    public RentcarInfoDTO toDTO() {
+
+        return RentcarInfoDTO.builder()
+                .carInfo_id(carInfo_id)
+                .car_name(car_name)
+                .car_nation(car_nation)
+                .car_type(car_type)
+                .driver_age(driver_age)
+                .car_people(car_people)
+                .car_price(car_price)
+                .car_discount(car_discount)
+                .com_id(com_id)
+                .car_option(car_option)
+                .car_img(car_img)
+                .build();
+
+    }
 
 
 }

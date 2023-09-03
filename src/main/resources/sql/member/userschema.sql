@@ -1,8 +1,15 @@
-CREATE DATABASE if not exists finalproject;
+/* CREATE DATABASE if not exists finalproject;*/
+
 
 use finalproject;
 
 delete from finalproject.user;
+delete from finalproject.qna;
+delete from car_info;
+
+alter table finalproject.qna auto_increment = 1;
+alter table finalproject.user auto_increment = 1;
+alter table finalproject.car_info auto_increment = 1;
 
 CREATE TABLE if not exists `user` (
                         `user_id`	varchar(30)	NOT NULL,
@@ -16,7 +23,7 @@ CREATE TABLE if not exists `user` (
                         `user_img`	varchar(20)	NULL
 
 );
-delete from finalproject.qna;
+
 
 CREATE TABLE if not exists `qna` (
                         `qna_number`int	NOT NULL primary key auto_increment,
@@ -27,3 +34,19 @@ CREATE TABLE if not exists `qna` (
                         `qna_answer`	varchar(500)	NULL
 );
 
+
+
+CREATE TABLE if not exists car_info (
+                          carInfo_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                          car_name VARCHAR(255),
+                          car_nation VARCHAR(255),
+                          car_type VARCHAR(255),
+                          oil_type VARCHAR(255),
+                          driver_age VARCHAR(255),
+                          car_people INT,
+                          car_price INT,
+                          car_discount INT,
+                          com_id INT,
+                          car_option VARCHAR(255),
+                          car_img varchar(20)
+);

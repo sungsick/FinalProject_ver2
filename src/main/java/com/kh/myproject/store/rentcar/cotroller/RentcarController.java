@@ -1,10 +1,14 @@
 package com.kh.myproject.store.rentcar.cotroller;
 
+import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
+import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -49,7 +53,15 @@ public class RentcarController {
 
     }
 
+    @GetMapping("rentcarreserve/search")
+    public String reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, Model model) {
 
+        List<RentcarInfoDTO> rentcarList = null;
+        model.addAttribute("rentcarList", RentcarService.searchKeyword(searchKeyword));
+
+        return "store/rentcar/rentcarReserve";
+
+    }
 
 
 /*
