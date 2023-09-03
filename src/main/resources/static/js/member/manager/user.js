@@ -160,51 +160,6 @@ function deluser(element) {
                 data: query,
                 success: function (data) {
 
-                    // 페이지 새로고침 없이 ajax에서 테이블 데이터 다 받아서 다시 페이지에 div뿌리는 과정.
-                    // 그러나 어차피 페이지 이동처리해야하기 때문에 필요없어진 로직
-
-                    // var responseList = data;
-                    // $('.userinfo-box').remove();
-
-
-                    var userList = "";
-                    // for (var i = 0; i < responseList.length; i++) {
-                    //
-                    //     var userDate = new Date(responseList[i].userDate);
-                    //     var userRegdate = new Date(responseList[i].userRegdate);
-                    //
-                    //
-                    //     var date_year = userDate.getFullYear();
-                    //     var date_month = String(userDate.getMonth() + 1).padStart(2, '0');
-                    //     var date_day = String(userDate.getDate()).padStart(2, '0');
-                    //     var formattedDate = `${date_year}년 ${date_month}월 ${date_day}일`; // "2023-08-31"
-                    //
-                    //     var regdate_year = userRegdate.getFullYear();
-                    //     var regdate_month = String(userRegdate.getMonth() + 1).padStart(2, '0');
-                    //     var regdate_day = String(userRegdate.getDate()).padStart(2, '0');
-                    //     var formattedRegDate = `${regdate_year}년 ${regdate_month}월 ${regdate_day}일`; // "2023-08-31"
-                    //
-                    //     userList += "<div class=userinfo-box>";
-                    //     userList += `<div>${responseList[i].userId}</div>`
-                    //     userList += `<div>${responseList[i].userName}</div>`
-                    //     userList += `<div>${responseList[i].userGender}</div>`
-                    //     userList += `<div>${formattedDate}</div>`
-                    //     userList += `<div>${formattedRegDate}</div>`
-                    //     userList += `<div class=user-del-btn onclick=deluser(this) id =${responseList[i].userNumber}>
-                    //     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
-                    //                                  <style>svg {
-                    //                                      fill: #ff0000
-                    //                                  }</style>
-                    //                                  <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
-                    //                              </svg>
-                    //
-                    //                                  </div>`
-                    //
-                    //     userList += "</div>"; // userinfo-box닫는 태그
-                    //
-                    //
-                    // }
-                    // $('.usertable-inner').append(userList);
 
                     // 추가한 버튼의 이벤트 핸들러를 추가한다.
                     Swal.fire('삭제가 완료됐습니다.', '', 'success').then((result) => {
@@ -236,9 +191,9 @@ console.log(pageSelectBtn);
 
 // #selected-btn은 페이지 렌더링시 히든값으로 가지고 있는 pageNo의 value이다.
 
-for(var i = 0; i < pageSelectBtn.length; i++){
+for (var i = 0; i < pageSelectBtn.length; i++) {
 
-    if(pageSelectBtn[i].id == $('#selected-btn').val()){
+    if (pageSelectBtn[i].id == $('#selected-btn').val()) {
 
         console.log(pageSelectBtn[i])
         console.log('h')
@@ -247,8 +202,40 @@ for(var i = 0; i < pageSelectBtn.length; i++){
     }
 }
 
+// 유저 아이디, 혹은 유저 이름으로 유저 찾기 버튼을 클릭, 혹은 enter를 눌렸을 때
+
+
+$('#search-input').on('keyup', function (e) {
+
+    if (e.key === "Enter") {
+
+        var search_word = $('#search-input').val();
+        var search_option = $('#user-search-option').val();
+        console.log(search_word);
+        if (search_word === "") {
+            Swal.fire('검색어를 입력해주세요.', '', 'warning')
+        } else {
+            location.href = `/pageTest?search_word=${search_word}&search_option=${search_option}`;
+        }
+    }
+})
+
+
+// search option selected설정하기.
+
+var selected_option = $('#search_option').val(); // hidden값
+console.log(selected_option);
+
+
+// hidden값으로 이전에 지정했던 설정을 저장하고 있는다.
+var selected = document.querySelector(`select [value=${selected_option}]`);
+selected.selected = true;
+
+
+// hiiden값으로 아까 검색했던 검색어를 검색창에 집어넣ㄴ는다.
+var search_word = $('#search-input').text($('#search_word').val());
 
 
 
-
-
+// 검색어를 입력하면 .. 컨트롤러에서 userList를 다시 받아온다 .
+// 단 이떄 pageBlock은 다르게 구성돼야한다.

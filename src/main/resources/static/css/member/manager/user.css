@@ -30,6 +30,9 @@ table{
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
     border-radius: 10px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
 
 }
 .mg1{
@@ -52,7 +55,7 @@ path ,#container{
 
 
 #myChart{
-    width: 500px;
+    width: 500px !important;
     height: 400px;
 
 }
@@ -193,8 +196,7 @@ path ,#container{
     margin : 0 auto;
     height: 40px;
     justify-content: center;
-    margin-top: 20px;
-
+    padding : 20px 20px;
 }
 
 .page-number-block{
@@ -222,4 +224,82 @@ path ,#container{
 
     background-color:#E7F4FD;
     cursor: pointer;
+}
+
+.user-search-bar{
+
+    display : flex;
+    justify-content: right;
+    align-items: center;
+    height: 30px;
+
+}
+
+.user-search-bar div:nth-child(1){
+
+    height: 30px;
+}
+
+.user-search-bar div:nth-child(1) select{
+    height: 30px;
+    border-radius: 5px;
+}
+
+.user-search-bar input{
+
+
+    box-sizing: border-box;
+   padding : 9px;
+    width: 170px;
+    height: 26px;
+    outline: none;
+    font-size: 13px;
+    border : none;
+    position: relative;
+
+
+}
+.user-search-input{
+
+
+    border : 1px solid black;
+    border-radius: 5px;
+    display : flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    box-sizing: border-box;
+    height: 30px;
+    margin-left : 10px;
+    margin-right: 10px;
+
+}
+
+.user-search-input div:nth-child(1){
+    display : flex;
+    align-items: center;
+}
+.user-search-input i{
+    margin-left: 10px;
+}
+
+
+.no-user{
+
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+
+}
+
+.no-user div:nth-child(1) svg{ /*아이콘*/
+
+    height: 50px;
+
+}
+.no-user div{
+    text-align: center;
+    width: 300px;
+    font-size : 20px
 }

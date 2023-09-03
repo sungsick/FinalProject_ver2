@@ -231,6 +231,20 @@ public class UserService {
         return userList;
     }
 
+    public int selectUserCountBySearchWord(String search_word,String search_option){
+
+        int result = 0;
+        if(search_option.equals("user_id")){
+
+            result = userRepository.countByUserName(search_word);
+        }else if(search_option.equals("user_name")){
+            result = userRepository.countByUserId(search_word);
+
+        }
+
+        return result;
+    }
+
 
 
 }

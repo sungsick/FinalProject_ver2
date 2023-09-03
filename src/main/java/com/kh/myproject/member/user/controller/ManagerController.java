@@ -16,10 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @SessionAttributes("manager")
@@ -178,10 +175,24 @@ public class ManagerController {
     // 유저게시판이 보여지는 페이지. 페이징 처리 구현.
     @GetMapping("pageTest")
     public String pageTest(Model model,
-                           @RequestParam(value = "pageNo", defaultValue = "1") int pageNo) {
+                           @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                           @RequestParam(value = "search_word", defaultValue = "")String search_word,
+                           @RequestParam(value = "search_option", defaultValue = "no")String search_option){
+
+        int userCount = 0;
+        System.out.println("search_wod" + search_word);
+        System.out.println("search_option" + search_option);
+
+        if(!search_option.equals("")){ // 검색어가 있으면서 유저이름으로 검색했는지 아이디로 검색했는지 확인.
+
+            userCount = userService.selectUserCountBySearchWord(search_word,search_option);
+
+        }else if(search_option.equals("no")){ // 전체선택을 골랐을 경우.
+            userCount = userService.selectUserCount();
+
+        }
 
 
-        int userCount = userService.selectUserCount();
 
 
 //        model.addAttribute("pageNo",user)
@@ -215,6 +226,19 @@ public class ManagerController {
         // 이떄의 pageEndNo
 
 
+        // search로 회원 조회했는데 정보가 없다면, 혹은 db에 그냥 유저 데이터가 없는 상태라면.
+        if(userCount == 0){
+            pageStartNo = 1;
+            pageEndNo = 1;
+            boolean noUser = true;
+            model.addAttribute("noUser",noUser);
+            model.addAttribute("pageStartNo", pageStartNo);
+            model.addAttribute("pageEndNo", pageEndNo);
+            return "member/manager/user";
+
+        }
+
+
         //유저 데이터가 150개다
         // 현재 페이지가 1~10페이지면 괜찮다. 그러나.
         // 현재페이지가 11~20이라면 20까지 보여줘서는 안된다
@@ -223,7 +247,7 @@ public class ManagerController {
         //이전버튼과 처음버튼은  pageEndNo가 10인경우에는 보여주지 않는다.
         //다음버튼과 끝 버튼은 pageEndNo가 userCount/10 보다 클경우에 보여주지 않는다.
 
-        totalPgae = userCount % 10 > 0  ? userCount/10+1 : userCount/10;
+        totalPgae = userCount % 10  > 0 && userCount!=0  ? userCount/10+1 : userCount/10;
 
 
         if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
@@ -235,8 +259,6 @@ public class ManagerController {
         pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
         pageEndNo = ((pageNo / 10 + 1) * 10);
         pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
-
-
 
 
         // 유저가 561명인데 pageEndNo가 60이면 56까지만 보여준다. 나머지 있으면 57까보여준다.
@@ -255,9 +277,11 @@ public class ManagerController {
         // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
         // 마지막페이지 값
 
+        List<User> userList = new ArrayList<>();
 
-        List<User> userList = userService.findUserByPage(pageNo); // pageNo만큼 쿼리문을 조회한다.
-
+        if(search_option.equals("no")) {// 전체 선택으로 조회했을떄
+            userList = userService.findUserByPage(pageNo); // pageNo만큼 쿼리문을 조회한다.
+        }
 
         // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
         model.addAttribute("totalPage",totalPgae);
@@ -266,6 +290,8 @@ public class ManagerController {
         model.addAttribute("pageEndNo", pageEndNo);
         model.addAttribute("userList", userList);
         model.addAttribute("pageNo", pageNo);
+        model.addAttribute("search_option", search_option);
+        model.addAttribute("search_word",search_word);
 
 
         return "member/manager/user";

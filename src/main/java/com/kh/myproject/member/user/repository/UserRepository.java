@@ -90,4 +90,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
+    int countByUserName(String user_name);
+
+    int countByUserId(String user_id);
+
+
+
 }
