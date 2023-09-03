@@ -65,7 +65,7 @@
         <h4 class="content_title">
             유저 목록
         </h4>
-        <div class="usertable" id = "usertable">
+        <div class="usertable" id="usertable">
 
             <div class="usertable-inner">
                 <div class="field-bar">
@@ -109,24 +109,37 @@
 
 
                 <div class="page-block">
-                    <div class="page-number-block" id="first-page"> 처음</div>
-                    <div class="page-number-block" id="left-page"> 이전</div>
 
-<!--                    <th:block th:each="number : ${#numbers.sequence(1, 31)}">-->
-<!--                        <span th:text ="${number}"></span>-->
-<!--                    </th:block>-->
-
-
-
-                        <div th:each="page : ${#numbers.sequence(pageStartNo, pageEndNo)}" class="page-number-block"
-                             th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${page}+'\''">
-
-
-                            <p th:text="${page}"></p>
+                    <th:block th:if="${pageEndNo != 10}">
+                        <div class="page-number-block" id="first-page"
+                             th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${1}+'\''"> 처음</div>
+                        <div class="page-number-block" id="left-page"
+                             th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${pageStartNo-1}+'\''"> 이전
                         </div>
-                    <div class="page-number-block" id="right-page"> 다음</div>
-                    <div class="page-number-block" id="end-page"> 끝</div>
+                    </th:block>
+                    <!--                    <th:block th:each="number : ${#numbers.sequence(1, 31)}">-->
+                    <!--                        <span th:text ="${number}"></span>-->
+                    <!--                    </th:block>-->
 
+
+                    <div th:each="page : ${#numbers.sequence(pageStartNo, pageEndNo)}"
+                         class="page-number-block page-select-btn"
+                         th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${page}+'\''"
+                            th:id = "${page}">
+
+
+                        <p th:text="${page}"></p>
+                    </div>
+
+                    <th:block th:if="${lastPageCheck}">
+                        <div th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${pageEndNo+1}+'\''"
+                             class="page-number-block" id="right-page"> 다음
+                        </div>
+                        <div th:onclick="'location.href = \'' + @{/pageTest} + '?pageNo='+${totalPage}+'\''"
+                                class="page-number-block" id="end-page"> 끝</div>
+                    </th:block>
+
+                    <input hidden id="selected-btn" th:value="${pageNo}">
                     <!--
 
                     th:block으로 생겨나는 페이지 번호는 10의 단위로 끊어줘야한다.

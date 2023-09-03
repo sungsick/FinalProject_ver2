@@ -224,11 +224,9 @@ public class UserService {
     public List<User> findUserByPage(int pageNo){
 
 //        userRepository.findUserByPage(startNo,endNo);
-        System.out.println("repository의 srtatno" + pageNo);
-        Pageable pageable = PageRequest.of(pageNo,10, Sort.by("userNumber").descending());
+        Pageable pageable = PageRequest.of(pageNo-1,10, Sort.by("userNumber").descending());
         Page<User> users = userRepository.findAll(pageable);
         List<User> userList = users.getContent();
-        System.out.println("pageable 값 " + userList);
 
         return userList;
     }
