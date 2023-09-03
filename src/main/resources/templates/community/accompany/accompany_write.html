@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<form action="/community/accompany/writePro">
+<form action="/community/accompany/writePro" method="POST">
 
     <div class="next">
         <header th:include="header.html :: header"></header>
@@ -35,34 +35,35 @@
                             <span>어디로 떠나볼까요?</span>
                         </div>
                         <div class="C-nav-btn1">
+                            <input id="region" type="hidden" name="ac_region">
                             <div class="C-nav-btn">
-                                <span class="C-nav-btn-sp" th:value="ac_region">전체</span>
+                                <span class="C-nav-btn-sp">전체</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span class="C-nav-btn-sp" th:value="ac_region">서울</span>
+                                <span class="C-nav-btn-sp">서울</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span class="C-nav-btn-sp" th:value="ac_region">경기도</span>
+                                <span class="C-nav-btn-sp">경기도</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span class="C-nav-btn-sp" th:value="ac_region">강원도</span>
+                                <span class="C-nav-btn-sp">강원도</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span class="C-nav-btn-sp" th:value="ac_region">충청도</span>
+                                <span class="C-nav-btn-sp">충청도</span>
                             </div>
                         </div>
                         <div class="C-nav-btn2">
                             <div class="C-nav-btn">
-                                <span th:value="ac_region">경상도</span>
+                                <span class="C-nav-btn-sp">경상도</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span th:value="ac_region">전라도</span>
+                                <span class="C-nav-btn-sp">전라도</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span th:value="ac_region">제주도</span>
+                                <span class="C-nav-btn-sp">제주도</span>
                             </div>
                             <div class="C-nav-btn">
-                                <span th:value="ac_region">기타</span>
+                                <span class="C-nav-btn-sp">기타</span>
                             </div>
                         </div>
                     </div>

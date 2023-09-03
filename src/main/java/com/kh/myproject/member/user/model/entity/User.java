@@ -15,10 +15,9 @@ import java.util.Date;
 @EqualsAndHashCode // equa
 public class User {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// 기본키 값을 자동으로 생성한다.
+    @Column(name = "user_number")       // 예슬 추가함(외래키)
     private Long userNumber;
     // user_number 필드는 auto_increment이면서 pk이다.
 

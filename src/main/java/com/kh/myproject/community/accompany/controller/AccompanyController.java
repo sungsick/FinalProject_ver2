@@ -4,6 +4,7 @@ import com.kh.myproject.community.dto.AccompanyForm;
 import com.kh.myproject.community.entity.Accompany;
 import com.kh.myproject.community.repository.AccompanyRepository;
 
+import com.kh.myproject.member.user.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,18 +36,32 @@ public class AccompanyController {
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityaccompany(Model model) {
+    public String accompanyIndex(Model model) throws Exception{
 
         System.out.println("컨트롤러의 ");
         // 목록보기
+        List<Accompany> accompanyEntity = accompanyRepository.findAll();
+
+        // db에서 정보를 가져오는 locig을 짜야함
+        if (!accompanyEntity.isEmpty()) {
+
+        Accompany ac =   accompanyEntity.get(0);
+        User acUser =  ac.getUser();
+            System.out.println(acUser);
+        }
+
+
+        model.addAttribute("accompanyList", accompanyEntity);
+
 
         return "community/accompany/accompany";
+
     }
 
 
     //동행 글 쓰기
     @GetMapping ("/community/accompany/write") // http://localhost:8070/community/accompany/write
-    public String communityaccompanywrite() {
+    public String accompanyWrite() {
 
 
         return "community/accompany/accompany_write";
@@ -52,18 +69,27 @@ public class AccompanyController {
 
     }
 
-    @GetMapping ("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
-    public String communityaccompanywritePro(AccompanyForm form,
-                                             @RequestParam("ac_region")String ac_region,
-                                             @RequestParam("ac_startdate")String ac_startdate,
-                                             @RequestParam("ac_enddate")String ac_enddate,
-                                             @RequestParam("ac_title")String ac_title,
-                                             @RequestParam("ac_text")String ac_text,
-                                             @RequestParam("ac_people")String ac_people,
-                                             @RequestParam("ac_picture")String ac_picture
-                                                ) {
+    @PostMapping ("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
+    public String accompanywritePro(HttpSession session,  AccompanyForm form,
+                                    @RequestParam("ac_region") String ac_region,
+                                    @RequestParam("ac_startdate")String ac_startdate,
+                                    @RequestParam("ac_enddate")String ac_enddate,
+                                    @RequestParam("ac_title")String ac_title,
+                                    @RequestParam("ac_text")String ac_text,
+                                    @RequestParam("ac_people")String ac_people,
+                                    @RequestParam("ac_picture")String ac_picture
 
+    ) {
         System.out.println(form);
+        form.setAc_viewcount(0);
+        // 조회수 0 으로 초기화
+
+        User user = (User) session.getAttribute("user");
+        System.out.println("user" + user);
+        Long getUNumber = user.getUserNumber();
+        form.setUser_number(getUNumber);
+        // 유저 넘버 가져옴
+
         System.out.println("ac_region" + ac_region);
         System.out.println("ac_startdate" + ac_startdate);
         System.out.println("ac_enddate" + ac_enddate);
@@ -72,9 +98,14 @@ public class AccompanyController {
         System.out.println("ac_people" + ac_people);
         System.out.println("ac_picture" + ac_picture);
 
+
         // DTO의 데이터를 Entity로 변환한다.
         Accompany accompany = form.toEntity();
         System.out.println(accompany);
+
+
+
+
 
         // Repository에게 Entity를 데이터베이스에 저장하게 한다
         // id 가 자동으로 증가된다.
@@ -94,6 +125,8 @@ public class AccompanyController {
 
         return "community/accompany/accompany_detail";
     }
+
+
 
 
 //    // 글 번호 가지고 수정하는 메서드

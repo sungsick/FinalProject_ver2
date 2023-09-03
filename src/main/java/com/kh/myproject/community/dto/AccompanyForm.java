@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class AccompanyForm {
 
     private Long ac_num; //게시글번호
-    private int user_number; //유저아이디
+    private Long user_number; //유저아이디
     private String ac_regdate; //작성일자
     private String ac_title; //글 제목
     private String ac_text; //글 내용
@@ -24,7 +24,7 @@ public class AccompanyForm {
     private String ac_enddate; //종료 날짜
     private String ac_status; //모집 상태
     private String ac_picture; //사진
-    private String ac_viewcount; // 조회수
+    private int ac_viewcount; // 조회수
     private String ac_travelstyle; //여행취향
     private String ac_personalhash; // 해쉬 태그
 

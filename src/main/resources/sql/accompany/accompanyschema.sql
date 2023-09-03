@@ -2,8 +2,8 @@ CREATE DATABASE if not exists finalproject;
 
 use finalproject;
 
-delete
-from finalproject.accompany;
+-- delete
+-- from finalproject.accompany; // 예슬 수정 > 이것때문에 accompany 부분 동행글이 다 지워짐...
 
 
 
