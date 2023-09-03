@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PlanDTO {
 
+    private int day;
     private String place_name;
     private String address_name;
     private String category_group_name;

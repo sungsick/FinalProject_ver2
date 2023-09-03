@@ -156,6 +156,7 @@ function getListItem(index, places) {
     placebtn.addEventListener('click', function () {
 
         temp = {
+            day : $('#day').val(),
             place_name: places.place_name,
             address_name: places.address_name,
             category_group_name: places.category_group_name,

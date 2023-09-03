@@ -1,18 +1,115 @@
 //버튼 관련
 
-//내 일정으로 이동 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
-const MoveMySchedule = document.querySelector('.complete_write_btn');
+//일정 작성 완료 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
+const CompleteMySchedule = document.querySelector('.complete_write_btn');
 
-MoveMySchedule.addEventListener('click', () => {
+CompleteMySchedule.addEventListener('click', () => {
     window.location.href = '../plan';
 });
 
-//여행지 추가 버튼 클릭 시 plan_add로 이동
-const MovePlanAdd = document.querySelector('.add_place_button');
 
-MovePlanAdd.addEventListener('click', () => {
-    window.location.href = '../plan/add';
-});
+//1번째 테이블 장소 추가 버튼 클릭 시 plan_add로 이동
+/*
+var PlaceAddBtn = document.querySelectorAll('.place_add_btn');
+
+for(var i = 0; i < PlaceAddBtn.length; i++){
+    PlaceAddBtn[i].addEventListener('click', function(e){
+       console.log(e.target.innerHTML);
+    });
+}
+*/
+
+function test(e){
+    location.href=`/community/plan/add?day=${e.value}`;
+}
+
+
+
+
+//여행 일정 추가 버튼을 누르면 테이블 추가해주는 함수
+var dayValue = 4; // 테이블 번호 카운터 초기화
+
+// 이벤트 리스너를 추가하여 버튼 클릭 시 테이블을 추가하는 함수를 호출
+document.getElementById('schedule_add_btn').addEventListener('click', addTable);
+
+
+function addTable() {
+    // 새로운 테이블 요소를 생성
+    var newTable = document.createElement('table');
+    newTable.classList.add('table'); // 클래스 추가
+
+    // 새로운 테이블의 내용 (thead와 tbody) 생성
+    var tableContent = `
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <span class="ctn1_span">
+                                <span class="ctn1_span2">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#253333" xmlns="http://www.w3.org/2000/svg" color="#333333" size="15">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5143 12.7857C22.1619 12.462 22.1619 11.538 21.5143 11.2143L3.2715 2.09388C2.68733 1.80182 2 2.22657 2 2.87962L2 9.63235C2 10.1346 2.3726 10.559 2.87068 10.624L13.4216 12L2.87068 13.376C2.3726 13.441 2 13.8654 2 14.3676L2 21.1204C2 21.7734 2.68733 22.1982 3.2715 21.9061L21.5143 12.7857Z" fill="#ffffff"></path>
+                                    </svg>
+                                </span>
+                                <span class="day1_span">Day${dayValue}</span>
+                            </span>
+                        </th>
+                        <th scope="col">여행지</th>
+                        <th scope="col">장소분류</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row"><div class="ctn1_des_num">${dayValue}</div></th>
+                        <td>새로운 여행지</td>
+                        <td>새로운 장소분류</td>
+                        <td>
+                            <div class="sc_des_mark_hujitong">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                    <style>svg {fill: #df5368}</style>
+                                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            `;
+
+    // 새로운 테이블에 내용을 삽입
+    newTable.innerHTML = tableContent;
+
+    // 새로운 테이블을 컨테이너에 추가
+    var tableContainer = document.getElementById('tableContainer');
+    tableContainer.appendChild(newTable);
+    // "장소 추가"와 "메모 추가" 버튼을 포함하는 <div> 요소 생성
+    var buttonsDiv = document.createElement('div');
+    buttonsDiv.style.width = '100%';
+    buttonsDiv.style.height = '71px';
+    buttonsDiv.style.display = 'flex';
+    buttonsDiv.className = 'btm_btn';
+
+    // "장소 추가" 버튼 추가
+    var placeButton = document.createElement('button');
+    placeButton.className = 'place_add_btn';
+    placeButton.textContent = '장소 추가';
+    placeButton.onclick = function(){test(this)};
+    placeButton.value = dayValue.toString();
+    buttonsDiv.appendChild(placeButton);
+
+    // "메모 추가" 버튼 추가
+    var memoButton = document.createElement('button');
+    memoButton.className = 'memo_add_btn';
+    memoButton.textContent = '메모 추가';
+    buttonsDiv.appendChild(memoButton);
+    // buttonsDiv를 tableContainer에 추가
+    tableContainer.appendChild(buttonsDiv);
+
+    // 테이블 번호 카운터 증가
+    dayValue++;
+
+}
+
+
+//--------------------------------------------------------------------------------
 
 
 // 날짜 선택 관련
@@ -34,7 +131,7 @@ document.getElementById('select_end_date').addEventListener('change', function()
     document.querySelector('.sc_date_end').textContent = selectedEndDate;
 });
 
-
+//----------------------------------------------------------------------------------
 
 //카카오맵 관련
 // 마커를 담을 배열입니다

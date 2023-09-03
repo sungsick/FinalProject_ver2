@@ -7,10 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Controller
 //@RestController
@@ -18,7 +15,7 @@ import java.util.List;
 public class PlanController {
 
 
-    private List<PlanDTO> planList = new ArrayList<PlanDTO>();
+    private Map<Integer, List<PlanDTO>> planMap = new HashMap<>();
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
     public String communityplan() {
@@ -31,6 +28,14 @@ public class PlanController {
     @GetMapping("/community/plan/detail") // http://localhost:8080/community/plan/detail
     public String communityplandetail() {
 
+        //int result = service.save(entity);
+        /*
+        if (result == 1){
+
+        planList.clear();
+        }
+
+         */
 
         return "community/plan/plan_detail";
     }
@@ -39,8 +44,9 @@ public class PlanController {
     @GetMapping("/community/plan/write") // http://localhost:8080/community/plan/write
     public String communityplanwrite(Model model) {
 
-        if(!planList.isEmpty()) {
-            model.addAttribute("planList", planList);
+        System.out.println(planMap);
+        if(!planMap.isEmpty()) {
+            model.addAttribute("planMap", planMap);
         }
         return "community/plan/plan_write";
         //return "communtity/plan/plan_write";
@@ -48,21 +54,25 @@ public class PlanController {
 
     //일정 글쓰기 - 장소추가
     @GetMapping("/community/plan/add") // http://localhost:8080/community/plan/add
-    public String communityplanadd() {
-
+    public String communityplanadd(@RequestParam("day") int day,
+                                   Model model) {
+        model.addAttribute("day", day);
 
         return "community/plan/plan_add";
     }
 
 
+    //일정 글쓰기 - 장소추가(Plan_add)에서 일정 글 쓰기(Plan_write)로 값을 보낼때 중간에 거치는 컨트롤러
     @PostMapping("/community/plan/move")
     @ResponseBody
-    public void move(@RequestBody PlanDTO[] map){
+    public void move(@RequestBody PlanDTO[] dtoList){
 
-        for (PlanDTO planDTO : map) {
+        List<PlanDTO> planList = new ArrayList<>();
+
+        for (PlanDTO planDTO : dtoList) {
             planList.add(planDTO);
-            System.out.println(planList);
         }
+        planMap.put(dtoList[0].getDay(), planList);
 
 
 
