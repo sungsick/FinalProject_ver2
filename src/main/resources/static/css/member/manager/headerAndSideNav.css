@@ -61,6 +61,7 @@ header{
     padding: 20px 30px;
     border-bottom: 1px gray solid;
     text-align: center;
+    cursor: pointer;
 
 }
 

@@ -2,15 +2,14 @@ package com.kh.myproject.member.user.controller;
 
 
 import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +23,9 @@ public class ManagerController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QnaService qnaService;
 
 
     // 매니저 뷰페이지는 크게 N가지로 나눈다.
@@ -45,7 +47,7 @@ public class ManagerController {
             List<User> userList = userService.getSomeUser();
 
             modelAndView.addObject("manager", check_manager);
-            modelAndView.addObject("userList",userList);
+            modelAndView.addObject("userList", userList);
 
             // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
             // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
@@ -65,21 +67,39 @@ public class ManagerController {
     public String userList(Model model) {
 
         List<User> userList = userService.findAll();
-        model.addAttribute("userList",userList);
+        model.addAttribute("userList", userList);
 
 
         return "member/manager/manageUser";
     }
-//    @GetMapping("/manager/managerHome")
-//    public String homehome() {
-//
-//        return "member/manager/managerHome";
-//    }
 
-    @GetMapping("/manager/manageBoard")
-    public String accompanyList() {
+    @GetMapping("/manager/qna")
+    public ModelAndView qna(
+            @ModelAttribute("check_manager") Manager check_manager,
+            ModelAndView modelAndView,
+            HttpSession session) {
 
-        return "member/manager/manageBoard";
+        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
+            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+
+            modelAndView.setViewName("member/manager/qna");
+            List<Qna> qnaList = qnaService.getAllQna();
+
+            modelAndView.addObject("manager", check_manager);
+            modelAndView.addObject("qnaList", qnaList);
+
+            // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
+
+        } else {
+
+            // url로 접속했을 경우 에러페이지로 이동시킨다.
+            modelAndView.setViewName("redirect:/errorPage");
+
+        }
+
+        return modelAndView;
     }
 
 
@@ -107,7 +127,34 @@ public class ManagerController {
         return "redirect:/";
     }
 
+    @ResponseBody
+    @PostMapping("/manager/deleteQna")
+    public List<Qna> deleteQna(@ModelAttribute(name = "qnaNumber")
+                               String qnaNumber) {
 
+        System.out.println(qnaNumber);
+        qnaService.deleteQna(qnaNumber);
+
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        List<Qna> qnaList = qnaService.getAllQna();
+
+
+        System.out.println(qnaList);
+
+        return qnaList;
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/answerQna")
+    public void answerQna(@RequestParam("qnaNumber") String qnaNumber,
+                          @RequestParam("qnaAnswer") String qnaAnswer)  {
+
+        System.out.println(qnaNumber);
+        System.out.println(qnaAnswer);
+
+        qnaService.updateAnswer(qnaNumber, qnaAnswer);
+
+    }
 
 //    @GetMapping("/manager/rentcarList")
 //    public String rentcarList() {
@@ -120,7 +167,6 @@ public class ManagerController {
 //
 //        return "manageBoard";
 //    }
-
 
 
 }

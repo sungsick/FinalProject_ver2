@@ -2,8 +2,10 @@ package com.kh.myproject.member.user.service;
 
 
 import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.repository.ManagerRepository;
+import com.kh.myproject.member.user.repository.QnaRepository;
 import com.kh.myproject.member.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private QnaRepository qnaRepository;
 
     @Autowired
     private ManagerRepository managerRepository;
@@ -183,6 +188,13 @@ public class UserService {
         List<User> userlist = userRepository.findAll();
 
         return userlist;
+    }
+
+    public List<Qna> getAllQna(){
+
+        List<Qna> qnaList = qnaRepository.findAll();
+
+        return qnaList;
     }
 
 

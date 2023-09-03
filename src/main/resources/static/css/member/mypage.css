@@ -19,7 +19,7 @@ main{
 }
 .mypage_content1{
     width: 700px;
-    height: 1000px;
+    height: 100vh;
     background-color: rgb(255, 255, 255);
     border-radius: 6px;
     padding: 0px 0px 32px;
