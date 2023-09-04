@@ -175,7 +175,7 @@ function getListItem(index, places) {
         console.log(item);
 
         // place_name 값을 alert로 출력
-        alert(temp.place_name + "선택");
+        alert(temp.pbdPlaceName + "선택");
 
     });
 

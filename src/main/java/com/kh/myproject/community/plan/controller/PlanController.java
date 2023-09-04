@@ -1,12 +1,13 @@
 package com.kh.myproject.community.plan.controller;
 
 
+import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
-import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
@@ -31,15 +32,6 @@ public class PlanController {
     //일정 글 정보
     @GetMapping("/community/plan/detail") // http://localhost:8080/community/plan/detail
     public String communityplandetail() {
-
-        //int result = service.save(entity);
-        /*
-        if (result == 1){
-
-        planList.clear();
-        }
-
-         */
 
         return "community/plan/plan_detail";
     }
@@ -90,7 +82,7 @@ public class PlanController {
 
     }
 
-    //일정 삭제하는 컨트롤러
+    //일정 삭제하는 컨트롤러(Plan_write에서 삭제버튼 클릭 시)
     @PostMapping("/community/plan/deletePlan")
     @ResponseBody
     public void deletePlan(@RequestParam("day") String day, @RequestParam("placeName") String placeName){
@@ -103,6 +95,28 @@ public class PlanController {
             }
         }
         planMap.put(parseInt(day) , temp);
+    }
+
+
+    //Plan_write 작성 완료 버튼 클릭 시
+    @Getter
+    @Setter
+    public class CombinedData {
+        private PlanBoardDTO planBoardDTO;
+        private PlanBoardDetailDTO planBoardDetailDTO;
+
+
+
+        // Getter 및 Setter 메서드
+    }
+    @PostMapping("/community/plan/completePlan")
+    public String completePlan(@RequestBody CombinedData combinedData) {
+        // JSON 데이터를 CombinedData 객체로 자동으로 파싱하고 처리
+        PlanBoardDTO planBoardDTO = combinedData.getPlanBoardDTO();
+        PlanBoardDetailDTO planBoardDetailDTO = combinedData.getPlanBoardDetailDTO();
+        // 여기에서 planBoardDTO와 planBoardDetailDTO를 사용하여 원하는 처리 수행
+
+        return "community/plan/plan";
     }
 
 

@@ -135,15 +135,65 @@ function deletePlan(day, place_name){
             location.reload();
         },
         error: function(data){
-            console.log('dpfj');
+            console.log('삭제실패');
         }
 
     });
 
 }
 
+//일정작성완료 버튼 클릭 시
+$('.complete_write_btn').on('click', function () {
 
+// planBoardDTO 객체 생성 및 값 설정
+    var planBoardDTO = {
+        pbNum: pbNum,
+        pbWriteDate: pbWriteDate,
+        pbTitle: pbTitle,
+        pbStartDate: pbStartDate,
+        pbEndDate: pbEndDate,
+        pbRegion: pbRegion,
+        pbViewCount: pbViewCount,
+        user: {
+            userId: userId
+        }
+    };
 
+// planBoardDetailDTO 객체 생성 및 값 설정
+    var planBoardDetailDTO = {
+        pbdNum: pbdNum,
+        pbdPlaceName: pbdPlaceName,
+        pbdCategoryGroupName: pbdCategoryGroupName,
+        pbdX: pbdX,
+        pbdY: pbdY,
+        pbdDate: pbdDate,
+        planBoard: {
+            pbNum: 2 // PlanBoardDTO와 연관된 게시글 번호
+        }
+    };
+
+// 두 객체를 하나의 JSON 객체로 합치기
+    var combinedData = {
+        planBoardDTO: planBoardDTO,
+        planBoardDetailDTO: planBoardDetailDTO
+    };
+
+// AJAX 요청 설정
+    $.ajax({
+        url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL
+        type: 'post',
+        contentType: 'application/json', // 데이터 형식을 JSON으로 설정
+        data: JSON.stringify(combinedData), // 직렬화된 JSON 데이터를 요청 데이터로 설정
+        success: function (data) {
+            console.log('성공');
+            // 서버 응답에 대한 처리
+        },
+        error: function (data) {
+            console.log('실패');
+            // 에러 처리
+        }
+    });
+});
 
 
 

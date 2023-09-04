@@ -13,11 +13,11 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 public class PlanBoardDetailDTO {
-    private Long pbdNum;
-    private String pbdPlaceName;
-    private String pbdCategoryGroupName;
-    private double pbdX;
-    private double pbdY;
+    private Long pbdNum; //세부일정번호
+    private String pbdPlaceName; //여행지명
+    private String pbdCategoryGroupName; //장소분류명
+    private double pbdX; //x좌표
+    private double pbdY; //y좌표
     private int pbdDate;
     private PlanBoard planBoard;
 
