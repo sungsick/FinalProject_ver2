@@ -101,7 +101,7 @@
                         검색</p>
 
 
-                        <form action="rentcarreserve/searchs" method="post">
+                        <form action="/rentcarReserve" method="get">
                         <div style="display: flex;"><input placeholder="차량명을 입력해주세요."
                                                            class="_input_default_pczwv_3 CarNameSearchInput-dFPSqi filter_text_input"
                                                           id="searchKeyword" name="searchKeyword">
@@ -197,12 +197,12 @@
             <div>
                 <div class="ListInfoWrapper-igvcrK reserv_category_container"><span
                         class="text-[14px] font_medium">총 7개</span>
-                    <div class="Wrapper-dCnMqr result_category_box">
-                        <button class="SortButton-cmRWQJ result_category_text_off">차종순</button>
-                        <div class="Border-bHHyqR result_category_line"></div>
-                        <button class="SortButton-cmRWQJ result_category_text_on">낮은 가격순</button>
-                        <div class="Border-bHHyqR result_category_line"></div>
-                        <button class="SortButton-cmRWQJ result_category_text_off">높은 가격순</button>
+                    <div class="result_category_box">
+                        <button class="result_category_text_off" onclick="">차종순</button>
+                        <div class="result_category_line"></div>
+                        <button class="result_category_text_on">낮은 가격순</button>
+                        <div class="result_category_line"></div>
+                        <button class="result_category_text_off">높은 가격순</button>
                     </div>
                 </div>
 
@@ -214,7 +214,7 @@
                             <!--차량 안내 카드1-->
                             <div class="CardWrapper-cvjPki result_item" th:each="list : ${rentcarList}">
                                 <div><span class="Label-fdRgKZ result_item_year">20~현재 출시</span></div>
-                                <p class="SubmodelName-fBxKDh result_item_name" th:text="${list.getCar_name}"></p>
+                                <p class="SubmodelName-fBxKDh result_item_name" th:text="${list.getCar_name()}"></p>
                                 <p class="SubTitle-gXOIXp result_item_type">모닝 3세대 F/L</p><img
                                     src="https://ims-mobility-public.s3.ap-northeast-2.amazonaws.com/cars/6.png"
                                     style="width: 100%; max-width: 163px;">
@@ -269,15 +269,7 @@
                                 <p class="PriceText-iWKXRR result_item_price"><span class="lowest_label">최저</span>180,000원
                                 </p>
                             </div>
-                            <div class="CardWrapper-cvjPki result_item">
-                                <div><span class="Label-fdRgKZ result_item_year">16~19년 출시</span></div>
-                                <p class="SubmodelName-fBxKDh result_item_name">그랜저 IG</p>
-                                <p class="SubTitle-gXOIXp result_item_type">그랜저 6세대</p><img
-                                    src="https://ims-mobility-public.s3.ap-northeast-2.amazonaws.com/cars/79.png"
-                                    style="width: 100%; max-width: 163px;">
-                                <p class="PriceText-iWKXRR result_item_price"><span class="lowest_label">최저</span>260,000원
-                                </p>
-                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ import com.kh.myproject.store.rentcar.repository.RentcarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,35 @@ public class RentcarService {
                 .map(RentcarInfoDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+
+    //낮은 가격순 정렬
+    @Transactional
+    public List<RentcarInfoDTO> FindDiscountDesc(List<RentcarInfoDTO> rentcarlist) {
+
+        List<RentcarInfoEntity> entities = rentcarRepository.FindDiscountDesc();
+
+        return entities.stream()
+                .map(RentcarInfoDTO::fromEntity)
+                .collect(Collectors.toList());
+
+
+    }
+
+    public List<RentcarInfoDTO> findAll() {
+
+        List<RentcarInfoEntity> entities = rentcarRepository.FindAll();
+
+        return entities.stream()
+                .map(RentcarInfoDTO::fromEntity)
+                .collect(Collectors.toList());
+
+
+    }
+
+
+
+
 
 
 

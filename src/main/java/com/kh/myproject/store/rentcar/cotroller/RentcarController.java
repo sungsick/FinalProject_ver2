@@ -1,6 +1,7 @@
 package com.kh.myproject.store.rentcar.cotroller;
 
 import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
+import com.kh.myproject.store.rentcar.repository.RentcarRepository;
 import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class RentcarController {
     @Autowired
     private RentcarService rentcarService;
 
+    @Autowired
+    private RentcarRepository rentcarRepository;
+
 
     @GetMapping("/store/rentcar/rentcarMain")
     public String rentcarMain() {
@@ -27,7 +31,15 @@ public class RentcarController {
 
     }
 
+/*
+    @GetMapping("/store/rentcar/rentcarReserve")
+    public String rentcarReserve() {
 
+        return "store/rentcar/rentcarReserve";
+
+    }
+
+*/
     @GetMapping("/store/rentcar/rentcarChoice")
     public String rentcarChoice() {
 
@@ -36,7 +48,7 @@ public class RentcarController {
     }
 
 
-    @RequestMapping("/store/rentcar/MainSearch")
+    @RequestMapping("/store/rentcar/MainSearch") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
                          @RequestParam String arrive_date,
@@ -58,22 +70,38 @@ public class RentcarController {
     }
 
 
+/*
+
     @GetMapping("/store/rentcar/thTest")
     public String thttt(){
 
         return "store/rentcar/thTest";
     }
 
-    @RequestMapping("/rentcar/search")
-    public String reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, Model model) {
+*/
+
+
+    @GetMapping("/rentcarReserve")
+    public ModelAndView reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, ModelAndView mav) {
 
         System.out.println("reserveSearch 컨트롤러 메서드 실행");
         System.out.println(searchKeyword);
 
-        model.addAttribute("rentcarList", rentcarService.searchKeyword(searchKeyword));
+        mav.addObject("rentcarList", rentcarService.searchKeyword(searchKeyword));
+        mav.setViewName("store/rentcar/rentcarReserve");
+        return mav;
 
-        return "store/rentcar/thTest";
+    }
 
+    @GetMapping("/articles")
+    public String (Model model) {
+        List<RentcarInfoDTO> rentcarList = rentcarService.findAll();
+
+        model.addAttribute("rentcarDiscountDesc", rentcarService.FindDiscountDesc(rentcarList));
+
+
+
+        return "articles/index";
     }
 
 
