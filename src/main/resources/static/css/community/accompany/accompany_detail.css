@@ -1389,3 +1389,6 @@ img {
     color: gray;
 
 }
+a{
+    text-decoration: none;
+}

@@ -12,12 +12,13 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/js/community/accompany/accompany_edit.js"></script>
+
 </head>
 <body>
 
-<!-- 업데이트는 받아오는 자료 & 보내는 자료-->
+<!-- edit는 받아오는 자료-->
 
+<form>
 <div class="next">
     <header th:include="header.html :: header"></header>
 
@@ -38,7 +39,7 @@
                         <span>어디로 떠나볼까요?</span>
                     </div>
                     <div class="C-nav-btn1">
-                        <input id="region" name="ac_region" th:value="${accompany.ac_region}">
+                        <input id="region" type="hidden" name="ac_region" th:value="${accompany.ac_region}">
                         <div class="C-nav-btn">
                             <span class="C-nav-btn-sp" value="전체">전체</span>
                         </div>
@@ -107,7 +108,9 @@
                             <span>몇 명의 동행을 구하고 있나요?</span>
                         </div>
                         <div class="col-md-6">
-                            <label for="customRange1" class="form-label" id="slider_value_view">0</label>
+                            <label for="customRange1" class="form-label" id="slider_value_view" onchange="editPerson()">
+                                <input id="slider_value_view" onchange="editPerson()" th:value="${accompany.ac_people}">
+                            </label>
                             <input type="range" value="0" min="0" max="20" class="form-range" id="customRange1"
                                    width="140%" name="ac_people" th:value="${accompany.ac_people}">
                             <!-- 자바스크립트가 값을 받아와야 함 -->
@@ -168,11 +171,13 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 <script src="/jq/jquery-3.7.0.min.js"></script>
 <script src="/js/header.js"></script>
-<script src="/js/community/accompany/accompany_write.js"></script>
+<script src="/js/community/accompany/accompany_edit.js"></script>
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+
+</form>
 
 </body>
 </html>

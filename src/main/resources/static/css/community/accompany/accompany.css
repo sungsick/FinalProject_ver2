@@ -1,3 +1,5 @@
+
+
 .choice_post button {
     border: none;
     font-size: 16px;
@@ -586,7 +588,9 @@ button{
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
 }
 
-
+a{
+    text-decoration: none;
+}
 
 
 

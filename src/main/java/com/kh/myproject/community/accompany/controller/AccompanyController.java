@@ -159,28 +159,28 @@ public class AccompanyController {
 
 
 
-//    // 글 번호를 가지고 수정하는 메서드
-//    @PostMapping("/community/accompany/update")
-//    public String communityAccompanyupdate(AccompanyForm form){
-//        System.out.println("컨트롤러 update() 메서드 실행");
-//        System.out.println(form.toString());
-//
-//        // DTO -> Entity 로 변환한다.
-//        Accompany accompany = form.toEntity();
-//        System.out.println(accompany.toString());
-//
-//        // 데이터베이스에 저장된 수정할 데이터를 얻어와서 Entity로 수정한 후
-//        // 데이터베이스에 저장한다
-//        Accompany target = accompanyRepository.findById(accompany.getAc_num()).orElse(null);
-//
-//        if(target != null){
-//            accompanyRepository.save(accompany);
-//        }
-//
-//        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "community/accompany/accompany_update" + accompany.getAc_num();
-//
-//    }
+    // 글 번호를 가지고 수정하는 메서드
+    @PostMapping("/community/accompany/update")
+    public String communityAccompanyupdate(AccompanyForm form){
+        System.out.println("컨트롤러 update() 메서드 실행");
+        System.out.println(form.toString());
+
+        // DTO -> Entity 로 변환한다.
+        Accompany accompany = form.toEntity();
+        System.out.println(accompany.toString());
+
+        // 데이터베이스에 저장된 수정할 데이터를 얻어와서 Entity로 수정한 후
+        // 데이터베이스에 저장한다
+        Accompany target = accompanyRepository.findById(accompany.getAc_num()).orElse(null);
+
+        if(target != null){
+            accompanyRepository.save(accompany);
+        }
+
+        // 수정한 글 1건만 보여주고 싶을 때는
+        return "redirect://community/accompany";
+
+    }
 
 
 

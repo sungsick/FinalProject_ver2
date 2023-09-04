@@ -104,20 +104,27 @@ function regionInit() {
 regionInit();
 
 
-function ShowSliderValue(sVal) {
-    const obValueView = document.getElementById("slider_value_view");
-    obValueView.innerHTML = sVal
+var myRange = document.querySelector('#customRange1');
+var myValue = document.querySelector('#slider_value_view');
+var thumbWidth = 18;
+
+function updateSliderValue() {
+    var off = (myRange.clientWidth - thumbWidth) / (parseInt(myRange.max) - parseInt(myRange.min));
+    var px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.clientWidth / 2) + (thumbWidth / 2);
+
+    myValue.style.left = px + 'px';
+    myValue.style.top = -myRange.offsetHeight - 5 + 'px';
+    myValue.innerHTML = myRange.value;
 }
 
-const RangeSlider = function () {
-    const range = $('.form-range');
+myRange.oninput = function() {
+    updateSliderValue();
+};
 
-    range.on('input', function () {
-        ShowSliderValue(this.value);
-    })
-}
-
-RangeSlider();
+// 페이지 로드 시 슬라이더 값 업데이트
+window.onload = function() {
+    updateSliderValue();
+};
 
 
 

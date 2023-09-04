@@ -4,7 +4,7 @@
 use finalproject;
 
 
-drop table if exists user;
+# drop table if exists user;
 
 CREATE TABLE if not exists `user`
 (

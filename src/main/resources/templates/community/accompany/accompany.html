@@ -188,7 +188,17 @@
                                 </div>
                                 <div class="user_info">
                                     <div class="user_nick" th:text="${accompany.getUser().getUserId()}"></div>
-                                    <div class="user_agender" th:text="${accompany.getUser().getUserDate()}">20대</div>
+                                    <div class="user_agender" th:text="${accompany.getUser().getUserDate()}"></div>
+                                    <script th:inline="javascript">
+                                        let userAges= [[${accompany.getUser().getUserDate()}]];
+                                        console.log(userAges)
+
+
+
+
+
+                                    </script>
+
                                     <div class="user_agender" > · </div>
                                     <div class="user_agender" th:text="${accompany.getUser().getUserGender()}"></div>
                                 </div>
@@ -273,7 +283,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 <script src="/jq/jquery-3.7.0.min.js"></script>
 <script src="/js/header.js"></script>
-
 
 </body>
 </html>
