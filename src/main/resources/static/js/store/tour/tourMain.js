@@ -1,6 +1,7 @@
 $('.test_tour_main').on('click', function(){
    var cityName = $(this).attr('id')
-   console.log(city);
+   console.log(cityName);
+   citiesDetail(cityName);
 
 });
 

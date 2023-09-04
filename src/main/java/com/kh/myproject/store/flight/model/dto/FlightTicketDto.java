@@ -17,6 +17,7 @@ public class FlightTicketDto {
     private String ticFlightArrivalDate;
     private String ticSeatGrade;
     private String ticAirlineName;
+    private String ticAirlineLogo;
     private String ticFee;
     private String ticFromLocation;
     private String ticToLocation;
@@ -32,6 +33,7 @@ public class FlightTicketDto {
                 .ticFlightArrivalDate(ticFlightArrivalDate)
                 .ticSeatGrade(ticSeatGrade)
                 .ticAirlineName(ticAirlineName)
+                .ticAirlineLogo(ticAirlineLogo)
                 .ticFee(ticFee)
                 .ticFromLocation(ticFromLocation)
                 .ticToLocation(ticToLocation)

@@ -256,8 +256,10 @@ function getUrl(airlineName) {
 /* 검색 결과 생성 */
 function appendFlight(item, index) {
 
-    var param = JSON.stringify(item);
     var logo = getLogo(item.airlineNm);
+    item.logo = logo;
+    var param = JSON.stringify(item);
+    console.log(param);
     var startMin = item.depPlandTime.toString().slice(-2);
     var startHour = item.depPlandTime.toString().slice(-4, 10);
     var startTime = startHour + ":" + startMin;
@@ -328,6 +330,7 @@ function dataTest(param) {
             ticFlightArrivalDate: param.arrPlandTime,
             ticSeatGrade: "이코노미",
             ticAirlineName: param.airlineNm,
+            ticAirlineLogo: param.logo,
             ticFee: param.economyCharge,
             ticFromLocation: param.depAirportNm,
             ticToLocation: param.arrAirportNm,
@@ -344,8 +347,8 @@ function dataTest(param) {
                 type: 'post',
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
-                success: function (data) {
-                    location.href = "/pay/flightPayment";
+                success: function(data){
+                    location.href='/pay/flightPayment';
                 }
             });
         }

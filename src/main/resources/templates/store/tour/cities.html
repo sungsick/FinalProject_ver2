@@ -15,9 +15,17 @@
 
     <div class="cities_container">
         <div class="cities_title_container">
+            <img class="title_img" th:src="'/img/store/tour/cities/' + ${cityName} + '/title.jpg'" />
             <div class="cities_title_city_info">
                 <div class="cities_title_city_name">
-                    <h1>서울</h1>
+                    <th:block th:switch="${cityName}">
+                        <h1 th:case="seoul">서울</h1>
+                        <h1 th:case="busan">부산</h1>
+                        <h1 th:case="jeju">제주</h1>
+                        <h1 th:case="gangneung">강릉</h1>
+                        <h1 th:case="gyeongju">경주</h1>
+                        <h1 th:case="yeosu">여수</h1>
+                    </th:block>
                 </div>
                 <div class="cities_nav">
                     <div class="cities_nav_item_box">
@@ -33,7 +41,7 @@
                         </a>
                     </div>
                     <div class="cities_nav_item_box">
-                        <a href="/tourism" class="cities_nav_link">
+                        <a href="/store/rentcar/rentcarMain" class="cities_nav_link">
                             <img src="https://dffoxz5he03rp.cloudfront.net/icons/ic_rentacar_40x40.svg">
                             <span>렌트카</span>
                         </a>
@@ -45,40 +53,12 @@
         <div class="cities_card_container" id="cities_recommend_place">
             <h2>지역 관광지</h2>
             <div class="cities_card_box" id="cities_recommend_place_box1">
-                <div class="cities_card" id="place1">
-                    <span>경복궁</span>
-                    <button>자세히 보기</button>
+            <th:block th:each="tourism : ${tourismList}">
+                <div class="cities_card" th:style="'background-image:url(/img/store/tour/cities/'+${tourism.getAreaName()}+'/'+${tourismStat.count}+'.jpg);'">
+                    <span th:text="${tourism.getPlaceName()}"></span>
+                    <button th:value="${tourism.placeId}">자세히 보기</button>
                 </div>
-                <div class="cities_card" id="place2">
-                    <span>북한산</span>
-                    <button>자세히 보기</button>
-                </div>
-                <div class="cities_card" id="place3">
-                    <span>광장시장</span>
-                    <button>자세히 보기</button>
-                </div>
-                <div class="cities_card" id="place4">
-                    <span>홍대거리</span>
-                    <button>자세히 보기</button>
-                </div>
-            </div>
-            <div class="cities_card_box" id="cities_recommend_place_box2">
-                <div class="cities_card" id="place5">
-                    <span>N서울타워</span>
-                    <button>자세히 보기</button>
-                </div>
-                <div class="cities_card" id="place6">
-                    <span>북촌한옥마을</span>
-                    <button>자세히 보기</button>
-                </div>
-                <div class="cities_card" id="place7">
-                    <span>청계천</span>
-                    <button>자세히 보기</button>
-                </div>
-                <div class="cities_card" id="place8">
-                    <span>국립중앙박물관</span>
-                    <button>자세히 보기</button>
-                </div>
+            </th:block>
             </div>
         </div>
     </div>
