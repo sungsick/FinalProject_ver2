@@ -1,7 +1,6 @@
-package com.kh.myproject.community.dto;
+package com.kh.myproject.community.accompany.dto;
 
-import com.kh.myproject.community.entity.Accompany;
-import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.community.accompany.entity.Accompany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org/1999/xhtml">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -177,48 +177,75 @@
 
             <div class="main_content1_box">
                 <div class="test1" th:each="accompany : ${accompanyList}"> <!-- 여기가 한 박스-->
-                    <div class="test1_content1">
-                        <div class="user_profile">
-                            <div class="user_img">
-                                <img src="/img/member/신짱구.png">
-                            </div>
-                            <div class="user_info">
-                                <div class="user_nick" th:text="${accompany.getUser().getUserName()}"></div>
-                                <div class="user_agender" th:text="${accompany.getUser().getUserDate()}">20대</div>
-                                <div class="user_agender" > · </div>
-                                <div class="user_agender" th:text="${accompany.getUser().getUserGender()}"></div>
-                            </div>
-                        </div>
-                        <div class="box_shortline"></div>
-                        <div class="trip_profile">
-                            <div class="trip_info">
-                                <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
+
+                    <!--                    <a th:href="@{/board/view/{id}(id = ${board.id})}">글 상세보기</a>-->
+
+                    <a th:href="@{/community/accompany/detail(ac_num = ${accompany.ac_num})}">
+                        <div class="test1_content1">
+                            <div class="user_profile">
+                                <div class="user_img">
+                                    <img src="/img/member/신짱구.png">
                                 </div>
-                                <div class="trip_date">9일 ·</div>
-                                <div class="trip_date" th:text="${accompany.ac_startdate}"></div>
-                                <div class="trip_date">-</div>
-                                <div class="trip_date" th:text="${accompany.ac_enddate}"></div>
+                                <div class="user_info">
+                                    <div class="user_nick" th:text="${accompany.getUser().getUserId()}"></div>
+                                    <div class="user_agender" th:text="${accompany.getUser().getUserDate()}">20대</div>
+                                    <div class="user_agender" > · </div>
+                                    <div class="user_agender" th:text="${accompany.getUser().getUserGender()}"></div>
+                                </div>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="test1_content2">
-                        <img src="/img/member/place1.jpg">
-                        <div class="img_area" th:text="${accompany.ac_region}"><i class="fa-solid fa-location-dot"
-                                                                                  style="color: #008ff6;"></i></div>
-                    </div>
-                    <div class="test1_content3">
-                        <div class="text_title" th:text="${accompany.ac_title}">
-
-                        </div>
-                        <div class="text_sub" th:text="${accompany.ac_text}">
-                            </br>
+                            <div class="box_shortline"></div>
+                            <div class="trip_profile">
+                                <div class="trip_info">
+                                    <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
+                                    </div>
+                                    <div class="trip_date">9일 ·</div>
+                                    <div class="trip_date" th:text="${accompany.ac_startdate}"></div>
+                                    <div class="trip_date">-</div>
+                                    <div class="trip_date" th:text="${accompany.ac_enddate}"></div>
+                                </div>
+                            </div>
 
                         </div>
-                    </div>
+                        <div class="test1_content2">
+                            <img src="/img/member/place1.jpg">
+                            <div class="img_area" th:text="${accompany.ac_region}">
+                                <i class="fa-solid fa-location-dot"
+                                   style="color: #008ff6;"></i></div>
+                        </div>
+                        <div class="test1_content3">
+                            <div class="text_title" th:text="${accompany.ac_title}">
+
+                            </div>
+                            <div class="text_sub" th:text="${accompany.ac_text}">
+                                </br>
+
+                            </div>
+                        </div></a>
 
                 </div> <!-- 여기까지 test1 -->
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+
             </div>
+
         </div>
     </div>
 </div>

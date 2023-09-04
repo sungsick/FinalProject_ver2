@@ -1,4 +1,4 @@
-package com.kh.myproject.community.service;
+package com.kh.myproject.community.accompany.service;
 
 import org.springframework.stereotype.Service;
 

@@ -1,19 +1,16 @@
 package com.kh.myproject.community.accompany.controller;
 
-import com.kh.myproject.community.dto.AccompanyForm;
-import com.kh.myproject.community.entity.Accompany;
-import com.kh.myproject.community.repository.AccompanyRepository;
+import com.kh.myproject.community.accompany.dto.AccompanyForm;
+import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.accompany.repository.AccompanyRepository;
 
 import com.kh.myproject.member.user.model.entity.User;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,15 +37,12 @@ public class AccompanyController {
 
         System.out.println("컨트롤러의 ");
         // 목록보기
-        List<Accompany> accompanyEntity = accompanyRepository.findAll();
 
         // db에서 정보를 가져오는 locig을 짜야함
-        if (!accompanyEntity.isEmpty()) {
-
+        List<Accompany> accompanyEntity = accompanyRepository.findAll();
         Accompany ac =   accompanyEntity.get(0);
         User acUser =  ac.getUser();
-            System.out.println(acUser);
-        }
+        System.out.println(acUser);
 
 
         model.addAttribute("accompanyList", accompanyEntity);
@@ -61,8 +55,14 @@ public class AccompanyController {
 
     //동행 글 쓰기
     @GetMapping ("/community/accompany/write") // http://localhost:8070/community/accompany/write
-    public String accompanyWrite() {
+    public String accompanyWrite(
+            HttpSession session
+    ) {
 
+        User user = (User)session.getAttribute("user");
+        if(user == null){
+            return "redirect:/community/home";
+        }
 
         return "community/accompany/accompany_write";
         /*"community/accompany/accompany_write";*/
@@ -104,9 +104,6 @@ public class AccompanyController {
         System.out.println(accompany);
 
 
-
-
-
         // Repository에게 Entity를 데이터베이스에 저장하게 한다
         // id 가 자동으로 증가된다.
 
@@ -118,27 +115,22 @@ public class AccompanyController {
 
     }
 
-    //동행 글 정보
-    @GetMapping("/community/accompany/detail") // http://localhost:8070/community/accompany/detail
-    public String communityaccompanydetail() {
 
-
-        return "community/accompany/accompany_detail";
-    }
+    // 위와 같은 메서드
 
     // index에서 해당 글로 연결
-    @GetMapping("/community/accompany/detail/{ac_num}")
-    public String AccompanyDetail(@PathVariable Long ac_num, Model model){
+
+    @GetMapping("community/accompany/detail")
+    public String AccompanyDetail(@RequestParam("ac_num") Long ac_num, Model model){
         System.out.println("컨트롤러의 AccompanyDetail() 메서드를 실행");
         System.out.println("ac_num = " + ac_num);
 
-        //수정할 데이터를 얻어온다.
 
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
 
         //테이블에서 데이터를 가져와서 accompany_Detail파일로 넘기기 위해서
         // model 인터페이스 객체에 넣어준다.
-
+        System.out.println("accompanyEntity : " + accompanyEntity);
         model.addAttribute("accompany", accompanyEntity);
 
         return "community/accompany/accompany_detail";
@@ -146,38 +138,29 @@ public class AccompanyController {
     }
 
 
-//    // 글 번호 가지고 수정하는 메서드
-//    // 여행 친구 찾기 페이지, 값을 가져감
-//    @GetMapping("/community/accompany/detail/{ac_num}/edit")
-//    public String communityAccompanyEdit(@PathVariable Long ac_num, Model model, ){
-//        System.out.println("컨트롤러의 edit() 메서드를 실행");
-//        System.out.println("ac_num = " + ac_num);
-//
-//        //수정할 데이터를 얻어온다.
-//
-//        Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
-//
-//        //테이블에서 데이터를 가져와서 accompany_Detail파일로 넘기기 위해서
-//        // model 인터페이스 객체에 넣어준다.
-//
-//        model.addAttribute("accompany", accompanyEntity);
-//
-//        return "community/accompany/accompany_write";
-//
-//
-//    }
+    // 동행 글의 수정 클릭 > 해당 글 번호 불러오기
+    @GetMapping("community/accompany/edit")
+    public String index(@RequestParam("ac_num") Long ac_num, Model model) {
+        System.out.println("컨트롤러의 edit() 메서드를 실행");
+        System.out.println("ac_num=" + ac_num);
+
+        // 수정할 데이터를 얻어온다.
+        Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
+
+        // 테이블에서 데이터를 가져와서 edit.html 로 파일을 넘기기 위해서
+        // model 인터페이스 객체에 넣어준다.
+
+        model.addAttribute("accompany", accompanyEntity);
+
+        return "community/accompany/accompany_edit";
+
+    }
 
 
-//    // 동행 글의 수정 클릭 > 해당 글 번호 불러오기
-//    @GetMapping("/community/accompany/detail/{ac_num}/")
-//    public Accompany index(@PathVariable Long ac_num) {
-//        return accompanyRepository.findById(ac_num).orElse(null);
-//    }
-//
-//
-//
+
+
 //    // 글 번호를 가지고 수정하는 메서드
-//    @PostMapping("/community/accompany/updatePro")
+//    @PostMapping("/community/accompany/update")
 //    public String communityAccompanyupdate(AccompanyForm form){
 //        System.out.println("컨트롤러 update() 메서드 실행");
 //        System.out.println(form.toString());
@@ -195,10 +178,15 @@ public class AccompanyController {
 //        }
 //
 //        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "community/accompany/accompany_detail" + accompany.getAc_num();
+//        return "community/accompany/accompany_update" + accompany.getAc_num();
 //
 //    }
-//
+
+
+
+
+
+
 
 
 

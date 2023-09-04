@@ -1,4 +1,4 @@
-package com.kh.myproject.community.entity;
+package com.kh.myproject.community.accompany.entity;
 
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.AllArgsConstructor;
