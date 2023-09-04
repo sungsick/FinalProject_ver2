@@ -101,15 +101,15 @@
                         검색</p>
 
 
-                        <from action="rentcarreserve/search">
+                        <form action="rentcarreserve/searchs" method="post">
                         <div style="display: flex;"><input placeholder="차량명을 입력해주세요."
                                                            class="_input_default_pczwv_3 CarNameSearchInput-dFPSqi filter_text_input"
-                                                          id="searchKeyword" >
+                                                          id="searchKeyword" name="searchKeyword">
                             <button type="submit" id="reserve_search_btn"
                                     class="_button_default_1vx5o_3 CarNameSearchButton-cvlOy filter_search_button ">검색
                             </button>
                         </div>
-                        </from>
+                        </form>
 
 
                         <p class="FilterTypeLabel-PbfDL reserv_filter_division">구분</p>
@@ -214,7 +214,7 @@
                             <!--차량 안내 카드1-->
                             <div class="CardWrapper-cvjPki result_item" th:each="list : ${rentcarList}">
                                 <div><span class="Label-fdRgKZ result_item_year">20~현재 출시</span></div>
-                                <p class="SubmodelName-fBxKDh result_item_name" th:text="${list.getCar_name()}"></p>
+                                <p class="SubmodelName-fBxKDh result_item_name" th:text="${list.getCar_name}"></p>
                                 <p class="SubTitle-gXOIXp result_item_type">모닝 3세대 F/L</p><img
                                     src="https://ims-mobility-public.s3.ap-northeast-2.amazonaws.com/cars/6.png"
                                     style="width: 100%; max-width: 163px;">

@@ -2,7 +2,6 @@ package com.kh.myproject.store.rentcar.repository;
 
 
 
-import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
 import com.kh.myproject.store.rentcar.model.RentcarInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +15,6 @@ import java.util.List;
 public interface RentcarRepository extends JpaRepository<RentcarInfoEntity, Long> {
 
 
-    @Query(value="SELECT r FROM RentcarInfoEntity r WHERE r.car_name LIKE %:keyword%")
-    List<RentcarInfoDTO> findbycar_name(@Param("searchKeyword") String keyword);
+    @Query(value="SELECT r FROM RentcarInfoEntity r WHERE r.car_name = :searchKeyword")
+    List<RentcarInfoEntity> FindByCar_name(@Param("searchKeyword") String searchKeyword);
 }

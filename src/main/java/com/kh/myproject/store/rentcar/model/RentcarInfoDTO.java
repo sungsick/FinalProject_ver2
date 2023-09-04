@@ -8,11 +8,10 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class RentcarInfoDTO {
 
 
-    private Long carInfo_id;
+    private Long car_info_id;
     private String car_name;
     private String car_nation;
     private String car_type;
@@ -26,22 +25,21 @@ public class RentcarInfoDTO {
     private String car_img;
 
 
-    public RentcarInfoDTO toEntity() {
-
-        return RentcarInfoDTO.builder()
-                .carInfo_id(carInfo_id)
-                .car_name(car_name)
-                .car_nation(car_nation)
-                .car_type(car_type)
-                .driver_age(driver_age)
-                .car_people(car_people)
-                .car_price(car_price)
-                .car_discount(car_discount)
-                .com_id(com_id)
-                .car_option(car_option)
-                .car_img(car_img)
-                .build();
-
+    public static RentcarInfoDTO fromEntity(RentcarInfoEntity entity) {
+        return new RentcarInfoDTO(
+                entity.getCar_info_id(),
+                entity.getCar_name(),
+                entity.getCar_nation(),
+                entity.getCar_type(),
+                entity.getOil_type(),
+                entity.getDriver_age(),
+                entity.getCar_people(),
+                entity.getCar_price(),
+                entity.getCar_discount(),
+                entity.getCom_id(),
+                entity.getCar_option(),
+                entity.getCar_img()
+        );
     }
 
 

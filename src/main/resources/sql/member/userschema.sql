@@ -5,11 +5,9 @@ use finalproject;
 
 delete from finalproject.user;
 delete from finalproject.qna;
-delete from car_info;
+drop table car_info;
 
-alter table finalproject.qna auto_increment = 1;
-alter table finalproject.user auto_increment = 1;
-alter table finalproject.car_info auto_increment = 1;
+
 
 CREATE TABLE if not exists `user` (
                         `user_id`	varchar(30)	NOT NULL,
@@ -37,16 +35,21 @@ CREATE TABLE if not exists `qna` (
 
 
 CREATE TABLE if not exists car_info (
-                          carInfo_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                          car_name VARCHAR(255),
-                          car_nation VARCHAR(255),
-                          car_type VARCHAR(255),
-                          oil_type VARCHAR(255),
-                          driver_age VARCHAR(255),
-                          car_people INT,
-                          car_price INT,
-                          car_discount INT,
-                          com_id INT,
-                          car_option VARCHAR(255),
-                          car_img varchar(20)
+                          car_info_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                          car_name VARCHAR(255) NOT NULL,
+                          car_nation VARCHAR(255) NOT NULL,
+                          car_type VARCHAR(255) NOT NULL,
+                          oil_type VARCHAR(255) NOT NULL,
+                          driver_age VARCHAR(255) NOT NULL,
+                          car_people INT NOT NULL,
+                          car_price INT NOT NULL,
+                          car_discount INT NOT NULL,
+                          com_id INT NOT NULL,
+                          car_option VARCHAR(255) NOT NULL,
+                          car_img varchar(20) NOT NULL
 );
+
+
+alter table finalproject.qna auto_increment = 1;
+alter table finalproject.user auto_increment = 1;
+alter table finalproject.car_info auto_increment = 1;

@@ -3,6 +3,7 @@ package com.kh.myproject.store.rentcar.cotroller;
 import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
 import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ import java.util.List;
 @Slf4j
 @SessionAttributes("user")
 public class RentcarController {
+
+    @Autowired
+    private RentcarService rentcarService;
 
 
     @GetMapping("/store/rentcar/rentcarMain")
@@ -53,13 +57,22 @@ public class RentcarController {
 
     }
 
-    @GetMapping("rentcarreserve/search")
+
+    @GetMapping("/store/rentcar/thTest")
+    public String thttt(){
+
+        return "store/rentcar/thTest";
+    }
+
+    @RequestMapping("/rentcar/search")
     public String reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, Model model) {
 
-        List<RentcarInfoDTO> rentcarList = null;
-        model.addAttribute("rentcarList", RentcarService.searchKeyword(searchKeyword));
+        System.out.println("reserveSearch 컨트롤러 메서드 실행");
+        System.out.println(searchKeyword);
 
-        return "store/rentcar/rentcarReserve";
+        model.addAttribute("rentcarList", rentcarService.searchKeyword(searchKeyword));
+
+        return "store/rentcar/thTest";
 
     }
 
