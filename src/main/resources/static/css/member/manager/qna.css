@@ -40,3 +40,19 @@ tr:last-child td:first-child {
 tr:last-child td:last-child {
     border-bottom-right-radius: 6px;
 }
+.header_main{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logout{
+    margin-right: 60px;
+    cursor: pointer;
+}
+svg{
+    cursor: pointer;
+}
+button{
+    cursor: pointer;
+}
