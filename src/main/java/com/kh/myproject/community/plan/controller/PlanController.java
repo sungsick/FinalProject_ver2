@@ -16,11 +16,12 @@ public class PlanController {
 
 
     private Map<Integer, List<PlanDTO>> planMap = new HashMap<>();
+
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
     public String communityplan() {
 
-          return "community/plan/plan";
+        return "community/plan/plan";
 
     }
 
@@ -45,11 +46,20 @@ public class PlanController {
     public String communityplanwrite(Model model) {
 
         System.out.println(planMap);
-        if(!planMap.isEmpty()) {
+        int maxDay = 0;
+        if (!planMap.isEmpty()) {
             model.addAttribute("planMap", planMap);
+            for (int day : planMap.keySet()) {
+                if (day > maxDay) {
+                    maxDay = day;
+                }
+            }
+            model.addAttribute("maxDay", maxDay);
         }
+
+        System.out.println("maxDay = " + maxDay);
         return "community/plan/plan_write";
-        //return "communtity/plan/plan_write";
+
     }
 
     //일정 글쓰기 - 장소추가
@@ -65,7 +75,7 @@ public class PlanController {
     //일정 글쓰기 - 장소추가(Plan_add)에서 일정 글 쓰기(Plan_write)로 값을 보낼때 중간에 거치는 컨트롤러
     @PostMapping("/community/plan/move")
     @ResponseBody
-    public void move(@RequestBody PlanDTO[] dtoList){
+    public void move(@RequestBody PlanDTO[] dtoList) {
 
         List<PlanDTO> planList = new ArrayList<>();
 
@@ -73,7 +83,6 @@ public class PlanController {
             planList.add(planDTO);
         }
         planMap.put(dtoList[0].getDay(), planList);
-
 
 
     }

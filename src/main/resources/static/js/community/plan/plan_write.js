@@ -25,15 +25,16 @@ function test(e){
 
 
 
-
+var dayValues = document.querySelectorAll('.place_add_btn');
 //여행 일정 추가 버튼을 누르면 테이블 추가해주는 함수
-var dayValue = 4; // 테이블 번호 카운터 초기화
+var dayValue = dayValues.length + 1; // 테이블 번호 카운터 초기화
 
 // 이벤트 리스너를 추가하여 버튼 클릭 시 테이블을 추가하는 함수를 호출
 document.getElementById('schedule_add_btn').addEventListener('click', addTable);
 
 
 function addTable() {
+    console.log('추가 버튼 클릭');
     // 새로운 테이블 요소를 생성
     var newTable = document.createElement('table');
     newTable.classList.add('table'); // 클래스 추가
@@ -77,9 +78,7 @@ function addTable() {
     // 새로운 테이블에 내용을 삽입
     newTable.innerHTML = tableContent;
 
-    // 새로운 테이블을 컨테이너에 추가
-    var tableContainer = document.getElementById('tableContainer');
-    tableContainer.appendChild(newTable);
+
     // "장소 추가"와 "메모 추가" 버튼을 포함하는 <div> 요소 생성
     var buttonsDiv = document.createElement('div');
     buttonsDiv.style.width = '100%';
@@ -101,7 +100,16 @@ function addTable() {
     memoButton.textContent = '메모 추가';
     buttonsDiv.appendChild(memoButton);
     // buttonsDiv를 tableContainer에 추가
-    tableContainer.appendChild(buttonsDiv);
+
+    // 새로운 테이블을 컨테이너에 추가
+    var table_area = document.createElement('div');
+    table_area.classList.add("table_area");
+    table_area.appendChild(newTable);
+    table_area.appendChild(buttonsDiv);
+
+
+    var article3 = document.querySelector('.article3');
+    article3.appendChild(table_area);
 
     // 테이블 번호 카운터 증가
     dayValue++;

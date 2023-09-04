@@ -155,6 +155,7 @@ function getListItem(index, places) {
 
     placebtn.addEventListener('click', function () {
 
+
         temp = {
             day : $('#day').val(),
             place_name: places.place_name,
@@ -166,6 +167,8 @@ function getListItem(index, places) {
         item.push(temp);
         console.log(item);
 
+        // place_name 값을 alert로 출력
+        alert(temp.place_name + "선택");
 
     });
 

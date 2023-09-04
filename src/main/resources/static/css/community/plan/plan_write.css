@@ -635,9 +635,7 @@ body{
     white-space: pre-wrap;
     border: transparent;
 }
-.place_add_btn, .memo_add_btn,
-.place_add_btn2, .memo_add_btn2,
-.place_add_btn3, .memo_add_btn3
+.place_add_btn, .memo_add_btn
 {
     width: 110px;
     height: 35px;
@@ -648,7 +646,7 @@ body{
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
-    align-items: center;
+    /*align-items: center;*/
     font-weight: 500;
     font-size: 13px;
     line-height: 35px;
