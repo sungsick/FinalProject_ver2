@@ -3,6 +3,7 @@ package com.kh.myproject.store.tour.contoller;
 import com.kh.myproject.api.naverBlog.BlogSearch;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
 import com.kh.myproject.store.tour.model.vo.AreaBaseListParam;
+import com.kh.myproject.store.tour.model.vo.detailCommon;
 import com.kh.myproject.store.tour.service.TourService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @RestController
@@ -19,12 +22,13 @@ public class TourController {
 
 
     @Autowired
-    TourService tourService;
+    private TourService tourService;
     final String TOURAPI_URL = "https://apis.data.go.kr/B551011/KorService1/";
 
     final String SERVICE_KEY = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D";
+
     final String LAST_URL = "&MobileOS=ETC&MobileApp=AppTest&_type=json";
-    //    final String DETAILCOMMON_LAST_URL = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1";
+    final String DETAILCOMMON_LAST_URL = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1";
     final String blogSearchUrl = "";
 
 
@@ -57,7 +61,14 @@ public class TourController {
 
 
     @GetMapping("/store/tour/tourDetail")
-    public ModelAndView tourDetail(ModelAndView mav) {
+    public ModelAndView tourDetail(@RequestParam("contentId") String contentId,
+                                   ModelAndView mav) {
+        String url = TOURAPI_URL + "detailCommon1?" + SERVICE_KEY;
+        url += "&contentId=" + contentId;
+        url += DETAILCOMMON_LAST_URL + LAST_URL;
+
+        detailCommon data = tourService.getDetailCommon(url);
+        System.out.println(data);
         mav.setViewName("store/tour/tourDetail");
 
         return mav;
@@ -138,90 +149,35 @@ public class TourController {
         return ResponseEntity.ok(tourService.getApiData(url));
     }
 
-    @GetMapping("/store/tour/getPreviousPageList")
-    public ResponseEntity<?> getPreviousPageList(@RequestParam("contentTypeId") String contentTypeId,
-                                                 @RequestParam("areaCode") String areaCode,
-                                                 @RequestParam("sigunguCode") String sigunguCode,
-                                                 @RequestParam("cat1") String cat1,
-                                                 @RequestParam("cat2") String cat2,
-                                                 @RequestParam("cat3") String cat3,
-                                                 @RequestParam("pageNo") int pageNo){
+    @GetMapping("/store/tour/getSearchKeyword")
+    public ResponseEntity<?> getSearchKeyword(@RequestParam("areaCode") String areaCode,
+                                              @RequestParam("sigunguCode") String sigunguCode,
+                                              @RequestParam("cat1") String cat1,
+                                              @RequestParam("cat2") String cat2,
+                                              @RequestParam("cat3") String cat3,
+                                              @RequestParam("pageNo") int pageNo,
+                                              @RequestParam("keyWord") String keyWord) throws UnsupportedEncodingException {
 
-        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
+        log.info("areaCode={}", areaCode);
+        log.info("sigunguCode={}", sigunguCode);
+        log.info("cat1={}", cat1);
+        log.info("cat2={}", cat2);
+        log.info("cat3={}", cat3);
+        log.info("keyWord={}", keyWord);
+
+        String url = TOURAPI_URL + "searchKeyword1?" + SERVICE_KEY;
         url += "&numOfRows=12" + "&pageNo=" + pageNo;
         url += "&listYN=Y&arrange=A";
-        url += "&contentTypeId=" + contentTypeId;
         url += "&areaCode=" + areaCode;
         url += "&sigunguCode=" + sigunguCode;
         url += "&cat1=" + cat1;
         url += "&cat2=" + cat2;
-        url += "&cat3=" + cat3 + LAST_URL;
+        url += "&cat3=" + cat3;
+        url += "&keyword=" + URLEncoder.encode(keyWord, "UTF-8") + LAST_URL;
 
         return ResponseEntity.ok(tourService.getApiData(url));
     }
-    @GetMapping("/store/tour/getMainPageList")
-    public ResponseEntity<?> getMainPageList(@RequestParam("contentTypeId") String contentTypeId,
-                                                 @RequestParam("areaCode") String areaCode,
-                                                 @RequestParam("sigunguCode") String sigunguCode,
-                                                 @RequestParam("cat1") String cat1,
-                                                 @RequestParam("cat2") String cat2,
-                                                 @RequestParam("cat3") String cat3,
-                                                 @RequestParam("pageNo") int pageNo){
 
-        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
-        url += "&numOfRows=12" + "&pageNo=" + pageNo;
-        url += "&listYN=Y&arrange=A";
-        url += "&contentTypeId=" + contentTypeId;
-        url += "&areaCode=" + areaCode;
-        url += "&sigunguCode=" + sigunguCode;
-        url += "&cat1=" + cat1;
-        url += "&cat2=" + cat2;
-        url += "&cat3=" + cat3 + LAST_URL;
-
-        return ResponseEntity.ok(tourService.getApiData(url));
-    }
-    @GetMapping("/store/tour/getNextPageList")
-    public ResponseEntity<?> getNextPageList(@RequestParam("contentTypeId") String contentTypeId,
-                                                 @RequestParam("areaCode") String areaCode,
-                                                 @RequestParam("sigunguCode") String sigunguCode,
-                                                 @RequestParam("cat1") String cat1,
-                                                 @RequestParam("cat2") String cat2,
-                                                 @RequestParam("cat3") String cat3,
-                                                 @RequestParam("pageNo") int pageNo){
-
-        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
-        url += "&numOfRows=12" + "&pageNo=" + pageNo;
-        url += "&listYN=Y&arrange=A";
-        url += "&contentTypeId=" + contentTypeId;
-        url += "&areaCode=" + areaCode;
-        url += "&sigunguCode=" + sigunguCode;
-        url += "&cat1=" + cat1;
-        url += "&cat2=" + cat2;
-        url += "&cat3=" + cat3 + LAST_URL;
-
-        return ResponseEntity.ok(tourService.getApiData(url));
-    }
-    @GetMapping("/store/tour/getLastPageList")
-    public ResponseEntity<?> getLastPageList(@RequestParam("contentTypeId") String contentTypeId,
-                                                 @RequestParam("areaCode") String areaCode,
-                                                 @RequestParam("sigunguCode") String sigunguCode,
-                                                 @RequestParam("cat1") String cat1,
-                                                 @RequestParam("cat2") String cat2,
-                                                 @RequestParam("cat3") String cat3,
-                                                 @RequestParam("pageNo") int pageNo){
-
-        String url = TOURAPI_URL + "areaBasedList1?" + SERVICE_KEY;
-        url += "&numOfRows=12" + "&pageNo=" + pageNo;
-        url += "&listYN=Y&arrange=A";
-        url += "&contentTypeId=" + contentTypeId;
-        url += "&areaCode=" + areaCode;
-        url += "&sigunguCode=" + sigunguCode;
-        url += "&cat1=" + cat1;
-        url += "&cat2=" + cat2;
-        url += "&cat3=" + cat3 + LAST_URL;
-
-        return ResponseEntity.ok(tourService.getApiData(url));
-    }
 
     @GetMapping("/searchBlog")
     public String searchBlog(@RequestParam("title") String title) {

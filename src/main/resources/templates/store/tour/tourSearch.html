@@ -12,6 +12,16 @@
 <body>
 <div class="next">
     <header th:include="/header.html :: header"></header>
+    <div class="loading_wrap">
+        <div class="loading-box">
+            <div class="circles">
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+            <p>검색중...</p>
+        </div>
+    </div>
     <div class="modal_container area_container">
         <div class="modal_form area_modal">
             <button class="modal_close_btn">닫기</button>
@@ -197,37 +207,19 @@
                     </div>
                     <div class="tour_search_col">
                         <input type="text" id="search_text" name="keyword">
-                        <button class="search_btn" id=" search_keyword_btn">검색</button>
+                        <button class="search_btn" id="search_keyword_btn">검색</button>
                     </div>
                 </div>
             </div>
         </div>
         <!--검색 결과-->
         <div class="content_container">
-            <!--<h6>검색결과 : <b>1</b>건</h6>-->
+
             <div class="search_result">
 
             </div>
             <div class="content_card_box">
-                <!--<div class="content_card">
-                    <a href="/store/tour/tourDetail">
-                    <span class="thumb_img">
-                        <img src="http://tong.visitkorea.or.kr/cms/resource/12/2901512_image2_1.jpg">
-                    </span>
-                        <strong class="thumb_name">가경목장</strong>
-                    </a>
-                </div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>
-                <div class="content_card"></div>-->
+
             </div>
             <div class="paging_bar">
 
