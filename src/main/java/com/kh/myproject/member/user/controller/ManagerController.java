@@ -249,16 +249,6 @@ public class ManagerController {
 
 
         // search로 회원 조회했는데 정보가 없다면, 혹은 db에 그냥 유저 데이터가 없는 상태라면.
-//        if (userCount == 0) {
-//            pageStartNo = 1;
-//            pageEndNo = 1;
-//            boolean noUser = true;
-//            model.addAttribute("noUser", noUser);
-//            model.addAttribute("pageStartNo", pageStartNo);
-//            model.addAttribute("pageEndNo", pageEndNo);
-//            return "member/manager/user";
-//
-//        }
 
 
         //유저 데이터가 150개다
@@ -277,8 +267,9 @@ public class ManagerController {
         pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
 
 
-        System.out.println("pageendNO" + pageEndNo);
         // 유저가 561명인데 pageEndNo가 60이면 56까지만 보여준다. 나머지 있으면 57까보여준다.
+        System.out.println("userCOunt" + userCount);
+        System.out.println("pageEndNo" + pageEndNo);
 
         if (userCount / 10 <= pageEndNo) { // 유저가 100보다 크면 10페이지는 무조건 보여주면되고 100보다 작으면 그 몫에 나머지 있으면 +1만큼 보여준다.
 
@@ -287,7 +278,6 @@ public class ManagerController {
             pageEndNo = userCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
             lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
         }
-        System.out.println("pageendNO2" + pageEndNo);
 
         // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
         // 마지막페이지 값
