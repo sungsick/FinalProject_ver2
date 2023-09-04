@@ -1,8 +1,10 @@
 package com.kh.myproject.api.kakaoPay.service;
 
 
+import com.kh.myproject.api.kakaoPay.model.dto.AmountVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
+import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -19,25 +21,36 @@ public class PayService {
 
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
-
+    private FlightTicketDto ticketDto;
 //    private PayRepository payRepository;
 
-    public KakaoPayReadyVO kakaoPayReady() {
+    public KakaoPayReadyVO kakaoPayReady(FlightTicketDto ticket) {
         log.info("KakaoPayService => kakaoPayReady......................................... ");
-
+        log.info(ticket.getTicFee());
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");                           // 가맹점 주문번호 (주문 id로 쓰면 될듯)
-        params.add("partner_user_id", "gorany");                          // 가맹점 회원 id (구매자 유저 id 쓰면 될듯)
-        params.add("item_name", "갤럭시 S9");                              //상품명 (상품 id or name 쓰면될듯)
+        params.add("partner_order_id", "여행시그널");                           // 가맹점 주문번호 (주문 id로 쓰면 될듯)
+        params.add("partner_user_id", ticket.getUser().getUserId());      // 가맹점 회원 id (구매자 유저 id 쓰면 될듯)
+        params.add("item_name", ticket.getTicFromLocation() + "-"
+                + ticket.getTicToLocation() + "행 항공권");                              //상품명 (상품 id or name 쓰면될듯)
         params.add("quantity", "1");                                      //상품 수량 (딱히 쓸모는 없는데 0이면 렌트카 1이면 항공으로 써먹어도 될듯)
-        params.add("total_amount", "2100");                               //상품 총액
+        params.add("total_amount", ticket.getTicFee());                               //상품 총액
         params.add("tax_free_amount", "0");                               //상품 비과세 금액 (필수지만 필요 없는 항목)
         params.add("approval_url", "http://localhost:8080/pay/success");  // 결제승인시 넘어갈 url
         params.add("cancel_url", "http://localhost:8080/pay/cancel");     // 결제취소시 넘어갈 url
         params.add("fail_url", "http://localhost:8080/pay/fail");         // 결제 실패시 넘어갈 url
 
+        KakaoPayApprovalVO dataSet = new KakaoPayApprovalVO();
+        dataSet.setPartner_user_id(ticket.getUser().getUserId());
+        if (dataSet.getAmount() == null) {
+            dataSet.setAmount(new AmountVO());
+        }
+        dataSet.getAmount().setTotal(Integer.valueOf(ticket.getTicFee()));
+
+        kakaoPayApprovalVO = dataSet;
         log.info("파트너주문아이디:" + params.get("partner_order_id"));
+        log.info("파트너주문아이디:" + params.get("total_amount"));
+        log.info("파트너주문아이디:" + params.get("partner_user_id"));
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, this.getHeaders()); //(parameters, this.getHeaders()
         // 외부url요청 통로 열기.
@@ -84,10 +97,12 @@ public class PayService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
+        params.add("partner_order_id", "여행시그널");
+        params.add("partner_user_id", kakaoPayApprovalVO.getPartner_user_id());
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
+        params.add("total_amount", String.valueOf(kakaoPayApprovalVO.getAmount().getTotal()));
+
+        log.info(params.toString());
 
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, this.getHeaders());
 

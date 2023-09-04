@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ticket_info")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -34,6 +35,8 @@ public class FlightTicketInfo {
     private String ticToLocation;
     @Column
     private String ticVihicleId;
+    @Column
+    private String tid;
 
 
     @ManyToOne()

@@ -17,6 +17,7 @@
         <div class="container">
             <div class="contents">
                 <div>
+                    <h1>[[${ticket}]]</h1>
                     <div class="firstBox">
                         <section class="firstSection">
                             <div class="fsTop">
@@ -115,7 +116,8 @@
                                                     인증번호
                                                 </button>
                                             </div>
-                                            <div class="driver-info-section-inputs-text-phone auth hideClass">
+                                            <div class="driver-info-section-inputs-text-phone auth hideClass"
+                                                 id="verify">
                                                 <div style="flex: 1 1 0%;">
                                                     <input class="_input_default_pczwv_3 StylesInpuWithBottomText-gVruQj cwqtNt"
                                                            id="input_auth"
@@ -1475,7 +1477,17 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="ticketId" th:value="${ticket.ticTicketId}">
+<input type="hidden" id="departureDate" th:value="${ticket.ticFlightDepartureDate}">
+<input type="hidden" id="arrivalDate" th:value="${ticket.ticFlightArrivalDate}">
+<input type="hidden" id="seatGrade" th:value="${ticket.ticSeatGrade}">
+<input type="hidden" id="airlineName" th:value="${ticket.ticAirlineName}">
+<input type="hidden" id="fromLocation" th:value="${ticket.ticFromLocation}">
+<input type="hidden" id="totalPrice" th:value="${ticket.ticFee}">
+<input type="hidden" id="toLocation" th:value="${ticket.ticToLocation}">
+<input type="hidden" id="vehicleId" th:value="${ticket.ticVihicleId}">
+<input type="hidden" id="userId" th:value="${user.userId}">
+<input type="hidden" id="userName" th:value="${user.userName}">
 <script defer th:inline="javascript">
     /*<![CDATA[*/
     // 출발, 도착시간 날짜 슬라이싱

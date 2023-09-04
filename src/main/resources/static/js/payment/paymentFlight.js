@@ -56,6 +56,72 @@ $(function () {
         }
     });
 
+// 핸드폰 인증
+    var auth_num = '';
+    var auth_check = false;
+    var id_check = false;
+
+    // 인증번호 요청, 재요청 클릭시
+    $('#verifyBtn').click(function () {
+        const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+        const user_phone = $("#input_phone").val();
+
+        if (phoneNumberPattern.test(user_phone)) {
+
+            $('#verify').removeClass('auth');
+            $('#verifyBtn').text('재요청');
+
+        } else {
+            alert("잘못된 번호입니다")
+            $("#input_phone").focus();
+        }
+
+        if (!auth_check) { // 인증완료가 아직 안됐을 경우.
+
+            $.ajax({
+                url: '/member/joinAuth',
+                method: 'POST',
+                data: {user_phone: user_phone},
+                success: function (data) {
+
+
+                    console.log(data); // controller에서 넘긴 data를 받아온다.
+                    auth_num = data;
+
+                    // 인증번호 칸 열기
+
+                },
+                error: function () {
+
+                }
+
+            });
+        } else {
+
+            alert("이미 인증이 완료됐습니다.");
+        }
+    })
+
+    $('#verifyConfirmBtn').click(function () {
+
+        if (auth_num === $('#input_auth').val() || auth_check) {
+
+            alert('인증이 완료됐습니다.');
+            auth_check = true;
+            $('#verify').addClass('auth');
+            $('#verifyBtn').addClass('auth');
+            $('#input_phone').val("인증완료");
+            $('#input_phone').css('color', '#0064de');
+            $('#input_phone').css('border-color', '#0064de');
+            $('#input_phone').prop('disabled', true);
+
+        } else {
+            alert('잘못 입력했습니다. 인증번호를 확인하세요.');
+            $('#input_auth').focus();
+            auth_check = false;
+
+        }
+    })
 // 카카오결제
     $("#btnKakaoPay").click(function () {
 
@@ -82,14 +148,11 @@ $(function () {
             alert('핸드폰 번호를 입력하세요.');
             $("#input_phone").focus();
             btnKakaoPay.disabled = true;
-        }
-            // 핸드폰 인증으로 대체
-            // else if (!phoneNumberPattern.test(query.input_phone.value)) {
-            //     alert("휴대폰 번호를 올바르게 입력하세요.");
-            //     $("#input_phone").focus();
-            //     btnKakaoPay.disabled = true;
-        // }
-        else if (query.input_birth === '') {
+        } else if (!auth_check) {
+            /*######핸드폰 인증 검사######*/
+            alert('핸드폰 인증을 완료하세요.')
+            $("#input_phone").focus();
+        } else if (query.input_birth === '') {
             /*######생년월일 입력 검사######*/
             alert('생년월일을 입력하세요.');
             $("#input_birth").focus();
@@ -102,7 +165,7 @@ $(function () {
             btnKakaoPay.disabled = true;
             $("#input_birth").focus();
         } else if (!query.checkVal) {
-            /*######설별 선택 검사######*/
+            /*######성별 선택 검사######*/
             alert("성별을 선택해 주세요.");
             btnKakaoPay.disabled = true;
             $("input[formcontrolname='gender']:checked").focus();
@@ -113,28 +176,25 @@ $(function () {
             // 결제 진입
 
             // 결제 정보를 form에 저장한다.
-            let totalPayPrice = parseInt($("#total-pay-price").text().replace(/,/g, ''))
-            let totalPrice = parseInt($("#total-price").text().replace(/,/g, ''))
-            let discountPrice = totalPrice - totalPayPrice
-            let usePoint = $("#point-use").val()
-            let useUserCouponNo = $(":radio[name='userCoupon']:checked").val()
-
+            var ticketInfo = {
+                ticTicketId: $("#ticketId").val(),
+                ticFlightDepartureDate: $("#departureDate").val(),
+                ticFlightArrivalDate: $("#arrivalDate").val(),
+                ticSeatGrade: $("#seatGrade").val(),
+                ticAirlineName: $("#airlineName").val(),
+                ticFee: $("#totalPrice").val(),
+                ticFromLocation: $("#fromLocation").val(),
+                ticToLocation: $("#toLocation").val(),
+                ticVihicleId: $("#vehicleId").val(),
+                // userId: $("#userId").val(),
+                // userName: $("#userName").val()
+            };
             // 카카오페이 결제전송
             $.ajax({
-                type: 'get'
-                , url: '/kakaoPay'
-                // ,data:{
-                //     total_amount: totalPayPrice
-                //     ,payUserName: name
-                //     ,sumPrice:totalPrice
-                //     ,discountPrice:discountPrice
-                //     ,totalPrice:totalPayPrice
-                //     ,tel:tel
-                //     ,email:email
-                //     ,usePoint:usePoint
-                //     ,useCouponNo:useUserCouponNo
-                //
-                // }
+                type: 'post'
+                , url: '/kakaoPay',
+                data: JSON.stringify(ticketInfo), // JSON 데이터 전송
+                contentType: 'application/json' // JSON 데이터임을 명시
                 , success: function (response) {
                     // 화면 중앙에 위치시키기 위한 x, y 좌표 계산
                     var screenWidth = window.screen.width;
@@ -192,65 +252,5 @@ $(function () {
         $('.insurance-info').eq(idx).addClass('showTale'); // sections-con.show > section:nth-child(3) > table
     });
 
-    // 핸드폰 인증
-    var auth_num = '';
-    var auth_check = false;
-    var id_check = false;
-
-    // 인증번호 요청, 재요청 클릭시
-    $('#verifyBtn').click(function () {
-        const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
-        const user_phone = $("#input_phone").val();
-
-        if (phoneNumberPattern.test(user_phone)) {
-
-            $('#verify').removeClass('auth');
-            $('#verifyBtn').text('재요청');
-
-        } else {
-            alert("잘못된 번호입니다")
-            $("#input_phone").focus();
-        }
-
-        if (!auth_check) { // 인증완료가 아직 안됐을 경우.
-
-            $.ajax({
-                url: '/member/joinAuth',
-                method: 'POST',
-                data: {user_phone: user_phone},
-                success: function (data) {
-
-
-                    console.log(data); // controller에서 넘긴 data를 받아온다.
-                    auth_num = data;
-
-                    // 인증번호 칸 열기
-
-                },
-                error: function () {
-
-                }
-
-            });
-        } else {
-
-            alert("이미 인증이 완료됐습니다.");
-        }
-    })
-
-    $('#verifyConfirmBtn').click(function () {
-
-        if (auth_num === $('#input_auth').val() || auth_check) {
-
-            alert('인증이 완료됐습니다.');
-            auth_check = true;
-            $('#verify').addClass('auth');
-            $('#input_phone').val("인증완료");
-            $('#input_phone').css('color', '#0064de');
-            $('#input_phone').css('border-color', '#0064de');
-            $('#input_phone').prop('disabled', true);
-
-        }
-    })
 
 });
