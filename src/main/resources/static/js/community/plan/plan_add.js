@@ -157,11 +157,18 @@ function getListItem(index, places) {
 
 
         temp = {
-            day : $('#day').val(),
-            place_name: places.place_name,
-            address_name: places.address_name,
-            category_group_name: places.category_group_name,
-            id: places.id
+            //day : $('#day').val(),
+            // PlaceName: places.place_name,
+            // address_name: places.address_name,
+            // CategoryGroupName: places.category_group_name,
+            // id: places.id,
+
+
+            pbdDate : $('#day').val(),
+            pbdPlaceName : places.place_name,
+            pbdCategoryGroupName : places.category_group_name,
+            pbdX : places.x,
+            pbdY : places.y
         };
 
         item.push(temp);

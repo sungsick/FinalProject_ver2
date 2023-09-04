@@ -1,7 +1,8 @@
 package com.kh.myproject.community.plan.controller;
 
 
-import com.kh.myproject.community.plan.model.dto.PlanDTO;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
+import static java.lang.Integer.parseInt;
+
 @Controller
 //@RestController
 @SessionAttributes("user")
 public class PlanController {
 
 
-    private Map<Integer, List<PlanDTO>> planMap = new HashMap<>();
+    private Map<Integer, ArrayList<PlanBoardDetailDTO>> planMap = new HashMap<>();
 
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
@@ -75,16 +78,31 @@ public class PlanController {
     //일정 글쓰기 - 장소추가(Plan_add)에서 일정 글 쓰기(Plan_write)로 값을 보낼때 중간에 거치는 컨트롤러
     @PostMapping("/community/plan/move")
     @ResponseBody
-    public void move(@RequestBody PlanDTO[] dtoList) {
+    public void move(@RequestBody PlanBoardDetailDTO[] dtoList) {
 
-        List<PlanDTO> planList = new ArrayList<>();
+        ArrayList<PlanBoardDetailDTO> planList = new ArrayList<>();
 
-        for (PlanDTO planDTO : dtoList) {
-            planList.add(planDTO);
+        for (PlanBoardDetailDTO PlanBoardDetailDTO : dtoList) {
+            planList.add(PlanBoardDetailDTO);
         }
-        planMap.put(dtoList[0].getDay(), planList);
+        planMap.put(dtoList[0].getPbdDate(), planList);
 
 
+    }
+
+    //일정 삭제하는 컨트롤러
+    @PostMapping("/community/plan/deletePlan")
+    @ResponseBody
+    public void deletePlan(@RequestParam("day") String day, @RequestParam("placeName") String placeName){
+
+        ArrayList<PlanBoardDetailDTO> temp = planMap.get(parseInt(day));
+        for(int i = 0; i< temp.size(); i++ ){
+            System.out.println(temp.get(i));
+            if(temp.get(i).getPbdPlaceName().equals(placeName)){
+                temp.remove(i);
+            }
+        }
+        planMap.put(parseInt(day) , temp);
     }
 
 

@@ -241,7 +241,7 @@
                                         </svg>
                                     </div>
                                     <div class="art1_div_subject">
-                                        제주도여행지 kulkul-_-z님의 여행일정
+                                        <input type="text" name="title" id="title">제주도여행지 kulkul-_-z님의 여행일정
                                     </div>
                                     <span class="art1_div_menu">
                                 </span>
@@ -474,15 +474,15 @@
                                                 </th>
                                                 <!-- Map의 value(PlanDTO 목록) 반복하며 출력 -->
                                                 <td>
-                                                    <p th:text="${plan.place_name}"></p>
+                                                    <p th:text="${plan.getPbdPlaceName()}"></p>
                                                 </td>
                                                 <td>
                                                     <!--<th:block th:each="plan : ${entry.value}" th:if="${entry.key == 1}">-->
-                                                    <p th:text="${plan.category_group_name}"></p>
+                                                    <p th:text="${plan.getPbdCategoryGroupName()}"></p>
                                                     <!--</th:block>-->
                                                 </td>
                                                 <td>
-                                                    <div class="sc_des_mark_hujitong">
+                                                    <div class="sc_des_mark_hujitong" th:attr="onclick=|deletePlan('${num}','${plan.getPbdPlaceName()}')|">
                                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                              viewBox="0 0 448 512">
                                                             <style>svg {
@@ -497,8 +497,7 @@
                                         </tbody>
                                     </table>
                                     <div width="100%" height="71px" display="flex" class="btm_btn">
-                                        <button class="place_add_btn" onclick="test(this)" th:value="${num}">장소 추가1
-                                        </button>
+                                        <button class="place_add_btn" onclick="test(this)" th:value="${num}">장소 추가</button>
                                         <button class="memo_add_btn">메모 추가</button>
                                     </div>
                                 </div>

@@ -116,6 +116,37 @@ function addTable() {
 
 }
 
+// 테이블 행 삭제하는 함수
+function deletePlan(day, place_name){
+
+
+    console.log(day);
+    console.log(place_name);
+
+    $.ajax({
+        url: '/community/plan/deletePlan',
+        type: 'post',
+        data: {
+            day : day,
+            placeName : place_name
+        },
+        success: function (data) {
+            console.log('성공');
+            location.reload();
+        },
+        error: function(data){
+            console.log('dpfj');
+        }
+
+    });
+
+}
+
+
+
+
+
+
 
 //--------------------------------------------------------------------------------
 
