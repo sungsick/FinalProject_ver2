@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>관리자 페이지 메인</title>
 <!--    <link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">-->
-    <link rel="stylesheet" href="/css/member/manager/user.css">
+    <link rel="stylesheet" href="/css/member/manager/home.css">
     <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -27,17 +27,34 @@
         </h4>
         <div class="content_boxes">
             <div class="content_box">
+                <div class="content_box_inner">
 
-                오늘 탈퇴한 회원수 .
+                    <h2>오늘 가입한 회원 수</h2>
+
+                    <h3>20명</h3>
+                </div>
+
 
             </div>
             <div class="content_box">
-                <div class="content_box_inner">접속자수</div>
+                <div class="content_box_inner">
+
+                    <h2>문의 대기 글 수</h2>
+                    <h3 th:text = "${qnaCount}+'개'"></h3>
+                    <h4 onclick="location.href = '/manager/qna'" id="goqna">답변하러가기 ></h4>
+                </div>
             </div>
             <div class="content_box">
-                <div class="content_box_inner">방문자 수?</div>
+                <div class="content_box_inner">
+                    <h2>회원 성비</h2>
+                    <h3 th:text ="'남자 : ' +${countMen} + '명'"> </h3>
+                    <h3 th:text ="'여자 : ' +${countWomen} + '명'"> </h3>
+
             </div>
         </div>
+
+        </div>
+
         <div class="graphes">
             <div class="mygraph mg1">
 
@@ -49,7 +66,6 @@
 
 
             </div>
-        </div>
     </div>
 </div>
 
@@ -61,6 +77,6 @@
     <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/js/member/manager/user.js"></script>
+    <script src="/js/member/manager/home.js"></script>
 </body>
 </html>

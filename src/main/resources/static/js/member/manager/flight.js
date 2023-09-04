@@ -1,12 +1,8 @@
 
-
-var user_number = "";
-
 // 삭제하기 버튼 클릭시
-function deluser(element) {
+function delticket(element) {
 
-    console.log('deluser메서드실행');
-    user_number = element.id;
+    var ticTicketId = element.id;
 
 
     // Swal.fire('비밀번호가 변경됐습니다', '', 'success').then((result) => {
@@ -18,7 +14,7 @@ function deluser(element) {
     Swal.fire({
         title: '<strong>HTML <u>example</u></strong>',
         icon: 'warning',
-        title: '정말 회원 정보를 삭제하시겠습니까?',
+        title: '항공권 정보를 삭제하시겠습니까?',
         showCloseButton: false,
         showCancelButton: true,
         focusConfirm: false,
@@ -33,12 +29,12 @@ function deluser(element) {
         if (result.isConfirmed) {
 
             var query = {
-                user_number: user_number
+                ticTicketId: ticTicketId
             }
 
             $.ajax({
 
-                url: '/manager/deleteUser',
+                url: '/manager/deleteTicket',
                 method: 'POST',
                 data: query,
                 success: function (data) {
@@ -47,7 +43,7 @@ function deluser(element) {
                     // 추가한 버튼의 이벤트 핸들러를 추가한다.
                     Swal.fire('삭제가 완료됐습니다.', '', 'success').then((result) => {
 
-                        location.reload();
+                        location.reload('/manager/flight');
 
                     })
                 }, error: function () {
@@ -60,11 +56,17 @@ function deluser(element) {
     })
 
 
+    $('.swal2-confirm').click(function () {
+
+
+        console.log('모달확인버튼.')
+    })
 }
 
 // 선택된 페이지 버튼 속성주기
 
 var pageSelectBtn = document.querySelectorAll('.page-select-btn');
+console.log(pageSelectBtn);
 
 // #selected-btn은 페이지 렌더링시 히든값으로 가지고 있는 pageNo의 value이다.
 
@@ -79,9 +81,6 @@ for (var i = 0; i < pageSelectBtn.length; i++) {
     }
 }
 
-
-
-
 // 유저 아이디, 혹은 유저 이름으로 유저 찾기 버튼을 클릭, 혹은 enter를 눌렸을 때
 
 
@@ -93,13 +92,13 @@ $('#search-input').on('keyup', function (e) {
         var search_option = $('#user-search-option').val();
         console.log(search_word);
         if(search_option === "all" ){
-            location.href = `/manager/user`;
+            location.href = `/manager/flight`;
 
         }
         else if (search_word === "") {
             Swal.fire('검색어를 입력해주세요.', '', 'warning')
         } else {
-            location.href = `/manager/user?pageNo=1&search_word=${search_word}&search_option=${search_option}`;
+            location.href = `/manager/flight?pageNo=1&search_word=${search_word}&search_option=${search_option}`;
         }
     }
 })
@@ -124,9 +123,9 @@ function pageChange(element){ // 페이지 버튼 클릭할시
     var pageNo = element.id;
 
     if(search_word === "") { // 검색어 없을 경우 그냥 페이지만 변경한다.
-        location.href = `/manager/user?pageNo=${pageNo}`;
+        location.href =`/manager/flight?pageNo=${pageNo}`;
     }else if(search_word !== ""){ // 검색어가 있을 경우 페이지NO과 함꼐 검색어와 option도 계속 전달한다.
-        location.href = `/manager/user?pageNo=${pageNo}&search_word=${search_word}&search_option=${search_option}`;
+        location.href = `/manager/flight?pageNo=${pageNo}&search_word=${search_word}&search_option=${search_option}`;
 
     }
 

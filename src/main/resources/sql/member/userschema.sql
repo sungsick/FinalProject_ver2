@@ -5,18 +5,21 @@ use finalproject;
 
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
-# delete from finalproject.user;
-delete from finalproject.manager;
 delete from finalproject.qna;
+delete from finalproject.accompany;
+delete from finalproject.comment;
+delete from finalproject.user;
+delete from finalproject.manager;
 
 
-delete from user;
 
-alter table finalproject.user auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
 alter table finalproject.ticket_info auto_increment = 1;
 alter table finalproject.area_tourism auto_increment = 1;
+alter table finalproject.qna auto_increment = 1;
+alter table finalproject.accompany auto_increment = 1;
+alter table finalproject.comment auto_increment = 1;
 
 
 CREATE TABLE if not exists `user`
@@ -74,5 +77,37 @@ CREATE TABLE if not exists `qna` (
                         `qna_content`	varchar(5000)	NOT NULL,
                         `qna_date`	date	NULL,
                         `qna_answer`	varchar(500)	NULL
+);
+
+
+
+CREATE TABLE if not exists accompany (
+                                         ac_num INT AUTO_INCREMENT PRIMARY KEY,
+                                         user_number int,
+                                         ac_regdate DATE,
+                                         ac_title VARCHAR(255),
+                                         ac_text TEXT,
+                                         ac_people INT,
+                                         ac_region VARCHAR(255),
+                                         ac_startdate DATE,
+                                         ac_enddate DATE,
+                                         ac_status VARCHAR(50),
+                                         ac_picture VARCHAR(255),
+                                         ac_viewcount INT,
+                                         ac_travelstyle VARCHAR(50),
+                                         ac_personalhash VARCHAR(255),
+                                         FOREIGN KEY (user_number) REFERENCES user(user_number)
+);
+
+
+create table if not exists `comment`
+(
+    co_number       INT AUTO_INCREMENT PRIMARY KEY,
+    co_content   varchar(3000),
+    co_writedate DATETIME,
+    user_number       int,
+    ac_num       INT,
+    FOREIGN KEY (user_number) REFERENCES user (user_number),
+    FOREIGN KEY (ac_num) REFERENCES accompany (ac_num)
 );
 

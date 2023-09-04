@@ -1,0 +1,73 @@
+table{
+    background-color: #fff;
+
+}
+
+.content_box_inner{
+
+    width: 360px;
+    padding: 30px 30px;
+
+    box-sizing: border-box;
+}
+
+
+#goqna:hover{
+    cursor:pointer;
+}
+
+.content_boxes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+}
+.content_box{
+    width: 400px;
+    height: 260px;
+    border-radius: 6px;
+    background-color: #71dced;
+    color : white;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
+}
+.graphes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px 0px;
+}
+.mygraph{
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
+    border-radius: 10px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.mg1{
+    width: 700px;
+    height:500px;
+    display : flex;
+    align-items: center;
+}
+
+.mg2{
+    width: 600px;
+    height: 500px;
+    border-radius: 10px !important;
+}
+
+path ,#container{
+    border-radius: 10px !important;
+
+}
+
+
+#myChart{
+    width: 500px !important;
+    height: 400px;
+
+}
+

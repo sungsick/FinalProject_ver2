@@ -24,4 +24,6 @@ public interface QnaRepository extends JpaRepository<Qna, Long> {
             " where q.qnaNumber = :qna_number")
     void updateAnswer(@Param("qna_number")Long qnaNumber,
                       @Param("qna_answer")String qnaAnswer);
+
+    int countAllBy();
 }

@@ -59,35 +59,35 @@
 
 .userinfo-box div:nth-child(3), .field-bar div:nth-child(3){
 
-    width: 50px;
+    width: 100px;
     text-align: left;
 }
 
 
 .userinfo-box div:nth-child(4), .field-bar div:nth-child(4){
 
-    width: 150px;
+    width: 100px;
     text-align: left;
 }
 
-.userinfo-box div:nth-child(4), .field-bar div:nth-child(4){
-
-    width: 150px;
-    text-align: left;
-}
 
 .userinfo-box div:nth-child(5), .field-bar div:nth-child(5){
 
-    width: 150px;
+    width: 100px;
     text-align: left;
 }
 
 .userinfo-box div:nth-child(6), .field-bar div:nth-child(6){
 
-    width: 50px;
+    width: 100px;
     text-align: center;
 }
 
+.userinfo-box div:nth-child(7), .field-bar div:nth-child(7){
+
+    width: 50px;
+    text-align: center;
+}
 
 
 .userinfo-box:hover{
@@ -180,7 +180,7 @@
 
 
     box-sizing: border-box;
-   padding : 9px;
+    padding : 9px;
     width: 170px;
     height: 26px;
     outline: none;
@@ -238,4 +238,9 @@
 .warning-title{
 
     padding-bottom: 20px;
+}
+
+
+.ticket-del-btn:hover{
+    cursor: pointer;
 }

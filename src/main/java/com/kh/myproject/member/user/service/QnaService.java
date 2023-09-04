@@ -38,5 +38,12 @@ public class QnaService {
         qnaRepository.updateAnswer(Long.parseLong(qnaNumber), qnaAnswer);
     }
 
+    public int countByQna(){
+
+        int qnaCount = qnaRepository.countAllBy();
+        return qnaCount;
+
+    }
+
 
 }

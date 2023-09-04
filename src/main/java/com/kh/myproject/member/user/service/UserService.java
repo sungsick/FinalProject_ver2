@@ -228,9 +228,9 @@ public class UserService {
 //    }
 
 
-    public void deleteUser(String user_number){
+    public void deleteUser(Long user_number){
 
-        userRepository.deleteById(Long.parseLong(user_number));
+        userRepository.deleteById(user_number);
     }
 
 
@@ -282,6 +282,12 @@ public class UserService {
         return result;
     }
 
+    public int countByUserGender(String gender){
+
+        int count = userRepository.countByUserGender(gender);
+
+        return count;
+    }
 
 
 }
