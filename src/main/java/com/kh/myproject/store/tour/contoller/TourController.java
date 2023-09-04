@@ -68,7 +68,10 @@ public class TourController {
         url += DETAILCOMMON_LAST_URL + LAST_URL;
 
         detailCommon data = tourService.getDetailCommon(url);
-        System.out.println(data);
+        mav.addObject("detailCommon", data);
+
+
+        log.info("data={}",data);
         mav.setViewName("store/tour/tourDetail");
 
         return mav;
@@ -179,9 +182,10 @@ public class TourController {
     }
 
 
-    @GetMapping("/searchBlog")
-    public String searchBlog(@RequestParam("title") String title) {
-
-        return BlogSearch.getSearch(title);
+    @GetMapping("/store/tour/searchBlog")
+    public String searchBlog(@RequestParam("title") String title,
+                             @RequestParam("start") int start) {
+        log.info("title={}", title);
+        return BlogSearch.getSearch(title, start);
     }
 }

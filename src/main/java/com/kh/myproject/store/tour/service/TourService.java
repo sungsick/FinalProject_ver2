@@ -58,6 +58,8 @@ public class TourService {
     public detailCommon getDetailCommon(String url){
         StringBuilder result = new StringBuilder();
 
+        detailCommon data = null;
+
         try {
             URL resUrl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) resUrl.openConnection();
@@ -72,24 +74,18 @@ public class TourService {
 
             JsonParser parser = new JsonParser();
             Gson gson = new Gson();
-            ObjectMapper obm = new ObjectMapper();
             JsonElement element = parser.parse(result.toString());
 
             JsonArray item = element.getAsJsonObject().get("response").getAsJsonObject().get("body").getAsJsonObject().get("items").getAsJsonObject().get("item").getAsJsonArray();
-            System.out.println("service = " + item);
             JsonObject object = (JsonObject) item.get(0);
-            System.out.println("object = " + object);
-//            String jsonStr = obm.writeValueAsString(object);
-//            System.out.println("jsonStr = " + jsonStr);
-            detailCommon temp = gson.fromJson(object.toString(), detailCommon.class);
-            System.out.println("temp = " + temp);
+            data = gson.fromJson(object.toString(), detailCommon.class);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        return null;
+        return data;
     }
 
 //    public City getCityInfo(String cityName) {

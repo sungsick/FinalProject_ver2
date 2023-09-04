@@ -45,6 +45,9 @@ h6 > b {
     width: 360px;
     height: 240px;
     overflow: hidden;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 240px;
 }
 
 .detail_info_img img {
@@ -66,6 +69,14 @@ h6 > b {
     display: table-cell;
     border: 1px solid #e6e6e6;
     padding: 10px;
+}
+.detail_info_col a{
+    color: black;
+}
+
+.detail_info_col a:hover{
+    text-decoration: underline;
+    color: #00b8ff;
 }
 
 .detail_info_col:first-child {
@@ -114,6 +125,18 @@ h6 > b {
     margin-left: 10px;
 }
 
+.more_search{
+    text-align: center;
+    background-color: #f7f9fa;
+    margin-top: 30px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
 /*관광 정보 검색*/
 
 .content_card_box {
