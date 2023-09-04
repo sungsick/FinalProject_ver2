@@ -56,3 +56,15 @@ svg{
 button{
     cursor: pointer;
 }
+#swal2-title{
+
+    font-size : 14px;
+}
+
+.swal2-styled{ /* Swal modal창 */
+
+    background-color: white !important;
+    color : black !important;
+    border : 2px solid #2B96EC !important;
+    box-shadow: none !important;
+}

@@ -1,3 +1,25 @@
+body {
+    /*margin: 0; !* body의 기본 마진 제거 *!*/
+    height: 100vh; /* 높이를 viewport 높이의 100%로 설정 */
+    /*display: flex; !* Flexbox 레이아웃 사용 *!*/
+    /*justify-content: center; !* 수평 가운데 정렬 *!*/
+    /*align-items: center; !* 수직 가운데 정렬 *!*/
+
+
+}
+
+.next{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+
 .idpw-box {
 
     margin : 0 auto;
@@ -56,20 +78,19 @@
 
 .idpw-container{
 
-    width: 700px;
+    width: 500px;
     box-sizing : border-box;
     margin : 0 auto;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
     border-radius: 10px;
     border : 1px solid lightgrey;
-    margin-top: 120px;
 
 }
 
 .idpw-container-inner{
     margin:0 auto;
     padding: 20px 20px;
-    width: 600px;
+    width: 400px;
 
 
 }
@@ -111,7 +132,7 @@
 
 .idpw-container button{
 
-    width: 600px;
+    width: 400px;
     height: 40px;
     background-color:white;
     border : 1px solid #2B96EC;

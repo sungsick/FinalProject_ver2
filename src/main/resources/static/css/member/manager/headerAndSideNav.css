@@ -18,12 +18,16 @@ header{
     width: 100%;
     display: flex;
     margin-left: 40px;
+    align-items: center;
+
 
 }
 .header_logo{
     width: 120px;
     height: 100%;
+    cursor: pointer;
 }
+
 .header_logo img{
     width: 120px;
     height: 100%;
@@ -31,6 +35,8 @@ header{
 .header_icons{
     position: absolute;
     right: 20px;
+    margin-right: 50px;
+    cursor: pointer;
 }
 .side_nav{
     position: fixed;
@@ -42,6 +48,7 @@ header{
     display: flex;
     flex-direction: column;
     background-color: #fff;
+    z-index: 999;
 }
 .section{
     display: flex;

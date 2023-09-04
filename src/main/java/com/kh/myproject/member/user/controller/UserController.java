@@ -10,6 +10,7 @@ import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -121,7 +123,7 @@ public class UserController {
 
         if(check_manager instanceof Manager){
 
-            modelAndView.setViewName("redirect:/manager/user"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
+            modelAndView.setViewName("redirect:/manager/home"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
             ra.addFlashAttribute("check_manager",check_manager);
             // 로그인을 통해 매니저 컨트롤러론 넘어갔다는 사실을 확인해야한다.
 
@@ -257,6 +259,8 @@ public class UserController {
 
         }
 
+        LocalDateTime ldt = LocalDateTime.now();
+        userForm.setUser_regdate(ldt);
 
         User user = userForm.toEntity();
 
@@ -309,12 +313,17 @@ public class UserController {
 
         User newUser = userService.getUserById(user.getUserId());
         List<Qna> qlist = qnaService.getQna(user.getUserId());
+        List<FlightTicketInfo> fticket = userService.getFticketByNum(user.getUserNumber());
+        System.out.println("userNUmber: "+user.getUserNumber());
+
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user", newUser);
 
         model.addAttribute("qlist", qlist);
 
+        model.addAttribute("fticket", fticket);
+        System.out.println(fticket);
         return "/member/user/mypage";
     }
 
@@ -505,6 +514,7 @@ public class UserController {
 
         return "home";
     }
+
 
 
 }

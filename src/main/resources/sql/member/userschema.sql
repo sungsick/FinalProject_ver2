@@ -3,8 +3,20 @@
 
 use finalproject;
 
+delete from finalproject.area_tourism;
+delete from finalproject.ticket_info;
+# delete from finalproject.user;
+delete from finalproject.manager;
+delete from finalproject.qna;
 
-drop table if exists user;
+delete from user;
+
+alter table finalproject.user auto_increment = 1;
+alter table finalproject.user auto_increment = 1;
+alter table finalproject.manager auto_increment = 1;
+alter table finalproject.ticket_info auto_increment = 1;
+alter table finalproject.area_tourism auto_increment = 1;
+
 
 CREATE TABLE if not exists `user`
 (
@@ -18,32 +30,32 @@ CREATE TABLE if not exists `user`
     `user_mbti`     varchar(4)  NULL,
     `user_img`      varchar(20) NULL
 
-    );
-
-alter table finalproject.user auto_increment = 1;
+);
 
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`)
-VALUES
-    ('john_doe', 'John Doe', 'password123', '01012345678', 'M', '2023-08-21', 'ENTJ', 'default1.png'),
-    ('jane_smith', 'Jane Smith', 'pass4321', '01098765432', 'F', '2023-08-21', 'INFP', 'default2.png'),
-    ('alex_brown', 'Alex Brown', 'securepwd', '01055555555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('test', 'yeong', '1234', '01012345678', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('sample@example.com', '샘플', '1234', '01055555555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('user1', 'User One', 'userpass1', '01011111111', 'F', '2023-08-21', 'ISFJ', 'default2.png'),
-    ('user2', 'User Two', 'userpass2', '01022222222', 'M', '2023-08-21', 'ESTP', 'default1.png'),
-    ('user3', 'User Three', 'userpass3', '01033333333', 'F', '2023-08-21', 'ENFP', 'default2.png'),
-    ('user4', 'User Four', 'userpass4', '01044444444', 'M', '2023-08-21', 'ISTJ', 'default1.png'),
-    ('user5', 'User Five', 'userpass5', '01055555555', 'F', '2023-08-21', 'ESFP', 'default2.png');
+CREATE TABLE if not exists `ticket_info`
+(
+    `tic_ticket_id`             bigint       NOT NULL auto_increment,
+    `tic_flight_departure_date` varchar(100) NOT NULL,
+    `tic_flight_arrival_date`   varchar(100) NOT NULL,
+    `tic_airline_logo`          varchar(100) NOT NULL,
+    `tic_seat_grade`            varchar(100) NOT NULL,
+    `tic_airline_name`          varchar(100) NOT NULL,
+    `tic_fee`                   int          NOT NULL,
+    `tic_from_location`         varchar(100) NOT NULL,
+    `tic_to_location`           varchar(100) NOT NULL,
+    `tic_vihicle_id`            varchar(100) NOT NULL,
+    `user_number`               bigint       NOT NULL
+);
 
+CREATE TABLE if not exists `area_tourism`(
+    `area_id` bigint not null primary key auto_increment,
+    `area_name` varchar(100) not null ,
+    `area_name_ko` varchar(100) not null ,
+    `place_id` int not null ,
+    `place_name` varchar(100) not null
+);
 
-delete
-from finalproject.user;
-
-select * from user;
-
-
-drop table if exists manager;
 
 CREATE TABLE if not exists `manager`
 (
@@ -53,10 +65,7 @@ CREATE TABLE if not exists `manager`
 
     );
 
-delete from finalproject.manager;
 
-
-delete from finalproject.qna;
 
 CREATE TABLE if not exists `qna` (
                         `qna_number`int	NOT NULL primary key auto_increment,

@@ -85,20 +85,6 @@
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
     transition: all 0.15s ease-out 0s;
 }
-
-footer {
-    position: relative;
-    bottom: 0px;
-    display: flex;
-    box-sizing: border-box;
-    width: 100%;
-    min-width: 1200px;
-    padding-bottom: 49px;
-    color: rgb(106, 106, 106);
-    background: rgb(255, 255, 255);
-    border-top: 1px solid rgb(233, 233, 233);
-}
-
 swiper-container {
     margin-top: 30px;
     width: 100%;

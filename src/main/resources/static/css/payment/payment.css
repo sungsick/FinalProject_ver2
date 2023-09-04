@@ -155,7 +155,7 @@
     background-color: rgb(246, 246, 246);
     min-height: calc(100vh - 246px);
     height: auto;
-    padding: 0px 0px 60px;
+    padding: 70px 0px 60px;
 }
 
 .container {
@@ -209,7 +209,7 @@
     margin-right: 15px;
 }
 
-.fsTopInfoLeft  {
+.fsTopInfoLeft {
     width: 185px;
     margin: auto;
     display: flex;
@@ -304,7 +304,7 @@
     margin-top: 20px;
     position: sticky;
     font-size: 18px;
-    top: 80px;
+    top: 117px;
     height: 70px;
     z-index: 1;
 }
@@ -792,7 +792,7 @@ button, input, optgroup, select, textarea {
 
 .paymentInfoWrap {
     position: sticky;
-    top: 100px;
+    top: 137px;
     width: 380px;
     height: 354px;
     padding: 40px;
@@ -1269,7 +1269,6 @@ tbody {
     font-feature-settings: "tnum";
     pointer-events: none;
     position: relative;
-    top: 100px;
     width: auto;
     max-width: calc(100vw - 16px);
     margin: 8px auto;
@@ -1284,7 +1283,7 @@ tbody {
 
 .contentBox .ant-modal-content {
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px -1px 4px 0px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px 0px;
 }
 
 .ant-modal-content {
@@ -1447,3 +1446,11 @@ tbody {
     border-radius: 10px;
     width: 500px !important;
 }
+
+.modal-open {
+    overflow: hidden;
+    padding-right: 15px; /* 스크롤바의 너비 만큼 패딩 추가 */
+    position: fixed;
+    width: 100%;
+}
+
