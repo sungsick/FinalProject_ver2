@@ -8,7 +8,7 @@
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/9647b4736a.js"></script>
     <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
     <script defer src="/js/payment/paymentFlight.js" type="text/javascript"></script>
-    <!--생년월일 없애기, 렌트카로 옮기기-->
+    <!--생년월일 없애기, 렌트카로 옮기기 생년월일 매서드 옮기기-->
 </head>
 <body>
 <div id="root">
@@ -45,10 +45,11 @@
                                 </div>
                                 <!--                                항공사 이름-->
                                 <div _ngcontent-yis-c25 class="itinerary__etc ng-star-inserted">
-                                    <p _ngcontent-yis-c25="" class="itinerary__codeshare ng-star-inserted">
+                                    <p _ngcontent-yis-c25="" class="itinerary__codeshare ng-star-inserted"
+                                       id="logo_img">
                                         <!--                                항공사 이미지-->
-                                        <span _ngcontent-yis-c25="" aria-hidden="true" class="code-share -lj"
-                                              th:src="ticket.Airline"></span>
+                                        <img class="airlineLogo"
+                                             th:src="'/img/store/flight/' + ${ticket.ticAirlineLogo}">
                                         [[${ticket.ticAirlineName}]]
                                     </p>
                                 </div>

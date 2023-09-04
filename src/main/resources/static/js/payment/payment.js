@@ -28,12 +28,9 @@ $(function () {
             var inputValue = parseInt(input_birth.value.substring(0, 2));
         }
 
-        console.log(input_birth.value.length);
         if (input_birth.value.length >= 6) {
 
-            console.log(currentYear - inputYear);
             result = currentYear - inputYear;
-            console.log(result);
             absolute = Math.abs(result);
             console.log(absolute);
 
@@ -43,7 +40,7 @@ $(function () {
                 warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
                 warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
                 btnKakaoPay.disabled = false;
-            } else {
+            } else if (absolute < 20) {
                 console.log('20이하');
                 // 20세 미만
                 warningDiv.textContent = "20세 미만입니다.";
@@ -52,65 +49,152 @@ $(function () {
             }
 
         } else {
-            warningDiv.textContent = ""; // 경고 메시지 초기화
+            warningDiv.textContent = "'-' 을 제외한 생년월일 6자리를 입력하세요"; // 경고 메시지 초기화
             btnKakaoPay.disabled = true;
         }
     });
-    // 카카오결제
-    $("#btnKakaoPay").click(function () {
-        // 결제버튼
-        const input_name = document.getElementById('input_name');
-        const input_phone = document.getElementById('input_phone');
-        const input_birth = document.getElementById('input_birth');
-        // const nameValue = input_name.value;
-        // const phoneValue = input_phone.value;
-        // const birthValue = input_birth.value;
-        // console.log(nameValue);
-        // console.log(phoneValue);
-        // console.log(birthValue);
-        if (input_name.value === '' || input_phone.value === '' || input_birth.value === '') {
-            alert('필수 항목을 입력하세요');
-            (this).focus();
+
+    // 핸드폰 인증
+    var auth_num = '';
+    var auth_check = false;
+    var id_check = false;
+
+    // 인증번호 요청, 재요청 클릭시
+    $('#verifyBtn').click(function () {
+        const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
+        const user_phone = $("#input_phone").val();
+
+        if (phoneNumberPattern.test(user_phone)) {
+
+            $('#verify').removeClass('auth');
+            $('#verifyBtn').text('재요청');
+
+        } else {
+            alert("잘못된 번호입니다")
+            btnKakaoPay.disabled = true;
+            $("#input_phone").focus();
+        }
+
+        if (!auth_check) { // 인증완료가 아직 안됐을 경우.
+
+            $.ajax({
+                url: '/member/joinAuth',
+                method: 'POST',
+                data: {user_phone: user_phone},
+                success: function (data) {
+
+
+                    console.log(data); // controller에서 넘긴 data를 받아온다.
+                    auth_num = data;
+
+                    // 인증번호 칸 열기
+
+                },
+                error: function () {
+
+                }
+
+            });
         } else {
 
-            // 필수입력값을 확인.
-            var name = $("#form-payment input[name='pay-name']").val();
-            var tel = $("#form-payment input[name='pay-tel']").val();
-            var email = $("#form-payment input[name='pay-email']").val();
+            alert("이미 인증이 완료됐습니다.");
+        }
+    })
 
-            if (name === "") {
-                $("#form-payment input[name='pay-name']").focus()
-            }
-            if (tel === "") {
-                $("#form-payment input[name='pay-tel']").focus()
-            }
-            if (email === "") {
-                $("#form-payment input[name='pay-email']").focus()
-            }
+    $('#verifyConfirmBtn').click(function () {
+
+        if (auth_num === $('#input_auth').val() || auth_check) {
+
+            alert('인증이 완료됐습니다.');
+            auth_check = true;
+            $('#verify').addClass('auth');
+            $('#verifyBtn').addClass('auth');
+            $('#input_phone').val("인증완료");
+            $('#input_phone').css('color', '#0064de');
+            $('#input_phone').css('border-color', '#0064de');
+            $('#input_phone').prop('disabled', true);
+            $("#btnKakaoPay").disabled = false;
+
+
+        } else {
+            alert('잘못 입력했습니다. 인증번호를 확인하세요.');
+            $('#input_auth').focus();
+            auth_check = false;
+            $("#btnKakaoPay").disabled = ture;
+        }
+    })
+
+    // 카카오결제
+    $("#btnKakaoPay").click(function () {
+
+        var query = {
+            input_name: $("#input_name").val(),
+            input_phone: $("#input_phone").val(),
+            input_birth: $("#input_birth").val(),
+            monthDay: $("#input_birth").val().substring(2),
+            checkVal: $("input[formcontrolname=gender]:checked"),
+            selectBox: $("select[name='selectBox']").val()
+        }
+        const phoneNumberPattern = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 형식검사 정규 표현식
+        const birthpattern = /^(\d\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/;
+        var btnKakaoPay = document.getElementById('btnKakaoPay');
+        var warningDiv = document.getElementById('warning');
+
+        if (query.input_name === '') {
+            /*######이름 입력 검사######*/
+            alert('이름을 입력하세요.');
+            $("#input_name").focus();
+        } else if (query.input_phone === '') {
+            /*######핸드폰 입력 검사######*/
+            alert('핸드폰 번호를 입력하세요.');
+            $("#input_phone").focus();
+        } else if (!auth_check) {
+            /*######핸드폰 인증 검사######*/
+            alert('핸드폰 인증을 완료하세요.')
+            $("#input_phone").focus();
+        } else if (query.input_birth === '') {
+            /*######생년월일 입력 검사######*/
+            alert('생년월일을 입력하세요.');
+            $("#input_birth").focus();
+        } else if (!birthpattern.test(query.input_birth)) {
+            /*######생년월일 유효성 검사######*/
+            console.log(birthpattern.test(input_birth.value));
+            warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
+            warningDiv.style.color = "red";
+            btnKakaoPay.disabled = true;
+            $("#input_birth").focus();
+        } else if (!query.checkVal) {
+            /*######성별 선택 검사######*/
+            alert("성별을 선택해 주세요.");
+            btnKakaoPay.disabled = true;
+            $("input[formcontrolname='gender']:checked").focus();
+        } else if (query.selectBox === "") {
+            alert("국적을 선택해 주세요.");
+            $("select[name='selectBox']").focus();
+        } else {
+            $("#btnKakaoPay").disabled = false;
+            // 결제 진입
 
             // 결제 정보를 form에 저장한다.
-            let totalPayPrice = parseInt($("#total-pay-price").text().replace(/,/g, ''))
-            let totalPrice = parseInt($("#total-price").text().replace(/,/g, ''))
-            let discountPrice = totalPrice - totalPayPrice
-            let usePoint = $("#point-use").val()
-            let useUserCouponNo = $(":radio[name='userCoupon']:checked").val()
-
+            var ticketInfo = {
+                // ticTicketId: $("#ticketId").val(),
+                // ticFlightDepartureDate: $("#departureDate").val(),
+                // ticFlightArrivalDate: $("#arrivalDate").val(),
+                // ticSeatGrade: $("#seatGrade").val(),
+                // ticAirlineName: $("#airlineName").val(),
+                // ticFee: $("#totalPrice").val(),
+                // ticFromLocation: $("#fromLocation").val(),
+                // ticToLocation: $("#toLocation").val(),
+                // ticVihicleId: $("#vehicleId").val(),
+                // userId: $("#userId").val(),
+                // userName: $("#userName").val()
+            };
             // 카카오페이 결제전송
             $.ajax({
                 type: 'get'
                 , url: '/kakaoPay'
-                // ,data:{
-                //     total_amount: totalPayPrice
-                //     ,payUserName: name
-                //     ,sumPrice:totalPrice
-                //     ,discountPrice:discountPrice
-                //     ,totalPrice:totalPayPrice
-                //     ,tel:tel
-                //     ,email:email
-                //     ,usePoint:usePoint
-                //     ,useCouponNo:useUserCouponNo
-                //
-                // }
+                // data: JSON.stringify(ticketInfo), // JSON 데이터 전송
+                // contentType: 'application/json' // JSON 데이터임을 명시
                 , success: function (response) {
                     // 화면 중앙에 위치시키기 위한 x, y 좌표 계산
                     var screenWidth = window.screen.width;

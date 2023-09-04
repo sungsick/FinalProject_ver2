@@ -48,7 +48,7 @@ public class FlightTicketInfo {
     @JoinColumn(name = "userNumber")
     private User user;
 
-    public FlightTicketDto toDto(){
+    public FlightTicketDto toDto() {
         return FlightTicketDto.builder()
                 .ticTicketId(ticTicketId)
                 .ticFlightDepartureDate(ticFlightDepartureDate)
@@ -61,6 +61,7 @@ public class FlightTicketInfo {
                 .ticToLocation(ticToLocation)
                 .ticVihicleId(ticVihicleId)
                 .user(user)
+                .tid(tid)
                 .build();
     }
 }

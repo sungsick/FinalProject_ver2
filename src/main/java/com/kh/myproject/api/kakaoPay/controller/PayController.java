@@ -68,7 +68,7 @@ public class PayController {
         return readyResponse;
     }
 
-    // api 결제 승인요청
+    // api 결제 승인요청 / 완료시 데이터 저장
     @GetMapping("/pay/success")
     public ModelAndView kakaoPayCompleted(@RequestParam("pg_token") String pg_token, Model model) {
         log.info("kakaoPaySuccess get......................");
@@ -92,7 +92,7 @@ public class PayController {
         log.info("=================ticketEntity{}", ticketEntity);
         // 결제 데이터 저장
         flightTicketRepository.save(ticketEntity);
-        
+
         return modelAndView;
     }
 

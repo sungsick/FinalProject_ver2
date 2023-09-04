@@ -1,0 +1,20 @@
+
+v
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ¯ğ8°À›ò¥1
+{
+java:S22936"YReplace the type specification in this constructor call with the diamond operator ("<>").(á¯±©ûÿÿÿÿ8±À›ò¥1
+v
+java:S2293G"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ¯ğ8±À›ò¥1
+{
+java:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ê¬¤ïşÿÿÿÿ8±À›ò¥1
+n
+java:S1192"QDefine a constant instead of duplicating this literal "partner_order_id" 3 times.(½ Ó»8±À›ò¥1
+|
+java:S11922"ZDefine a constant instead of duplicating this literal "íŒŒíŠ¸ë„ˆì£¼ë¬¸ì•„ì´ë””:" 3 times.(‚²Ø½øÿÿÿÿ8±À›ò¥1
+j
+java:S1192$"MDefine a constant instead of duplicating this literal "total_amount" 3 times.(¿ËÑÈ8±À›ò¥1
+r
+java:S1192 "PDefine a constant instead of duplicating this literal "partner_user_id" 3 times.(‡—˜Ğüÿÿÿÿ8±À›ò¥1
+r	java:S117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öç°Öüÿÿÿÿ8±À›ò¥1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¦•€8²À›ò¥1
+X	java:S125d"<This block of commented-out lines of code should be removed.(Åä¹ô8ÅÀ›ò¥1

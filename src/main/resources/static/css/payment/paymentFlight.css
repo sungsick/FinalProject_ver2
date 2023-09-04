@@ -303,8 +303,18 @@
     width: 1.6rem;
     height: 1.6rem;
     margin: 0 0.8rem;
-    background: url(https://www.koreanair.com/itinerary__to.svg) 50% 50%/16px 16px no-repeat;
+    background: 50% 50%/16px 16px no-repeat;
     vertical-align: -0.2rem;
+}
+
+.airlineLogo {
+    width: 16%;
+    margin-right: 13px;
+}
+
+#logo_img {
+    display: flex;
+    align-items: center;
 }
 
 .card-bottom {

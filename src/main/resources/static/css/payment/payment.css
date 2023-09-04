@@ -1462,3 +1462,14 @@ tbody {
     width: 100%;
 }
 
+#input_phone {
+    width: 59%;
+}
+
+.auth {
+    display: none;
+}
+
+#input_auth {
+    width: 59%;
+}

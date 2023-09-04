@@ -21,9 +21,8 @@ public class PayService {
 
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
-    private FlightTicketDto ticketDto;
-//    private PayRepository payRepository;
 
+    // 카카오페이 레디
     public KakaoPayReadyVO kakaoPayReady(FlightTicketDto ticket) {
         log.info("KakaoPayService => kakaoPayReady......................................... ");
         log.info(ticket.getTicFee());
@@ -64,32 +63,7 @@ public class PayService {
         return kakaoPayReadyVO;
     }
 
-    // 결제 요청시 렌트카 / 항공권 분기 확인.
-    // 결제 api호출후 완료되면 결제완료 목록에 필요한 데이터 저장
-//    public KakaoPayApprovalVO rentcarInsert(String pg_token) {
-//        // 렌터카
-//        KakaoPayApprovalVO test = this.payApprove(pg_token);
-//
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-//        //        구매내역 저장 예시 (미리구현, 팀원과 상의후 데이터 저장)
-//        UserForm user = new UserForm();
-//
-//        params.add("user_id", user.getUser_id());
-//        params.add("user_name", user.getUser_name());
-//
-//        PaymentBill paymentBill = new PaymentBill();
-//        paymentBill.setUser_id(user.getUser_id());
-//        paymentBill.setUser_name(user.getUser_name());
-//
-//        payRepository.save(paymentBill);
-//
-//        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, this.getHeaders());
-//
-//        return test;
-//    }
-
-
-    // 결제 승인 메서드 ( 승인 완료시 필요한 데이터 담아서 저장하는 컨트롤러 or 서비스 호출)
+    // 결제 승인
     public KakaoPayApprovalVO payApprove(String pg_token) {
         log.info("KakaoPayInfoVO..................................................");
         log.info(".......................");

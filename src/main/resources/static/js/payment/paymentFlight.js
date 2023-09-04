@@ -28,8 +28,7 @@ $(function () {
         if (input_birth.value >= 2) {
             var inputValue = parseInt(input_birth.value.substring(0, 2));
         }
-        console.log(input_birth.value.length);
-        console.log(inputYear);
+
         if (input_birth.value.length >= 6) {
 
             result = currentYear - inputYear;
@@ -152,18 +151,6 @@ $(function () {
             /*######핸드폰 인증 검사######*/
             alert('핸드폰 인증을 완료하세요.')
             $("#input_phone").focus();
-        } else if (query.input_birth === '') {
-            /*######생년월일 입력 검사######*/
-            alert('생년월일을 입력하세요.');
-            $("#input_birth").focus();
-            btnKakaoPay.disabled = true;
-        } else if (!birthpattern.test(query.input_birth)) {// || input_birth.value.length !== 6
-            /*######생년월일 유효성 검사######*/
-            console.log(birthpattern.test(input_birth.value));
-            warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
-            warningDiv.style.color = "red";
-            btnKakaoPay.disabled = true;
-            $("#input_birth").focus();
         } else if (!query.checkVal) {
             /*######성별 선택 검사######*/
             alert("성별을 선택해 주세요.");
