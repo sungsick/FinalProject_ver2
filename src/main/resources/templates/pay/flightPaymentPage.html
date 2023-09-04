@@ -17,7 +17,6 @@
         <div class="container">
             <div class="contents">
                 <div>
-                    <h1>[[${ticket}]]</h1>
                     <div class="firstBox">
                         <section class="firstSection">
                             <div class="fsTop">
@@ -48,7 +47,8 @@
                                 <div _ngcontent-yis-c25 class="itinerary__etc ng-star-inserted">
                                     <p _ngcontent-yis-c25="" class="itinerary__codeshare ng-star-inserted">
                                         <!--                                항공사 이미지-->
-                                        <span _ngcontent-yis-c25="" aria-hidden="true" class="code-share -lj"></span>
+                                        <span _ngcontent-yis-c25="" aria-hidden="true" class="code-share -lj"
+                                              th:src="ticket.Airline"></span>
                                         [[${ticket.ticAirlineName}]]
                                     </p>
                                 </div>
@@ -1477,17 +1477,20 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="ticketId" th:value="${ticket.ticTicketId}">
-<input type="hidden" id="departureDate" th:value="${ticket.ticFlightDepartureDate}">
-<input type="hidden" id="arrivalDate" th:value="${ticket.ticFlightArrivalDate}">
-<input type="hidden" id="seatGrade" th:value="${ticket.ticSeatGrade}">
-<input type="hidden" id="airlineName" th:value="${ticket.ticAirlineName}">
-<input type="hidden" id="fromLocation" th:value="${ticket.ticFromLocation}">
-<input type="hidden" id="totalPrice" th:value="${ticket.ticFee}">
-<input type="hidden" id="toLocation" th:value="${ticket.ticToLocation}">
-<input type="hidden" id="vehicleId" th:value="${ticket.ticVihicleId}">
-<input type="hidden" id="userId" th:value="${user.userId}">
-<input type="hidden" id="userName" th:value="${user.userName}">
+<div>
+
+    <input type="hidden" id="ticketId" th:value="${ticket.ticTicketId}">
+    <input type="hidden" id="departureDate" th:value="${ticket.ticFlightDepartureDate}">
+    <input type="hidden" id="arrivalDate" th:value="${ticket.ticFlightArrivalDate}">
+    <input type="hidden" id="seatGrade" th:value="${ticket.ticSeatGrade}">
+    <input type="hidden" id="airlineName" th:value="${ticket.ticAirlineName}">
+    <input type="hidden" id="fromLocation" th:value="${ticket.ticFromLocation}">
+    <input type="hidden" id="totalPrice" th:value="${ticket.ticFee}">
+    <input type="hidden" id="toLocation" th:value="${ticket.ticToLocation}">
+    <input type="hidden" id="vehicleId" th:value="${ticket.ticVihicleId}">
+    <input type="hidden" id="userId" th:value="${user.userId}">
+    <input type="hidden" id="userName" th:value="${user.userName}">
+</div>
 <script defer th:inline="javascript">
     /*<![CDATA[*/
     // 출발, 도착시간 날짜 슬라이싱
