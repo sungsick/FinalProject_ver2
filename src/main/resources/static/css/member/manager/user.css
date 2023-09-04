@@ -2,11 +2,7 @@ table{
     background-color: #fff;
 
 }
-.snc_user{
-    background-color: pink;
-    color: #fff;
-    font-weight: 600;
-}
+
 .content_boxes{
     display: flex;
     align-items: center;

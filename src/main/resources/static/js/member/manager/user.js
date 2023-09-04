@@ -164,7 +164,7 @@ function deluser(element) {
                     // 추가한 버튼의 이벤트 핸들러를 추가한다.
                     Swal.fire('삭제가 완료됐습니다.', '', 'success').then((result) => {
 
-                        location.href = '/pageTest';
+                        location.href = '/manager/user';
 
                     })
                 }, error: function () {
@@ -213,13 +213,13 @@ $('#search-input').on('keyup', function (e) {
         var search_option = $('#user-search-option').val();
         console.log(search_word);
         if(search_option === "all" ){
-            location.href = `/pageTest`;
+            location.href = `/manager/user`;
 
         }
         else if (search_word === "") {
             Swal.fire('검색어를 입력해주세요.', '', 'warning')
         } else {
-            location.href = `/pageTest?pageNo=1&search_word=${search_word}&search_option=${search_option}`;
+            location.href = `/manager/user?pageNo=1&search_word=${search_word}&search_option=${search_option}`;
         }
     }
 })
@@ -244,9 +244,9 @@ function pageChange(element){ // 페이지 버튼 클릭할시
     var pageNo = element.id;
 
     if(search_word === "") { // 검색어 없을 경우 그냥 페이지만 변경한다.
-        location.href = `/pageTest?pageNo=${pageNo}`;
+        location.href = `/manager/user?pageNo=${pageNo}`;
     }else if(search_word !== ""){ // 검색어가 있을 경우 페이지NO과 함꼐 검색어와 option도 계속 전달한다.
-        location.href = `/pageTest?pageNo=${pageNo}&search_word=${search_word}&search_option=${search_option}`;
+        location.href = `/manager/user?pageNo=${pageNo}&search_word=${search_word}&search_option=${search_option}`;
 
     }
 

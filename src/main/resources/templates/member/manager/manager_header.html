@@ -1,6 +1,24 @@
+
+<container>
 <header>
     <div class="header_main">
-        <div class="header_logo"><img src="/img/member/logo.png"></div>
-        <div class="header_icons">로그아웃 아이콘</div>
+        <div class="header_logo"><img src="/img/member/logo.png" onclick="window.location.href='/manager/home'"></div>
+        <div class="header_icons"><i class="fa-2xl fa-solid fa-arrow-right-from-bracket" style="color: #bebebe;"
+                                     onclick="window.location.href= '/member/logout'"></i></div>
     </div>
 </header>
+<sidenav>
+    <div class="side_nav">
+        <div class="side_nav_content snc_home" onclick="window.location.href='/manager/home'">홈</div>
+        <div class="side_nav_content snc_user" onclick="window.location.href='/manager/user'">유저 정보 관리</div>
+        <div class="side_nav_content snc_accompany" onclick="window.location.href='/manager/accompany'">동행 글 관리</div>
+        <div class="side_nav_content snc_plan" onclick="window.location.href='/manager/plan'">일정 글 관리</div>
+        <div class="side_nav_content snc_qna" onclick="window.location.href='/manager/qna'">문의글 관리</div>
+        <div class="side_nav_content snc_flight" onclick="window.location.href='/manager/flight'">항공권 예약 관리</div>
+        <div class="side_nav_content snc_rentcar" onclick="window.location.href='/manager/rentcar'">렌트카 예약 관리</div>
+    </div>
+</sidenav>
+<link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">
+<script src = "/jq/jquery-3.7.0.min.js"></script>
+<script src = "/js/member/manager/manager_header.js"></script>
+</container>

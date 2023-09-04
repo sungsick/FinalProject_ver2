@@ -29,5 +29,14 @@ public class QnaService {
         return qnaRepository.findAll();
     }
 
+    public void deleteQna(String qnaNumber){
+
+        qnaRepository.deleteById(Long.parseLong(qnaNumber));
+    }
+
+    public void updateAnswer(String qnaNumber, String qnaAnswer){
+        qnaRepository.updateAnswer(Long.parseLong(qnaNumber), qnaAnswer);
+    }
+
 
 }

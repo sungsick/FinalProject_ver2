@@ -15,8 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("manager")
@@ -34,7 +36,8 @@ public class ManagerController {
     // 처음 메인 페이지를 보여주고
     // 그다음 여러개의 관리 페이지를 둔다.
     // 일정 게시글, 동행 , 렌트카 예약내역, 항공권 예약내역, 문의글 (답변 가능해야함)
-    @GetMapping("/manager/user")
+
+    @GetMapping("/manager/home")
     public ModelAndView managerUser(
             @ModelAttribute("check_manager") Manager check_manager,
             ModelAndView modelAndView,
@@ -42,12 +45,11 @@ public class ManagerController {
 
         System.out.println(check_manager);
 
-
         if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
             //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
 
 
-            modelAndView.setViewName("/member/manager/user");
+            modelAndView.setViewName("/member/manager/home");
             List<User> userList = userService.findAllUser();
 
             modelAndView.addObject("manager", check_manager);
@@ -66,7 +68,6 @@ public class ManagerController {
 
         return modelAndView;
     }
-
 
     @GetMapping("/manager/logout")
     public String flightList(SessionStatus sessionStatus) {
@@ -107,15 +108,8 @@ public class ManagerController {
     }
 
 
-    // 문의글 가져오기
-    @GetMapping("/manager/qna")
-    public String qnaList(Model model) {
 
-        List<Qna> qnaList = qnaService.getAllQna();
-        model.addAttribute("qnaList", qnaList);
 
-        return "member/manager/qna";
-    }
 
     @PostMapping("/test/getUserChart")
     @ResponseBody
@@ -144,13 +138,6 @@ public class ManagerController {
     }
 
 
-    @GetMapping("/chart")
-    public String chart() {
-
-
-        return "member/manager/chart";
-    }
-
     @ResponseBody
     @PostMapping("/manager/deleteUser")
     public List<User> deleteUser(@ModelAttribute(name = "user_number")
@@ -172,7 +159,7 @@ public class ManagerController {
 
 
     // 유저게시판이 보여지는 페이지. 페이징 처리 구현.
-    @GetMapping("pageTest")
+    @GetMapping("manager/user")
     public String pageTest(Model model,
                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "search_word", defaultValue = "") String search_word,
@@ -300,9 +287,65 @@ public class ManagerController {
         return "member/manager/user";
     }
 
+    @GetMapping("/manager/qna")
+    public ModelAndView qna(
+//            @ModelAttribute("manager") Manager check_manager,
+            ModelAndView modelAndView,
+            HttpSession session) {
+
+        Manager check_manager = (Manager) session.getAttribute("manager");
+
+        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
+            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+
+            modelAndView.setViewName("member/manager/qna");
+            List<Qna> qnaList = qnaService.getAllQna();
+
+            modelAndView.addObject("manager", check_manager);
+            modelAndView.addObject("qnaList", qnaList);
+
+            // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
+
+        } else {
+
+            // url로 접속했을 경우 에러페이지로 이동시킨다.
+            modelAndView.setViewName("redirect:/errorPage");
+
+        }
+
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/deleteQna")
+    public List<Qna> deleteQna(@ModelAttribute(name = "qnaNumber")
+                               String qnaNumber) {
+
+        System.out.println(qnaNumber);
+        qnaService.deleteQna(qnaNumber);
+
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        List<Qna> qnaList = qnaService.getAllQna();
+
+
+        System.out.println(qnaList);
+
+        return qnaList;
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/answerQna")
+    public void answerQna(@RequestParam("qnaNumber") String qnaNumber,
+                          @RequestParam("qnaAnswer") String qnaAnswer)  {
+
+        System.out.println(qnaNumber);
+        System.out.println(qnaAnswer);
+
+        qnaService.updateAnswer(qnaNumber, qnaAnswer);
+
+    }
+
 
 }
-
-
-
-

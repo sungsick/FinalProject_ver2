@@ -10,12 +10,14 @@ delete from finalproject.manager;
 delete from finalproject.qna;
 
 
+delete from user;
 
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
 alter table finalproject.ticket_info auto_increment = 1;
 alter table finalproject.area_tourism auto_increment = 1;
+
 
 CREATE TABLE if not exists `user`
 (
