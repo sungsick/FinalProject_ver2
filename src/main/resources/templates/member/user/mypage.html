@@ -129,66 +129,70 @@
                     <div class="section_separate_line"></div>
                 </th:block>
 
-                <div class="booking_plane">
-                    렌트카
-                </div>
-                <div class="rent_tickets">
-                    <div class="r_ticket">
-                        <div class="rt_img">
-                            <div class="car_name">쏘나타 (DN8)</div>
-                            <div class="car_name2">쏘나타 8세대</div>
-                            <img src="/img/member/sonata.png">
-                            <div class="car_price">89,000원</div>
-                        </div>
-                        <div class="rt_info">
-                            <div class="car_info">
-                                <div class="ci_1">렌트카 정보</div>
-                                <div class="ci_2">
-                                    <div class="ci_2_spe">
-                                        <div class="car_stat">
-                                            <div class="company_name">KH렌트카</div>
-                                            <div class="cs_1">
-                                                19 ~ 20년
-                                                <div class="cs_sl"></div>
-                                                만 21세
-                                                <div class="cs_sl"></div>
-                                                가솔린
-                                                <div class="cs_sl"></div>
-                                                5인승
+
+                <th:block th:if="${!#lists.isEmpty(rticket)}">
+                    <div class="booking_plane">
+                        렌트카
+                    </div>
+                    <th:block th:each="rticket : ${rticket}">
+                    <div class="rent_tickets">
+                        <div class="r_ticket">
+                            <div class="rt_img">
+                                <div class="car_name" th:text="${rticket.rentName}"></div>
+                                <div class="car_name2" th:text="${rticket.rentType}"></div>
+                                <img th:src="'/img/store/rentcar/'+${rticket.rentImg}">
+                                <div class="car_price" th:text="${rticket.rentPrice}+'원'"></div>
+                            </div>
+                            <div class="rt_info">
+                                <div class="car_info">
+                                    <div class="ci_1">렌트카 정보</div>
+                                    <div class="ci_2">
+                                        <div class="ci_2_spe">
+                                            <div class="car_stat">
+                                                <div class="company_name" th:text="${rticket.rentCompany}"></div>
+                                                <div class="cs_1">
+                                                    <th:block th:text="${rticket.rentYear}+'년 식'"></th:block>
+                                                    <div class="cs_sl"></div>
+                                                    <th:block th:text="${rticket.rentAccommodate}+'인승'"></th:block>
+                                                    <div class="cs_sl"></div>
+                                                    <th:block th:text="${rticket.rentOil}"></th:block>
+                                                </div>
+                                            </div>
+
+                                            <div class="car_options" th:text="${rticket.rentOption}">
 
                                             </div>
                                         </div>
-
-                                        <div class="car_options">
-                                            안드로이드 오토, 애플 카플레이, 블루투스, 블랙박스, 운전석 에어백, 전방 추돌 방지, 핸들열선, 열선시트, 차선 이탈 경보,
-                                            네비게이션
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="rent_separate"></div>
-                            <div class="resuser_info">
-                                <div class="ri_div">
-                                    <div class="rd_1">
-                                        <div class="ri_1">예약자 정보</div>
-                                        <div class="ri_2">
-                                            <div class="ri_2">성함 : 홍길동</div>
-                                            <div class="ri_2">생년월일: 981205</div>
-                                            <div class="ri_2">전화번호: 01011111111</div>
+                                <div class="rent_separate"></div>
+                                <div class="resuser_info">
+                                    <div class="ri_div">
+                                        <div class="rd_1">
+                                            <div class="ri_1">예약자 정보</div>
+                                            <div class="ri_2">
+                                                <div th:text="'성함: '+${rticket.user.userName}" class="ri_2"></div>
+                                                <div th:text="'생년월일: '+${#dates.format(rticket.user.userDate, 'yyMMdd')}"
+                                                     class="ri_2"></div>
+                                                <div th:text="'전화번호: '+${rticket.user.userPhone}" class="ri_2"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="rd_2">
-                                        <div class="ri_1">결제상태</div>
-                                        <div class="ri_3">
-                                            <i class="fa-2xl fa-solid fa-check" style="color: #29ff2c;"></i>
+                                        <div class="rd_2">
+                                            <div class="ri_1">이용 기간</div>
+                                            <div class="ri_3">
+                                                <div th:text="${rticket.rentArrivalDate}"></div>
+                                                <div th:text="${rticket.rentDepartureDate}"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                    </th:block>
+                </th:block>
+
 
             </div>
             <div class="mypage_content1 option3 disappear">

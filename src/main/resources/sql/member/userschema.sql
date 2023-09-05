@@ -3,19 +3,33 @@
 
 use finalproject;
 
-delete from finalproject.area_tourism;
-delete from finalproject.ticket_info;
+delete
+from finalproject.area_tourism;
+delete
+from finalproject.ticket_info;
+delete
+from finalproject.rent_info;
 # delete from finalproject.user;
-delete from finalproject.manager;
-delete from finalproject.qna;
+delete
+from finalproject.manager;
+delete
+from finalproject.qna;
 
-delete from user;
+delete
+from user;
 
-alter table finalproject.user auto_increment = 1;
-alter table finalproject.user auto_increment = 1;
-alter table finalproject.manager auto_increment = 1;
-alter table finalproject.ticket_info auto_increment = 1;
-alter table finalproject.area_tourism auto_increment = 1;
+alter table finalproject.user
+    auto_increment = 1;
+alter table finalproject.user
+    auto_increment = 1;
+alter table finalproject.manager
+    auto_increment = 1;
+alter table finalproject.ticket_info
+    auto_increment = 1;
+alter table finalproject.rent_info
+    auto_increment = 1;
+alter table finalproject.area_tourism
+    auto_increment = 1;
 
 
 CREATE TABLE if not exists `user`
@@ -47,13 +61,32 @@ CREATE TABLE if not exists `ticket_info`
     `tic_vihicle_id`            varchar(100) NOT NULL,
     `user_number`               bigint       NOT NULL
 );
+CREATE TABLE if not exists `rent_info`
+(
+    `rent_id`             bigint       NOT NULL auto_increment,
+    `rent_name`           varchar(100) NOT NULL,
+    `rent_type`           varchar(100) NOT NULL,
+    `rent_company`        varchar(100) NOT NULL,
+    `rent_option`         varchar(3000),
+    `rent_price`          varchar(100) NOT NULL,
+    `rent_departure_date` date         NOT NULL,
+    `rent_arrival_date`   date         NOT NULL,
+    `rent_img`            varchar(100) NOT NULL,
+    `rent_accommodate`    bigint       NOT NULL,
+    `rent_year`           varchar(30)  NOT NULL,
+    `rent_oil`            varchar(30)  NOT NULL,
+    `user_number`         bigint       NOT NULL
+);
 
-CREATE TABLE if not exists `area_tourism`(
-    `area_id` bigint not null primary key auto_increment,
-    `area_name` varchar(100) not null ,
-    `area_name_ko` varchar(100) not null ,
-    `place_id` int not null ,
-    `place_name` varchar(100) not null
+
+
+CREATE TABLE if not exists `area_tourism`
+(
+    `area_id`      bigint       not null primary key auto_increment,
+    `area_name`    varchar(100) not null,
+    `area_name_ko` varchar(100) not null,
+    `place_id`     int          not null,
+    `place_name`   varchar(100) not null
 );
 
 
@@ -63,16 +96,17 @@ CREATE TABLE if not exists `manager`
     `manager_id`       varchar(30) NOT NULL,
     `manager_password` varchar(30) NOT NULL
 
-    );
+);
 
 
 
-CREATE TABLE if not exists `qna` (
-                        `qna_number`int	NOT NULL primary key auto_increment,
-                        `qna_writer`	varchar(30)	NOT NULL,
-                        `qna_title`	varchar(100)	NOT NULL,
-                        `qna_content`	varchar(5000)	NOT NULL,
-                        `qna_date`	date	NULL,
-                        `qna_answer`	varchar(500)	NULL
+CREATE TABLE if not exists `qna`
+(
+    `qna_number`  int           NOT NULL primary key auto_increment,
+    `qna_writer`  varchar(30)   NOT NULL,
+    `qna_title`   varchar(100)  NOT NULL,
+    `qna_content` varchar(5000) NOT NULL,
+    `qna_date`    date          NULL,
+    `qna_answer`  varchar(500)  NULL
 );
 

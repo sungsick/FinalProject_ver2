@@ -19,24 +19,11 @@ public class QnaService {
         System.out.println("QnaService의 getQna 실행");
         return qnaRepository.findAllByWriter(qna_writer);
     }
-
     public void submitQna(Qna qna){
         qnaRepository.save(qna);
     }
 
-    public List<Qna> getAllQna(){
 
-        return qnaRepository.findAll();
-    }
-
-    public void deleteQna(String qnaNumber){
-
-        qnaRepository.deleteById(Long.parseLong(qnaNumber));
-    }
-
-    public void updateAnswer(String qnaNumber, String qnaAnswer){
-        qnaRepository.updateAnswer(Long.parseLong(qnaNumber), qnaAnswer);
-    }
 
 
 }

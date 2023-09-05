@@ -1,4 +1,4 @@
-package com.kh.myproject.store.rentcar.cotroller;
+package com.kh.myproject.store.rentcar.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

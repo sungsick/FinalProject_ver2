@@ -1,13 +1,12 @@
 package com.kh.myproject.member.user.service;
 
 
-import com.kh.myproject.member.user.model.entity.Manager;
-import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.user.repository.ManagerRepository;
+import com.kh.myproject.member.manager.repository.ManagerRepository;
 import com.kh.myproject.member.user.repository.QnaRepository;
 import com.kh.myproject.member.user.repository.UserRepository;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -94,6 +93,13 @@ public class UserService {
     public List<FlightTicketInfo> getFticketByNum(Long user_number) {
 
         List<FlightTicketInfo> result = userRepository.getFticketByNum(user_number);
+
+        return result;
+    }
+
+    public List<RentReservationInfo> getRticketByNum(Long user_number) {
+
+        List<RentReservationInfo> result = userRepository.getRticketByNum(user_number);
 
         return result;
     }
@@ -202,14 +208,6 @@ public class UserService {
 
         return userlist;
     }
-
-    public List<Qna> getAllQna(){
-
-        List<Qna> qnaList = qnaRepository.findAll();
-
-        return qnaList;
-    }
-
     public List<Integer> getUserJoinCount(){
 
         List<Integer> countList = new ArrayList<>();

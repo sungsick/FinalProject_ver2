@@ -3,7 +3,8 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
-import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.manager.model.entity.Manager;
+import com.kh.myproject.member.user.model.dto.QnaForm;
 import com.kh.myproject.member.user.model.dto.UserForm;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
@@ -11,6 +12,7 @@ import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -314,7 +316,8 @@ public class UserController {
         User newUser = userService.getUserById(user.getUserId());
         List<Qna> qlist = qnaService.getQna(user.getUserId());
         List<FlightTicketInfo> fticket = userService.getFticketByNum(user.getUserNumber());
-        System.out.println("userNUmber: "+user.getUserNumber());
+        List<RentReservationInfo> rticket = userService.getRticketByNum(user.getUserNumber());
+
 
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
@@ -323,7 +326,11 @@ public class UserController {
         model.addAttribute("qlist", qlist);
 
         model.addAttribute("fticket", fticket);
+
+        model.addAttribute("rticket", rticket);
         System.out.println(fticket);
+        System.out.println("============================================");
+        System.out.println(rticket);
         return "/member/user/mypage";
     }
 
@@ -515,6 +522,27 @@ public class UserController {
         return "home";
     }
 
+    @PostMapping("member/questionSubmit")
+    public String questionSubmit(
+            @RequestParam("qna_title") String qna_title,
+            @RequestParam("qna_content") String qna_content,
+            @ModelAttribute("user") User session_user,
+            QnaForm qnaForm,
+            Model model
+    ) {
+
+        // 기본키값을 넘겨줘야 save메서드에서 id값을 이용해 수정이 가능하다....
+
+        Qna qna = new Qna();
+
+        qna.setQnaWriter(session_user.getUserId());
+        qna.setQnaTitle(qnaForm.getQna_title());
+        qna.setQnaContent(qnaForm.getQna_content());
+        System.out.println(session_user.getUserId());
+        qnaService.submitQna(qna);
+
+        return "member/user/mypage";
+    }
 
 
 }

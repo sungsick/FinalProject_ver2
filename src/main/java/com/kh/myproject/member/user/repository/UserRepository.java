@@ -3,6 +3,7 @@ package com.kh.myproject.member.user.repository;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -108,5 +109,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT f FROM FlightTicketInfo f WHERE f.user.userNumber = :user_number")
     List<FlightTicketInfo> getFticketByNum(@Param("user_number") Long user_number);
+
+    @Query("SELECT r FROM RentReservationInfo r WHERE r.user.userNumber = :user_number")
+    List<RentReservationInfo> getRticketByNum(@Param("user_number") Long user_number);
 
 }

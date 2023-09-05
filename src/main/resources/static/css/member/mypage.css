@@ -274,7 +274,7 @@ li:hover{
 
 .user_agender {
     font-size: 10px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
 }
 
@@ -366,7 +366,7 @@ li:hover{
     font-size: 13px;
     font-weight: 600;
     line-height: 19px;
-    color: rgb(0, 143, 246);
+    color: #00B8FF;
 }
 
 .img_area i {
@@ -380,7 +380,7 @@ li:hover{
 }
 
 .submit_btn{
-    background: rgb(0, 182, 206) !important;
+    background: #00B8FF !important;
     color: rgb(255, 255, 255) !important;
     font-size: 15px;
     font-weight: 400;
@@ -567,22 +567,24 @@ li:hover{
 }
 .ri_1{
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 .ri_2{
     margin-top: 4.5px;
     font-size: 14px;
-
+    width: 200px;
+}
+.rd_1{
+    width: 180px;
 }
 .rd_2{
-    margin-left: 35px;
 }
 .ri_div{
     display: flex;
 }
 .ri_3{
 
-    height: 70px;
-    width: 190px;
+    font-size: 14px;
 }
 .airport{
     width: 120px;
