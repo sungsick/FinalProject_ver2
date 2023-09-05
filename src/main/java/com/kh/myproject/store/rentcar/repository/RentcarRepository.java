@@ -33,6 +33,9 @@ public interface RentcarRepository extends JpaRepository<RentcarInfoEntity, Long
     @Query("SELECT r FROM RentcarInfoEntity r ORDER BY r.car_discount ASC")
     List<RentcarInfoEntity> FindDiscountAsc();
 
+    //차종순 정렬
+    @Query("SELECT r FROM RentcarInfoEntity r ORDER BY r.car_type ASC")
+    List<RentcarInfoEntity> FindTypeAsc();
 
 
 }

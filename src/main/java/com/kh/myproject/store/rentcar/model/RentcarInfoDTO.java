@@ -1,6 +1,7 @@
 package com.kh.myproject.store.rentcar.model;
 
 
+import com.kh.myproject.store.rentcar.repository.RentcarComRepository;
 import lombok.*;
 
 @Data
@@ -21,7 +22,7 @@ public class RentcarInfoDTO {
     private int car_people;
     private int car_price;
     private int car_discount;
-    private int com_id;
+    private RentcarComEntity com_id;
     private String car_option;
     private String car_img;
 

@@ -37,12 +37,15 @@ public class RentcarInfoEntity {
     private int car_price;
     @Column
     private int car_discount;
-    @Column
-    private int com_id;
+
+    @ManyToOne()
+    @JoinColumn(name = "com_id")
+    private RentcarComEntity com_id;
     @Column
     private String car_option;
     @Column
     private String car_img;
+
 
 
 

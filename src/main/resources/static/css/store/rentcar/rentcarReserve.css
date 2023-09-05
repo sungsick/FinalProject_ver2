@@ -283,6 +283,13 @@
     will-change: transform;
 }
 
+.result_item:hover{
+
+    box-shadow: 5px 5px 5px 5px;
+
+}
+
+
 .price_box{
     display: flex;
     flex-direction: row;
