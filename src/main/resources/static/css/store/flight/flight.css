@@ -539,7 +539,3 @@ h1 {
     }
 }
 
-/*input[type='date']::before {*/
-/*    content: attr(data-placeholder);*/
-/*    width: 100%;*/
-/*}*/

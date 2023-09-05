@@ -36,8 +36,13 @@ h6 > b {
     margin: 15px 0;
 }
 
+.detail_info_title h4 {
+    display: inline-block;
+}
+
 .detail_info_top {
     margin-top: 15px;
+    height: 250px;
 }
 
 .detail_info_img {
@@ -54,11 +59,21 @@ h6 > b {
     max-width: 100%;
 }
 
+.info_table_wrap {
+    display: inline-block;
+    width: 60%;
+    float: right;
+    overflow: auto;
+    height: 100%;
+}
+
 .detail_info_table {
     display: inline-table;
     float: right;
-    width: 60%;
+    width: 100%;
     border-collapse: collapse;
+    max-height: 250px;
+    overflow: scroll;
 }
 
 .detail_info_row {
@@ -70,11 +85,12 @@ h6 > b {
     border: 1px solid #e6e6e6;
     padding: 10px;
 }
-.detail_info_col a{
+
+.detail_info_col a {
     color: black;
 }
 
-.detail_info_col a:hover{
+.detail_info_col a:hover {
     text-decoration: underline;
     color: #00b8ff;
 }
@@ -85,6 +101,31 @@ h6 > b {
     text-align: center;
     font-weight: bold;
     background-color: rgb(248, 248, 248);
+}
+
+.detail_info_row .business_hour {
+    border: none;
+    background-color: transparent;
+}
+
+.map_info {
+    border: none;
+}
+
+.map_btn {
+    background-color: #00b8ff;
+    border: none;
+    color: white;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    width: 120px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+#map {
+    /*height: 100%;*/
 }
 
 .detail_info_bottom strong {
@@ -125,7 +166,7 @@ h6 > b {
     margin-left: 10px;
 }
 
-.more_search{
+.more_search {
     text-align: center;
     background-color: #f7f9fa;
     margin-top: 30px;
@@ -137,6 +178,7 @@ h6 > b {
     font-weight: 600;
     cursor: pointer;
 }
+
 /*관광 정보 검색*/
 
 .content_card_box {
@@ -196,7 +238,8 @@ h6 > b {
 .type_keyword {
     display: none;
 }
-.tour_container{
+
+.tour_container {
     margin-top: 150px;
 }
 
@@ -205,18 +248,19 @@ h6 > b {
     cursor: pointer;
 }
 
-.tour_search_container, .content_container{
+.tour_search_container, .content_container {
     margin: 0 auto;
     width: 1150px;
     position: relative;
     padding-top: 35px;
 }
 
-.tour_detail_container{
+.tour_detail_container {
     margin: 150px auto 0 auto;
     width: 1150px;
     position: relative;
 }
+
 .search_type_container {
     width: 300px;
     position: relative;
@@ -241,11 +285,11 @@ h6 > b {
 }
 
 .type_btn {
-        padding: 10px 15px;
-        margin: 0 15px;
-        font-size: 22px;
-        font-weight: 600;
-        border-radius: 15px;
+    padding: 10px 15px;
+    margin: 0 15px;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 15px;
 }
 
 .on {
@@ -302,7 +346,6 @@ h6 > b {
 }
 
 
-
 .tour_search_col:first-child {
     width: 15%;
     font-size: 18px;
@@ -339,7 +382,7 @@ h6 > b {
     height: 100%;
     width: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 9999;
     background: rgba(0, 0, 0, 0.5);
     display: none;
     top: 0;
@@ -427,6 +470,11 @@ h6 > b {
     margin-right: 0;
     width: 425px;
 
+}
+
+.modal_container .modal_form {
+    width: 700px;
+    max-height: 70%;
 }
 
 .box .sigungu_list {
@@ -538,17 +586,60 @@ h6 > b {
     text-align: center;
 }
 
-.pagination{
+
+#container {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    padding: 0;
+}
+
+#btnRoadview, #btnMap {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 7px 12px;
+    font-size: 14px;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    z-index: 1;
+    cursor: pointer;
+}
+
+#btnRoadview:hover, #btnMap:hover {
+    background-color: #fcfcfc;
+    border: 1px solid #c1c1c1;
+}
+
+#container.view_map #mapWrapper {
+    z-index: 10;
+}
+
+#container.view_map #btnMap {
+    display: none;
+}
+
+#container.view_roadview #mapWrapper {
+    z-index: 0;
+}
+
+#container.view_roadview #btnRoadview {
+    display: none;
+}
+
+.pagination {
     justify-content: center;
 }
 
-.loading_wrap{
+.loading_wrap {
     position: fixed;
     display: none;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 5;
+    z-index: 9999;
 }
 
 .loading-box {
@@ -802,16 +893,17 @@ h6 > b {
 
 /*지역 페이지*/
 
-.cities_container{
+.cities_container {
     margin-top: 115px;
 }
+
 .cities_title_container {
     width: 100%;
     position: relative;
 
 }
 
-.title_img{
+.title_img {
     position: absolute;
     width: 100%;
     height: 335px;
@@ -820,6 +912,7 @@ h6 > b {
     filter: brightness(50%);
     display: inline-block;
 }
+
 /*.cities_title_container:before {
     content: "";
     position: absolute;
@@ -1056,7 +1149,7 @@ h6 > b {
     content: url("https://openimage.interpark.com/tour-desktop/pages/air/main/icon-oneway.png");
 }
 
-.mySwiper img{
+.mySwiper img {
     height: 300px;
     width: 100%;
 }

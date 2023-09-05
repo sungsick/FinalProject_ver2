@@ -5,6 +5,7 @@ import com.google.gson.*;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
 import com.kh.myproject.store.tour.model.entity.Tourism;
 import com.kh.myproject.store.tour.model.vo.detailCommon;
+import com.kh.myproject.store.tour.model.vo.detailRestaurant;
 import com.kh.myproject.store.tour.repository.TourismRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,11 @@ public class TourService {
         return dtoList;
     }
 
-    public detailCommon getDetailCommon(String url){
+    public JsonObject getDetailApiData(String url) {
+
         StringBuilder result = new StringBuilder();
 
-        detailCommon data = null;
+        JsonObject object = null;
 
         try {
             URL resUrl = new URL(url);
@@ -73,17 +75,42 @@ public class TourService {
             conn.disconnect();
 
             JsonParser parser = new JsonParser();
-            Gson gson = new Gson();
             JsonElement element = parser.parse(result.toString());
 
             JsonArray item = element.getAsJsonObject().get("response").getAsJsonObject().get("body").getAsJsonObject().get("items").getAsJsonObject().get("item").getAsJsonArray();
-            JsonObject object = (JsonObject) item.get(0);
-            data = gson.fromJson(object.toString(), detailCommon.class);
+            object = (JsonObject) item.get(0);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        return object;
+    }
+
+    public detailCommon getDetailCommon(String url) {
+
+
+        detailCommon data = null;
+
+        Gson gson = new Gson();
+
+        JsonObject object = getDetailApiData(url);
+
+        data = gson.fromJson(object.toString(), detailCommon.class);
+
+        return data;
+    }
+
+    public detailRestaurant getDetailRestaurant(String url) {
+
+        detailRestaurant data = null;
+
+        Gson gson = new Gson();
+
+        JsonObject object = getDetailApiData(url);
+
+        data = gson.fromJson(object.toString(), detailRestaurant.class);
 
         return data;
     }

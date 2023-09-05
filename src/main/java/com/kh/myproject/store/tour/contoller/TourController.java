@@ -2,8 +2,8 @@ package com.kh.myproject.store.tour.contoller;
 
 import com.kh.myproject.api.naverBlog.BlogSearch;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
-import com.kh.myproject.store.tour.model.vo.AreaBaseListParam;
 import com.kh.myproject.store.tour.model.vo.detailCommon;
+import com.kh.myproject.store.tour.model.vo.detailRestaurant;
 import com.kh.myproject.store.tour.service.TourService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,6 @@ public class TourController {
 
     final String LAST_URL = "&MobileOS=ETC&MobileApp=AppTest&_type=json";
     final String DETAILCOMMON_LAST_URL = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1";
-    final String blogSearchUrl = "";
 
 
     @GetMapping("store/home")
@@ -63,13 +62,29 @@ public class TourController {
     @GetMapping("/store/tour/tourDetail")
     public ModelAndView tourDetail(@RequestParam("contentId") String contentId,
                                    ModelAndView mav) {
+
+        //기본정보
         String url = TOURAPI_URL + "detailCommon1?" + SERVICE_KEY;
         url += "&contentId=" + contentId;
         url += DETAILCOMMON_LAST_URL + LAST_URL;
 
         detailCommon data = tourService.getDetailCommon(url);
-        mav.addObject("detailCommon", data);
 
+        //상세정보
+        url = TOURAPI_URL + "detailIntro1?" + SERVICE_KEY;
+        url += "&contentId=" + contentId;
+        url += "&contentTypeId=" + data.getContenttypeid() + LAST_URL;
+
+        switch (data.getContenttypeid()){
+
+
+        }
+
+//        log.info("detailRestaurant={}", detailRestaurant);
+
+
+
+        mav.addObject("detailCommon", data);
 
         log.info("data={}",data);
         mav.setViewName("store/tour/tourDetail");
