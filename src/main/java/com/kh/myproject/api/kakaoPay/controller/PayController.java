@@ -7,12 +7,17 @@ import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
+import com.kh.myproject.store.rentcar.model.dto.CrawlingDto;
+import com.kh.myproject.store.rentcar.service.CrawlingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -25,6 +30,8 @@ public class PayController {
     private final PayService payService;
     private FlightTicketDto ticketDto;
 
+    private final CrawlingService crawlingService;
+
     // 결제버튼 클릭시 결제 페이지
     @GetMapping("/pay/payButton")
     public ModelAndView payButton() {
@@ -35,7 +42,16 @@ public class PayController {
 
     // rentcar 예약 페이지
     @GetMapping("/pay/paymentPage")
-    public ModelAndView paymentPage() {
+    public ModelAndView paymentPage() throws IOException {
+
+//        String URL = "https://whitelabel.imsmobility.co.kr/tripsoda/reservation/request/247?pickupAt=2023-09-06T01%3A00%3A00.000Z&dropoffAt=2023-09-07T01%3A00%3A00.000Z&pickupLat=33.50707895781836&pickupLng=126.492769004244&birth=000101&pickupAddress=%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD&pickupFullAddress=%EC%A0%9C%EC%A3%BC%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84+%EC%A0%9C%EC%A3%BC%EC%8B%9C+%EA%B3%B5%ED%95%AD%EB%A1%9C+2+%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD&insuranceAge=21&isJeju=true&sortOption=low_price&rentType=DAILY&submodelId=2";
+//        Document doc = Jsoup.connect(URL).get();
+//        Elements reviews = doc.select("div .StyledReviewBox-kQYaKO XkTcB");
+//        List
+//        for (Element review : reviews) {
+//            System.out.println(review.text());
+//
+//        }
         ModelAndView paymentPage = new ModelAndView();
         paymentPage.setViewName("pay/paymentPage");
         return paymentPage;
@@ -120,6 +136,13 @@ public class PayController {
         return test11;
     }
 
+    @GetMapping("/pay/reviewCrawling")
+    public String reviewCrlw(Model model) throws Exception {
+        List<CrawlingDto> reviews = crawlingService.getReviewDatas();
+        model.addAttribute("reviews", reviews);
+        
+        return "";
+    }
 }
 
 

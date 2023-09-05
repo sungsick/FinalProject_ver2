@@ -1,8 +1,6 @@
 
 ?
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
-<
-build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 †
 Vsrc/main/java/com/kh/myproject/community/accompany/controller/AccompanyController.java,5\6\56f6afecddb0c9cf00be1e7e8b390bdeb748f7b4
 y
@@ -25,5 +23,19 @@ z
 Jsrc/main/java/com/kh/myproject/store/flight/model/dto/FlightTicketDto.java,9\f\9f0c93ac8d4c5e70806b8929dc340a86d9b768bf
 s
 Csrc/main/java/com/kh/myproject/api/kakaoPay/service/PayService.java,0\9\098b38dc3fed011e1151baf72878c69ae1914ae5
+d
+4src/main/java/com/kh/myproject/api/example/News.java,e\4\e4ae7570055ae30ba1a83bb582918b2dad1faaac
+{
+Ksrc/main/java/com/kh/myproject/api/kakaoapi/controller/KakaoController.java,4\e\4e8e448956c0b2b1dc8dd61cf2148511bd8eacd2
+y
+Isrc/main/java/com/kh/myproject/api/kakaoPay/repository/PayRepository.java,9\1\918e13c1bf5dbf86eec94edfa291a12ff25fbb98
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+w
+Gsrc/main/java/com/kh/myproject/store/rentcar/model/dto/CrawlingDto.java,6\d\6d3f4a73bb6e29b433f100789e79c2b35ebc66ea
+y
+Isrc/main/java/com/kh/myproject/store/rentcar/service/CrawlingService.java,d\d\dd8d76e15f7fa0f80e15da2b08881452968d603d
+}
+Msrc/main/java/com/kh/myproject/store/rentcar/cotroller/RentcarController.java,2\d\2dfa7e9b12e68775d56e3dae7989ebb45f97b679
 y
 Isrc/main/java/com/kh/myproject/api/kakaoPay/controller/PayController.java,c\2\c284de7cc843c3fee68a0500ba6000f8c4cbbe83

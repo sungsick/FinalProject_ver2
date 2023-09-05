@@ -1,5 +1,8 @@
 
-r	java:S117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İöÔäıÿÿÿÿ8À¬äö¥1
-v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‰íìŠ8Á¬äö¥1
+r	java:S117Y"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İöÔäıÿÿÿÿ8Ìõ²¤¦1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‰íìŠ8Îõ²¤¦1
+‰
+java:S1130-"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(¾—•8Úõ²¤¦1
+]	java:S125/"<This block of commented-out lines of code should be removed.(£ÍŒãûÿÿÿÿ8Ûõ²¤¦1
 ]
-java:S46849"@Replace this persistent entity with a simple POJO or DTO object.(¬ÔÃû8Ì¬äö¥1
+java:S4684I"@Replace this persistent entity with a simple POJO or DTO object.(¬ÔÃû8Üõ²¤¦1

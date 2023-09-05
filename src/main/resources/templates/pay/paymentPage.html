@@ -8,6 +8,8 @@
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/9647b4736a.js"></script>
     <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
     <script defer src="/js/payment/payment.js" type="text/javascript"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d79bff4156bd5880de4362bbce25ad4e&libraries=services"></script>
 </head>
 <body>
 <div id="root">
@@ -508,7 +510,7 @@
                                         <div style="display: flex; flex-direction: column;">
                                             <div class="company-info-detail-text">
                                                 <div class="label">업체명</div>
-                                                <div class="content">(주)발리렌트카</div>
+                                                <div class="content" id="companyName">(주)발리렌트카</div>
                                             </div>
                                             <!-- 리뷰시 작성한 정보 (평점, 점수의 평균점 적용. 점수에 따라 별 갯수 조정 가능?)-->
                                             <div class="company-info-detail-text">
@@ -532,12 +534,27 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">주소</div>
-                                                <div class="content">제주특별자치도 제주시 도리로 110 발리렌트카</div>
+                                                <div class="content" id="companyAddress">제주특별자치도 제주시 도리로 110 발리렌트카</div>
                                             </div>
                                         </div>
                                         <!--                                        여기에 지도 넣기-->
                                         <div class="company-map">
-                                            <div id="mapContainer">맵 들어갈자리</div>
+                                            <div id="mapContainer">
+                                                <div id="kakaoMap"></div>
+                                            </div>
+                                        </div>
+                                        <div class="address-dtail" style="margin-top: 16px; overflow: hidden">
+                                            <a class="kakaoMap-direct" href=""
+                                               target="_blank">
+                                                <span style="border-bottom: 1px solid #333">카카오맵 바로가기</span>
+                                                <svg data-v-2c03983a="" viewBox="0 0 8 9" fill="none"
+                                                     class="ico_outlink">
+                                                    <title data-v-2c03983a="">새창으로 열기</title>
+                                                    <path data-v-2c03983a="" fill-rule="evenodd" clip-rule="evenodd"
+                                                          d="M7.44703 0.802856C7.72317 0.802856 7.94703 1.02671 7.94703 1.30286L7.94703 7.66682C7.94703 7.94296 7.72317 8.16682 7.44703 8.16682C7.17088 8.16682 6.94703 7.94296 6.94703 7.66682V2.50996L0.906288 8.5507C0.711026 8.74596 0.394443 8.74596 0.199181 8.5507C0.00391868 8.35544 0.00391902 8.03886 0.199181 7.84359L6.23992 1.80286H1.08306C0.806922 1.80286 0.583064 1.579 0.583064 1.30286C0.583064 1.02671 0.806922 0.802856 1.08306 0.802856H7.44703Z"
+                                                          fill="#333333"></path>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </section>
