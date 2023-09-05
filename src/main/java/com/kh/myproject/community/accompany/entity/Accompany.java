@@ -1,10 +1,7 @@
 package com.kh.myproject.community.accompany.entity;
 
 import com.kh.myproject.member.user.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -14,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
 
 public class Accompany {
 
@@ -43,7 +41,6 @@ public class Accompany {
 
     @Column
     private String ac_region; //동행 지역
-
 
     @Column
     private String ac_startdate; //시작 날짜

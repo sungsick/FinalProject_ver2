@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+$(function () {
 
     let choiceRegion = document.getElementById("region").value;
     let editRegion = document.querySelectorAll(".C-nav-btn")
@@ -28,9 +27,9 @@ $(document).ready(function() {
         })
 
 
-        function editPerson(){
-        let selectedPerson = document.getElementById("#customRange1").value;
-        document.getElementById("#slider_value_view").innerText = selectedPerson;
+        function editPerson() {
+            let selectedPerson = document.getElementById("#customRange1").value;
+            document.getElementById("#slider_value_view").innerText = selectedPerson;
 
         }
 
@@ -45,7 +44,7 @@ $(document).ready(function() {
         myValue.style.top = -myRange.offsetHeight - 5 + 'px';
         myValue.innerHTML = myRange.value;
 
-        myRange.oninput = function() {
+        myRange.oninput = function () {
             let px = ((myRange.valueAsNumber - parseInt(myRange.min)) * off) - (myValue.clientWidth / 2) + (thumbWidth / 2);
             myValue.innerHTML = myRange.value;
             myValue.style.left = px + 'px';
@@ -54,42 +53,20 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-//배경사진 선택 자바스크립트
-    const photoDiv = document.querySelector('.photo');
-    const fileInput = document.getElementById('fileInput');
-
-    photoDiv.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (event) => {
-        const selectedImage = event.target.files[0];
-
-        if (selectedImage) {
-            const imageUrl = URL.createObjectURL(selectedImage);
-            photoDiv.style.backgroundImage = `url(${imageUrl})`;
-        }
-    });
-
-
-
-//작성완료 버튼 클릭시 accompany_detail(동행게시글 상세보기)으로 이동
-    const writeButton = document.querySelector('.writebtn');
-
-    writeButton.addEventListener('click', () => {
-        window.location.href = '/community/accompany/writePro';
-    });
-
 //취소 버튼 클릭시 accompany(동행 메인)으로 이동
     const cancelbtn = document.querySelector('.cancelbtn');
 
     cancelbtn.addEventListener('click', () => {
         window.location.href = '/community/accompany';
     });
+
+    // //작성완료 버튼 클릭시 accompany(동행 메인)으로 이동
+    // const writebtn = document.querySelector('.writebtn');
+    //
+    // cancelbtn.addEventListener('click', () => {
+    //     window.location.href = '/community/accompany/update';
+    // });
+
 
 
 // // 지역 선택 시 색깔 변함
@@ -128,6 +105,7 @@ $(document).ready(function() {
     const Cnavbtnsp1 = document.querySelectorAll(".C-nav-btn1 .C-nav-btn");
     const Cnavbtnsp2 = document.querySelectorAll(".C-nav-btn2 .C-nav-btn");
     const Cnavbtnsp3 = document.querySelectorAll(".C-activ");
+
 // const regionInput = document.querySelector("#region");
 
     function handleClick(e) {
@@ -138,7 +116,7 @@ $(document).ready(function() {
         if (targetElement.classList.contains("regionCliked")) {
             targetElement.classList.remove("regionCliked");
         } else {
-            for(let i=0; i< totalBtn.length; i++) {
+            for (let i = 0; i < totalBtn.length; i++) {
                 totalBtn[i].classList.remove("regionCliked");
             }
             targetElement.classList.add("regionCliked");
@@ -162,6 +140,14 @@ $(document).ready(function() {
     regionInit();
 
 
+    
+    
+    
+    
+    
+    
+    
+    // range 커스텀 한 것. 점 따라서 숫자 변하게
     var myRange = document.querySelector('#customRange1');
     var myValue = document.querySelector('#slider_value_view');
     var thumbWidth = 18;
@@ -175,16 +161,67 @@ $(document).ready(function() {
         myValue.innerHTML = myRange.value;
     }
 
-    myRange.oninput = function() {
+
+    myRange.oninput = function () {
         updateSliderValue();
     };
+
 
 // 페이지 로드 시 슬라이더 값 업데이트
-    window.onload = function() {
+    window.onload = function () {
         updateSliderValue();
     };
 
+
+$('.writebtn').click(function () {
+
+    console.log("accompany update submit_btn 클릭!")
+
+
+
+    var query = JSON.stringify({
+        ac_region: $('input[name=ac_region]').val(), // 변수명 수정
+        ac_startdate: $('input[name=ac_startdate]').val(), // 변수명 수정
+        ac_enddate: $('input[name=ac_enddate]').val(), // 변수명 수정
+        ac_people: $('input[name=ac_people]').val(), // 변수명 수정
+        ac_picture: $('input[name=ac_picture]').val(), // 변수명 수정
+        ac_title: $('input[name=ac_title]').val(), // 변수명 수정
+        ac_text: $('input[name=ac_text]').val() // 변수명 수정
+    });
+
+
+    $.ajax({
+        url: '/community/accompany/update',
+        type: 'POST',
+        data: query,
+        contentType: 'application/json',
+        success : function (data) {
+            alert("저장완료");
+    },
+        error: function () {
+
+        alert("code: ajax 통신 에러")
+    },
+
+    })
+})
+
+// //배경사진 선택 자바스크립트
+//     const photoDiv = document.querySelector('.photo');
+//     const fileInput = document.getElementById('fileInput');
+//
+//     photoDiv.addEventListener('click', () => {
+//         fileInput.click();
+//     });
+//
+//     fileInput.addEventListener('change', (event) => {
+//         const selectedImage = event.target.files[0];
+//
+//         if (selectedImage) {
+//             const imageUrl = URL.createObjectURL(selectedImage);
+//             photoDiv.style.backgroundImage = `url(${imageUrl})`;
+//         }
+//     });
+
+
 });
-
-
-
