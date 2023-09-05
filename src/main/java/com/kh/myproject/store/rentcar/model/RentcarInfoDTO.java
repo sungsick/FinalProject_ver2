@@ -13,6 +13,7 @@ public class RentcarInfoDTO {
 
     private Long car_info_id;
     private String car_name;
+    private String car_year;
     private String car_nation;
     private String car_type;
     private String oil_type;
@@ -29,6 +30,7 @@ public class RentcarInfoDTO {
         return new RentcarInfoDTO(
                 entity.getCar_info_id(),
                 entity.getCar_name(),
+                entity.getCar_year(),
                 entity.getCar_nation(),
                 entity.getCar_type(),
                 entity.getOil_type(),

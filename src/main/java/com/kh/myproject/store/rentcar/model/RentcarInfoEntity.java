@@ -22,6 +22,8 @@ public class RentcarInfoEntity {
     @Column
     private String car_name;
     @Column
+    private String car_year;
+    @Column
     private String car_nation;
     @Column
     private String car_type;

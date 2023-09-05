@@ -20,15 +20,19 @@ public interface RentcarRepository extends JpaRepository<RentcarInfoEntity, Long
     @Query(value="SELECT r FROM RentcarInfoEntity r WHERE r.car_name LIKE %:searchKeyword%")
     List<RentcarInfoEntity> FindByCar_name(@Param("searchKeyword") String searchKeyword);
 
+    //렌트카리스트 정렬
+    @Query("SELECT r FROM RentcarInfoEntity r")
+    List<RentcarInfoEntity> FindAll();
 
-    //낮은 가격순 정렬
+    //높은 가격순 정렬
     @Query("SELECT r FROM RentcarInfoEntity r ORDER BY r.car_discount DESC")
     List<RentcarInfoEntity> FindDiscountDesc();
 
 
-    //렌트카리스트 정렬
-    @Query("SELECT r FROM RentcarInfoEntity r")
-    List<RentcarInfoEntity> FindAll();
+    //낮은 가격순 정렬
+    @Query("SELECT r FROM RentcarInfoEntity r ORDER BY r.car_discount ASC")
+    List<RentcarInfoEntity> FindDiscountAsc();
+
 
 
 }

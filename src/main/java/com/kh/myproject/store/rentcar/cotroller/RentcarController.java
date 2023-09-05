@@ -48,7 +48,7 @@ public class RentcarController {
     }
 
 
-    @RequestMapping("/store/rentcar/MainSearch") // http://localhost:8080/store/rentcar/MainSearch
+    @RequestMapping("/MainSearch") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
                          @RequestParam String arrive_date,
@@ -82,27 +82,46 @@ public class RentcarController {
 
 
     @GetMapping("/rentcarReserve")
-    public ModelAndView reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, ModelAndView mav) {
+    public String reserveSearch(@RequestParam(value="searchKeyword") String searchKeyword, Model model) {
 
         System.out.println("reserveSearch 컨트롤러 메서드 실행");
         System.out.println(searchKeyword);
 
-        mav.addObject("rentcarList", rentcarService.searchKeyword(searchKeyword));
-        mav.setViewName("store/rentcar/rentcarReserve");
-        return mav;
+        model.addAttribute("rentcarList", rentcarService.searchKeyword(searchKeyword));
+
+        return "store/rentcar/rentcarReserve";
+
 
     }
 
-    @GetMapping("/articles")
-    public String (Model model) {
+    @GetMapping("/highPriceList")
+    public String highPriceList(Model model) {
+
+
         List<RentcarInfoDTO> rentcarList = rentcarService.findAll();
 
-        model.addAttribute("rentcarDiscountDesc", rentcarService.FindDiscountDesc(rentcarList));
+        model.addAttribute("rentcarList", rentcarService.FindDiscountDesc(rentcarList));
 
 
 
-        return "articles/index";
+        return "store/rentcar/rentcarReserve";
     }
+
+    @GetMapping("/lowPriceList")
+    public String lowPriceList(Model model) {
+
+
+
+
+        List<RentcarInfoDTO> rentcarList = rentcarService.findAll();
+
+        model.addAttribute("rentcarList", rentcarService.FindDiscountAsc(rentcarList));
+
+
+
+        return "store/rentcar/rentcarReserve";
+    }
+
 
 
 /*

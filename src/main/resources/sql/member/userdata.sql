@@ -1,27 +1,42 @@
+INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`,
+                    `user_img`)
+VALUES ('john_doe', 'John Doe', 'password123', '123-456-7890', 'M', '2023-08-21', 'ENTJ', 'default1.png'),
+       ('jane_smith', 'Jane Smith', 'pass4321', '987-654-3210', 'F', '2023-08-21', 'INFP', 'default2.png'),
+       ('alex_brown', 'Alex Brown', 'securepwd', '555-555-5555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
+       ('test', 'yeong', '1234', '555-555-5555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
+       ('sample@example.com', '샘플', '1234', '555-555-5555', 'M', '2023-08-21', 'INTJ', 'default1.png');
+select *
+from user;
 
-INSERT INTO `user` (`user_id`,  `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`,`user_img`)
-VALUES
-    ('john_doe','John Doe', 'password123', '123-456-7890', 'M', '2023-08-21', 'ENTJ','default1.png'),
-    ('jane_smith', 'Jane Smith', 'pass4321', '987-654-3210', 'F', '2023-08-21', 'INFP','default2.png'),
-    ('alex_brown', 'Alex Brown', 'securepwd', '555-555-5555', 'M', '2023-08-21', 'INTJ','default1.png'),
-    ('test', 'yeong', '1234', '555-555-5555', 'M', '2023-08-21', 'INTJ','default1.png'),
-    ('sample@example.com', '샘플', '1234', '555-555-5555', 'M', '2023-08-21', 'INTJ','default1.png');
-select * from user;
+INSERT INTO `qna` (`qna_writer`, `qna_title`, `qna_content`, `qna_date`, `qna_answer`)
+VALUES ('john_doe', '제목1', '내용은 이것입니다1.', '2023-08-21', '답변은 아직입니다1.'),
+       ('seokjin', '제목2', '내용은 이것입니다2.', '2023-08-21', '답변은 아직입니다2.'),
+       ('john_doe', '제목3', '내용은 이것입니다3.', '2023-08-21', '답변은 아직입니다3.'),
+       ('seokjin', '제목4', '내용은 이것입니다4.', '2023-08-21', '답변은 아직입니다4.'),
+       ('john_doe', '제목5', '내용은 이것입니다5.', '2023-08-21', '답변은 아직입니다5.');
 
-INSERT INTO `qna` (`qna_writer`,  `qna_title`, `qna_content`, `qna_date`, `qna_answer`)
-VALUES
-    ('john_doe','제목1', '내용은 이것입니다1.', '2023-08-21', '답변은 아직입니다1.'),
-    ('seokjin','제목2', '내용은 이것입니다2.', '2023-08-21', '답변은 아직입니다2.'),
-    ('john_doe','제목3', '내용은 이것입니다3.', '2023-08-21', '답변은 아직입니다3.'),
-    ('seokjin','제목4', '내용은 이것입니다4.', '2023-08-21', '답변은 아직입니다4.'),
-    ('john_doe','제목5', '내용은 이것입니다5.', '2023-08-21', '답변은 아직입니다5.');
-
-select * from qna;
-
-
-INSERT INTO `car_info` (`car_name`, `car_nation`, `car_type`,`oil_type`,`driver_age`,`car_people`,`car_price`,`car_discount`,`com_id`,`car_option`, `car_img`)
-VALUES
-    ('레이','국내', '경차', '경유', '21세 이상', 4, 100000, 25000, 1, '옵션없음','sample.jpg'),
-    ('카니발','국내', '대형RV', '경유', '26세 이상', 7, 200000, 70000, 1, '블랙박스, 내비게이션','sample.jpg');
+select *
+from qna;
 
 
+INSERT INTO `car_info` (`car_name`, `car_year`, `car_nation`, `car_type`, `oil_type`, `driver_age`, `car_people`,
+                        `car_price`, `car_discount`, `com_id`, `car_option`, `car_img`)
+VALUES ('더 뉴 레이', '2020년 출시', '국내', '경형', '디젤', '21세 이상', 4, 100000, 25000, 1, '옵션없음', 'sample.jpg'),
+       ('카니발', '2017년 출시', '국내', '승합', '디젤', '26세 이상', 7, 200000, 70000, 1, '블랙박스, 내비게이션', 'sample.jpg'),
+       ('캐스퍼', '2018년 출시', '국내', '경형', '디젤', '21세 이상', 5, 250000, 78000, 2, '옵션없음', 'sample.jpg'),
+       ('더 뉴 스파크', '2021년 출시', '국내', '경형', '경유', '26세 이상', 5, 200000, 70000, 2, '블랙박스, 내비게이션', 'sample.jpg'),
+       ('더 뉴 아반떼', '2018년 출시', '국내', '승용', '가솔린', '26세 이상', 5, 200000, 87000, 3,
+        '내비게이션, 열선시트, 블랙박스, 선루프, 운전석 에어백, 금연차량', 'sample.jpg'),
+       ('쏘나타', '2016년 출시', '국내', '승용', 'LPG', '26세 이상', 5, 180000, 75000, 4, '블랙박스, 내비게이션', 'sample.jpg'),
+       ('코나', '2022년 출시', '국내', 'SUV', '가솔린', '21세 이상', 4, 100000, 25000, 5, '옵션없음', 'sample.jpg'),
+       ('더 뉴 스타렉스', '2021년 출시', '국내', '승합', '디젤', '26세 이상', 9, 250000, 98000, 6,
+        '블랙박스, 내비게이션, 운전석 에어백, 조수석 에어백, 핸들열선, 후방카메라, 후방센서', 'sample.jpg');
+
+
+INSERT INTO `com_info` (`com_name`, `com_location`, `com_tel`, `com_opentime`)
+VALUES ('별빛렌트카', '서울시 강남구 논현로30길', '02-1111-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)'),
+       ('달빛렌트카', '제주특별자치도 제주시 공항로1길', '02-2222-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)'),
+       ('신화렌트카', '강원 강릉시 율곡로 2600', '02-3333-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)'),
+       ('착한렌트카', '부산 동구 중앙대로 206', '02-4444-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)'),
+       ('저렴한렌트카', '전남 여수시 율촌면 여순로 386', '02-5555-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)'),
+       ('우리렌트카', '경북 경주시 건천읍 내외로 2871-40', '02-6666-4444', '평일 08:00 - 20:30 주말 08:00 - 20:30 (토) / 08:00 - 20:30 (일)');

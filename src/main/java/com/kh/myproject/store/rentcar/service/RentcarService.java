@@ -32,7 +32,21 @@ public class RentcarService {
     }
 
 
-    //낮은 가격순 정렬
+
+
+//차량 전체 리스트 정렬
+    public List<RentcarInfoDTO> findAll() {
+
+        List<RentcarInfoEntity> entities = rentcarRepository.FindAll();
+
+        return entities.stream()
+                .map(RentcarInfoDTO::fromEntity)
+                .collect(Collectors.toList());
+
+
+    }
+
+    //높은 가격순 정렬
     @Transactional
     public List<RentcarInfoDTO> FindDiscountDesc(List<RentcarInfoDTO> rentcarlist) {
 
@@ -45,9 +59,11 @@ public class RentcarService {
 
     }
 
-    public List<RentcarInfoDTO> findAll() {
 
-        List<RentcarInfoEntity> entities = rentcarRepository.FindAll();
+    @Transactional
+    public List<RentcarInfoDTO> FindDiscountAsc(List<RentcarInfoDTO> rentcarlist) {
+
+        List<RentcarInfoEntity> entities = rentcarRepository.FindDiscountAsc();
 
         return entities.stream()
                 .map(RentcarInfoDTO::fromEntity)
@@ -55,9 +71,6 @@ public class RentcarService {
 
 
     }
-
-
-
 
 
 
