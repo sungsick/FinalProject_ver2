@@ -148,6 +148,13 @@ public class AccompanyController {
         System.out.println("컨트롤러의 edit() 메서드를 실행");
         System.out.println("ac_num=" + ac_num);
 
+//        User user = (User) session.getAttribute("user");
+//
+//        if ( user == null) {
+//
+//            return "redirect:/";
+//        }
+
         // 수정할 데이터를 얻어온다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
 
@@ -200,8 +207,6 @@ public class AccompanyController {
         Accompany accompany = form.toEntity();
 //        Date date = new Date();
 
-
-        accompany.setAc_num(session_accompany.getAc_num());
 
         Accompany result = accompanyService.updateAccompany(accompany);
 

@@ -23,8 +23,11 @@ public class AccompanyService {
 
         System.out.print("수정 전에 가져온 accompany 값" + accompany);
 
+
         accompanyRepository.updateAccompany(accompany);
         // save는 덮어씌우기 때문에 직접 query문을 실행한다..
+
+
 
         Accompany result = accompanyRepository.findById(accompany.getAc_num()).orElse(null);
         System.out.println("수정 후 가져온 result 값" + result);

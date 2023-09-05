@@ -180,15 +180,17 @@ $('.writebtn').click(function () {
 
 
     var query = JSON.stringify({
+        ac_num: $('input[name=ac_num]').val(),
+        user_number: $('input[name=user_number]').val(),
         ac_region: $('input[name=ac_region]').val(), // 변수명 수정
         ac_startdate: $('input[name=ac_startdate]').val(), // 변수명 수정
         ac_enddate: $('input[name=ac_enddate]').val(), // 변수명 수정
         ac_people: $('input[name=ac_people]').val(), // 변수명 수정
         ac_picture: $('input[name=ac_picture]').val(), // 변수명 수정
         ac_title: $('input[name=ac_title]').val(), // 변수명 수정
-        ac_text: $('input[name=ac_text]').val() // 변수명 수정
+        ac_text: $('textarea[name=ac_text]').text() // 변수명 수정
     });
-
+        console.log($('input[name=ac_text]').text())
 
     $.ajax({
         url: '/community/accompany/update',
@@ -197,6 +199,8 @@ $('.writebtn').click(function () {
         contentType: 'application/json',
         success : function (data) {
             alert("저장완료");
+            window.location.href = '/community/accompany';
+
     },
         error: function () {
 
