@@ -1,24 +1,29 @@
 package com.kh.myproject.store.tour.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 @Data
+@JsonNaming(value = PropertyNamingStrategies.LowerCaseStrategy.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class detailCommon {
 
-    private String contentid;
-    private String contenttypeid;
+    private String contentId;
+    private String contentTypeId;
     private String title;
     private String tel;
-    private String telname;
-    private String homepage;
-    private String firstimage;
+    private String telName;
+    private String homePage;
+    private String firstImage;
     private String addr1;
     private String addr2;
-    private String zipcode;
-    private String mapx;
-    private String mapy;
-    private String mlevel;
-    private String overview;
+    private String zipCode;
+    private String mapX;
+    private String mapY;
+    private String mLevel;
+    private String overView;
 
 
 }

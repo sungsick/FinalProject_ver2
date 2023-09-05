@@ -44,22 +44,22 @@
             <div class="detail_info_title">
                 <h4 th:text="${detailCommon.title}"></h4>
                 <button class="map_btn">지도 보기</button>
-                <input type="hidden" name="map_x" th:value="${detailCommon.mapx}">
-                <input type="hidden" name="map_y" th:value="${detailCommon.mapy}">
+                <input type="hidden" name="map_x" th:value="${detailCommon.mapX}">
+                <input type="hidden" name="map_y" th:value="${detailCommon.mapY}">
             </div>
             <div class="detail_info_top">
                 <div class="detail_info_img">
-                    <img th:if="${detailCommon.firstimage != ''}" th:src="${detailCommon.firstimage}">
-                    <img th:if="${detailCommon.firstimage == ''}" src="/img/store/tour/noimage.png">
+                    <img th:if="${detailCommon.firstImage != ''}" th:src="${detailCommon.firstImage}">
+                    <img th:if="${detailCommon.firstImage == ''}" src="/img/store/tour/noimage.png">
                 </div>
                 <div class="info_table_wrap">
                     <div class="detail_info_table">
-                        <th:block th:if="${detailCommon.zipcode != ''}">
+                        <th:block th:if="${detailCommon.zipCode != ''}">
                             <div class="detail_info_row">
                                 <div class="detail_info_col">
                                     우편번호
                                 </div>
-                                <div class="detail_info_col" th:text="${detailCommon.zipcode}">
+                                <div class="detail_info_col" th:text="${detailCommon.zipCode}">
                                 </div>
                             </div>
                         </th:block>
@@ -81,12 +81,12 @@
                                 </div>
                             </div>
                         </th:block>
-                        <th:block th:if="${detailCommon.homepage != ''}">
+                        <th:block th:if="${detailCommon.homePage != ''}">
                             <div class="detail_info_row">
                                 <div class="detail_info_col">
                                     홈페이지
                                 </div>
-                                <div class="detail_info_col" th:utext="${detailCommon.homepage}">
+                                <div class="detail_info_col" th:utext="${detailCommon.homePage}">
 
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
             <div class="detail_info_bottom">
                 <strong>개요</strong>
                 <hr/>
-                <div class="detail_info_text" th:text="${detailCommon.overview}">
+                <div class="detail_info_text" th:text="${detailCommon.overView}">
 
                 </div>
             </div>

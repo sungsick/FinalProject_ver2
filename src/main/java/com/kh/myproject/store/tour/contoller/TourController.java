@@ -70,12 +70,14 @@ public class TourController {
 
         detailCommon data = tourService.getDetailCommon(url);
 
+        log.info("detailCommon={}", data);
+
         //상세정보
         url = TOURAPI_URL + "detailIntro1?" + SERVICE_KEY;
         url += "&contentId=" + contentId;
-        url += "&contentTypeId=" + data.getContenttypeid() + LAST_URL;
+        url += "&contentTypeId=" + data.getContentTypeId() + LAST_URL;
 
-        switch (data.getContenttypeid()){
+        switch (data.getContentTypeId()){
 
 
         }

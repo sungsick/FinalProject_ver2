@@ -1,5 +1,6 @@
 package com.kh.myproject.store.tour.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
@@ -93,11 +94,15 @@ public class TourService {
 
         detailCommon data = null;
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
         JsonObject object = getDetailApiData(url);
 
-        data = gson.fromJson(object.toString(), detailCommon.class);
+        try {
+            data = mapper.readValue(object.toString(), detailCommon.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         return data;
     }
