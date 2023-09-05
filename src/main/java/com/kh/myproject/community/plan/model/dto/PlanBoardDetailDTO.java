@@ -18,7 +18,7 @@ public class PlanBoardDetailDTO {
     private String pbdCategoryGroupName; //장소분류명
     private double pbdX; //x좌표
     private double pbdY; //y좌표
-    private int pbdDate;
+    private int pbdDate; //일자번호()
     private PlanBoard planBoard;
 
     public PlanBoardDetail toEntity(){

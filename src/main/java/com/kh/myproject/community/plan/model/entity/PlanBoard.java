@@ -7,10 +7,13 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="plan_board")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -19,6 +22,7 @@ public class PlanBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pb_num")
     private Long pbNum; //게시글번호
 
     @CreationTimestamp
@@ -41,10 +45,11 @@ public class PlanBoard {
     private int pbViewCount;  //조회수
 
     @ManyToOne()
-    @JoinColumn(name = "userNumber")
+    @JoinColumn(name = "user_number")
     private User user;  //유저번호
 
-
+    @OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<PlanBoardDetail> planBoardDetails = new ArrayList<>();
     public PlanBoardDTO toDto(){
         return PlanBoardDTO.builder()
                 .pbNum(pbNum)
@@ -57,7 +62,5 @@ public class PlanBoard {
                 .user(user)
                 .build();
     }
-
-
 
 }

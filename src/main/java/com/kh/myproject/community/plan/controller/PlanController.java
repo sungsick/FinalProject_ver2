@@ -3,8 +3,15 @@ package com.kh.myproject.community.plan.controller;
 
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.community.plan.model.entity.PlanBoardDetail;
+import com.kh.myproject.community.plan.repository.PlanBoardDetailRepository;
+import com.kh.myproject.community.plan.repository.PlanBoardRepository;
+import com.kh.myproject.community.plan.service.PlanBoardService;
+import com.kh.myproject.member.user.model.entity.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +26,17 @@ import static java.lang.Integer.parseInt;
 public class PlanController {
 
 
-    private Map<Integer, ArrayList<PlanBoardDetailDTO>> planMap = new HashMap<>();
+    @Autowired
+    PlanBoardService planBoardService;
+
+//    private Map<Integer, ArrayList<PlanBoardDetailDTO>> planMap = new HashMap<>();
+    private List<PlanBoardDetailDTO> planList = new ArrayList<>();
 
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
     public String communityplan() {
 
         return "community/plan/plan";
-
     }
 
     //일정 글 정보
@@ -38,15 +48,17 @@ public class PlanController {
 
     //일정 글 쓰기
     @GetMapping("/community/plan/write") // http://localhost:8080/community/plan/write
-    public String communityplanwrite(Model model) {
+    public String communityplanwrite(Model model, @ModelAttribute("user")User user) {
 
-        System.out.println(planMap);
+        model.addAttribute(user);
+
+        System.out.println(planList);
         int maxDay = 0;
-        if (!planMap.isEmpty()) {
-            model.addAttribute("planMap", planMap);
-            for (int day : planMap.keySet()) {
-                if (day > maxDay) {
-                    maxDay = day;
+        if (!planList.isEmpty()) {
+            model.addAttribute("planList", planList);
+            for(int i = 0; i < planList.size(); i++){
+                if(planList.get(i).getPbdDate() > maxDay){
+                    maxDay = planList.get(i).getPbdDate();
                 }
             }
             model.addAttribute("maxDay", maxDay);
@@ -72,12 +84,10 @@ public class PlanController {
     @ResponseBody
     public void move(@RequestBody PlanBoardDetailDTO[] dtoList) {
 
-        ArrayList<PlanBoardDetailDTO> planList = new ArrayList<>();
 
         for (PlanBoardDetailDTO PlanBoardDetailDTO : dtoList) {
             planList.add(PlanBoardDetailDTO);
         }
-        planMap.put(dtoList[0].getPbdDate(), planList);
 
 
     }
@@ -87,34 +97,31 @@ public class PlanController {
     @ResponseBody
     public void deletePlan(@RequestParam("day") String day, @RequestParam("placeName") String placeName){
 
-        ArrayList<PlanBoardDetailDTO> temp = planMap.get(parseInt(day));
-        for(int i = 0; i< temp.size(); i++ ){
-            System.out.println(temp.get(i));
-            if(temp.get(i).getPbdPlaceName().equals(placeName)){
-                temp.remove(i);
+        for(int i = 0; i< planList.size(); i++ ){
+
+            if(planList.get(i).getPbdPlaceName().equals(placeName) && planList.get(i).getPbdDate() == parseInt(day)){
+                planList.remove(i);
             }
         }
-        planMap.put(parseInt(day) , temp);
     }
 
 
     //Plan_write 작성 완료 버튼 클릭 시
-    @Getter
-    @Setter
-    public class CombinedData {
-        private PlanBoardDTO planBoardDTO;
-        private PlanBoardDetailDTO planBoardDetailDTO;
-
-
-
-        // Getter 및 Setter 메서드
-    }
     @PostMapping("/community/plan/completePlan")
-    public String completePlan(@RequestBody CombinedData combinedData) {
-        // JSON 데이터를 CombinedData 객체로 자동으로 파싱하고 처리
-        PlanBoardDTO planBoardDTO = combinedData.getPlanBoardDTO();
-        PlanBoardDetailDTO planBoardDetailDTO = combinedData.getPlanBoardDetailDTO();
-        // 여기에서 planBoardDTO와 planBoardDetailDTO를 사용하여 원하는 처리 수행
+    @ResponseBody
+    public String completePlan(@RequestBody PlanBoardDTO boardDTO,
+                               @ModelAttribute("user") User user) {
+
+
+
+        // 1. Dto user 정보 저장
+        boardDTO.setUser(user);
+
+        // 2. service에서 db에 저장할때 필요한거 다 넘겨줌
+        planBoardService.savePlanBoard(boardDTO, planList);
+
+        // 9. 저장이 완료되면 planList 초기화
+        planList.clear();
 
         return "community/plan/plan";
     }

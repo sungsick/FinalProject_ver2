@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="plan_board_detail")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -22,7 +23,6 @@ public class PlanBoardDetail {
     @Column
     private String pbdPlaceName; //여행지명
 
-
     @Column
     private String pbdCategoryGroupName; //장소분류명
 
@@ -33,10 +33,10 @@ public class PlanBoardDetail {
     private double pbdY; //y좌표
 
     @Column
-    private int pbdDate;
+    private int pbdDate; //일자번호
 
-    @ManyToOne()
-    @JoinColumn(name ="pbNum")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name ="pb_num")
     private PlanBoard planBoard; //pbNum
 
     public PlanBoardDetailDTO toDto(){

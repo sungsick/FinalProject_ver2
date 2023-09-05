@@ -240,9 +240,7 @@
 <!--                                                  stroke-linecap="square" fill="#2564d0"></path>-->
 <!--                                        </svg>-->
 <!--                                    </div>-->
-                                    <div class="art1_div_subject">
-                                        제주도여행지 kulkul-_-z님의 여행일정
-                                    </div>
+                                    <div class="art1_div_subject" th:text="${user.userName} + '님의 여행일정'"></div>
                                     <span class="art1_div_menu">
                                 </span>
                                 </div>
@@ -466,8 +464,8 @@
                                         <tbody>
 
 
-                                        <th:block th:each="entry : ${planMap}">
-                                            <tr th:each="plan, planStat : ${entry.value}" th:if="${entry.key == num}">
+                                        <!--<th:block th:each="entry : ${planMap}">-->
+                                            <tr th:each="plan, planStat : ${planList}" th:if="${plan.pbdDate == num}">
                                                 <!-- Map의 key 출력 -->
                                                 <th scope="row">
                                                     <div class="ctn1_des_num" th:text="${planStat.count}" ></div>
@@ -493,7 +491,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        </th:block>
+                                        <!--</th:block>-->
                                         </tbody>
                                     </table>
                                     <div width="100%" height="71px" display="flex" class="btm_btn">

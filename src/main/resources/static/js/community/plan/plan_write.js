@@ -3,9 +3,9 @@
 //일정 작성 완료 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
 const CompleteMySchedule = document.querySelector('.complete_write_btn');
 
-CompleteMySchedule.addEventListener('click', () => {
+/*CompleteMySchedule.addEventListener('click', () => {
     window.location.href = '../plan';
-});
+});*/
 
 
 //1번째 테이블 장소 추가 버튼 클릭 시 plan_add로 이동
@@ -142,51 +142,59 @@ function deletePlan(day, place_name){
 
 }
 
+
+
 //일정작성완료 버튼 클릭 시
 $('.complete_write_btn').on('click', function () {
+    //
+    // alert("일정이 저장되었습니다.")
+    var pbTitle = $('.art1_div_subject').text();
+    var pbStartDate = $('#select_start_date').val();
+    var pbEndDate = $('#select_end_date').val();
+    var pbRegion = $('.form-select_place').val();
+    var pbViewCount = 0;
 
 // planBoardDTO 객체 생성 및 값 설정
     var planBoardDTO = {
-        pbNum: pbNum,
-        pbWriteDate: pbWriteDate,
-        pbTitle: pbTitle,
-        pbStartDate: pbStartDate,
-        pbEndDate: pbEndDate,
-        pbRegion: pbRegion,
-        pbViewCount: pbViewCount,
-        user: {
-            userId: userId
-        }
+        // pbNum: pbNum, //게시글번호
+        // pbWriteDate: pbWriteDate, //작성일자
+        pbTitle: pbTitle, //글제목
+        pbStartDate: pbStartDate, //시작날짜
+        pbEndDate: pbEndDate, //종료날짜
+        pbRegion: pbRegion, //여행지역
+        pbViewCount: pbViewCount, //조회수
     };
 
 // planBoardDetailDTO 객체 생성 및 값 설정
-    var planBoardDetailDTO = {
-        pbdNum: pbdNum,
-        pbdPlaceName: pbdPlaceName,
-        pbdCategoryGroupName: pbdCategoryGroupName,
-        pbdX: pbdX,
-        pbdY: pbdY,
-        pbdDate: pbdDate,
-        planBoard: {
-            pbNum: 2 // PlanBoardDTO와 연관된 게시글 번호
-        }
-    };
+//     var planBoardDetailDTO = {
+//         pbdNum: pbdNum,//세부일정번호
+//         pbdPlaceName: pbdPlaceName, //여행지명
+//         pbdCategoryGroupName: pbdCategoryGroupName, 장소분류명,
+//         pbdX: pbdX, // x좌표
+//         pbdY: pbdY, // y좌표
+//         pbdDate: pbdDate, // 일자번호
+//         planBoard: {
+//             pbNum: 2 // PlanBoardDTO와 연관된 게시글 번호
+//         }
+//     };
 
-// 두 객체를 하나의 JSON 객체로 합치기
-    var combinedData = {
-        planBoardDTO: planBoardDTO,
-        planBoardDetailDTO: planBoardDetailDTO
-    };
+
+
+
+
+
 
 // AJAX 요청 설정
     $.ajax({
         url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL
         type: 'post',
         contentType: 'application/json', // 데이터 형식을 JSON으로 설정
-        data: JSON.stringify(combinedData), // 직렬화된 JSON 데이터를 요청 데이터로 설정
+        data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
         success: function (data) {
             console.log('성공');
+            alert("일정이 저장되었습니다.");
             // 서버 응답에 대한 처리
+            location.href = "/community/plan";
         },
         error: function (data) {
             console.log('실패');
