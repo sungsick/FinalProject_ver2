@@ -1,26 +1,17 @@
-<<<<<<< HEAD
+
 /* CREATE DATABASE if not exists finalproject;*/
 
-=======
-# CREATE DATABASE if not exists finalproject;
-# 어차피 db연결값이 finalproject라 의미없음
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
+
 
 use finalproject;
 
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
 delete from finalproject.user;
-<<<<<<< HEAD
 delete from finalproject.qna;
 drop table car_info;
 drop table com_info;
 
-
-=======
-delete from finalproject.manager;
-delete from finalproject.qna;
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
 
 
 
@@ -44,8 +35,6 @@ CREATE TABLE if not exists `user`
 
 );
 
-<<<<<<< HEAD
-=======
 
 CREATE TABLE if not exists `ticket_info`
 (
@@ -79,7 +68,6 @@ CREATE TABLE if not exists `manager`
     );
 
 
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
 
 CREATE TABLE if not exists `qna` (
                         `qna_number`int	NOT NULL primary key auto_increment,

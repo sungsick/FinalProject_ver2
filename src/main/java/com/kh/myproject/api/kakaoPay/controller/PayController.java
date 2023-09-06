@@ -3,17 +3,16 @@ package com.kh.myproject.api.kakaoPay.controller;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
 import com.kh.myproject.api.kakaoPay.service.PayService;
-<<<<<<< HEAD
+
 import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
 import com.kh.myproject.store.rentcar.service.RentcarService;
-=======
-import com.kh.myproject.api.kakaoPay.service.SeleniumComponent;
+
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
 import com.kh.myproject.store.rentcar.model.dto.CrawlingDto;
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +34,17 @@ public class PayController {
     private final PayService payService;
     private FlightTicketDto ticketDto;
 
-<<<<<<< HEAD
+
     @Autowired
     private RentcarService rentcarService;
 
-=======
+/*
     private SeleniumComponent seleniumComponent;
 
     // 결제버튼 클릭시 결제 페이지
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
+
+
+ */
     @GetMapping("/pay/payButton")
     public ModelAndView payButton() {
         ModelAndView payButton = new ModelAndView();
@@ -51,29 +52,6 @@ public class PayController {
         return payButton;
     }
 
-<<<<<<< HEAD
-
-=======
-    // rentcar 예약 페이지
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
-    @GetMapping("/pay/paymentPage")
-    public ModelAndView paymentPage() throws IOException {
-
-//        String URL = "https://whitelabel.imsmobility.co.kr/tripsoda/reservation/request/247?pickupAt=2023-09-06T01%3A00%3A00.000Z&dropoffAt=2023-09-07T01%3A00%3A00.000Z&pickupLat=33.50707895781836&pickupLng=126.492769004244&birth=000101&pickupAddress=%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD&pickupFullAddress=%EC%A0%9C%EC%A3%BC%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84+%EC%A0%9C%EC%A3%BC%EC%8B%9C+%EA%B3%B5%ED%95%AD%EB%A1%9C+2+%EC%A0%9C%EC%A3%BC%EA%B5%AD%EC%A0%9C%EA%B3%B5%ED%95%AD&insuranceAge=21&isJeju=true&sortOption=low_price&rentType=DAILY&submodelId=2";
-//        Document doc = Jsoup.connect(URL).get();
-//        Elements reviews = doc.select("div .StyledReviewBox-kQYaKO XkTcB");
-//        List
-//        for (Element review : reviews) {
-//            System.out.println(review.text());
-//
-//        }
-        log.info("test");
-        ModelAndView paymentPage = new ModelAndView();
-        paymentPage.setViewName("pay/paymentPage");
-        return paymentPage;
-    }
-
-<<<<<<< HEAD
 
 
     @GetMapping("/pay/rentcarPaymentPage")
@@ -84,15 +62,12 @@ public class PayController {
         mav.addObject("dto",dto);
 
 
-       mav.setViewName("store/rentcar/thTest");
+       mav.setViewName("pay/paymentPage");
 
         return mav;
     }
 
 
-    // 결제요청
-    @GetMapping("/kakaoPay")
-=======
     // flight 예약 페이지
     @GetMapping("/pay/flightPaymentPage")
     public ModelAndView flightPaymentPage(@ModelAttribute("ticket") FlightTicketDto ticket) {
@@ -104,7 +79,7 @@ public class PayController {
 
     // api 결제요청
     @PostMapping("/kakaoPay")
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
+
     // RedirectView 형식으로 html에서 카카오 api 호출시 CORS오류 (보안정책이라고 함). @ResponseBody로 POST 캡슐화 후 readyResponse 직접 호출하니 해결됨.
     public @ResponseBody KakaoPayReadyVO kakaoPay(@RequestBody FlightTicketDto ticket,
                                                   @ModelAttribute("user") User user) {
@@ -165,6 +140,7 @@ public class PayController {
         return modelAndView;
     }
 
+    /*
     //test 전용
     @GetMapping("/pay/test11")
     public ModelAndView test11(Model model) throws InterruptedException {
@@ -174,6 +150,8 @@ public class PayController {
         test11.setViewName("pay/test11");
         return test11;
     }
+
+     */
 }
 
 //    @GetMapping("/pay/reviewCrawling")

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`,
                     `user_img`)
 VALUES ('john_doe', 'John Doe', 'password123', '123-456-7890', 'M', '2023-08-21', 'ENTJ', 'default1.png'),
@@ -19,7 +19,6 @@ VALUES ('john_doe', '제목1', '내용은 이것입니다1.', '2023-08-21', '답
 select *
 from qna;
 
-=======
 INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`, `user_regdate`)
 VALUES
     ('john_doe', 'JohnDoe', 'password123', '01012345678', 'M', '1998-08-21', 'ENTJ', 'default1.png', '2023-08-21 12:34:56'),
@@ -103,7 +102,7 @@ VALUES
     ('test','제목6', '내용은 이것입니다6.',  '저도 몰라요', now()),
     ('test','제목7', '내용은 이것입니다7.', '저도 몰라요', now());
 select * from qna;
->>>>>>> 0992b31d6998afeab96c372e603668f413fb255a
+
 
 INSERT INTO `car_info` (`car_name`, `car_year`, `car_nation`, `car_type`, `oil_type`, `driver_age`, `car_people`,
                         `car_price`, `car_discount`, `com_id`, `car_option`, `car_img`)
