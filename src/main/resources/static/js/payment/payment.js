@@ -15,7 +15,7 @@ $(function () {
         $('.third-box section:first > div').eq(idx).addClass('show')
     });
 
-// 대여 가능 여부 생년 검사
+    // 대여 가능 여부 생년 검사
     $('#input_birth').keyup(() => {
 
         var input_birth = document.getElementById('input_birth');
@@ -132,14 +132,15 @@ $(function () {
     $('.shuttle-button').click(function () {
         $('.modal').css('display', 'block');
         $("body").css('overflow', 'hidden');
-        $("body").css('margin-left', '-6px');
+        // $("body").css('margin-left', '1px');  // 스크롤로 인한 화면 꿀렁거림 제거
+        // 이유 모르겠는데 위 현상 없어짐
     })
     // 모달 닫기
-
     $('.modal-btn').click(function () {
         $('.modal').css('display', 'none');
         $("body").css('overflow', 'auto');
-        $("body").css('margin-left', '0px');
+        // $("body").css('margin-left', '0px');  // 스크롤로 인한 화면 꿀렁거림 제거
+        // 이유 모르겠는데 위 현상 없어짐
     })
 
     // 텍스트 숨기기

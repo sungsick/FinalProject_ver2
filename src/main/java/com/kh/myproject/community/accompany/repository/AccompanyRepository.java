@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public interface AccompanyRepository extends JpaRepository <Accompany, Long>{
@@ -26,4 +27,16 @@ public interface AccompanyRepository extends JpaRepository <Accompany, Long>{
 void updateAccompany(@Param("accompany") Accompany accompany);
 
 
+    @Query("select a from Accompany a where a.ac_text LIKE :searchName OR a.ac_title LIKE :searchName ORDER BY a.ac_regdate DESC")
+    List<Accompany> findByAc_textOrAc_titleOrderBOrderByAc_regdateDesc(@Param("searchName")String searchName);
+
+    @Query("select max(a.ac_num) from Accompany a")
+    int findTopByAc_num();
+
+
+    @Transactional
+    @Modifying
+    @Query("update Accompany a set a.ac_viewcount = a.ac_viewcount+1 where a.ac_num = :ac_num")
+    void increaseViewCount(@Param("ac_num")Long ac_num);
 }
+

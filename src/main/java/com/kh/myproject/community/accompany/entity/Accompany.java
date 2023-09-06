@@ -1,9 +1,11 @@
+
 package com.kh.myproject.community.accompany.entity;
 
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "accompany")
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Setter
-
+@ToString
 public class Accompany {
 
     @Id
@@ -20,15 +22,12 @@ public class Accompany {
     @Column(name = "ac_num")
     private Long ac_num;
 
-    @Column
-    private Long user_number;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_number", referencedColumnName = "user_number", insertable = false, updatable = false)
+    @JoinColumn(name = "userNumber")
     private User user;
 
     @Column
-    private String ac_regdate; //작성일자
+    private Date ac_regdate; //작성일자
 
     @Column
     private String ac_title; //글 제목
@@ -42,11 +41,12 @@ public class Accompany {
     @Column
     private String ac_region; //동행 지역
 
-    @Column
-    private String ac_startdate; //시작 날짜
 
     @Column
-    private String ac_enddate; //종료 날짜
+    private Date ac_startdate; //시작 날짜
+
+    @Column
+    private Date ac_enddate; //종료 날짜
 
     @Column
     private String ac_status; //모집 상태
