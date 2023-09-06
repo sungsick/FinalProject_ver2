@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface FlightTicketRepository extends JpaRepository<FlightTicketInfo, Long> {
     List<FlightTicketInfo> findByUser_UserNumber(Long userNumber);
+
+
+
 }

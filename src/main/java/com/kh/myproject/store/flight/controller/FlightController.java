@@ -2,6 +2,7 @@ package com.kh.myproject.store.flight.controller;
 
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class FlightController {
     final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
     private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
     private FlightTicketDto ticketDto;
+
+
+
+
 
     /*@GetMapping("/store/flight/flights")
     public ModelAndView flightMain(ModelAndView mav){
@@ -109,6 +114,16 @@ public class FlightController {
         //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
 //        mav.setViewName("/pay/flightPaymentPage");
         //flightService.saveFlight(ticketInfo); //db에 저장
+
+
+
+
+        // db삽입 후 mypage및 manager page에서 확인하기 위해 저장 -- 영찬
+        FlightTicketInfo fti = ticket.toEntity();
+        flightService.saveFlight(fti);
+        
+
+
     }
 
     @GetMapping("/store/flight/remove")

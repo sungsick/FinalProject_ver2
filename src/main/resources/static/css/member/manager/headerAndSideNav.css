@@ -75,9 +75,14 @@ header{
     font-size: 18px;
     font-weight: bold;
     padding: 20px 30px;
-    border-bottom: 1px gray solid;
     text-align: center;
+
+}
+
+.side_nav_content:hover{
     cursor: pointer;
+    background-color: rgb(220, 233, 245);
+    color : black;
 
 }
 
@@ -171,4 +176,8 @@ header{
 
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
+}
+
+i:hover{
+    cursor: pointer;
 }

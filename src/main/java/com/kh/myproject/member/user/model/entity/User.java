@@ -11,19 +11,21 @@ import java.util.Date;
 @Setter
 @Getter
 @ToString
-@AllArgsConstructor // 모든 멤버 변수를 초기화하는 생성자
+//@AllArgsConstructor // 모든 멤버 변수를 초기화하는 생성자
 @NoArgsConstructor // 기본 생성자.
 @EqualsAndHashCode // equa
 public class User {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// 기본키 값을 자동으로 생성한다.
+    @Column(name = "user_number")       // 예슬 추가함(외래키)
     private Long userNumber;
     // user_number 필드는 auto_increment이면서 pk이다.
 
 
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Accompany> accompanyList;
 
     // ArticleForm에서 생성한 멤버변수와 테이블을 매핑시키는 과정?
     @Column
@@ -54,5 +56,16 @@ public class User {
     @Column
     private LocalDateTime userRegdate; // 유저 가입날짜
 
-
+    public User(Long userNumber, String userId, String userName, String userPassword, String userPhone, String userGender, Date userDate, String userMbti, String userImg, LocalDateTime userRegdate) {
+        this.userNumber = userNumber;
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userPhone = userPhone;
+        this.userGender = userGender;
+        this.userDate = userDate;
+        this.userMbti = userMbti;
+        this.userImg = userImg;
+        this.userRegdate = userRegdate;
+    }
 }

@@ -1,9 +1,14 @@
 package com.kh.myproject.store.flight.service;
 
+import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -54,4 +59,11 @@ public class FlightService {
 
         return result.toString();
     }
+    
+    
+    // 여기서부터 manager에서 항공 정보를 가져오기 위한 쿼리문
+    
+    
+
+
 }

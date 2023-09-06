@@ -166,9 +166,9 @@ $(document).ready(function () {
     });
 
 
+
+
     //헤더의 동행을 찾아보세요 서치바 검색 기능.
-
-
 
     $('#search_bar').on('keydown',function(e){
 

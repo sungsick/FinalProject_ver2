@@ -1,6 +1,5 @@
 package com.kh.myproject.member.user.repository;
 
-import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
@@ -12,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 
@@ -112,5 +110,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT r FROM RentReservationInfo r WHERE r.user.userNumber = :user_number")
     List<RentReservationInfo> getRticketByNum(@Param("user_number") Long user_number);
+
+    int countByUserGender(String gender);
 
 }

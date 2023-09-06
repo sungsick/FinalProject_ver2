@@ -21,7 +21,7 @@ public class Qna {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qnaNumber;
 
-    @Column
+
     private String qnaWriter; // 문의글 작성자
 
     @Column

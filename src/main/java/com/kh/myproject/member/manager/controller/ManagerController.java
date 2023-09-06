@@ -2,12 +2,14 @@ package com.kh.myproject.member.manager.controller;
 
 
 import com.kh.myproject.member.manager.model.entity.Manager;
-import com.kh.myproject.member.manager.service.QnaServiceM;
-import com.kh.myproject.member.manager.service.RentServiceM;
-import com.kh.myproject.member.user.model.dto.QnaForm;
+import com.kh.myproject.member.manager.service.*;
+import com.kh.myproject.member.manager.service.AccompanyServiceM;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.user.service.UserService;
+import com.kh.myproject.member.manager.service.QnaServiceM;
+import com.kh.myproject.member.manager.service.UserServiceM;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.member.manager.service.FlightServiceM;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,19 +31,22 @@ public class ManagerController {
 
 
     @Autowired
-    UserService userService;
+    UserServiceM userServiceM;
 
     @Autowired
     QnaServiceM qnaServiceM;
 
+
+
     @Autowired
     RentServiceM rentServiceM;
 
+    @Autowired
+    FlightServiceM flightServiceM;
 
-    // 매니저 뷰페이지는 크게 N가지로 나눈다.
-    // 처음 메인 페이지를 보여주고
-    // 그다음 여러개의 관리 페이지를 둔다.
-    // 일정 게시글, 동행 , 렌트카 예약내역, 항공권 예약내역, 문의글 (답변 가능해야함)
+    @Autowired
+    AccompanyServiceM accompanyServiceM;
+
 
     @GetMapping("/manager/home")
     public ModelAndView managerUser(
@@ -56,10 +61,18 @@ public class ManagerController {
 
 
             modelAndView.setViewName("/member/manager/home");
-            List<User> userList = userService.findAllUser();
+            List<User> userList = userServiceM.findAllUser();
+
+            int qnaCount = qnaServiceM.countByQna();
+            int countMen = userServiceM.countByUserGender("M");
+            int countWomen = userServiceM.countByUserGender("F");
+
 
             modelAndView.addObject("manager", check_manager);
             modelAndView.addObject("userList", userList);
+            modelAndView.addObject("qnaCount",qnaCount);
+            modelAndView.addObject("countMen",countMen);
+            modelAndView.addObject("countWomen",countWomen);
 
             // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
             // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
@@ -98,14 +111,6 @@ public class ManagerController {
         return "member/manager/accompany";
     }
 
-    @GetMapping("/manager/flight")
-    public String flight() {
-
-
-        return "member/manager/flight";
-    }
-
-
 
 
 
@@ -113,8 +118,8 @@ public class ManagerController {
     @ResponseBody
     public Map<String, Object> getUserChart() {
 
-        List<Integer> countList = userService.getUserJoinCount();
-        List<Object[]> list = userService.getUserAgeCount();
+        List<Integer> countList = userServiceM.getUserJoinCount();
+        List<Object[]> list = userServiceM.getUserAgeCount();
         Map<String, BigInteger> ageMap = new HashMap<>();
 
 
@@ -139,14 +144,22 @@ public class ManagerController {
     @ResponseBody
     @PostMapping("/manager/deleteUser")
     public List<User> deleteUser(@ModelAttribute(name = "user_number")
-                                 String user_number) {
+                                 Long user_number) {
 
 
         System.out.println(user_number);
-        userService.deleteUser(user_number);
 
         // 외래키로 설정한 테이블의 모든 데이터를 지운다.
-        List<User> userList = userService.findAllUser();
+        // 동행글, 게시글, 댓글, 렌트카, 항공권
+        flightServiceM.deleteTicketByUserNumber(user_number);
+        accompanyServiceM.deleteByUserNumber(user_number);
+
+        System.out.println("accompany삭제 실행?");
+
+        userServiceM.deleteUser(user_number);
+
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        List<User> userList = userServiceM.findAllUser();
 
 
         System.out.println(userList);
@@ -195,15 +208,15 @@ public class ManagerController {
 
         if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
 
-            userCount = userService.selectUserCount();
-            userList = userService.findUserByPage(pageNo);
+            userCount = userServiceM.selectUserCount();
+            userList = userServiceM.findUserByPage(pageNo);
 
         } else if (!search_word.equals("")) {  // 검색어로 유저 조회했을 경우.
 
 
             // 페이지 처리에 따라 like문 조회해야한다.
-            userList = userService.selectUserBySearchWord(pageNo,search_word, search_option);
-            userCount = userService.countBysearchWorld(search_word,search_option);
+            userList = userServiceM.selectUserBySearchWord(pageNo,search_word, search_option);
+            userCount = userServiceM.countBysearchWorld(search_word,search_option);
 
         }
 
@@ -256,7 +269,7 @@ public class ManagerController {
         System.out.println("userCOunt" + userCount);
         System.out.println("pageEndNo" + pageEndNo);
 
-        if (userCount / 10 <= pageEndNo) { // 유저가 100보다 크면 10페이지는 무조건 보여주면되고 100보다 작으면 그 몫에 나머지 있으면 +1만큼 보여준다.
+        if (totalPgae <= pageEndNo) { // 현재 보여주고 있는 페이지라인이(ex 1~10, 11~20 pageEndNo가 totlaPage보다 크거나 같을 경우. 다음과 끝은 보여주면 안된다.
 
 
             pageEndNo = userCount / 10;
@@ -302,9 +315,17 @@ public class ManagerController {
             modelAndView.addObject("manager", check_manager);
             modelAndView.addObject("qnaList", qnaList);
 
+            // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
+
         } else {
+
+            // url로 접속했을 경우 에러페이지로 이동시킨다.
             modelAndView.setViewName("redirect:/errorPage");
+
         }
+
         return modelAndView;
     }
 
@@ -338,38 +359,139 @@ public class ManagerController {
 
 
 
-//    렌트카
 
-@GetMapping("/manager/rentcar")
-public ModelAndView rent(
-//            @ModelAttribute("manager") Manager check_manager,
-        ModelAndView modelAndView,
-        HttpSession session) {
-
-    Manager check_manager = (Manager) session.getAttribute("manager");
-
-    if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
-        //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
-
-        modelAndView.setViewName("member/manager/rentcar");
-        List<RentReservationInfo> rentList = rentServiceM.getAllRent();
-        modelAndView.addObject("rentList", rentList);
+    ///항공권 예약 내역 보기
+    @GetMapping("/manager/flight")
+    public String flight(Model model,
+                         @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                         @RequestParam(value = "search_word", defaultValue = "") String search_word,
+                         @RequestParam(value = "search_option", defaultValue = "all") String search_option) {
 
 
-    } else {
+        int totalPgae = 0; // 그래서 총 나타내야할 페이지 수.
+        int startNo = 0; // 보여줘야할 페이지 번호의 시작 ex) pageno = 3일 경우 startno = 21, endno = 30
+        int endNo = 0;
+        int pageStartNo = 0; // 페이지 시작돼야할 번호. ex) 글이70개면 1번부터 7번까지, 71개면 1번부터 8번까지.
+        int pageEndNo = 0; // 페이지 끝나야 할 번호. 1페이지면 10페이지가 끝번호고 11페이지면 20페이지가 끝번호고.
+        boolean lastPageCheck = true;
+        int ticketCount = 0;
+        boolean noTicket = false;
 
-        // url로 접속했을 경우 에러페이지로 이동시킨다.
-        modelAndView.setViewName("redirect:/errorPage");
+
+        List<FlightTicketInfo> ticketList = new ArrayList<>();
+
+
+        System.out.println("search_wod" + search_word);
+        System.out.println("search_option" + search_option);
+
+        if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
+
+            ticketCount = flightServiceM.selectTicketCount();
+            ticketList = flightServiceM.findTicketByPage(pageNo);
+
+        } else if (!search_word.equals("")) {  // 검색어로 유저 조회했을 경우.
+
+
+            // 페이지 처리에 따라 like문 조회해야한다.
+            ticketList = flightServiceM.selectTicketBySearchWord(pageNo,search_word, search_option);
+            ticketCount = flightServiceM.countBysearchWorld(search_word,search_option);
+
+        }
+
+
+        totalPgae = ticketCount % 10 > 0 && ticketCount != 0 ? ticketCount / 10 + 1 : ticketCount / 10;
+
+        if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+            pageNo = 1;
+        }
+
+        pageStartNo = pageNo / 10 * 10 + 1;
+        pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+        pageEndNo = ((pageNo / 10 + 1) * 10);
+        pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+
+
+        if (totalPgae <= pageEndNo) { // 유저가 100보다 크면 10페이지는 무조건 보여주면되고 100보다 작으면 그 몫에 나머지 있으면 +1만큼 보여준다.
+
+
+            pageEndNo = ticketCount / 10;
+            pageEndNo = ticketCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
+            lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
+        }
+
+
+        noTicket = ticketCount == 0 ? true : false;
+
+        // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+        model.addAttribute("noTicket",noTicket);
+        model.addAttribute("totalPage", totalPgae);
+        model.addAttribute("lastPageCheck", lastPageCheck);
+        model.addAttribute("pageStartNo", pageStartNo);
+        model.addAttribute("pageEndNo", pageEndNo);
+        model.addAttribute("ticketList", ticketList);
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("search_option", search_option);
+        model.addAttribute("search_word", search_word);
+
+
+
+        return "member/manager/flight";
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/deleteTicket")
+    public List<FlightTicketInfo> deleteTicket(@ModelAttribute(name = "ticTicketId")
+                                 Long ticTicketId) {
+
+
+        System.out.println(ticTicketId);
+        flightServiceM.deleteTicket(ticTicketId);
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        // 렌트카 예약 내역, 동행게시글, 댓글 등
+
+
+        List<FlightTicketInfo> ticketList = flightServiceM.findAll();
+
+
+        System.out.println(ticketList);
+
+        return ticketList;
 
     }
 
-    return modelAndView;
-}
+    //    렌트카
+
+    @GetMapping("/manager/rentcar")
+    public ModelAndView rent(
+//            @ModelAttribute("manager") Manager check_manager,
+            ModelAndView modelAndView,
+            HttpSession session) {
+
+        Manager check_manager = (Manager) session.getAttribute("manager");
+
+        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
+            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+
+            modelAndView.setViewName("member/manager/rentcar");
+            List<RentReservationInfo> rentList = rentServiceM.getAllRent();
+            modelAndView.addObject("rentList", rentList);
+
+
+        } else {
+
+            // url로 접속했을 경우 에러페이지로 이동시킨다.
+            modelAndView.setViewName("redirect:/errorPage");
+
+        }
+
+        return modelAndView;
+    }
 
     @ResponseBody
     @PostMapping("/manager/deleteRent")
     public void deleteRent(@ModelAttribute(name = "userNumber")
-                               String userNumber) {
+                           String userNumber) {
 
         System.out.println(userNumber);
         rentServiceM.deleteRent(userNumber);
@@ -379,4 +501,5 @@ public ModelAndView rent(
         System.out.println(rentList);
 
     }
+
 }

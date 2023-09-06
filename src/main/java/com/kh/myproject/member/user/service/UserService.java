@@ -1,6 +1,7 @@
 package com.kh.myproject.member.user.service;
 
 
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.repository.ManagerRepository;
 import com.kh.myproject.member.user.repository.QnaRepository;
@@ -165,11 +166,8 @@ public class UserService {
             e.printStackTrace();
         }
 
-
-
-
-
     }
+
 
 
     public User findUserId(String user_name, String user_phone1){
@@ -194,101 +192,6 @@ public class UserService {
         return result;
 
     }
-
-    public List<User> getSomeUser(){
-
-        List<User> userlist = userRepository.findTop5ByOrderByUserDateDesc();
-
-        return userlist;
-    }
-
-    public List<User> findAllUser(){
-
-        List<User> userlist = userRepository.findAll();
-
-        return userlist;
-    }
-    public List<Integer> getUserJoinCount(){
-
-        List<Integer> countList = new ArrayList<>();
-
-        for(int i = 9 ; i >= 0 ; i--){
-            countList.add(userRepository.countByDate(i));
-        }
-
-
-        return countList;
-    }
-
-    public List<Object[]> getUserAgeCount(){
-
-        return userRepository.getUserAgeCount();
-    }
-
-//    public Map<Integer,Integer> getUserAgeCount(){
-//
-//        Map<Integer,Integer> ageMap = new HashMap<>();
-//        userRepository.selectUserByAge();
-//
-//        return ;
-//    }
-
-
-    public void deleteUser(String user_number){
-
-        userRepository.deleteById(Long.parseLong(user_number));
-    }
-
-
-    public int selectUserCount(){
-
-        int count = userRepository.selectUserCount();
-        return count;
-    }
-
-    public List<User> findUserByPage(int pageNo){
-
-//        userRepository.findUserByPage(startNo,endNo);
-        Pageable pageable = PageRequest.of(pageNo-1,10, Sort.by("userNumber").descending());
-        Page<User> users = userRepository.findAll(pageable);
-        List<User> userList = users.getContent();
-
-        return userList;
-    }
-
-    public List<User> selectUserBySearchWord(int pageNo,String search_word,String search_option){
-
-        Page<User> userList = null;
-        Pageable pageable = PageRequest.of(pageNo-1,10); // 정렬기능 추가안했음.
-
-        if(search_option.equals("user_id")){
-
-            userList = userRepository.findByUserIdLike(pageable,"%" + search_word +"%");
-        }else if(search_option.equals("user_name")){
-            userList = userRepository.findByUserNameLike(pageable,"%" + search_word+ "%");
-
-        }
-
-        List<User> resultList = userList.getContent();
-        System.out.println(resultList);
-
-
-        return resultList;
-    }
-
-    public int countBysearchWorld(String search_word, String search_option){
-
-        int result = 0;
-
-        if(search_option.equals("user_id")){
-            result = userRepository.countByUserIdLike("%" + search_word +"%");
-        }else if(search_option.equals("user_name"))
-            result = userRepository.countByUserNameLike("%" + search_word +"%");
-
-        return result;
-    }
-
-
 
 }
 

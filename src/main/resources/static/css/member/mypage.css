@@ -2,20 +2,31 @@ body{
   zoom: 1.1;
 }
 .main_container{
-    width: 1400px;
+    width: 1200px;
     padding: 142px 0px 0px;
-    height: auto;
     box-sizing: border-box;
     margin: 0px auto;
+    min-height: 700px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
 }
+
+
+.next{
+
+    height: 100%;
+}
+
+
+
 main{
     position: relative;
     box-sizing: border-box;
     width: 100%;
     margin: 0px auto;
+    height: 100%;
+
 }
 .mypage_content1{
     width: 700px;
@@ -34,6 +45,7 @@ main{
     width: max-content;
     height: max-content;
     box-sizing: border-box;
+    top: 186px;
     user-select: none;
     -webkit-user-drag: none;
 
@@ -42,7 +54,7 @@ main{
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     width: 340px;
-    height: auto;
+    height: max-content;
     box-sizing: border-box;
     padding: 20px 14px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
@@ -578,6 +590,7 @@ li:hover{
     width: 180px;
 }
 .rd_2{
+    margin-left: 35px;
 }
 .ri_div{
     display: flex;
