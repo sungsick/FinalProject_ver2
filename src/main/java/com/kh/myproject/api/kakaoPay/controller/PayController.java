@@ -52,6 +52,7 @@ public class PayController {
 //            System.out.println(review.text());
 //
 //        }
+        log.info("test");
         ModelAndView paymentPage = new ModelAndView();
         paymentPage.setViewName("pay/paymentPage");
         return paymentPage;
