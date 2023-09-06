@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.kh.myproject.api.example.Product;
 
 
 public class ApiExamSearchNaverAPI {
