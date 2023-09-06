@@ -9,6 +9,7 @@
 
     <script src="/jq/jquery-3.7.0.min.js"></script>
     <script src="/jq/jquery.form.min.js"></script>
+    <script src="/js/store/rentcar/rentcarChoice.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
@@ -115,7 +116,7 @@
 
 
                         <div class="CarGroupListCardWrapper2-jioTfl company_list" th:each="list : ${rentcarComList}">
-                            <div class="CarGroupListCardWrapper-iDIXqD company_item">
+                            <div class="CarGroupListCardWrapper-iDIXqD company_item" th:onclick="|location.href='@{/pay/rentcarPaymentPage(Car_info_id=${list.getCar_info_id()})}'|">
                                <!-- <div class="LabelArea-czDCAU company_item_box"><span class="Label-bLEvNO hidyRW">최신연식</span></div> -->
                                 <div style="display: flex; align-items: center; justify-content: space-between;">
                                     <div style="display: flex; align-items: center;"><span
@@ -126,15 +127,16 @@
                                     <span class="text_23px font-semibold" th:text="${list.getCar_discount()}">80,000원</span></div>
                                 <div style="display: flex; align-items: center; justify-content: space-between;">
                                     <div class="CarInfoArea-byIURY company_text_box">21~23년
-                                        <div class="TextBorder-imbBgn company_text_detail"></div>
-                                        만 26세
-                                        <div class="TextBorder-imbBgn company_text_detail"></div>
+                                        <div class="TextBorder-imbBgn company_text_detail_line"></div>
+
+                                        <div class="TextBorder-imbBgn company_text_detail_line"></div>
                                         가솔린
-                                        <div class="TextBorder-imbBgn kqcompany_text_detailZvjT"></div>
+                                        <div class="TextBorder-imbBgn company_text_detail_line" ></div>
                                         5인승
                                     </div>
                                     <span class="OriginalPrice-elYHeW company_price" th:text="${list.getCar_price()}"></span></div>
                                 <div class="CarOptionBox-cQwFKH company_option" th:text="${list.getCar_option()}"></div>
+                                <div><input type="hidden" id="Car_info_id" name="Car_info_id" th:value="${list.getCar_info_id()}"> </div>
                             </div>
                         </div>
                     </div>
@@ -146,8 +148,5 @@
 
 
 </body>
-<script src="/jq/jquery-3.7.0.min.js"></script>
-<script src="/jq/jquery.form.min.js"></script>
-<script src="/js/join.js"></script>
 
 </html>

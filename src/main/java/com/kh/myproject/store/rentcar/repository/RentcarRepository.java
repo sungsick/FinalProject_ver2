@@ -47,4 +47,8 @@ public interface RentcarRepository extends JpaRepository<RentcarInfoEntity, Long
     List<RentcarInfoEntity> FindCombycarname(@Param("car_name") String car_name);
 
 
+    // 결제페이지에 넘길 정보
+    @Query(value = "SELECT * FROM car_info ci INNER JOIN com_info co ON ci.com_id = co.com_id WHERE ci.car_info_id=:Car_info_id", nativeQuery = true)
+    RentcarInfoEntity FindAllInfo(@Param("Car_info_id") Long Car_info_id);
+
 }

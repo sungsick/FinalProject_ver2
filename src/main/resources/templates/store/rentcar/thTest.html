@@ -33,11 +33,11 @@
 
 
 
-<div th:each="list : ${rentcarList}">
-    <div th:text="${list.getCar_name()}"></div>
-        <div th:text="${list.getCar_discount()}"></div>
-            <div th:text="${list.getCar_nation()}"></div>
-</div>
+<div th:text="${session.input_location}"></div>
+<div th:text="${session.depart_date}"></div>
+
+
+    <div th:text="${dto.getCom_id()}"></div>
 
 </body>
 

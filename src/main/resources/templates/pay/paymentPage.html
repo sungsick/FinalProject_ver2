@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" class = "no-js">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,11 +10,27 @@
 <body>
 <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
 <script src="/js/payment/payment.js" type="text/javascript"></script>
+
+
+
 <div id="root">
-    <div th:include="/header.html :: header"></div>
+
     <div class="mainBody">
         <div class="container">
             <div class="contents">
+
+
+
+
+
+
+                <div th:text="${session.input_location}"></div>
+                <div th:text="${session.depart_date}"></div>
+
+
+                <div th:text="${dto.getCom_id()}"></div>
+
+
                 <div>
                     <div class="firstBox">
                         <section class="firstSection">
@@ -790,5 +806,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

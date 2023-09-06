@@ -105,6 +105,16 @@ public class RentcarService {
 
     }
 
+
+    //렌트카 결제 페이지 전달
+    public RentcarInfoDTO rentcarPay(Long Car_info_id){
+
+        RentcarInfoDTO dto = RentcarInfoDTO.fromEntity(rentcarRepository.FindAllInfo(Car_info_id));
+
+
+        return dto;
+    }
+
 /*
     //같은 이름 차 중 가장 저렴한 것 고르기
     public List<RentcarInfoDTO> FindrentcarCom(String car_name){

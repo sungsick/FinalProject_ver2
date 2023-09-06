@@ -3,8 +3,11 @@ package com.kh.myproject.api.kakaoPay.controller;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
 import com.kh.myproject.api.kakaoPay.service.PayService;
+import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
+import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +22,9 @@ public class PayController {
 
     private final PayService payService;
 
+    @Autowired
+    private RentcarService rentcarService;
+
     @GetMapping("/pay/payButton")
     public ModelAndView payButton() {
         ModelAndView payButton = new ModelAndView();
@@ -26,12 +32,29 @@ public class PayController {
         return payButton;
     }
 
+
     @GetMapping("/pay/paymentPage")
     public ModelAndView paymentPage() {
         ModelAndView paymentPage = new ModelAndView();
         paymentPage.setViewName("pay/paymentPage");
         return paymentPage;
     }
+
+
+
+    @GetMapping("/pay/rentcarPaymentPage")
+    public ModelAndView rentcarPaymentPage(@RequestParam("Car_info_id") Long Car_info_id, ModelAndView mav) {
+
+        RentcarInfoDTO dto = rentcarService.rentcarPay(Car_info_id);
+
+        mav.addObject("dto",dto);
+
+
+       mav.setViewName("store/rentcar/thTest");
+
+        return mav;
+    }
+
 
     // 결제요청
     @GetMapping("/kakaoPay")
