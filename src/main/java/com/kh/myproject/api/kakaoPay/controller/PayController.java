@@ -7,8 +7,6 @@ import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
-import com.kh.myproject.store.rentcar.model.dto.CrawlingDto;
-import com.kh.myproject.store.rentcar.service.CrawlingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -30,7 +27,7 @@ public class PayController {
     private final PayService payService;
     private FlightTicketDto ticketDto;
 
-    private final CrawlingService crawlingService;
+//    private final CrawlingService crawlingService;
 
     // 결제버튼 클릭시 결제 페이지
     @GetMapping("/pay/payButton")
@@ -128,22 +125,23 @@ public class PayController {
         return modelAndView;
     }
 
-    // test 전용
+    //test 전용
     @GetMapping("/pay/test11")
     public ModelAndView test11() {
         ModelAndView test11 = new ModelAndView();
         test11.setViewName("pay/test11");
         return test11;
     }
-
-    @GetMapping("/pay/reviewCrawling")
-    public String reviewCrlw(Model model) throws Exception {
-        List<CrawlingDto> reviews = crawlingService.getReviewDatas();
-        model.addAttribute("reviews", reviews);
-        
-        return "";
-    }
 }
+
+//    @GetMapping("/pay/reviewCrawling")
+//    public String reviewCrlw(Model model) throws Exception {
+//        List<CrawlingDto> reviews = crawlingService.getReviewDatas();
+//        model.addAttribute("reviews", reviews);
+//
+//        return "";
+//    }
+//}
 
 
 

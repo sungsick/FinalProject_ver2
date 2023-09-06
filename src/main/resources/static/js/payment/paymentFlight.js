@@ -16,44 +16,44 @@ $(function () {
     });
 
 
-    // 대여 가능 여부 생년 검사
-    $('#input_birth').keyup(() => {
-
-        var input_birth = document.getElementById('input_birth');
-        var warningDiv = document.getElementById('warning');
-        var inputYear = input_birth.value.substring(0, 2);
-        var currentYear = new Date().getFullYear() % 100;
-        var btnKakaoPay = document.getElementById('btnKakaoPay');
-
-        if (input_birth.value >= 2) {
-            var inputValue = parseInt(input_birth.value.substring(0, 2));
-        }
-
-        if (input_birth.value.length >= 6) {
-
-            result = currentYear - inputYear;
-            absolute = Math.abs(result);
-            console.log(absolute);
-
-            if (absolute >= 20) {
-                console.log('20이상');
-                // 20세 이상
-                warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
-                warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
-                btnKakaoPay.disabled = false;
-            } else if (absolute < 20) {
-                console.log('20이하');
-                // 20세 미만
-                warningDiv.textContent = "20세 미만입니다.";
-                warningDiv.style.color = "red"; // 빨간색으로 변경
-                btnKakaoPay.disabled = true;
-            }
-
-        } else {
-            warningDiv.textContent = "'-' 을 제외한 생년월일 6자리를 입력하세요"; // 경고 메시지 초기화
-            btnKakaoPay.disabled = true;
-        }
-    });
+    // // 대여 가능 여부 생년 검사
+    // $('#input_birth').keyup(() => {
+    //
+    //     var input_birth = document.getElementById('input_birth');
+    //     var warningDiv = document.getElementById('warning');
+    //     var inputYear = input_birth.value.substring(0, 2);
+    //     var currentYear = new Date().getFullYear() % 100;
+    //     var btnKakaoPay = document.getElementById('btnKakaoPay');
+    //
+    //     if (input_birth.value >= 2) {
+    //         var inputValue = parseInt(input_birth.value.substring(0, 2));
+    //     }
+    //
+    //     if (input_birth.value.length >= 6) {
+    //
+    //         result = currentYear - inputYear;
+    //         absolute = Math.abs(result);
+    //         console.log(absolute);
+    //
+    //         if (absolute >= 20) {
+    //             console.log('20이상');
+    //             // 20세 이상
+    //             warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
+    //             warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
+    //             btnKakaoPay.disabled = false;
+    //         } else if (absolute < 20) {
+    //             console.log('20이하');
+    //             // 20세 미만
+    //             warningDiv.textContent = "20세 미만입니다.";
+    //             warningDiv.style.color = "red"; // 빨간색으로 변경
+    //             btnKakaoPay.disabled = true;
+    //         }
+    //
+    //     } else {
+    //         warningDiv.textContent = "'-' 을 제외한 생년월일 6자리를 입력하세요"; // 경고 메시지 초기화
+    //         btnKakaoPay.disabled = true;
+    //     }
+    // });
 
 // 핸드폰 인증
     var auth_num = '';
@@ -98,6 +98,7 @@ $(function () {
         } else {
 
             alert("이미 인증이 완료됐습니다.");
+
         }
     })
 
@@ -113,11 +114,12 @@ $(function () {
             $('#input_phone').css('color', '#0064de');
             $('#input_phone').css('border-color', '#0064de');
             $('#input_phone').prop('disabled', true);
+            $('#btnKakaoPay').prop('disabled', false);
 
         } else {
             alert('잘못 입력했습니다. 인증번호를 확인하세요.');
             $('#input_auth').focus();
-            auth_check = false;
+            $('#btnKakaoPay').disabled = ture;
 
         }
     })
@@ -127,8 +129,8 @@ $(function () {
         var query = {
             input_name: $("#input_name").val(),
             input_phone: $("#input_phone").val(),
-            input_birth: $("#input_birth").val(),
-            monthDay: $("#input_birth").val().substring(2),
+            // input_birth: $("#input_birth").val(),
+            // monthDay: $("#input_birth").val().substring(2),
             checkVal: $("input[formcontrolname=gender]:checked"),
             selectBox: $("select[name='selectBox']").val()
         }

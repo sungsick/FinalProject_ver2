@@ -31,11 +31,5 @@ y
 Isrc/main/java/com/kh/myproject/api/kakaoPay/repository/PayRepository.java,9\1\918e13c1bf5dbf86eec94edfa291a12ff25fbb98
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
-w
-Gsrc/main/java/com/kh/myproject/store/rentcar/model/dto/CrawlingDto.java,6\d\6d3f4a73bb6e29b433f100789e79c2b35ebc66ea
-y
-Isrc/main/java/com/kh/myproject/store/rentcar/service/CrawlingService.java,d\d\dd8d76e15f7fa0f80e15da2b08881452968d603d
 }
 Msrc/main/java/com/kh/myproject/store/rentcar/cotroller/RentcarController.java,2\d\2dfa7e9b12e68775d56e3dae7989ebb45f97b679
-y
-Isrc/main/java/com/kh/myproject/api/kakaoPay/controller/PayController.java,c\2\c284de7cc843c3fee68a0500ba6000f8c4cbbe83
