@@ -180,10 +180,6 @@ $('.complete_write_btn').on('click', function () {
 
 
 
-
-
-
-
 // AJAX 요청 설정
     $.ajax({
         url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL

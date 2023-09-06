@@ -34,7 +34,22 @@ public class PlanController {
 
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
-    public String communityplan() {
+    public String communityplan(Model model) {
+
+        // 1. 서비스한테 게시글 목록 요청
+
+        List<PlanBoardDTO> planList = planBoardService.getAllPlanBoardList();
+        model.addAttribute("planList", planList);
+        System.out.println(planList);
+
+
+
+        List<PlanBoardDetailDTO> planDetailList = planBoardService.getAllPlanBoardDetailList();
+        model.addAttribute("planDetailList", planDetailList);
+        System.out.println(planDetailList);
+
+        // 2.
+
 
         return "community/plan/plan";
     }

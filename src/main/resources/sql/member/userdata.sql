@@ -9,3 +9,12 @@ VALUES
 
 
 select * from user;
+
+-- PLAN 더미데이터
+INSERT INTO `plan_board` (`pb_end_date`,`pb_region`,`pb_start_date`,`pb_title`,`pb_view_count`,`pb_write_date`,`user_number`)
+VALUES
+    ('2023-09-08','1','2023-09-05','yeong님의 여행일정','0','2023-09-05 18:45:53.227034','4');
+
+INSERT INTO `plan_board_detail` (`pbd_category_group_name`,`pbd_date`,`pbd_place_name`,`pbdx`,`pbdy`,`pb_num`)
+VALUES
+    ('관광명소','1','올레길 7코스(서귀포-월평 올레)','126.51530966206293','33.23738579332568','1');

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,7 +19,7 @@ public class PlanBoardService {
 
 
     @Autowired
-    private PlanBoardRepository repository;
+    private PlanBoardRepository planBoardRepository;
 
     @Autowired
     private PlanBoardDetailRepository detailRepository;
@@ -47,7 +48,31 @@ public class PlanBoardService {
 
     }
 
+    public List<PlanBoardDTO> getAllPlanBoardList() {
 
+        List<PlanBoardDTO> result = new ArrayList<>();
+
+        List<PlanBoard> list = planBoardRepository.findAll();
+
+        for(int i = 0; i < list.size(); i++){
+            PlanBoardDTO boardDTO = list.get(i).toDto();
+            result.add(boardDTO);
+        }
+        return result;
+    }
+
+    public List<PlanBoardDetailDTO> getAllPlanBoardDetailList(){
+        List<PlanBoardDetailDTO> result = new ArrayList<>();
+
+        List<PlanBoardDetail> list = detailRepository.findAll();
+
+        for(int i = 0; i < list.size(); i++){
+            PlanBoardDetailDTO boardDetailDTO = list.get(i).toDto();
+            result.add(boardDetailDTO);
+        }
+
+        return result;
+    }
 
 
 }

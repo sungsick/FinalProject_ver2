@@ -107,11 +107,12 @@ body{
 
 .art1_div_subject{
     width: 100%;
-    font-weight: 500;
+    /*font-weight: 500;*/
     font-size: 16px;
     line-height: 24px;
     text-align: center;
     text-overflow: ellipsis;
+    font-weight: bold;
 }
 
 .art1_div_menu{
@@ -177,6 +178,7 @@ body{
 
 .select_date_box {
     padding: 10px 0;
+
 }
 
 #select_start_date {
@@ -403,6 +405,7 @@ body{
     border-radius: 10px;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);
+    font-weight: bold;
 
 }
 
@@ -489,10 +492,12 @@ body{
 
 .sc_date_start {
     margin-left: 10px;
+    font-weight: bold;
 }
 
 .sc_date_end {
     margin-left: 10px;
+    font-weight: bold;
 }
 
 
