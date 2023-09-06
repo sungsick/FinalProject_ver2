@@ -133,7 +133,7 @@ $('.writebtn').click(function () {
         ac_people: $('input[name=ac_people]').val(), // 변수명 수정
         ac_picture: $('input[name=ac_picture]').val(), // 변수명 수정
         ac_title: $('input[name=ac_title]').val(), // 변수명 수정
-        ac_text: $('textarea[name=ac_text]').text() // 변수명 수정
+        ac_text: $('textarea[name=ac_text]').val() // 변수명 수정
     });
         console.log($('input[name=ac_text]').text())
 
