@@ -142,8 +142,8 @@ $(document).ready(() => {
         if (auth_num === $('#auth_num').val()) { // 만약에 에러뜨면 컨트롤러 반환타입이랑 input val타입이 다른 것.
 
             $('#update-block').removeClass('disappear'); // 나타난다
-            $('#find-pw-block2').addClass('disappear'); // 없어진다.
             $('#find-pw-block3').removeClass('disappear'); // 나타난다.
+            $('.complete-auth-block').addClass('disappear'); // 없어진다.
             $('#auth_num').prop('disabled', true); // 인증이 완료되면 인증번호 수정을 막아버린다.
 
 
@@ -188,7 +188,7 @@ $(document).ready(() => {
 
                         Swal.fire('비밀번호가 변경됐습니다', '', 'success').then((result) => {
 
-                            window.location.href = '/';
+                            window.location.href = '/member/login';
 
                         })
 

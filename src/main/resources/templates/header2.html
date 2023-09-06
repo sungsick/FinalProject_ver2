@@ -2,23 +2,19 @@
     <div class="nav_bar">
         <div class="nav_bar_main">
             <div class="nav_content1">
+
+                <th:block th:if = "${manager} == null">
                 <a href="../community/home">
                     <img class="logo_img" src="/img/member/logo.png">
                 </a>
-
+                </th:block>
                 <!-- header2는 로그인 안했을 때만 보여지는 헤더이다. manager랑 header를 공유한다 -->
                 <th:block th:if="${manager} == null">
                     <button id="nav_community" onclick="location.href = '/community/home'">커뮤니티</button>
                     <button id="nav_trip" onclick="location.href = '/store/home'">여행상점</button>
                 </th:block>
 
-                <th:block id = "manage-tab" th:if="${manager} != null">
-                    <button id="manage-home" onclick="location.href = '/manager/home'">홈</button>
-                    <button id="manage-user" onclick="location.href = '/manager/manageUser'">회원관리</button>
-                    <button id="manage-board" onclick="location.href = '/manager/manageBoard'">게시글관리</button>
-                    <button id="manage-reservation" onclick="location.href = '/manager/manageReservation'">결제 내역 관리
-                    </button>
-                </th:block>
+
             </div>
             <div class="nav_content2">
 

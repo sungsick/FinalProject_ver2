@@ -3,9 +3,11 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
-import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.UserForm;
+import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.member.user.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @SessionAttributes("user")
@@ -32,6 +37,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    QnaService qnaService;
 
     @Autowired
     SmsService smsService;
@@ -68,7 +76,7 @@ public class UserController {
 
         }
 
-        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다....
+        User user = userService.getUserById(result.getEmail()); // 이메일 값으로 db에서 user정보를 꺼내온다.
 
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
@@ -251,6 +259,8 @@ public class UserController {
 
         }
 
+        LocalDateTime ldt = LocalDateTime.now();
+        userForm.setUser_regdate(ldt);
 
         User user = userForm.toEntity();
 
@@ -302,10 +312,12 @@ public class UserController {
 
 
         User newUser = userService.getUserById(user.getUserId());
+        List<Qna> qlist = qnaService.getQna(user.getUserId());
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user", newUser);
 
+        model.addAttribute("qlist", qlist);
 
         return "/member/user/mypage";
     }
@@ -371,8 +383,10 @@ public class UserController {
 
         try {
             ClassPathResource resource = new ClassPathResource("/static/file/profile_image"); // 빈 문자열로 생성
-            File file = resource.getFile();
-            resourcesPath = file.getAbsolutePath();
+            URLDecoder.decode(resource.getPath(),"UTF-8"); // 어차피 경로가 영어기때문에 디코딩 시키지 않아도 됨.
+
+            File file = resource.getFile(); // 위의 resource객체의 경로를 똑같이 가지는 file객체 생성.
+            resourcesPath = file.getAbsolutePath(); // 해당 경로 전체를 읽어온다.
 
             System.out.println("Resources 폴더 경로: " + resourcesPath);
         } catch (IOException e) {
@@ -384,24 +398,17 @@ public class UserController {
 
 
         // request 객체를 이용해서 여기서 파일업로드를 진행한다.
-        MultipartFile profile_img = request.getFile("profile_img");
-        String fileName = "/" + profile_img.getOriginalFilename();
-        System.out.println("filename :  " + fileName);
+        MultipartFile accompany_image = request.getFile("accompany_image");
+        String fileName = "/" + accompany_image.getOriginalFilename(); // 파일의 진짜 이름을 가지고 온다.
+        System.out.println("filename : " + fileName);
 
-
-        // user 세션값을 이용해 user_img 명을 가지고 오고(default아니면 본인 닉네임일 것)
-        // 그 이미지 명을 현재 프로젝트의 build경로로 접근해 model에 저장한 후에
-        // 다른 viewpage에서 보여지게 한다.
-
-        // 유저 아이디(이메일)을 @로 분리시킨후 해당 앞자리 아이디_profile 이름을 가진.png로 저장한다.
-
-        String filePath = resourcesPath + fileName;
+        String filePath = resourcesPath + fileName; // 서버의 절대경로와 파일이름을 합친곳에 file객체를 저장시킨다.
 
         File file = new File(filePath);
 
         System.out.println(filePath);
         try {
-            profile_img.transferTo(file);
+            accompany_image.transferTo(file);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -449,7 +456,7 @@ public class UserController {
         String ran_num = smsService.makeRanNum();
 
         User user = userService.findUserPw(user_id, user_phone2);
-//
+
 //        if(user != null) { // 가입시 입력한 아이디와 입력한 폰번호가 같다면 인증번호를 전송해준다.
 //
 //
@@ -463,7 +470,10 @@ public class UserController {
 //            if (ssrd.getStatusCode().equals("202")) {
 //
 //            }
+        if(user == null){
+            return "error";
 
+        }
         return ran_num + "/" + user.getUserNumber(); // 실제로는 문자를 전송한다.
 
 
@@ -478,31 +488,23 @@ public class UserController {
                            RedirectAttributes ra) {
 
 
+        System.out.println(new_pw1);
+        System.out.println(user_number);
+
         int result = userService.updatePw(user_number, new_pw1);
+        System.out.println("updatePw실행결과 반환값 :" + result);
         ra.addFlashAttribute("result", result);
 
 
         return result + "";
     }
 
-    @GetMapping("/member/updatePwPro")
-    public String updatePwPro(Model model) {
-
-
-        return "/member/user/updatePwPro";
-    }
-
-    @GetMapping("/member/user/modaltest")
-    public String modalTest() {
-
-        return "member/user/test";
-    }
-
-
     @GetMapping("/sideheader")
-    public String managetest(){
+    public String sideheader(){
 
-        return "member/manager/sideheader";
+        return "home";
     }
+
+
 
 }

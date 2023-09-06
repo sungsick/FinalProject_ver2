@@ -36,7 +36,7 @@ import java.util.Map;
 public class SmsService {
 
     private final ApplicationNaverSENS applicationNaverSENS;
-    
+
     public SendSmsResponseDto sendSms(String recipientPhoneNumber, String content) throws ParseException, JsonProcessingException, UnsupportedEncodingException, InvalidKeyException, NoSuchAlgorithmException, URISyntaxException {
         Long time = System.currentTimeMillis();
         List<MessagesRequestDto> messages = new ArrayList<>();

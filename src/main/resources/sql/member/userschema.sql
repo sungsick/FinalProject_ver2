@@ -3,8 +3,24 @@
 
 use finalproject;
 
+delete from finalproject.area_tourism;
+delete from finalproject.ticket_info;
+delete from finalproject.qna;
+delete from finalproject.accompany;
+delete from finalproject.comment;
+delete from finalproject.user;
+delete from finalproject.manager;
 
-drop table if exists user;
+
+
+alter table finalproject.user auto_increment = 1;
+alter table finalproject.manager auto_increment = 1;
+alter table finalproject.ticket_info auto_increment = 1;
+alter table finalproject.area_tourism auto_increment = 1;
+alter table finalproject.qna auto_increment = 1;
+alter table finalproject.accompany auto_increment = 1;
+alter table finalproject.comment auto_increment = 1;
+
 
 CREATE TABLE if not exists `user`
 (
@@ -20,30 +36,29 @@ CREATE TABLE if not exists `user`
 
 );
 
-alter table finalproject.user auto_increment = 1;
 
+CREATE TABLE if not exists `ticket_info`
+(
+    `tic_ticket_id`             bigint       NOT NULL,
+    `tic_flight_departure_date` varchar(100) NOT NULL,
+    `tic_flight_arrival_date`   varchar(100) NOT NULL,
+    `tic_seat_grade`            varchar(100) NOT NULL,
+    `tic_airline_name`          varchar(100) NOT NULL,
+    `tic_fee`                   int          NOT NULL,
+    `tic_from_location`         varchar(100) NOT NULL,
+    `tic_to_location`           varchar(100) NOT NULL,
+    `tic_vihicle_id`            varchar(100) NOT NULL,
+    `user_number`               bigint       NOT NULL
+);
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`)
-VALUES
-    ('john_doe', 'John Doe', 'password123', '01012345678', 'M', '2023-08-21', 'ENTJ', 'default1.png'),
-    ('jane_smith', 'Jane Smith', 'pass4321', '01098765432', 'F', '2023-08-21', 'INFP', 'default2.png'),
-    ('alex_brown', 'Alex Brown', 'securepwd', '01055555555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('test', 'yeong', '1234', '01012345678', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('sample@example.com', '샘플', '1234', '01055555555', 'M', '2023-08-21', 'INTJ', 'default1.png'),
-    ('user1', 'User One', 'userpass1', '01011111111', 'F', '2023-08-21', 'ISFJ', 'default2.png'),
-    ('user2', 'User Two', 'userpass2', '01022222222', 'M', '2023-08-21', 'ESTP', 'default1.png'),
-    ('user3', 'User Three', 'userpass3', '01033333333', 'F', '2023-08-21', 'ENFP', 'default2.png'),
-    ('user4', 'User Four', 'userpass4', '01044444444', 'M', '2023-08-21', 'ISTJ', 'default1.png'),
-    ('user5', 'User Five', 'userpass5', '01055555555', 'F', '2023-08-21', 'ESFP', 'default2.png');
+CREATE TABLE if not exists `area_tourism`(
+    `area_id` bigint not null primary key auto_increment,
+    `area_name` varchar(100) not null ,
+    `area_name_ko` varchar(100) not null ,
+    `place_id` int not null ,
+    `place_name` varchar(100) not null
+);
 
-
-delete
-from finalproject.user;
-
-select * from user;
-
-
-drop table if exists manager;
 
 CREATE TABLE if not exists `manager`
 (
@@ -51,9 +66,48 @@ CREATE TABLE if not exists `manager`
     `manager_id`       varchar(30) NOT NULL,
     `manager_password` varchar(30) NOT NULL
 
+    );
+
+
+
+CREATE TABLE if not exists `qna` (
+                        `qna_number`int	NOT NULL primary key auto_increment,
+                        `qna_writer`	varchar(30)	NOT NULL,
+                        `qna_title`	varchar(100)	NOT NULL,
+                        `qna_content`	varchar(5000)	NOT NULL,
+                        `qna_date`	date	NULL,
+                        `qna_answer`	varchar(500)	NULL
 );
 
-delete from finalproject.manager;
 
 
+CREATE TABLE if not exists accompany (
+                                         ac_num INT AUTO_INCREMENT PRIMARY KEY,
+                                         user_number int,
+                                         ac_regdate DATE,
+                                         ac_title VARCHAR(100),
+                                         ac_text VARCHAR(3000),
+                                         ac_people INT,
+                                         ac_region VARCHAR(255),
+                                         ac_startdate DATE,
+                                         ac_enddate DATE,
+                                         ac_status VARCHAR(50),
+                                         ac_picture VARCHAR(255),
+                                         ac_viewcount INT,
+                                         ac_travelstyle VARCHAR(50),
+                                         ac_personalhash VARCHAR(255),
+                                         FOREIGN KEY (user_number) REFERENCES user(user_number)
+);
+
+
+create table if not exists `comment`
+(
+    co_number       INT AUTO_INCREMENT PRIMARY KEY,
+    co_content   varchar(3000),
+    co_regdate DATETIME,
+    user_number       int,
+    ac_num       INT,
+    FOREIGN KEY (user_number) REFERENCES user (user_number),
+    FOREIGN KEY (ac_num) REFERENCES accompany (ac_num)
+);
 

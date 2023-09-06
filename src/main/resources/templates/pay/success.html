@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
-    <script src="/js/payment/confirmButton.js" type="text/javascript"></script>
+    <script defer src="/js/payment/confirmButton.js" type="text/javascript"></script>
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/9647b4736a.js"></script>
     <link href="/css/payment/payment.css" rel="stylesheet" type="text/css">
 </head>
@@ -24,7 +24,7 @@
             <div class="ant-modal-content">
                 <div class="ant-modal-body" style="padding: 30px;">
                     <div class="content">
-                        <div style="height: 610px; overflow: scroll; padding-right: 10px; align-content: center;">
+                        <div style="height: 443px; overflow: scroll; padding-right: 10px; align-content: center;">
                             <div style="font-size: 20px; font-weight: 700; margin-left: 30px;">
                                 결제완료
                             </div>
@@ -42,7 +42,7 @@
                                         <div class="orderInfo">
                                             <div>상품명</div>
                                             <div>굿모닝</div>
-                                       </div>
+                                        </div>
                                         <div class=" orderInfo">
                                             <div>주문금액</div>
                                             <div>320,000원</div>
@@ -61,7 +61,7 @@
                         </div>
                         <div style="display: flex; justify-content: space-between; margin-top: 30px; position: relative; bottom: 0px; padding-right: 10px;">
                             <button type="button" class="modal-btn _button_default_1vx5o_3"
-                                    style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인 했습니다
+                                    style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인
                             </button>
                         </div>
                     </div>
@@ -70,18 +70,5 @@
         </div>
     </div>
 </div>
-
-<!--####################################################################################################################
-
-              결제 성공시 inputDatas
-
-#####################################################################################################################-->
-<!--결제일시: [[${info.approved_at}]]<br/>-->
-<!--주문번호: [[${info.partner_order_id}]]<br/>-->
-<!--상품명: [[${info.item_name}]]<br/>-->
-<!--상품수량: [[${info.quantity}]]<br/>-->
-<!--결제금액: [[${info.amount.total}]]<br/>-->
-<!--결제방법: [[${info.payment_method_type}]]<br/>-->
-<!--<h2>[[${info}]]</h2>-->
 </body>
 </html>
