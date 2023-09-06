@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.*;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
 import com.kh.myproject.store.tour.model.entity.Tourism;
-import com.kh.myproject.store.tour.model.vo.detailCommon;
-import com.kh.myproject.store.tour.model.vo.detailRestaurant;
+import com.kh.myproject.store.tour.model.vo.*;
 import com.kh.myproject.store.tour.repository.TourismRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,22 +106,141 @@ public class TourService {
         return data;
     }
 
-    public detailRestaurant getDetailRestaurant(String url) {
+    public detailTourSpot getDetailTourSpot(String url) {
 
-        detailRestaurant data = null;
+        detailTourSpot data = null;
 
-        Gson gson = new Gson();
+        ObjectMapper mapper = new ObjectMapper();
 
         JsonObject object = getDetailApiData(url);
 
-        data = gson.fromJson(object.toString(), detailRestaurant.class);
+        try {
+            data = mapper.readValue(object.toString(), detailTourSpot.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
 
         return data;
     }
 
-//    public City getCityInfo(String cityName) {
-//        City CityInfo = new City();
-//        List<String> placeName = new ArrayList<>();
-//    }
+    public detailCulture getDetailCulture(String url) {
+
+        detailCulture data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailCulture.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+    public detailEvent getDetailEvent(String url) {
+
+        detailEvent data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailEvent.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+    public detailTourCourse getDetailTourCourse(String url) {
+
+        detailTourCourse data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailTourCourse.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+    public detailLeports getDetailLeports(String url) {
+
+        detailLeports data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailLeports.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+    public detailAccommodation getDetailAccommodation(String url) {
+
+        detailAccommodation data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailAccommodation.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+    public detailShopping getDetailShopping(String url) {
+
+        detailShopping data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailShopping.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
+
+
+    public detailRestaurant getDetailRestaurant(String url) {
+
+        detailRestaurant data = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonObject object = getDetailApiData(url);
+
+        try {
+            data = mapper.readValue(object.toString(), detailRestaurant.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        return data;
+    }
 
 }

@@ -2,14 +2,14 @@ package com.kh.myproject.store.tour.contoller;
 
 import com.kh.myproject.api.naverBlog.BlogSearch;
 import com.kh.myproject.store.tour.model.dto.TourismDto;
-import com.kh.myproject.store.tour.model.vo.detailCommon;
-import com.kh.myproject.store.tour.model.vo.detailRestaurant;
+import com.kh.myproject.store.tour.model.vo.*;
 import com.kh.myproject.store.tour.service.TourService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.model.IModel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -69,26 +69,51 @@ public class TourController {
         url += DETAILCOMMON_LAST_URL + LAST_URL;
 
         detailCommon data = tourService.getDetailCommon(url);
-
         log.info("detailCommon={}", data);
+
+        mav.addObject("detailCommon", data);
+        mav.addObject("contentTypeId", data.getContentTypeId());
 
         //상세정보
         url = TOURAPI_URL + "detailIntro1?" + SERVICE_KEY;
         url += "&contentId=" + contentId;
         url += "&contentTypeId=" + data.getContentTypeId() + LAST_URL;
 
-        switch (data.getContentTypeId()){
-
-
+        switch (data.getContentTypeId()) {
+            case "12":
+                detailTourSpot detailTourSpot = tourService.getDetailTourSpot(url);
+                mav.addObject("detailIntro", detailTourSpot);
+                break;
+            case "14":
+                detailCulture detailCulture = tourService.getDetailCulture(url);
+                mav.addObject("detailIntro", detailCulture);
+                break;
+            case "15":
+                detailEvent detailEvent = tourService.getDetailEvent(url);
+                mav.addObject("detailIntro", detailEvent);
+                break;
+            case "25":
+                detailTourCourse detailTourCourse = tourService.getDetailTourCourse(url);
+                mav.addObject("detailIntro", detailTourCourse);
+                break;
+            case "28":
+                detailLeports detailLeports = tourService.getDetailLeports(url);
+                mav.addObject("detailIntro", detailLeports);
+                break;
+            case "32":
+                detailAccommodation detailAccommodation = tourService.getDetailAccommodation(url);
+                mav.addObject("detailIntro", detailAccommodation);
+                break;
+            case "38":
+                detailShopping detailShopping = tourService.getDetailShopping(url);
+                mav.addObject("detailIntro", detailShopping);
+                break;
+            case "39":
+                detailRestaurant detailRestaurant = tourService.getDetailRestaurant(url);
+                mav.addObject("detailIntro", detailRestaurant);
+                break;
         }
 
-//        log.info("detailRestaurant={}", detailRestaurant);
-
-
-
-        mav.addObject("detailCommon", data);
-
-        log.info("data={}",data);
         mav.setViewName("store/tour/tourDetail");
 
         return mav;

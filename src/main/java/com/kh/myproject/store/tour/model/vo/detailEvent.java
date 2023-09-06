@@ -18,15 +18,11 @@ public class detailEvent {
     private String eventHomePage;
     private String eventPlace;
     private String eventStartDate;
-    private String festivalGrade;
     private String placeInfo;
-    private String playtime;
+    private String playTime;
     private String program;
     private String spendTimeFestival;
-    private String sponsor1;
-    private String sponsor1tel;
     private String sponsor2;
     private String sponsor2tel;
-    private String subEvent;
     private String useTimeFestival;
 }

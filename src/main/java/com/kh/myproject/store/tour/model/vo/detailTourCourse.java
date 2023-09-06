@@ -16,6 +16,5 @@ public class detailTourCourse {
     private String infoCenterTourcourse;
     private String schedule;
     private String takeTime;
-    private String theme;
 
 }

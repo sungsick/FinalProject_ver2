@@ -12,15 +12,9 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class detailTourSpot {
 
-    private String acComCount;
-    private String chkBabyCarriage;
-    private String chkCreditCard;
     private String chkPet;
     private String expAgeRange;
     private String expGuide;
-    private String heritage;
-    private String heritage2;
-    private String heritage3;
     private String infoCenter;
     private String openDate;
     private String parking;

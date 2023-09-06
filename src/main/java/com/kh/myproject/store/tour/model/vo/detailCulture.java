@@ -10,9 +10,6 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class detailCulture {
 
-    private String acComCountCulture;
-    private String chkBabyCarriageCulture;
-    private String chkCreditCardCulture;
     private String chkPetCulture;
     private String discountInfo;
     private String infoCenterCulture;
@@ -21,6 +18,5 @@ public class detailCulture {
     private String restDateCulture;
     private String useFee;
     private String useTimeCulture;
-    private String scale;
     private String spendTime;
 }

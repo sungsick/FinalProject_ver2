@@ -56,7 +56,7 @@
             <th:block th:each="tourism : ${tourismList}">
                 <div class="cities_card" th:style="'background-image:url(/img/store/tour/cities/'+${tourism.getAreaName()}+'/'+${tourismStat.count}+'.jpg);'">
                     <span th:text="${tourism.getPlaceName()}"></span>
-                    <button th:onclick="'location.href=/store/tour/tourDetail?contentId=' + ${tourism.placeId} + ''">자세히 보기</button>
+                    <button th:onclick="|location.href='@{/store/tour/tourDetail(contentId=${tourism.placeId})}'|">자세히 보기</button>
                 </div>
             </th:block>
             </div>

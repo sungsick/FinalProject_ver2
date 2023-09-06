@@ -87,7 +87,7 @@ $(function () {
 /* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
     if ($('#flight_date').val() === '') {
-        alert("날짜를 선택해주세요");
+        Swal.fire('날짜를 입력하세요.', '', 'error');
     } else {
         pageNo = 1;
         $('.loading_wrap').css('display', 'block'); //검색 모달
@@ -339,16 +339,18 @@ function dataTest(param) {
 
 
         if ($('#sessionUser').val() === '') {
-            alert('로그인후 이용하세요');
-            location.href = '/member/login';
+            Swal.fire('로그인후 이용하세요.', '', 'error').then(function () {
+
+                location.href = '/member/login';
+            });
         } else {
             $.ajax({
                 url: '/store/flight/reservationFlight',
                 type: 'post',
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
-                success: function(data){
-                    location.href='/pay/flightPayment';
+                success: function (data) {
+                    location.href = '/pay/flightPayment';
                 }
             });
         }

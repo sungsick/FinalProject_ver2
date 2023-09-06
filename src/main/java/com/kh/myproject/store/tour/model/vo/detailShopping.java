@@ -12,19 +12,14 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class detailShopping {
 
-    private String chkBabyCarriageShopping;
-    private String chkCreditCardShopping;
     private String chkPetShopping;
     private String cultureCenter;
     private String fairDay;
     private String infoCenterShopping;
-    private String openDateShopping;
     private String openTime;
     private String parkingShopping;
     private String restDateShopping;
-    private String restroom;
     private String saleItem;
     private String saleItemCost;
-    private String scaleShopping;
     private String shopGuide;
 }

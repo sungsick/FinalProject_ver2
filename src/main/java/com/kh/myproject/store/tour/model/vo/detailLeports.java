@@ -12,18 +12,13 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class detailLeports {
 
-    private String acComCountLeportsrestDateLeports;
-    private String chkBabyCarriageLeports;
-    private String chkCreditCardLeports;
     private String chkPetLeports;
-    private String expAgeRangeLeports;
     private String infoCenterLeports;
     private String openPeriod;
     private String parkingFeeLeports;
     private String parkingLeports;
     private String reservation;
-    private String acComCountLeports;
-    private String scaleLeports;
+    private String restDateLeports;
     private String useFeeLeports;
     private String useTimeLeports;
 }
