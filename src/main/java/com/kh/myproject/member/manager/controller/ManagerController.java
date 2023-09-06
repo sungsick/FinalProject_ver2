@@ -1,15 +1,16 @@
-package com.kh.myproject.member.user.controller;
+package com.kh.myproject.member.manager.controller;
 
 
-import com.kh.myproject.community.accompany.entity.Accompany;
-import com.kh.myproject.community.accompany.service.AccompanyService;
-import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.manager.service.AccompanyServiceM;
+import com.kh.myproject.member.manager.model.entity.Manager;
+import com.kh.myproject.member.user.model.dto.QnaForm;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.manager.service.QnaServiceM;
+import com.kh.myproject.member.manager.service.UserServiceM;
 import com.kh.myproject.member.user.service.QnaService;
-import com.kh.myproject.member.user.service.UserService;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
-import com.kh.myproject.store.flight.service.FlightService;
+import com.kh.myproject.member.manager.service.FlightServiceM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,26 +31,41 @@ public class ManagerController {
 
 
     @Autowired
-    UserService userService;
+    UserServiceM userService;
 
     @Autowired
-    QnaService qnaService;
+    QnaServiceM qnaService;
 
     @Autowired
-    FlightService flightService;
+    FlightServiceM flightService;
 
     @Autowired
-    AccompanyService accompanyService;
+    AccompanyServiceM accompanyService;
 
 
 
+    @PostMapping("member/questionSubmit")
+    public String questionSubmit(
+            @RequestParam("qna_title") String qna_title,
+            @RequestParam("qna_content") String qna_content,
+            @ModelAttribute("user") User session_user,
+            QnaForm qnaForm,
+            Model model
+    ) {
 
+        // 기본키값을 넘겨줘야 save메서드에서 id값을 이용해 수정이 가능하다....
 
+        Qna qna = new Qna();
 
-    // 매니저 뷰페이지는 크게 N가지로 나눈다.
-    // 처음 메인 페이지를 보여주고
-    // 그다음 여러개의 관리 페이지를 둔다.
-    // 일정 게시글, 동행 , 렌트카 예약내역, 항공권 예약내역, 문의글 (답변 가능해야함)
+        qna.setQnaWriter(session_user.getUserId());
+        qna.setQnaTitle(qnaForm.getQna_title());
+        qna.setQnaContent(qnaForm.getQna_content());
+
+        qnaService.submitQna(qna);
+
+        return "member/user/mypage";
+    }
+
 
     @GetMapping("/manager/home")
     public ModelAndView managerUser(
@@ -65,6 +81,7 @@ public class ManagerController {
 
             modelAndView.setViewName("/member/manager/home");
             List<User> userList = userService.findAllUser();
+
             int qnaCount = qnaService.countByQna();
             int countMen = userService.countByUserGender("M");
             int countWomen = userService.countByUserGender("F");
@@ -442,7 +459,6 @@ public class ManagerController {
         model.addAttribute("search_option", search_option);
         model.addAttribute("search_word", search_word);
 
-        System.out.println(ticketList);
 
 
         return "member/manager/flight";

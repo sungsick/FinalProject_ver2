@@ -72,7 +72,7 @@ body {
     left: 0%;
     width: 50%;
     height: 2px;
-    background: black;
+    background: #00B8FF;
     transition: left 0.3s ease 0s;
 }
 

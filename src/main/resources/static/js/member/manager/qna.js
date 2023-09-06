@@ -10,6 +10,9 @@ async function answerBtn(element) {
         showCancelButton: true
     })
 
+    $('#auth_request_btn')
+
+
     if (text) {
         Swal.fire({
             title: '답변을 저장할까요?',

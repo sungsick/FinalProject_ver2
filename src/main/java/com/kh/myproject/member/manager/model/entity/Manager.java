@@ -1,4 +1,4 @@
-package com.kh.myproject.member.user.model.entity;
+package com.kh.myproject.member.manager.model.entity;
 
 
 import lombok.*;

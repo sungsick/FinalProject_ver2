@@ -3,7 +3,7 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
-import com.kh.myproject.member.user.model.entity.Manager;
+import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.UserForm;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -382,8 +383,10 @@ public class UserController {
 
         try {
             ClassPathResource resource = new ClassPathResource("/static/file/profile_image"); // 빈 문자열로 생성
-            File file = resource.getFile();
-            resourcesPath = file.getAbsolutePath();
+            URLDecoder.decode(resource.getPath(),"UTF-8"); // 어차피 경로가 영어기때문에 디코딩 시키지 않아도 됨.
+
+            File file = resource.getFile(); // 위의 resource객체의 경로를 똑같이 가지는 file객체 생성.
+            resourcesPath = file.getAbsolutePath(); // 해당 경로 전체를 읽어온다.
 
             System.out.println("Resources 폴더 경로: " + resourcesPath);
         } catch (IOException e) {
@@ -395,24 +398,17 @@ public class UserController {
 
 
         // request 객체를 이용해서 여기서 파일업로드를 진행한다.
-        MultipartFile profile_img = request.getFile("profile_img");
-        String fileName = "/" + profile_img.getOriginalFilename();
-        System.out.println("filename :  " + fileName);
+        MultipartFile accompany_image = request.getFile("accompany_image");
+        String fileName = "/" + accompany_image.getOriginalFilename(); // 파일의 진짜 이름을 가지고 온다.
+        System.out.println("filename : " + fileName);
 
-
-        // user 세션값을 이용해 user_img 명을 가지고 오고(default아니면 본인 닉네임일 것)
-        // 그 이미지 명을 현재 프로젝트의 build경로로 접근해 model에 저장한 후에
-        // 다른 viewpage에서 보여지게 한다.
-
-        // 유저 아이디(이메일)을 @로 분리시킨후 해당 앞자리 아이디_profile 이름을 가진.png로 저장한다.
-
-        String filePath = resourcesPath + fileName;
+        String filePath = resourcesPath + fileName; // 서버의 절대경로와 파일이름을 합친곳에 file객체를 저장시킨다.
 
         File file = new File(filePath);
 
         System.out.println(filePath);
         try {
-            profile_img.transferTo(file);
+            accompany_image.transferTo(file);
 
         } catch (IOException e) {
             e.printStackTrace();

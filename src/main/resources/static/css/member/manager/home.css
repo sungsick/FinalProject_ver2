@@ -24,10 +24,10 @@ table{
 
 }
 .content_box{
-    width: 400px;
+    width: 31.5%;
     height: 260px;
     border-radius: 6px;
-    background-color: #71dced;
+    background-color: #8db7e8;
     color : white;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
 }
@@ -37,11 +37,15 @@ table{
     justify-content: space-between;
     margin: 30px 0px;
 }
+
+.graphes div{
+    width: 48%;
+}
 .mygraph{
     background-color: #fff;
     box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 2px;
-    border-radius: 10px;
-    display : flex;
+    border-radius: 0;
+    display: flex;
     justify-content: center;
     align-items: center;
 
@@ -56,13 +60,8 @@ table{
 .mg2{
     width: 600px;
     height: 500px;
-    border-radius: 10px !important;
 }
 
-path ,#container{
-    border-radius: 10px !important;
-
-}
 
 
 #myChart{

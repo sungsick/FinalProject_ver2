@@ -1,9 +1,8 @@
-package com.kh.myproject.member.user.config;
+package com.kh.myproject.member.manager.config;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.myproject.member.user.model.entity.Manager;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

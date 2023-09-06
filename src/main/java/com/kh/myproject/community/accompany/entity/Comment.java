@@ -23,14 +23,17 @@ public class Comment {
     private User user; // 게시글작성자
 
 
+    @ManyToOne
+    @JoinColumn(name = "ac_num")
+    private Accompany ac_num;  // 게시글번호
+
     @Column
     private String co_content;    // 댓글내용
     @Column
     private String co_regdate;    //  댓글작성일자
 
-    @ManyToOne
-    @JoinColumn(name = "ac_num")
-    private Accompany ac_num;  // 게시글번호
+
+
 
 
 
