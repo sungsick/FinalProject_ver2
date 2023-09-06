@@ -15,9 +15,7 @@ $(function () {
             editRegion[i].style.border = "none";
             editRegion[i].style.color = "ffffff";
             editRegion[i].style.fontWeight = "500";
-
         }
-
         editRegion[i].addEventListener("click", function () {
             editRegion[i].style.backgroundColor = "";
             editRegion[i].style.border = "";
@@ -50,56 +48,6 @@ $(function () {
             myValue.style.left = px + 'px';
         };
     }
-
-
-
-//취소 버튼 클릭시 accompany(동행 메인)으로 이동
-    const cancelbtn = document.querySelector('.cancelbtn');
-
-    cancelbtn.addEventListener('click', () => {
-        window.location.href = '/community/accompany';
-    });
-
-    // //작성완료 버튼 클릭시 accompany(동행 메인)으로 이동
-    // const writebtn = document.querySelector('.writebtn');
-    //
-    // cancelbtn.addEventListener('click', () => {
-    //     window.location.href = '/community/accompany/update';
-    // });
-
-
-
-// // 지역 선택 시 색깔 변함
-// const Cnavbtnsp1 = document.querySelectorAll(".C-nav-btn1 > div");
-// const Cnavbtnsp2 = document.querySelectorAll(".C-nav-btn2 > div");
-//
-// function handleClick(e) {
-//     const targetElement = e.currentTarget;
-//
-//     if (targetElement.classList.contains("regionCliked")) {
-//         targetElement.classList.remove("regionCliked");
-//     } else {
-//         for (var i = 0; i < Cnavbtnsp1.length; i++) {
-//             Cnavbtnsp1[i].classList.remove("regionCliked");
-//         }
-//         for (var i = 0; i < Cnavbtnsp2.length; i++) {
-//             Cnavbtnsp2[i].classList.remove("regionCliked");
-//         }
-//         targetElement.classList.add("regionCliked");
-//     }
-// }
-//
-// function regionInit() {
-//     Cnavbtnsp1.forEach(btn => {
-//         btn.addEventListener("click", handleClick);
-//     });
-//
-//     Cnavbtnsp2.forEach(btn => {
-//         btn.addEventListener("click", handleClick);
-//     });
-// }
-//
-// regionInit();
 
 
     const Cnavbtnsp1 = document.querySelectorAll(".C-nav-btn1 .C-nav-btn");
@@ -141,10 +89,7 @@ $(function () {
 
 
     
-    
-    
-    
-    
+
     
     
     // range 커스텀 한 것. 점 따라서 숫자 변하게
@@ -209,6 +154,10 @@ $('.writebtn').click(function () {
 
     })
 })
+
+
+
+
 
 // //배경사진 선택 자바스크립트
 //     const photoDiv = document.querySelector('.photo');
