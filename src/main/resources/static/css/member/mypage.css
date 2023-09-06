@@ -663,7 +663,7 @@ select{
     box-sizing: border-box;
     width: 74px;
     height: 44px;
-    background: rgb(0, 182, 206);
+    background: #00B8FF;
     color: rgb(255, 255, 255);
     border-radius: 10px;
     transition: background-color 0.3s ease-out 0s;
@@ -739,7 +739,7 @@ textarea{
     border: none;
 }
 #question_btn_submit{
-    background: rgb(0, 182, 206);
+    background: #00B8FF;
 }
 
 .test2 {
@@ -808,7 +808,7 @@ textarea{
 
 .user_agender2 {
     font-size: 11px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: 60px;
 }
@@ -864,7 +864,7 @@ textarea{
 .test2_area {
     margin-top: 190px;
     font-size: 15px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: auto;
     background-color: ghostwhite;
@@ -872,7 +872,7 @@ textarea{
 .area_text {
     margin-left: 10px;
     padding: 10px 0px;
-    border-bottom: 2px #588fee;
+    border-bottom: 2px #00B8FF;
 }
 
 .area_text i {

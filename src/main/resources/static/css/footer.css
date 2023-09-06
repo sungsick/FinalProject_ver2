@@ -10,6 +10,7 @@ footer{
     background: rgb(255, 255, 255);
     border-top: 1px solid rgb(233, 233, 233);
 }
+
 .ft_main{
     position: relative;
     box-sizing: border-box;
@@ -30,6 +31,9 @@ footer{
     margin-top: 20px;
     color: rgb(106, 106, 106);
 }
+.ft_content2 p{
+    margin-bottom: 0px;
+}
 .ft_content3{
     position: relative;
     margin-top: 15px;
@@ -47,7 +51,7 @@ footer{
     margin: 14px 0px;
 }
 .ft_img{
-    width: 146px !important;
+    width: 120px !important;
     user-select: none;
     -webkit-user-drag: none;
     cursor: pointer;
