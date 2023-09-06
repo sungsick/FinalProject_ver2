@@ -2,6 +2,7 @@ package com.kh.myproject.store.rentcar.cotroller;
 
 import com.kh.myproject.store.rentcar.model.RentcarComDTO;
 import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
+import com.kh.myproject.store.rentcar.model.RentcarInfoEntity;
 import com.kh.myproject.store.rentcar.repository.RentcarRepository;
 import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -33,6 +38,9 @@ public class RentcarController {
 
     }
 
+
+
+
     /*
         @GetMapping("/store/rentcar/rentcarReserve")
         public String rentcarReserve() {
@@ -42,30 +50,30 @@ public class RentcarController {
         }
 
 
+
         @GetMapping("/store/rentcar/rentcarChoice")
         public String rentcarChoice() {
 
             return "store/rentcar/rentcarChoice";
 
         }
-
-    */
+ */
     @RequestMapping("/MainSearch") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
                          @RequestParam String arrive_date,
                          @RequestParam String input_birth,
-                         Model model) {
+                         HttpSession session) {
 
         System.out.println(input_location);
         System.out.println(depart_date);
         System.out.println(arrive_date);
         System.out.println(input_birth);
 
-        model.addAttribute("input_location", input_location);
-        model.addAttribute("depart_date", depart_date);
-        model.addAttribute("arrive_date", arrive_date);
-        model.addAttribute("input_birth", input_birth);
+        session.setAttribute("input_location", input_location);
+        session.setAttribute("depart_date", depart_date);
+        session.setAttribute("arrive_date", arrive_date);
+        session.setAttribute("input_birth", input_birth);
 
         return "store/rentcar/rentcarReserve";
 
@@ -82,6 +90,8 @@ public class RentcarController {
 
 */
 
+
+    //키워드 검색결
 
     @GetMapping("/rentcarReserve")
     public ResponseEntity<List<RentcarInfoDTO>> reserveSearch(@RequestParam(value = "searchKeyword") String searchKeyword) {
@@ -125,85 +135,31 @@ public class RentcarController {
     }
 
 
-    @RequestMapping("/rentcarChoice")
-    public String rentcarChoice(@RequestParam String input_location,
-                                                             @RequestParam String depart_date,
-                                                             @RequestParam String arrive_date,
-                                                             @RequestParam String input_birth,
-                                                             @RequestParam String car_name,
-                                                            Model model) {
-        List<RentcarComDTO> rentcarComDTOList = rentcarService.getComSelect(car_name);
 
-        model.addAttribute("input_location", input_location);
-        model.addAttribute("depart_date", depart_date);
-        model.addAttribute("arrive_date", arrive_date);
-        model.addAttribute("input_birth", input_birth);
-        model.addAttribute("rentcarComDTOList", rentcarComDTOList);
+
+    //렌트카 업체 리스트 가져오기
+    @GetMapping("/store/rentcar/rentcarChoice")
+    public String rentcarChoice(@RequestParam("car_name") String car_name,
+                                @RequestParam("cartype") String cartype,
+                                @RequestParam("caryear") String caryear,
+                                @RequestParam("carprice") String carprice,
+
+            Model model, HttpSession session) {
+
+        List<RentcarInfoEntity> rentcarComList = rentcarService.FindCombycarname(car_name);
+
+
+        session.setAttribute("cartype", cartype);
+        session.setAttribute("caryear", caryear);
+        session.setAttribute("carprice", carprice);
+        session.setAttribute("car_name", car_name);
+
+        model.addAttribute("rentcarComList",rentcarComList);
+
 
         return "store/rentcar/rentcarChoice";
 
     }
 
-
-/*
-    @GetMapping("/store/rentcar/rentcarMain")
-    public ModelAndView rentcarMain(ModelAndView mav) {
-
-        mav.setViewName("store/rentcar/rentcarMain");
-
-        return mav;
-    }
-
-
-    @GetMapping("/store/rentcar/rentcarReserve")
-    public ModelAndView rentcarReserve(ModelAndView mav) {
-
-        mav.setViewName("store/rentcar/rentcarReserve");
-
-        return mav;
-    }
-
-    @GetMapping("/store/rentcar/rentcarChoice")
-    public ModelAndView rentcarChoice(ModelAndView mav) {
-
-        mav.setViewName("store/rentcar/rentcarChoice");
-
-        return mav;
-    }
-
-
-
-
-
-
-    //main에서 검색버튼 누른 후 reserve로 넘어가는 메서드
-    @GetMapping("/store/rentcar/rentcarMainSearch")
-    public ModelAndView mainSearch(        @RequestParam("location") String location,
-                                           @RequestParam("departDate") String departDate,
-                                           @RequestParam("arriveDate") String arriveDate,
-                                           @RequestParam("birthDate") String birthDate,
-                                           ModelAndView mav){
-
-        log.info("location", location);
-        log.info("departDate",departDate);
-        log.info("arriveDate",arriveDate);
-        log.info("birthDate",birthDate);
-
-
-
-        mav.addObject("location", location);
-        mav.addObject("departDate", departDate);
-        mav.addObject("arriveDate", arriveDate);
-        mav.addObject("birthDate", birthDate);
-
-
-        mav.setViewName("store/rentcar/thTest");
-
-        return mav;
-
-    }
-
-
- */
 
 }

@@ -47,7 +47,7 @@
                                 </div>
                                 <input class="search_input_round search_input_detail" id="input_location"
                                        readonly=""
-                                       placeholder="대여 위치를 선택해 주세요." th:value="${input_location}"></div>
+                                       placeholder="대여 위치를 선택해 주세요." th:value="${session.input_location}"></div>
                             <div class="input_grid_number"></div>
                             <div class="input_title_and_detail">
                                 <div class="input_title"><img alt="이미지" class="input_title_icon"
@@ -55,11 +55,11 @@
                                     <div class="input_title_text">날짜 및 시간</div>
                                 </div>
                                 <input class="search_input_round_date search_input_detail" id="depart_date"
-                                       th:value="${depart_date}"
+                                       th:value="${session.depart_date}"
                                        readonly=""
                                        placeholder="대여날짜 선택">
                                 <input class="search_input_round_date search_input_detail" id="arrive_date"
-                                       th:value="${arrive_date}"
+                                       th:value="${session.arrive_date}"
                                        readonly=""
                                        placeholder="반납날짜 선택"></div>
                             <div class="input_grid_number"></div>
@@ -72,7 +72,7 @@
                                     <input type="text"
                                            class="search_input_round search_input_detail"
                                            id="input_birth"
-                                           placeholder="YYMMDD" th:value="${input_birth}"
+                                           placeholder="YYMMDD" th:value="${session.input_birth}"
                                            style="height: 20px; margin-top: 0px;">
                                 </div>
                             </div>
@@ -87,6 +87,14 @@
         </div>
     </div>
 
+<!--
+    <div>
+        <input type="hidden" id="th_input_location" th:value="${input_location}"/>
+        <input type="hidden" id="th_depart_date" th:value="${depart_date}"/>
+        <input type="hidden" id="th_arrive_date" th:value="${arrive_date}"/>
+        <input type="hidden" id="th_input_birth" th:value="${input_birth}"/>
+    </div>
+-->
 
     <!--검색 필터링-->
     <div width="auto" class="ContentsArea-ceSrvw reserv_contents_area">

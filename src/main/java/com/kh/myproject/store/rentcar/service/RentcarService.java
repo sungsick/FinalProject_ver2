@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,6 +96,27 @@ public class RentcarService {
 
 
 
+    public List<RentcarInfoEntity> FindCombycarname(String car_name){
+
+        List<RentcarInfoEntity> result = rentcarRepository.FindCombycarname(car_name);
+
+
+        return result;
+
+    }
+
+/*
+    //같은 이름 차 중 가장 저렴한 것 고르기
+    public List<RentcarInfoDTO> FindrentcarCom(String car_name){
+        List<RentcarInfoDTO> dtolist = RentcarInfoDTO.fromEntity(rentcarRepository.FindDiscountOne(car_name));
+
+        return dto;
+
+
+
+    }
+
+
     // 렌터카 업체 선택
     public List<RentcarComDTO> getComSelect(String car_name){
 
@@ -106,6 +128,6 @@ public class RentcarService {
 
 
     }
-
+*/
 
 }

@@ -3,6 +3,7 @@
 
 $(document).ready(function () {
 
+
 // 가격 높은 순 정렬을 위한 컨트롤러 연결
     $('#high_price_list_btn').click(function () {
 
@@ -98,10 +99,10 @@ function updateCarList(data) {
         var carInfo = data[i];
         var carItemHtml = `
                 <!-- 차량 안내 카드1 -->
-                <div class="result_item" id="result_item" name="${car_info_id}" onclick="rentcarChoice(this)">
-                    <div><span class="Label-fdRgKZ result_item_year">${carInfo.car_year}</span></div>
-                    <p class="SubmodelName-fBxKDh result_item_name" id="car_name">${carInfo.car_name}</p>
-                    <p class="SubTitle-gXOIXp result_item_type">${carInfo.car_type}</p>
+                <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}'">
+                    <div><span class="result_item_year">${carInfo.car_year}</span></div>
+                    <p class="result_item_name" id="car_name">${carInfo.car_name}</p>
+                    <p class="result_item_type">${carInfo.car_type}</p>
                     <img src="${carInfo.car_img}" style="width: 100%; max-width: 163px;">
                     <div class="price_box">
                         <p class="lowest_label">최저</p>
@@ -115,39 +116,4 @@ function updateCarList(data) {
 }
 
 
-function rentcarChoice(e){
 
-
-
-        var input_location = $("#input_location").val();
-        var depart_date = $("#depart_date").val();
-        var arrive_date = $("#arrive_date").val();
-        var car_name = $("#car_name").val();
-
-
-        $.ajax({
-            type: "POST",
-            url: "/rentcarChoice", // 컨트롤러 엔드포인트 URL
-            data: {
-                input_location: input_location,
-                depart_date: depart_date,
-                arrive_date: arrive_date,
-                car_name: car_name// 검색어를 쿼리 매개변수로 전달
-            },
-            success: function(data) {
-
-                location.href='/store/rentcar/rentcarChoice';
-
-
-
-            },
-            error: function() {
-                alert("데이터를 불러오는 중에 오류가 발생했습니다.");
-            }
-
-
-
-    });
-
-
-}

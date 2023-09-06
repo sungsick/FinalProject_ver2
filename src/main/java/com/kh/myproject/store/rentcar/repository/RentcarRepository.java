@@ -38,4 +38,13 @@ public interface RentcarRepository extends JpaRepository<RentcarInfoEntity, Long
     List<RentcarInfoEntity> FindTypeAsc();
 
 
+    /*
+   @Query(value="select * from car_info where car_name = :car_name ORDER BY car_discount ASC limit 1", nativeQuery = true)
+    RentcarInfoEntity FindDiscountOne(@Param("car_name") String car_name);
+*/
+
+    @Query(value = "SELECT * FROM car_info ci INNER JOIN com_info co ON ci.com_id = co.com_id WHERE ci.car_name =:car_name", nativeQuery = true)
+    List<RentcarInfoEntity> FindCombycarname(@Param("car_name") String car_name);
+
+
 }
