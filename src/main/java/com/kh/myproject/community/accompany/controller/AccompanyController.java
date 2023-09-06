@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,7 +36,6 @@ public class AccompanyController {
         return accompanyRepository.findAll();
     }
 
-
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
     public String accompanyIndex(Model model) throws Exception {
@@ -49,33 +49,25 @@ public class AccompanyController {
         User acUser = ac.getUser();
         System.out.println(acUser);
 
-
         model.addAttribute("accompanyList", accompanyEntity);
 
-
         return "community/accompany/accompany";
-
     }
-
 
     //동행 글 쓰기
     @GetMapping("/community/accompany/write") // http://localhost:8070/community/accompany/write
-    public String accompanyWrite(
-            HttpSession session
-    ) {
+    public String accompanyWrite(HttpSession session) {
 
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/community/home";
         }
-
         return "community/accompany/accompany_write";
         /*"community/accompany/accompany_write";*/
-
     }
 
     @PostMapping("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
-    public String accompanywritePro(HttpSession session, AccompanyForm form,
+    public String accompanyWritePro(HttpSession session, AccompanyForm form,
                                     @RequestParam("ac_region") String ac_region,
                                     @RequestParam("ac_startdate") String ac_startdate,
                                     @RequestParam("ac_enddate") String ac_enddate,
@@ -102,11 +94,9 @@ public class AccompanyController {
         System.out.println("ac_people" + ac_people);
         System.out.println("ac_picture" + ac_picture);
 
-
         // DTO의 데이터를 Entity로 변환한다.
         Accompany accompany = form.toEntity();
         System.out.println(accompany);
-
 
         // Repository에게 Entity를 데이터베이스에 저장하게 한다
         // id 가 자동으로 증가된다.
@@ -116,19 +106,14 @@ public class AccompanyController {
 
         return "redirect:/community/accompany";
         /*"community/accompany/accompany_write";*/
-
     }
 
 
-    // 위와 같은 메서드
-
     // index에서 해당 글로 연결
-
     @GetMapping("community/accompany/detail")
-    public String AccompanyDetail(@RequestParam("ac_num") Long ac_num, Model model) {
+    public String accompanyDetail(@RequestParam("ac_num") Long ac_num, Model model) {
         System.out.println("컨트롤러의 AccompanyDetail() 메서드를 실행");
         System.out.println("ac_num = " + ac_num);
-
 
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
 
@@ -138,7 +123,6 @@ public class AccompanyController {
         model.addAttribute("accompany", accompanyEntity);
 
         return "community/accompany/accompany_detail";
-
     }
 
 
@@ -164,28 +148,14 @@ public class AccompanyController {
         model.addAttribute("accompany", accompanyEntity);
 
         return "community/accompany/accompany_edit";
-
     }
-
-//    // 글 번호를 가지고 수정하는 메서드
-//    @RequestMapping(value = "/community/accompany/update", produces="text/plain;charset=UTF-8")
-//    public String accompanyUpdate(HttpServletRequest request, AccompanyForm form){
-//        System.out.println("컨트롤러 update() 메서드 실행");
-//        System.out.println(form.toString());
-//
-//        System.out.println(form.getUser_number());
-//        System.out.println(form.getAc_region());
-//
-//        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "redirect://community/accompany";
-//    }
 
 
     // 글 번호를 가지고 수정하는 메서드
     // http://localhost:8070/community/accompany/update
     @ResponseBody
     @PostMapping("/community/accompany/update")
-    public String Accompanyupdate(
+    public String accompanyUpdate(
                                   Model model, //모델
                                   @ModelAttribute("accompany") Accompany session_accompany,
                                   @RequestBody AccompanyForm form,
@@ -195,8 +165,6 @@ public class AccompanyController {
         System.out.println("form 이야" + form);
         System.out.println("session_accompany 이야" + session_accompany.toString());
 
-
-
         User user = (User) session.getAttribute("user");
         System.out.println("user 야" + user);
         Long getUserNumber = user.getUserNumber();
@@ -205,8 +173,9 @@ public class AccompanyController {
 
          // DTO -> Entity 로 변환한다.
         Accompany accompany = form.toEntity();
-//        Date date = new Date();
 
+        // accompany.setAc_num(session_accompany.getAc_num());
+        // 이걸 지웠더니 작동완!!!
 
         Accompany result = accompanyService.updateAccompany(accompany);
 
@@ -217,8 +186,30 @@ public class AccompanyController {
 
         // 수정한 글 1건만 보여주고 싶을 때는
         return "redirect:/community/accompany";
-
     }
+
+
+    // 글 삭제하기
+    @GetMapping("community/accompany/delete")
+    public String accompanyDelete(@PathVariable("ac_num") Long ac_num, RedirectAttributes rttr){
+
+        System.out.println("컨트롤러 delete() 메서드를 실행");
+        System.out.print("ac_num : " + ac_num);
+
+        // 삭제할 데이터를 가져온다.
+        Accompany target = accompanyRepository.findById(ac_num).orElse(null);
+        System.out.println(target.toString());
+
+        //데이터 삭제
+        if(target != null) {
+            accompanyRepository.delete(target);
+
+            rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
+        }
+
+        return "community/accompany";
+    }
+
 
 
 //    //동행 글 정보
@@ -243,28 +234,6 @@ public class AccompanyController {
 //
 
 
-//
-//
-//    // 글 삭제하기
-//    @GetMapping("/community/accompany/accompany/{ac_num}/delete")
-//    public String communityAccompanydelete(@PathVariable Long ac_num, RedirectAttributes rttr){
-//
-//        System.out.println("컨트롤러 delete() 메서드를 실행");
-//        System.out.print("ac_num : " + ac_num);
-//
-//        // 삭제할 데이터를 가져온다.
-//        Accompany target = accompanyRepository.findById(ac_num).orElse(null);
-//        System.out.println(target.toString());
-//
-//        //데이터 삭제
-//        if(target != null) {
-//            accompanyRepository.delete(target);
-//
-//            rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
-//        }
-//
-//        return "community/accompany/accompany";
-//    }
 
 
 }
