@@ -20,7 +20,7 @@ public class PlanBoardDetail {
     private Long pbdNum; //세부일정번호
 
     @Column
-    private String pbdPlaceName; //여행지명
+    private String pbdPlaceName; //장소명
 
     @Column
     private String pbdCategoryGroupName; //장소분류명
@@ -32,7 +32,7 @@ public class PlanBoardDetail {
     private double pbdY; //y좌표
 
     @Column
-    private int pbdDate; //일자번호
+    private int pbdDate; //일자번호(여행일 1일차 2일차)
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name ="pb_num")

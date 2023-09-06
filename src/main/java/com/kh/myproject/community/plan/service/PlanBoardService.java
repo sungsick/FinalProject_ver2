@@ -48,6 +48,8 @@ public class PlanBoardService {
 
     }
 
+
+    // DB에서 데이터 가져와서 Plan_main에 출력
     public List<PlanBoardDTO> getAllPlanBoardList() {
 
         List<PlanBoardDTO> result = new ArrayList<>();
