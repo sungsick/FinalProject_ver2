@@ -10,6 +10,15 @@ const option3_btn = document.querySelector(".option3_btn");
 const option4_btn = document.querySelector(".option4_btn");
 const option5_btn = document.querySelector(".option5_btn");
 
+
+//div 일정크기 이상시 content2 (우측 고정 탭바) 크기 증가시킨다.
+// var main_container = document.getElementsByClassName('.main_container');
+//
+// if(main_container.clientHeight < 700){
+//     main_container.style.height = '700';
+// }else{
+//     main_container.style.height = 'auto';
+// }
 option1_btn.addEventListener("click",(e)=>{
     option1_btn.style.backgroundColor="#F0F9FFFF";
     option2_btn.style.backgroundColor="white";
@@ -82,14 +91,14 @@ option5_btn.addEventListener("click",(e)=>{
 
 $('.write_btn').click(()=>{
     $('.ask_content').addClass("disappear");
-    $('#question_table').addClass("disappear");
+    $('.my_question_list').addClass("disappear");
     $('.question').removeClass("disappear");
     $('.write_btn').addClass("disappear");
 })
 
 $('#question_btn_cancel').click(()=>{
     $('.ask_content').removeClass("disappear");
-    $('#question_table').removeClass("disappear");
+    $('.my_question_list').removeClass("disappear");
     $('.question').addClass("disappear");
     $('.write_btn').removeClass("disappear");
 })

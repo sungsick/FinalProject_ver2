@@ -13,7 +13,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<form action="/community/accompany/writePro" method="POST">
+<form action="/community/accompany/writePro" method="post" enctype="multipart/form-data">
 
     <div class="next">
         <header th:include="header.html :: header"></header>
@@ -79,7 +79,7 @@
                                 <div class="select_date_input">
                                     <h4>출발일</h4>
                                     <div class="select_date_box">
-                                        <input type="date" id="select_date" name="ac_startdate">
+                                        <input type="date" id="select_date" name="start_date">
                                     </div>
 
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="select_date_input">
                                     <h4>도착일</h4>
                                     <div class="select_date_box">
-                                        <input type="date" id="select_date2" name="ac_enddate">
+                                        <input type="date" id="select_date2" name="end_date">
                                     </div>
 
                                 </div>
@@ -130,7 +130,7 @@
                 </div>
 
             </div>
-            <input id="fileInput" type="file" name="ac_picture"
+            <input id="fileInput" type="file" name="accompany_image"
                    accept="image/bmp,image/gif,image/jpg,image/jpeg,image/png,image/raw,image/tif,image/heif,image/heic,image/mp4,image/avi,image/mov,image/wmv,image/mkv,image/mpg,image/rm,image/asf,image/m4v,image/mpeg,image/mpg"
                    style="display: none; margin: 0px; padding: 0px;">
 

@@ -17,7 +17,7 @@
                     <span><i class="fa-solid fa-magnifying-glass"></i></span>
 
                     <input type="text"
-                           placeholder="동행을 찾아보세요">
+                           placeholder="동행을 찾아보세요" id = "search_bar">
 
 
                 </div>
@@ -25,9 +25,9 @@
                 <div th:if = "${user!=null}">
                     <div class="nav_logintf my_icons">
                         <div class="mypage"><img th:src="'/file/profile_image/' + ${user.userImg}" alt="" class = "profile_img"
-                                                 onclick="location.href='/member/mypage'"></div>
+                                                 onclick="window.location.href='/member/mypage'"></div>
                         <div class="logout"><i class="fa-xl fa-solid fa-arrow-right-from-bracket" style="color: #bebebe;"
-                                               onclick="location.href = '/member/logout'"></i></div>
+                                               onclick="window.location.href= '/member/logout'"></i></div>
                     </div>
 
 

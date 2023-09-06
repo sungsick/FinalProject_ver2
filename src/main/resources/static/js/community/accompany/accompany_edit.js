@@ -135,7 +135,7 @@ $('.writebtn').click(function () {
         ac_title: $('input[name=ac_title]').val(), // 변수명 수정
         ac_text: $('textarea[name=ac_text]').val() // 변수명 수정
     });
-        console.log($('input[name=ac_text]').text())
+        console.log($('input[name=ac_text]').val())
 
     $.ajax({
         url: '/community/accompany/update',
