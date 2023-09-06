@@ -204,7 +204,9 @@
                                                 th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}">수정</a>
                                         </button>
                                         <p class="bt_container_m_jum">·</p>
-                                        <button class="bt_container_m_btn">삭제</button>
+                                        <button id="deleteBtn">
+                                            <a th:href="@{/community/accompany/delete(ac_num = ${accompany.ac_num})}">삭제</a>
+                                        </button>
                                         <p class="bt_container_m_jum">·</p>
                                         <button class="bt_container_m_btn">끌어올리기</button>
                                     </div>

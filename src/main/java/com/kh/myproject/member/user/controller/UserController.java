@@ -252,7 +252,8 @@ public class UserController {
 
             String extension = user_img.substring(user_img.lastIndexOf(".")); // .을 포함한 확장자명
 
-            String filename = userForm.getUser_id().split("@")[0] + extension; // 이메일 앞글자랑 확장자명까지 합친 파일명이 진짜 파일명이된다.
+            String filename = userForm.getUser_id().split("@")[0] + extension;
+            // 이메일 앞글자랑 확장자명까지 합친 파일명이 진짜 파일명이된다.
             System.out.println("새로 저장되는 user_img이름" + filename);
             userForm.setUser_img(filename);
             userService.saveFile(user_img, filename);

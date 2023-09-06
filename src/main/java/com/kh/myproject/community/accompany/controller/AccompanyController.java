@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -81,13 +82,11 @@ public class AccompanyController {
                                     AccompanyForm form,
                                     @RequestParam(value = "start_date",defaultValue = "") String start_date,
                                     @RequestParam(value = "end_date" ,defaultValue = "") String end_date,
-                                    @RequestParam(value = "ac_region",defaultValue = "") String ac_region,
+                                    @RequestParam(value = "ac_region",defaultValue = "") String ac_regionp,
                                     @RequestParam("ac_title") String ac_title,
                                     @RequestParam("ac_text") String ac_text,
                                     @RequestParam("ac_people") String ac_people,
                                     @RequestParam("accompany_image") MultipartFile multipartFile) {
-
-
 
 
         User user = (User)session.getAttribute("user");
@@ -119,7 +118,6 @@ public class AccompanyController {
         // id 가 자동으로 증가된다.
 
 
-
         // DTO의 데이터를 Entity로 변환한다.
         form.setAc_picture(ac_picture);
         form.setAc_enddate(ac_enddate);
@@ -129,8 +127,6 @@ public class AccompanyController {
         Accompany accompany = form.toEntity();
         Accompany saved = accompanyRepository.save(accompany);
         System.out.println("form 태그 세터로 세팅 후 " + accompany);
-
-
 
 
         return "redirect:/community/accompany";
@@ -154,8 +150,6 @@ public class AccompanyController {
         accompanyService.increaseViewCount(accompanyEntity.getAc_num()); // 객체를 찾아오기전에 미리 조회수를 올리고 찾아오기보다는 찾아오고 있을때 걔의조회수를 올려야하는데
         // 그러면 클라이언트는 증가되기전의 조회수를 보므로 임의로 객체의 변수값을 바꿔준다.
         accompanyEntity.setAc_viewcount(accompanyEntity.getAc_viewcount()+1);
-
-
 
 
         model.addAttribute("accompany", accompanyEntity);
@@ -190,7 +184,7 @@ public class AccompanyController {
 
     // 동행 글의 수정 클릭 > 해당 글 번호 불러오기
     @GetMapping("community/accompany/edit")
-    public String index(@RequestParam("ac_num") Long ac_num, Model model) {
+    public String accompanyEdit(@RequestParam("ac_num") Long ac_num, Model model) {
 
 
         System.out.println("컨트롤러의 edit() 메서드를 실행");
@@ -266,6 +260,40 @@ public class AccompanyController {
     }
 
 
+
+    // 글 삭제하기
+
+    @GetMapping("community/accompany/delete")
+    public String Accompanydelete(@RequestParam("ac_num") Long ac_num,
+                                  RedirectAttributes rttr) {
+
+        //RedirectAttributes : 리디렉션을 수행할때, 다른컨트롤러 메서드로 attributes를 전달하는데 이용
+        // addAttribute() : 주소창에 정보 노출되어도 상관없는 정보 보임, 정보 넘김
+                            //쿼리 파라미터가 있는 url에 접근하는 하느 여러요청에 사용가능
+
+        //addFlashAttribute 의 경우 데이타가 post 형식으로 전달,
+        // 세션에 저장되고 오직 다음요청에서만 접근 가능, 세션에 저장되어 사용된 뒤 자동 삭제
+        // 검증결과, 성공 실패여부 메세지 등 임시 사용되는 데이터에 사용, 주소창에 표기되지 x
+
+        System.out.println("컨트롤러 delete() 메서드를 실행");
+        System.out.print("ac_num : " + ac_num);
+
+
+        // 삭제할 데이터를 가져온다.
+        Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
+        System.out.println(accompanyEntity.toString());
+
+        //데이터 삭제
+        if(accompanyEntity != null) {
+            accompanyRepository.delete(accompanyEntity);
+
+            rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
+        }
+
+        return "redirect:/community/accompany";
+    }
+
+
 //    //동행 글 정보
 //    @GetMapping("/community/accompany/detail/{ac_num}") // http://localhost:8070/community/accompany
 //    public String communityAccompanyDetail(@PathVariable Long ac_num, Model model){
@@ -288,28 +316,7 @@ public class AccompanyController {
 //
 
 
-//
-//
-//    // 글 삭제하기
-//    @GetMapping("/community/accompany/accompany/{ac_num}/delete")
-//    public String communityAccompanydelete(@PathVariable Long ac_num, RedirectAttributes rttr){
-//
-//        System.out.println("컨트롤러 delete() 메서드를 실행");
-//        System.out.print("ac_num : " + ac_num);
-//
-//        // 삭제할 데이터를 가져온다.
-//        Accompany target = accompanyRepository.findById(ac_num).orElse(null);
-//        System.out.println(target.toString());
-//
-//        //데이터 삭제
-//        if(target != null) {
-//            accompanyRepository.delete(target);
-//
-//            rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
-//        }
-//
-//        return "community/accompany/accompany";
-//    }
+
 
 
 }
