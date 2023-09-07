@@ -2,7 +2,9 @@ package com.kh.myproject.community.accompany.controller;
 
 import com.kh.myproject.community.accompany.dto.AccompanyForm;
 import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.accompany.entity.Comment;
 import com.kh.myproject.community.accompany.repository.AccompanyRepository;
+import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user", "accompany"})
 public class AccompanyController {
 
     @Autowired
     AccompanyRepository accompanyRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @Autowired
     AccompanyService accompanyService;
@@ -39,7 +43,7 @@ public class AccompanyController {
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityaccompany(Model model) {
+    public String communityAccompany(Model model) {
 
 
         System.out.println("컨트롤러의 ");
@@ -77,7 +81,7 @@ public class AccompanyController {
     }
 
     @PostMapping("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
-    public String accompanywritePro(
+    public String accompanyWritePro(
                                     HttpSession session,
                                     AccompanyForm form,
                                     @RequestParam(value = "start_date",defaultValue = "") String start_date,
@@ -150,6 +154,12 @@ public class AccompanyController {
         accompanyService.increaseViewCount(accompanyEntity.getAc_num()); // 객체를 찾아오기전에 미리 조회수를 올리고 찾아오기보다는 찾아오고 있을때 걔의조회수를 올려야하는데
         // 그러면 클라이언트는 증가되기전의 조회수를 보므로 임의로 객체의 변수값을 바꿔준다.
         accompanyEntity.setAc_viewcount(accompanyEntity.getAc_viewcount()+1);
+
+        System.out.println("accompanyEntity:"+accompanyEntity);
+        List<Comment> commentEntity = commentRepository.findAllByAccompany_Acnum(ac_num);
+
+
+        model.addAttribute("commentList", commentEntity);
 
 
         model.addAttribute("accompany", accompanyEntity);

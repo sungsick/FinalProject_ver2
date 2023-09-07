@@ -1,4 +1,4 @@
-INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`, `user_regdate`)
+INSERT INTO user (`user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`, `user_regdate`)
 VALUES
     ('test', '테스트계정', '1234', '01012345678', 'M', '1998-08-21', 'ENTJ', 'default1.png', '2023-08-21 12:34:56'),
     ('john_doe@example.com', 'JohnDoe', 'password123', '01012345678', 'M', '1998-08-21', 'ENTJ', 'default1.png', '2023-08-21 12:34:56'),
@@ -148,3 +148,7 @@ VALUES
     (10, '202309171815', '202309171930', '비즈니스', '에어부산', '112300', '부산', '서울', 'BX789', 12),
     (11, '202309091100', '202309091300', '퍼스트클래스', '대한항공', '210000', '서울', '상하이', 'KE999', 13),
     (12, '202309191545', '202309191745', '이코노미', '아시아나항공', '69000', '서울', '도쿄', 'OZ789', 14);
+
+
+INSERT INTO `comment` (co_content, co_regdate, user_number, ac_num)
+VALUES ('동행 구하셨나요??', NOW(), 1, 2);

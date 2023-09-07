@@ -40,14 +40,17 @@ $(document).ready(() => {
                 console.log("result : " + data);
 
                 Swal.fire({
-                    title: '정말 삭제하시겠습니까?',
-                    showDenyButton: true,
+                    title: '게시물을 삭제하시겠습니까?',
+                    icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: '삭제',
-                    denyButtonText: '아니요',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '삭제'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire('삭제되었습니다!', '', 'success');
+                        Swal.fire('삭제',
+                            '삭제되었습니다.',
+                            'success')
                         window.location.href = '/community/accompany/'
                     }
                 });

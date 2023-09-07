@@ -6,8 +6,8 @@ use finalproject;
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
 delete from finalproject.qna;
-delete from finalproject.accompany;
 delete from finalproject.comment;
+delete from finalproject.accompany;
 delete from finalproject.user;
 delete from finalproject.manager;
 
