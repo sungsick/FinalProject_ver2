@@ -31,7 +31,7 @@ public class AccompanyController {
     @GetMapping("/community/home") //http://localhost:8070/community/home
     public String communityhome() {
 
-        System.out.println("donghangMain2 테스트..");
+        System.out.println("communityhome 테스트..");
 
         return "community/home";
     }
@@ -262,14 +262,13 @@ public class AccompanyController {
 
 
     // 글 삭제하기
-
-    @GetMapping("community/accompany/delete")
+    @ResponseBody
+    @PostMapping("/community/accompany/delete")
     public String Accompanydelete(@RequestParam("ac_num") Long ac_num,
                                   RedirectAttributes rttr) {
 
         //RedirectAttributes : 리디렉션을 수행할때, 다른컨트롤러 메서드로 attributes를 전달하는데 이용
         // addAttribute() : 주소창에 정보 노출되어도 상관없는 정보 보임, 정보 넘김
-                            //쿼리 파라미터가 있는 url에 접근하는 하느 여러요청에 사용가능
 
         //addFlashAttribute 의 경우 데이타가 post 형식으로 전달,
         // 세션에 저장되고 오직 다음요청에서만 접근 가능, 세션에 저장되어 사용된 뒤 자동 삭제
