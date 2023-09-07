@@ -3,7 +3,8 @@
 // 카카오맵 js
 
 var item = []; //일정 선택을 담을 배열
-
+var type = document.getElementById('type').value;
+console.log(type);
 // 마커를 담을 배열입니다
 var markers = [];
 
@@ -193,7 +194,14 @@ $('.add_place_btn').on('click', function () {
         data: JSON.stringify(item),
         contentType: 'application/json',
         success: function (data) {
-            location.href = "/community/plan/write";
+            if(type === 'detail'){
+                window.history.go(-1);
+            }else if(type === 'write'){
+            location.href = "/community/plan/write?option=1";
+                /*window.history.go(-1);*/
+            }
+
+
         }
 
     });

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="plan_board")
+@Table(name="`plan_board`")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,12 +21,12 @@ public class PlanBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pb_num")
+    @Column(name = "`pb_num`")
     private Long pbNum; //게시글번호
 
-    @CreationTimestamp
+    /*@CreationTimestamp
     @Column
-    private LocalDateTime pbWriteDate; // 작성일자
+    private LocalDateTime pbWriteDate; // 작성일자*/
 
     @Column
     private String pbTitle; //글제목
@@ -52,7 +52,6 @@ public class PlanBoard {
     public PlanBoardDTO toDto(){
         return PlanBoardDTO.builder()
                 .pbNum(pbNum)
-                .pbWriteDate(pbWriteDate)
                 .pbTitle(pbTitle)
                 .pbStartDate(pbStartDate)
                 .pbEndDate(pbEndDate)

@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 public class PlanBoardDTO {
     private Long pbNum; //게시글번호
-    private LocalDateTime pbWriteDate; // 작성일자
+    /*private LocalDateTime pbWriteDate; // 작성일자*/
     private String pbTitle; //글제목
     private  String pbStartDate; //시작날짜
     private  String pbEndDate; //종료날짜
@@ -29,7 +29,6 @@ public class PlanBoardDTO {
     public PlanBoard toEntity(){
         return PlanBoard.builder()
                 .pbNum(pbNum)
-                .pbWriteDate(pbWriteDate)
                 .pbTitle(pbTitle)
                 .pbStartDate(pbStartDate)
                 .pbEndDate(pbEndDate)

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -54,7 +55,7 @@ public class PlanBoardService {
 
         List<PlanBoardDTO> result = new ArrayList<>();
 
-        List<PlanBoard> list = planBoardRepository.findAll();
+        List<PlanBoard> list = planBoardRepository.findAllByOrderByPbNumDesc();
 
         for(int i = 0; i < list.size(); i++){
             PlanBoardDTO boardDTO = list.get(i).toDto();
@@ -74,6 +75,48 @@ public class PlanBoardService {
         }
 
         return result;
+    }
+
+    public PlanBoardDTO getOnePlanBoard(Long pbNum){
+
+        PlanBoard planBoard = planBoardRepository.findByPbNum(pbNum);
+        log.info("getOnePlanBoard={}", planBoard);
+
+        return planBoard.toDto();
+    }
+
+    public List<PlanBoardDetailDTO> getAllPlanBoardDetailByPbNum(Long pbNum){
+
+        //db에서 가져온 entity 리스트
+        List<PlanBoardDetail> detailList = detailRepository.findByPlanBoard_pbNum(pbNum);
+
+        //리턴할 dto 리스트
+        List<PlanBoardDetailDTO> dtoList = new ArrayList<>();
+
+        //entity 리스트에서 하나하나 꺼내서 dto로 변환한 다음 dto리스트에 저장
+        for(int i = 0; i < detailList.size(); i++){
+            dtoList.add(detailList.get(i).toDto());
+        }
+
+        return dtoList;
+    }
+
+    public int getMaxByPbNum(Long pbNum){
+
+        return detailRepository.getMaxByPbNum(pbNum);
+    }
+
+    public void updatePlanBoard(PlanBoardDTO planBoardDTO){
+
+        planBoardRepository.updatePlanBoardByPbNum(planBoardDTO.toEntity());
+    }
+
+    public void deleteAllPlanBoardDetail(Long pbNum){
+        detailRepository.deleteAllByPlanBoard_pbNum(pbNum);
+    }
+
+    public void deleteBoard(Long pbNum){
+        planBoardRepository.deleteById(pbNum);
     }
 
 

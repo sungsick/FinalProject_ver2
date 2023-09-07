@@ -20,7 +20,9 @@ for(var i = 0; i < PlaceAddBtn.length; i++){
 */
 
 function test(e){
-    location.href=`/community/plan/add?day=${e.value}`;
+    if(e.id === "writePlaceAdd"){
+        location.href = `/community/plan/add?day=${e.value}&type=write`;
+    }
 }
 
 
@@ -90,6 +92,7 @@ function addTable() {
     var placeButton = document.createElement('button');
     placeButton.className = 'place_add_btn';
     placeButton.textContent = '장소 추가';
+    placeButton.id = 'writePlaceAdd';
     placeButton.onclick = function(){test(this)};
     placeButton.value = dayValue.toString();
     buttonsDiv.appendChild(placeButton);

@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="plan_board_detail")
+@Table(name="`plan_board_detail`")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -34,7 +34,7 @@ public class PlanBoardDetail {
     @Column
     private int pbdDate; //일자번호(여행일 1일차 2일차)
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name ="pb_num")
     private PlanBoard planBoard; //pbNum
 

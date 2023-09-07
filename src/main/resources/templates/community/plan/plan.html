@@ -465,7 +465,7 @@
                             </span>
                                 "일정 담기"
                             </button>
-                            <button class="test2_btn2">
+                            <button class="test2_btn2" th:onclick="|location.href='@{/community/plan/detail(pbNum=${plan.pbNum})}'|">
                             <span class="test2_btn2_span">
                                 <svg width="18" height="18" viewBox="0 0 17 17" fill="none"
                                      xmlns="http://www.w3.org/2000/svg"><circle cx="2.16667" cy="4.16667" r="0.666667"
@@ -522,11 +522,14 @@
 
 
     //일정 상세보기 클릭 시 plan_detail(일정 상세보기)로 이동
+   /*
     const ViewScheduleDetail = document.querySelector('.test2_btn2');
 
     ViewScheduleDetail.addEventListener('click', () => {
         window.location.href = '../community/plan/detail';
     });
+
+    */
 </script>
 
 <!-- Swiper JS -->

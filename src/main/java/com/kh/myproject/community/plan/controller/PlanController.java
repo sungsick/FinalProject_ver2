@@ -11,6 +11,7 @@ import com.kh.myproject.community.plan.service.PlanBoardService;
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ import static java.lang.Integer.parseInt;
 @Controller
 //@RestController
 @SessionAttributes("user")
+@Slf4j
 public class PlanController {
 
 
@@ -30,11 +32,13 @@ public class PlanController {
     PlanBoardService planBoardService;
 
 //    private Map<Integer, ArrayList<PlanBoardDetailDTO>> planMap = new HashMap<>();
-    private List<PlanBoardDetailDTO> planList = new ArrayList<>();
+    private List<PlanBoardDetailDTO> planDetailTemporalList = new ArrayList<>(); //컨트롤러 안에서만 쓰는 전역변수
 
     //일정 리스트(일정 메인)
     @GetMapping("/community/plan") // http://localhost:8080/community/plan
     public String communityplan(Model model) {
+
+        planDetailTemporalList.clear();
 
         // 1. 서비스한테 게시글 목록 요청
 
@@ -45,6 +49,7 @@ public class PlanController {
 
 
         List<PlanBoardDetailDTO> planDetailList = planBoardService.getAllPlanBoardDetailList();
+
         model.addAttribute("planDetailList", planDetailList);
         System.out.println(planDetailList);
 
@@ -56,24 +61,54 @@ public class PlanController {
 
     //일정 글 정보
     @GetMapping("/community/plan/detail") // http://localhost:8080/community/plan/detail
-    public String communityplandetail() {
+    public String communityplandetail(@RequestParam("pbNum") Long pbNum, Model model) {
+
+        PlanBoardDTO planBoardDTO = planBoardService.getOnePlanBoard(pbNum);
+        int maxDay = planBoardService.getMaxByPbNum(pbNum);
+
+        if(planDetailTemporalList.isEmpty()){
+            List<PlanBoardDetailDTO> planBoardDetailDTOList = planBoardService.getAllPlanBoardDetailByPbNum(pbNum);
+            planDetailTemporalList = planBoardDetailDTOList;
+
+        } else {
+
+            for(int i = 0; i < planDetailTemporalList.size(); i++){
+                if(planDetailTemporalList.get(i).getPbdDate() > maxDay){
+                    maxDay = planDetailTemporalList.get(i).getPbdDate();
+                }
+            }
+        }
+
+        //조회수 나중에 추가
+
+
+        log.info("board={}", planBoardDTO);
+        log.info("maxDay={}", maxDay);
+
+        model.addAttribute("plan", planBoardDTO);
+        model.addAttribute("planDetailList", planDetailTemporalList);
+        model.addAttribute("maxDay", maxDay);
 
         return "community/plan/plan_detail";
     }
 
     //일정 글 쓰기
     @GetMapping("/community/plan/write") // http://localhost:8080/community/plan/write
-    public String communityplanwrite(Model model, @ModelAttribute("user")User user) {
+    public String communityplanwrite(Model model, @ModelAttribute("user")User user, @RequestParam(value = "option", required = false) String option) {
 
         model.addAttribute(user);
 
-        System.out.println(planList);
+        if(option == null){
+            planDetailTemporalList.clear();
+        }
+
+        System.out.println(planDetailTemporalList);
         int maxDay = 0;
-        if (!planList.isEmpty()) {
-            model.addAttribute("planList", planList);
-            for(int i = 0; i < planList.size(); i++){
-                if(planList.get(i).getPbdDate() > maxDay){
-                    maxDay = planList.get(i).getPbdDate();
+        if (!planDetailTemporalList.isEmpty()) {
+            model.addAttribute("planList", planDetailTemporalList);
+            for(int i = 0; i < planDetailTemporalList.size(); i++){
+                if(planDetailTemporalList.get(i).getPbdDate() > maxDay){
+                    maxDay = planDetailTemporalList.get(i).getPbdDate();
                 }
             }
             model.addAttribute("maxDay", maxDay);
@@ -86,9 +121,11 @@ public class PlanController {
 
     //일정 글쓰기 - 장소추가
     @GetMapping("/community/plan/add") // http://localhost:8080/community/plan/add
-    public String communityplanadd(@RequestParam("day") int day,
+    public String communityplanadd(@RequestParam("day") int day, @RequestParam("type") String type,
                                    Model model) {
         model.addAttribute("day", day);
+        model.addAttribute("type", type);
+
 
         return "community/plan/plan_add";
     }
@@ -101,7 +138,7 @@ public class PlanController {
 
 
         for (PlanBoardDetailDTO PlanBoardDetailDTO : dtoList) {
-            planList.add(PlanBoardDetailDTO);
+            planDetailTemporalList.add(PlanBoardDetailDTO);
         }
 
 
@@ -112,16 +149,16 @@ public class PlanController {
     @ResponseBody
     public void deletePlan(@RequestParam("day") String day, @RequestParam("placeName") String placeName){
 
-        for(int i = 0; i< planList.size(); i++ ){
+        for(int i = 0; i< planDetailTemporalList.size(); i++ ){
 
-            if(planList.get(i).getPbdPlaceName().equals(placeName) && planList.get(i).getPbdDate() == parseInt(day)){
-                planList.remove(i);
+            if(planDetailTemporalList.get(i).getPbdPlaceName().equals(placeName) && planDetailTemporalList.get(i).getPbdDate() == parseInt(day)){
+                planDetailTemporalList.remove(i);
             }
         }
     }
 
 
-    //Plan_write 작성 완료 버튼 클릭 시
+    //Plan_write에서 작성 완료 버튼 클릭 시 Plan에 추가
     @PostMapping("/community/plan/completePlan")
     @ResponseBody
     public String completePlan(@RequestBody PlanBoardDTO boardDTO,
@@ -133,14 +170,41 @@ public class PlanController {
         boardDTO.setUser(user);
 
         // 2. service에서 db에 저장할때 필요한거 다 넘겨줌
-        planBoardService.savePlanBoard(boardDTO, planList);
+        planBoardService.savePlanBoard(boardDTO, planDetailTemporalList);
 
         // 9. 저장이 완료되면 planList 초기화
-        planList.clear();
+        planDetailTemporalList.clear();
 
         return "community/plan/plan";
     }
 
+    //Plan_Detail 에서 수정 완료 버튼 클릭 시 Plan에 추가
+    @PostMapping("/community/plan/completeUpdatePlan")
+    @ResponseBody
+    public String completeUpdatePlan(@RequestBody PlanBoardDTO boardDTO,
+                                     @ModelAttribute("user") User user){
+
+        // 1. Dto user 정보 저장
+        boardDTO.setUser(user);
+
+        planBoardService.deleteAllPlanBoardDetail(boardDTO.getPbNum());
+        planBoardService.updatePlanBoard(boardDTO);
+        planBoardService.savePlanBoard(boardDTO, planDetailTemporalList);
+        /*planBoardService.deleteBoard(boardDTO.getPbNum());*/
+
+        planDetailTemporalList.clear();
+
+        return "community/plan/plan";
+    }
+
+    @PostMapping("/community/plan/completeDeletePlan")
+    @ResponseBody
+    public String completeDeletePlan(@RequestBody PlanBoardDTO boardDTO,
+                                     @ModelAttribute("user") User user){
+
+        planBoardService.deleteBoard(boardDTO.getPbNum());
+        return "community/plan/plan";
+    }
 
 
 
