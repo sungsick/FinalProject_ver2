@@ -389,6 +389,7 @@
     align-items: center;
 }
 
+/*
 .result_category_text_on {
     all: unset;
     font-size: 14px;
@@ -404,6 +405,8 @@
     color: rgb(204, 204, 204);
     cursor: pointer;
 }
+
+*/
 
 .result_category_line {
     width: 2px;
@@ -473,4 +476,23 @@
     text-align: center;
     outline: 0;
     border: 0;
+}
+
+
+/* 정렬 순 관련 css */
+
+.result_category_text {
+    all: unset;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(204, 204, 204);
+    cursor: pointer; /* 초기 상태에서 폰트색을 검은색으로 설정 */
+}
+
+.result_category_text.active {
+    all: unset;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(40, 40, 40);
+    cursor: pointer; /* 활성화된 버튼의 폰트색을 검은색으로 유지 */
 }

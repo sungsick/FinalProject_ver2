@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(function () {
 
 
@@ -11,11 +8,11 @@ $(document).ready(function () {
             type: "GET",
             url: "/highPriceList", // 높은 가격순으로 정렬하는 컨트롤러 엔드포인트 URL
             dataType: "json", // 반환되는 데이터 형식
-            success: function(data) {
+            success: function (data) {
                 // 서버에서 반환된 데이터를 사용하여 화면 업데이트
                 updateCarList(data);
             },
-            error: function() {
+            error: function () {
                 alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         });
@@ -24,15 +21,16 @@ $(document).ready(function () {
     //가격 낮은 순 정렬
     $('#low_price_list_btn').click(function () {
 
+
         $.ajax({
             type: "GET",
-            url: "/lowPriceList", // 높은 가격순으로 정렬하는 컨트롤러 엔드포인트 URL
+            url: "/lowPriceList", // 낮은 가격순으로 정렬하는 컨트롤러 엔드포인트 URL
             dataType: "json", // 반환되는 데이터 형식
-            success: function(data) {
+            success: function (data) {
                 // 서버에서 반환된 데이터를 사용하여 화면 업데이트
                 updateCarList(data);
             },
-            error: function() {
+            error: function () {
                 alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         });
@@ -46,11 +44,11 @@ $(document).ready(function () {
             type: "GET",
             url: "/carTypeList", // 높은 가격순으로 정렬하는 컨트롤러 엔드포인트 URL
             dataType: "json", // 반환되는 데이터 형식
-            success: function(data) {
+            success: function (data) {
                 // 서버에서 반환된 데이터를 사용하여 화면 업데이트
                 updateCarList(data);
             },
-            error: function() {
+            error: function () {
                 alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         });
@@ -68,25 +66,31 @@ $(document).ready(function () {
             data: {
                 searchKeyword: searchKeyword // 검색어를 쿼리 매개변수로 전달
             },
-            success: function(data) {
+            success: function (data) {
                 // 서버에서 반환된 데이터를 사용하여 화면 업데이트
                 updateCarList(data);
             },
-            error: function() {
+            error: function () {
                 alert("데이터를 불러오는 중에 오류가 발생했습니다.");
             }
         });
     });
 
 
+    //검색결과 정렬 작동 js
+    // low_price_list_btn 버튼을 초기 active 상태로 설정
+    $('#low_price_list_btn').addClass('active');
+
+    $('.result_category_text').click(function () {
+        $('.result_category_text').removeClass('active'); // 모든 버튼에서 active 클래스 제거
+        $(this).addClass('active'); // 클릭한 버튼에 active 클래스 추가
+    });
 
 
 });
 
 
 //결과 상자의 호버효과
-
-
 
 
 //정렬조건에 따라 결과 상자 보여주기
@@ -103,7 +107,7 @@ function updateCarList(data) {
                     <div><span class="result_item_year">${carInfo.car_year}</span></div>
                     <p class="result_item_name" id="car_name">${carInfo.car_name}</p>
                     <p class="result_item_type">${carInfo.car_type}</p>
-                    <img src="${carInfo.car_img}" style="width: 100%; max-width: 163px;">
+                    <img src="/img/store/rentcar/${carInfo.car_img}" style="width: 100%; max-width: 163px;">
                     <div class="price_box">
                         <p class="lowest_label">최저</p>
                         <p class="PriceText-iWKXRR result_item_price">${carInfo.car_discount}</p>
