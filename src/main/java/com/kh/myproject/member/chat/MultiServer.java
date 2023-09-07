@@ -24,9 +24,13 @@ public class MultiServer {
 			serverSocket = new ServerSocket(8000);
 			while (true) {
 				System.out.println("[클라이언트 연결대기중]");
-				socket = serverSocket.accept();
+				socket = serverSocket.accept(); // ServerSocket객체의 accept의 반환 객체는 Socket객체이다.
+				// Socket객체가 직접적으로 TCP와 IO 를 주고받는 객체이다.
+				// ServerSocket은 포트번호와 객체를 연결 시켜주는 것 뿐이다. accept는 새현재 설정한 serversocket객체의 포트번호로
+				// 다른 소켓이 연결되지 않으
 
 				// client가 접속할때마다 새로운 스레드 생성
+				System.out.println("multi server의 start메서드 실행");
 				ReceiveThread receiveThread = new ReceiveThread(socket);
 				receiveThread.start();
 			}
@@ -76,7 +80,8 @@ class ReceiveThread extends Thread {
 			System.out.println("[" + name + " 새연결생성]");
 			sendAll("[" + name + "]님이 들어오셨습니다.");
 
-			while (in != null) {
+			while (in != null) { // in이 null이 아닐 동안 계속 해서 메시지를 받을 수 있게끔 대기한다. 즉 서버는 최초에 1회 실행된 이후로
+				// 계속 이 while문 안에 있는 것.
 				String inputMsg = in.readLine();
 				if("quit".equals(inputMsg)) break;
 				sendAll(name + ">>" + inputMsg);

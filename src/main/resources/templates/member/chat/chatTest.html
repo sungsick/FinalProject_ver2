@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+
+<style>
+
+    #yourMsg {
+        margin: 0 auto;
+    }
+
+    body {
+        /*text-align: center;*/
+    }
+
+    #chatting {
+
+        width: 1000px;
+        height: 500px;
+        border: 1px solid black;
+        margin: 0 auto;
+    }
+</style>
+<body>
+
+<button type="button" id="openChat"> 채팅방입장</button>
+
+<input type="hidden" value="1" id="user_number">
+<div class="container" id="container">
+    <h1 id="title_room">채팅방제목</h1>
+    <div id="chatting" class="chatting">
+    </div>
+    <div id="yourMsg">
+        <table class="inputTable">
+            <tr>
+                <th>메시지</th>
+                <th><input id="msg" placeholder="보내실 메시지를 입력하세요."></th>
+                <th>
+                    <button onclick="send()" id="sendBtn">보내기</button>
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="/jq/jquery-3.7.0.min.js"></script>
+
+<script>
+
+        var webSocket;
+
+    // 로직 순서는 다음과 같을 것이다.
+    // 1.채팅 창을 연다. -> stickey상태로 고정된 어떠한 채팅 아이콘.
+    // 2. 채팅창을 여는 순간 websocket연결이 이뤄져야한다. chatting관련된 내용은 chat.js로 모든 파일에 추가한다. 혹은 header에 추가.
+    // 이떄 endpoint는 유저들ㅇ을 구별할 수 있는 식별자로 설정한다.
+    // 우선은 handler에서는 모든 유저를 받아야 하기 떄문에 *와일드카드를 사용한다.
+    // 3. websocket을 연결하게 되면 hadnler의 onopen 메서드가 실행될 것이다.
+
+    var userNumber;
+
+
+
+    $('#openChat').click(function () {
+
+        $.ajax({
+
+            method: 'POST',
+            url: '/getUserNumber',
+            success: function (data) {
+
+                userNumber = data;
+                console.log('넘겨받은 userNumber' + userNumber)
+                // const serverSocket = requir
+
+            }, error: function () {
+
+            }
+        })
+
+        webSocket = new WebSocket('ws://'+location.host+'/ws' + userNumber);
+
+        run()
+    })
+
+        function run(){
+            webSocket.onmessage = function(e){
+
+                console.log(e);
+            }
+        }
+    // var socket = new SockJS("/chatting");
+    // var webSocket = new WebSocket('ws://localhost:8080/chatting');
+
+
+    // onclicck
+    //
+    // webSocket.onopen = function () {
+    //     console.log('연결성공')
+    // }
+    //
+    // webSocket.onerror = function () {
+    //     console.log('error발생');
+    // }
+    //
+    // webSocket.onclose = function () {
+    //
+    //     console.log("socket close");
+    // }
+
+    function send() {
+
+        console.log()
+        webSocket.send($('#msg').val());
+        var sendmsg = $('#msg').val()
+        var content = `<p>${sendmsg}</p>`
+        console.log(content)
+
+        $('#chatting').append(content);
+
+    }
+
+
+    //
+    // webSocket.onmessage = function (ev) {
+    //
+    //     console.log('asas')
+    //     console.log(ev.data);
+    //
+    // }
+    //
+    // webSocket.addEventListener('message',(event)=>{
+    //     console.log(event.data);
+    // })
+
+
+</script>
+</body>
+</html>

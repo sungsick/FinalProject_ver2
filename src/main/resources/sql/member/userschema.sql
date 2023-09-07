@@ -3,6 +3,7 @@
 
 use finalproject;
 
+delete from finalproject.rent_info;
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
 delete from finalproject.qna;
@@ -13,6 +14,7 @@ delete from finalproject.manager;
 
 
 
+alter table finalproject.rent_info auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
 alter table finalproject.ticket_info auto_increment = 1;
