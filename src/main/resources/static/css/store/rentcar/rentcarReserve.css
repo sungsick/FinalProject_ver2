@@ -76,6 +76,16 @@
     background-color: #fff;
 }
 
+.search_input_round_date {
+    width: 50%;
+    height: 46px;
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+}
 
 .search_input_detail {
     border: none;
@@ -138,6 +148,14 @@
     background-color: #00ce7c;
     color: #fff;
     outline: none;
+}
+
+.reserve_search_button {
+    width: 110px;
+    background-color: #00ce7c;
+    border-radius: 20px;
+    font-size: 20px;
+    box-shadow: 1px 1px 5px #00000026;
 }
 
 /*서치바 css 종료*/
@@ -265,6 +283,19 @@
     will-change: transform;
 }
 
+.result_item:hover{
+
+    box-shadow: 5px 5px 5px 5px;
+
+}
+
+
+.price_box{
+    display: flex;
+    flex-direction: row;
+ text-align: center;
+    margin: 25px 0px 0px;
+}
 
 .result_item_year {
     font-size: 12px;
@@ -285,6 +316,7 @@
     overflow: hidden;
 }
 
+
 .result_item_type {
     width: 100%;
     font-size: 14px;
@@ -298,11 +330,21 @@
 }
 
 
+.lowest_label{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 26px;
+    color: #005eff;
+    margin-right: 5px;
+
+
+}
+
 .result_item_price {
     font-size: 20px;
     font-weight: 600;
     line-height: 26px;
-    margin: 25px 0px 0px;
+    margin: 0px 0px 0px;
 }
 
 .filter_button {
@@ -347,6 +389,7 @@
     align-items: center;
 }
 
+/*
 .result_category_text_on {
     all: unset;
     font-size: 14px;
@@ -362,6 +405,8 @@
     color: rgb(204, 204, 204);
     cursor: pointer;
 }
+
+*/
 
 .result_category_line {
     width: 2px;
@@ -431,4 +476,23 @@
     text-align: center;
     outline: 0;
     border: 0;
+}
+
+
+/* 정렬 순 관련 css */
+
+.result_category_text {
+    all: unset;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(204, 204, 204);
+    cursor: pointer; /* 초기 상태에서 폰트색을 검은색으로 설정 */
+}
+
+.result_category_text.active {
+    all: unset;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(40, 40, 40);
+    cursor: pointer; /* 활성화된 버튼의 폰트색을 검은색으로 유지 */
 }
