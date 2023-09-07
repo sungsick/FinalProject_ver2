@@ -1022,20 +1022,6 @@ h6 > b {
     display: inline-block;
 }
 
-/*.cities_title_container:before {
-    content: "";
-    position: absolute;
-    background-image: url("/img/store/tour/cities/seoul/title.jpg");
-
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 335px;
-    z-index: -1;
-    bottom: 10px;
-    background-color: rgba(29, 27, 27, 0.5);
-    background-blend-mode: multiply;
-}*/
 
 .cities_title_city_info {
     width: 1100px;
@@ -1098,22 +1084,6 @@ h6 > b {
     font-weight: bold;
 }
 
-/*.cities_nav_link::after {
-    position: absolute;
-    content: '';
-    height: 1px;
-    transition: 0.5s;
-    background-color: #00b8ff;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    opacity: 0;
-}
-
-.cities_nav_link:hover::after {
-    opacity: 1;
-    font-weight: bold;
-}*/
 
 .cities_card_container {
     margin: 0 auto;
@@ -1159,9 +1129,6 @@ h6 > b {
     transition: opacity 0.5s;
 }
 
-.cities_card {
-
-}
 
 .cities_card button {
     background-color: rgba(0, 0, 0, 0);
@@ -1186,79 +1153,51 @@ h6 > b {
     opacity: 0;
 }
 
-.flight_rank_container {
-    margin: 0 auto;
-    width: 1150px;
-    margin-top: 50px;
-}
-
-.flight_rank_card {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    width: 250px;
-    height: 250px;
-    background: rgb(255, 255, 255);
-    border-radius: 14px;
-    box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
-    transition: 1s;
-}
-
-.flight_rank_title {
-    vertical-align: middle;
-}
-
-.flight_rank_bgimg {
-    transition: 1s;
-    height: 250px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 14px;
-}
-
-.flight_rank_card:hover {
-    scale: 1.1;
-}
-
-.flight_rank_card:not(:hover) {
-    scale: 1;
-}
-
-#flight_jeju {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/236/850/CJU/00006");
-}
-
-#flight_busan {
-
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/736/602043/PUS/00003");
-}
-
-#flight_yeosu {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/703/3042/RSU/00001");
-}
-
-#flight_cheongju {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/default/00001.jpg");
-}
-
-.flight_rank_text {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.flight_rank_text span {
-    margin: 0 10px;
-}
-
-.flight_rank_text i:before {
-    content: url("https://openimage.interpark.com/tour-desktop/pages/air/main/icon-oneway.png");
-}
 
 .mySwiper img {
     height: 300px;
     width: 100%;
+}
+
+.visual_wrap{
+
+    position: relative;
+    height: 300px;
+    text-align: center;
+    color: white;
+}
+
+
+.visual_text{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
+
+.visual_text strong{
+    font-size: 30px;
+}
+
+.visual_text span{
+    font-size: 18px;
+}
+
+#visual2{
+    background: url(/img/store/tour/tourmain/main_02.jpg) center no-repeat;
+    background-size: 1200px 300px;
+}
+
+#visual3{
+    background: url("/img/store/tour/tourmain/main_03.jpg") center no-repeat;
+    background-size: 1200px 300px;
+}
+
+.visual_wrap .visual_title{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 300px;
+    height: 250px;
 }
