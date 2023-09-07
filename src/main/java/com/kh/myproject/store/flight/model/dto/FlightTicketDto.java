@@ -23,6 +23,7 @@ public class FlightTicketDto {
     private String ticToLocation;
     private String ticVihicleId;
     private User user;
+    private String tid;
 
 
     public FlightTicketInfo toEntity(){
@@ -38,6 +39,7 @@ public class FlightTicketDto {
                 .ticToLocation(ticToLocation)
                 .ticVihicleId(ticVihicleId)
                 .user(user)
+                .tid(tid)
                 .build();
     }
 }

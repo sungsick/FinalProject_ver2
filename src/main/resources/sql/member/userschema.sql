@@ -42,6 +42,7 @@ CREATE TABLE if not exists `ticket_info`
     `tic_ticket_id`             bigint       NOT NULL,
     `tic_flight_departure_date` varchar(100) NOT NULL,
     `tic_flight_arrival_date`   varchar(100) NOT NULL,
+    `tic_airline_logo`          varchar(100) NOT NULL,
     `tic_seat_grade`            varchar(100) NOT NULL,
     `tic_airline_name`          varchar(100) NOT NULL,
     `tic_fee`                   int          NOT NULL,
@@ -50,6 +51,23 @@ CREATE TABLE if not exists `ticket_info`
     `tic_vihicle_id`            varchar(100) NOT NULL,
     `user_number`               bigint       NOT NULL
 );
+CREATE TABLE if not exists `rent_info`
+(
+    `rent_id`             bigint       NOT NULL auto_increment,
+    `rent_name`           varchar(100) NOT NULL,
+    `rent_type`           varchar(100) NOT NULL,
+    `rent_company`        varchar(100) NOT NULL,
+    `rent_option`         varchar(3000),
+    `rent_price`          varchar(100) NOT NULL,
+    `rent_departure_date` date         NOT NULL,
+    `rent_arrival_date`   date         NOT NULL,
+    `rent_img`            varchar(100) NOT NULL,
+    `rent_accommodate`    bigint       NOT NULL,
+    `rent_year`           varchar(30)  NOT NULL,
+    `rent_oil`            varchar(30)  NOT NULL,
+    `user_number`         bigint       NOT NULL
+);
+
 
 CREATE TABLE if not exists `area_tourism`(
     `area_id` bigint not null primary key auto_increment,

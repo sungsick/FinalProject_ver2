@@ -1,16 +1,16 @@
 package com.kh.myproject.member.manager.controller;
 
 
-import com.kh.myproject.member.manager.service.AccompanyServiceM;
 import com.kh.myproject.member.manager.model.entity.Manager;
-import com.kh.myproject.member.user.model.dto.QnaForm;
+import com.kh.myproject.member.manager.service.*;
+import com.kh.myproject.member.manager.service.AccompanyServiceM;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.service.QnaServiceM;
 import com.kh.myproject.member.manager.service.UserServiceM;
-import com.kh.myproject.member.user.service.QnaService;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.member.manager.service.FlightServiceM;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,40 +31,21 @@ public class ManagerController {
 
 
     @Autowired
-    UserServiceM userService;
+    UserServiceM userServiceM;
 
     @Autowired
-    QnaServiceM qnaService;
+    QnaServiceM qnaServiceM;
+
+
 
     @Autowired
-    FlightServiceM flightService;
+    RentServiceM rentServiceM;
 
     @Autowired
-    AccompanyServiceM accompanyService;
+    FlightServiceM flightServiceM;
 
-
-
-    @PostMapping("member/questionSubmit")
-    public String questionSubmit(
-            @RequestParam("qna_title") String qna_title,
-            @RequestParam("qna_content") String qna_content,
-            @ModelAttribute("user") User session_user,
-            QnaForm qnaForm,
-            Model model
-    ) {
-
-        // 기본키값을 넘겨줘야 save메서드에서 id값을 이용해 수정이 가능하다....
-
-        Qna qna = new Qna();
-
-        qna.setQnaWriter(session_user.getUserId());
-        qna.setQnaTitle(qnaForm.getQna_title());
-        qna.setQnaContent(qnaForm.getQna_content());
-
-        qnaService.submitQna(qna);
-
-        return "member/user/mypage";
-    }
+    @Autowired
+    AccompanyServiceM accompanyServiceM;
 
 
     @GetMapping("/manager/home")
@@ -80,11 +61,11 @@ public class ManagerController {
 
 
             modelAndView.setViewName("/member/manager/home");
-            List<User> userList = userService.findAllUser();
+            List<User> userList = userServiceM.findAllUser();
 
-            int qnaCount = qnaService.countByQna();
-            int countMen = userService.countByUserGender("M");
-            int countWomen = userService.countByUserGender("F");
+            int qnaCount = qnaServiceM.countByQna();
+            int countMen = userServiceM.countByUserGender("M");
+            int countWomen = userServiceM.countByUserGender("F");
 
 
             modelAndView.addObject("manager", check_manager);
@@ -93,6 +74,9 @@ public class ManagerController {
             modelAndView.addObject("countMen",countMen);
             modelAndView.addObject("countWomen",countWomen);
 
+            // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
+            // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
 
         } else {
 
@@ -128,22 +112,14 @@ public class ManagerController {
     }
 
 
-    @GetMapping("/manager/rentcar")
-    public String rentcar() {
-
-        return "member/manager/rentcar";
-    }
-
-
-
 
 
     @PostMapping("/test/getUserChart")
     @ResponseBody
     public Map<String, Object> getUserChart() {
 
-        List<Integer> countList = userService.getUserJoinCount();
-        List<Object[]> list = userService.getUserAgeCount();
+        List<Integer> countList = userServiceM.getUserJoinCount();
+        List<Object[]> list = userServiceM.getUserAgeCount();
         Map<String, BigInteger> ageMap = new HashMap<>();
 
 
@@ -175,13 +151,15 @@ public class ManagerController {
 
         // 외래키로 설정한 테이블의 모든 데이터를 지운다.
         // 동행글, 게시글, 댓글, 렌트카, 항공권
-        flightService.deleteTicketByUserNumber(user_number);
-        accompanyService.deleteByUserNumber(user_number);
+        flightServiceM.deleteTicketByUserNumber(user_number);
+        accompanyServiceM.deleteByUserNumber(user_number);
 
         System.out.println("accompany삭제 실행?");
 
-        userService.deleteUser(user_number);
-        List<User> userList = userService.findAllUser();
+        userServiceM.deleteUser(user_number);
+
+        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+        List<User> userList = userServiceM.findAllUser();
 
 
         System.out.println(userList);
@@ -197,9 +175,6 @@ public class ManagerController {
                            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
                            @RequestParam(value = "search_word", defaultValue = "") String search_word,
                            @RequestParam(value = "search_option", defaultValue = "all") String search_option) {
-
-        // 세션처리하기.
-
 
         // 기본적인 로직 순서는 다음과 같다.
         // 1. 처음 페이지를 띄울떄는 모든 유저 리스트를 가지고 갈 것이다
@@ -233,15 +208,15 @@ public class ManagerController {
 
         if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
 
-            userCount = userService.selectUserCount();
-            userList = userService.findUserByPage(pageNo);
+            userCount = userServiceM.selectUserCount();
+            userList = userServiceM.findUserByPage(pageNo);
 
         } else if (!search_word.equals("")) {  // 검색어로 유저 조회했을 경우.
 
 
             // 페이지 처리에 따라 like문 조회해야한다.
-            userList = userService.selectUserBySearchWord(pageNo,search_word, search_option);
-            userCount = userService.countBysearchWorld(search_word,search_option);
+            userList = userServiceM.selectUserBySearchWord(pageNo,search_word, search_option);
+            userCount = userServiceM.countBysearchWorld(search_word,search_option);
 
         }
 
@@ -325,15 +300,17 @@ public class ManagerController {
 
     @GetMapping("/manager/qna")
     public ModelAndView qna(
-            @ModelAttribute("manager") Manager check_manager,
+//            @ModelAttribute("manager") Manager check_manager,
             ModelAndView modelAndView,
             HttpSession session) {
+
+        Manager check_manager = (Manager) session.getAttribute("manager");
 
         if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
             //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
 
             modelAndView.setViewName("member/manager/qna");
-            List<Qna> qnaList = qnaService.getAllQna();
+            List<Qna> qnaList = qnaServiceM.getAllQna();
 
             modelAndView.addObject("manager", check_manager);
             modelAndView.addObject("qnaList", qnaList);
@@ -358,11 +335,9 @@ public class ManagerController {
                                String qnaNumber) {
 
         System.out.println(qnaNumber);
-        qnaService.deleteQna(qnaNumber);
+        qnaServiceM.deleteQna(qnaNumber);
 
-        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
-        List<Qna> qnaList = qnaService.getAllQna();
-
+        List<Qna> qnaList = qnaServiceM.getAllQna();
 
         System.out.println(qnaList);
 
@@ -377,7 +352,7 @@ public class ManagerController {
         System.out.println(qnaNumber);
         System.out.println(qnaAnswer);
 
-        qnaService.updateAnswer(qnaNumber, qnaAnswer);
+        qnaServiceM.updateAnswer(qnaNumber, qnaAnswer);
 
     }
 
@@ -411,15 +386,15 @@ public class ManagerController {
 
         if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
 
-            ticketCount = flightService.selectTicketCount();
-            ticketList = flightService.findTicketByPage(pageNo);
+            ticketCount = flightServiceM.selectTicketCount();
+            ticketList = flightServiceM.findTicketByPage(pageNo);
 
         } else if (!search_word.equals("")) {  // 검색어로 유저 조회했을 경우.
 
 
             // 페이지 처리에 따라 like문 조회해야한다.
-            ticketList = flightService.selectTicketBySearchWord(pageNo,search_word, search_option);
-            ticketCount = flightService.countBysearchWorld(search_word,search_option);
+            ticketList = flightServiceM.selectTicketBySearchWord(pageNo,search_word, search_option);
+            ticketCount = flightServiceM.countBysearchWorld(search_word,search_option);
 
         }
 
@@ -471,17 +446,59 @@ public class ManagerController {
 
 
         System.out.println(ticTicketId);
-        flightService.deleteTicket(ticTicketId);
+        flightServiceM.deleteTicket(ticTicketId);
         // 외래키로 설정한 테이블의 모든 데이터를 지운다.
         // 렌트카 예약 내역, 동행게시글, 댓글 등
 
 
-        List<FlightTicketInfo> ticketList = flightService.findAll();
+        List<FlightTicketInfo> ticketList = flightServiceM.findAll();
 
 
         System.out.println(ticketList);
 
         return ticketList;
+
+    }
+
+    //    렌트카
+
+    @GetMapping("/manager/rentcar")
+    public ModelAndView rent(
+//            @ModelAttribute("manager") Manager check_manager,
+            ModelAndView modelAndView,
+            HttpSession session) {
+
+        Manager check_manager = (Manager) session.getAttribute("manager");
+
+        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
+            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+
+            modelAndView.setViewName("member/manager/rentcar");
+            List<RentReservationInfo> rentList = rentServiceM.getAllRent();
+            modelAndView.addObject("rentList", rentList);
+
+
+        } else {
+
+            // url로 접속했을 경우 에러페이지로 이동시킨다.
+            modelAndView.setViewName("redirect:/errorPage");
+
+        }
+
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @PostMapping("/manager/deleteRent")
+    public void deleteRent(@ModelAttribute(name = "userNumber")
+                           String userNumber) {
+
+        System.out.println(userNumber);
+        rentServiceM.deleteRent(userNumber);
+
+        List<RentReservationInfo> rentList = rentServiceM.getAllRent();
+
+        System.out.println(rentList);
 
     }
 

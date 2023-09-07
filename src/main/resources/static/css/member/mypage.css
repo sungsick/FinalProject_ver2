@@ -1,4 +1,3 @@
-
 body{
   zoom: 1.1;
 }
@@ -46,9 +45,9 @@ main{
     width: max-content;
     height: max-content;
     box-sizing: border-box;
+    top: 186px;
     user-select: none;
     -webkit-user-drag: none;
-    top:186px;
 
 }
 .content2_options{
@@ -236,7 +235,9 @@ li:hover{
     width: 100%;
     margin-bottom: 30px;
 }
-
+.plane_tickets{
+    height: 150px;
+}
 .p_ticket:hover, .rent_tickets:hover{
     background-color: #fcfcfc;
 }
@@ -285,7 +286,7 @@ li:hover{
 
 .user_agender {
     font-size: 10px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
 }
 
@@ -377,7 +378,7 @@ li:hover{
     font-size: 13px;
     font-weight: 600;
     line-height: 19px;
-    color: rgb(0, 143, 246);
+    color: #00B8FF;
 }
 
 .img_area i {
@@ -391,7 +392,7 @@ li:hover{
 }
 
 .submit_btn{
-    background: rgb(0, 182, 206) !important;
+    background: #00B8FF !important;
     color: rgb(255, 255, 255) !important;
     font-size: 15px;
     font-weight: 400;
@@ -490,6 +491,7 @@ li:hover{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
     display: flex;
     align-items: center;
+    height: 100%;
 }
 .r_ticket{
     padding: 20px 16px;
@@ -577,11 +579,15 @@ li:hover{
 }
 .ri_1{
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 .ri_2{
     margin-top: 4.5px;
     font-size: 14px;
-
+    width: 200px;
+}
+.rd_1{
+    width: 180px;
 }
 .rd_2{
     margin-left: 35px;
@@ -590,11 +596,8 @@ li:hover{
     display: flex;
 }
 .ri_3{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70px;
-    width: 190px;
+
+    font-size: 14px;
 }
 .airport{
     width: 120px;
@@ -673,7 +676,7 @@ select{
     box-sizing: border-box;
     width: 74px;
     height: 44px;
-    background: rgb(0, 182, 206);
+    background: #00B8FF;
     color: rgb(255, 255, 255);
     border-radius: 10px;
     transition: background-color 0.3s ease-out 0s;
@@ -749,7 +752,7 @@ textarea{
     border: none;
 }
 #question_btn_submit{
-    background: rgb(0, 182, 206);
+    background: #00B8FF;
 }
 
 .test2 {
@@ -818,7 +821,7 @@ textarea{
 
 .user_agender2 {
     font-size: 11px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: 60px;
 }
@@ -874,7 +877,7 @@ textarea{
 .test2_area {
     margin-top: 190px;
     font-size: 15px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: auto;
     background-color: ghostwhite;
@@ -882,7 +885,7 @@ textarea{
 .area_text {
     margin-left: 10px;
     padding: 10px 0px;
-    border-bottom: 2px #588fee;
+    border-bottom: 2px #00B8FF;
 }
 
 .area_text i {

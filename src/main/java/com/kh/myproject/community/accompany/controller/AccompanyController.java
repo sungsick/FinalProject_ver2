@@ -1,26 +1,18 @@
-
-
-
 package com.kh.myproject.community.accompany.controller;
 
 import com.kh.myproject.community.accompany.dto.AccompanyForm;
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.accompany.repository.AccompanyRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
-import com.kh.myproject.community.accompany.service.CommentService;
 import com.kh.myproject.member.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,49 +21,42 @@ import java.util.List;
 public class AccompanyController {
 
     @Autowired
-    private AccompanyRepository accompanyRepository;
+    AccompanyRepository accompanyRepository;
 
     @Autowired
     AccompanyService accompanyService;
 
-    @Autowired
-    CommentService commentService;
-
-
     //여행커뮤니티 홈(메인페이지 병합 전 삭제)
     @GetMapping("/community/home") //http://localhost:8070/community/home
-    public List<Accompany> index() {
+    public String communityhome() {
 
         System.out.println("donghangMain2 테스트..");
 
-        return accompanyRepository.findAll();
+        return "community/home";
     }
-
 
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityaccompany(@RequestParam(name = "searchName" , defaultValue = "") String searchName,
-                                     Model model) {
+    public String communityaccompany(Model model) {
 
-        // 검색어 없이 들어왔을 경우 전체 리스트를 보여준다.
 
-        List<Accompany> accompanyList = new ArrayList<>();
+        System.out.println("컨트롤러의 ");
+        // 목록보기
 
-        if(searchName.equals("")){
-            accompanyList = accompanyService.findAll();
-        }else{ // 검색어가 있을 경우.
+        // db에서 정보를 가져오는 locig을 짜야함
+        List<Accompany> accompanyEntity = accompanyRepository.findAll();
+        Accompany ac = accompanyEntity.get(0);
+        User acUser = ac.getUser();
+        System.out.println(acUser);
 
-            accompanyList = accompanyService.selectBySearchName(searchName);
 
-        }
+        model.addAttribute("accompanyList", accompanyEntity);
 
-        System.out.println(accompanyList);
-        model.addAttribute("accompanyList",accompanyList);
+
 
         return "community/accompany/accompany";
     }
-
 
 
     //동행 글 쓰기
@@ -100,7 +85,7 @@ public class AccompanyController {
                                     @RequestParam("ac_title") String ac_title,
                                     @RequestParam("ac_text") String ac_text,
                                     @RequestParam("ac_people") String ac_people,
-                                    @RequestParam("accompany_image")MultipartFile multipartFile) {
+                                    @RequestParam("accompany_image") MultipartFile multipartFile) {
 
 
 
@@ -199,11 +184,24 @@ public class AccompanyController {
 
 
 
+
+
+
+
     // 동행 글의 수정 클릭 > 해당 글 번호 불러오기
     @GetMapping("community/accompany/edit")
     public String index(@RequestParam("ac_num") Long ac_num, Model model) {
+
+
         System.out.println("컨트롤러의 edit() 메서드를 실행");
         System.out.println("ac_num=" + ac_num);
+
+//        User user = (User) session.getAttribute("user");
+//
+//        if ( user == null) {
+//
+//            return "redirect:/";
+//        }
 
         // 수정할 데이터를 얻어온다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
@@ -217,29 +215,55 @@ public class AccompanyController {
 
     }
 
-
 //    // 글 번호를 가지고 수정하는 메서드
-//    @PostMapping("/community/accompany/update")
-//    public String communityAccompanyupdate(AccompanyForm form){
+//    @RequestMapping(value = "/community/accompany/update", produces="text/plain;charset=UTF-8")
+//    public String accompanyUpdate(HttpServletRequest request, AccompanyForm form){
 //        System.out.println("컨트롤러 update() 메서드 실행");
 //        System.out.println(form.toString());
 //
-//        // DTO -> Entity 로 변환한다.
-//        Accompany accompany = form.toEntity();
-//        System.out.println(accompany.toString());
-//
-//        // 데이터베이스에 저장된 수정할 데이터를 얻어와서 Entity로 수정한 후
-//        // 데이터베이스에 저장한다
-//        Accompany target = accompanyRepository.findById(accompany.getAc_num()).orElse(null);
-//
-//        if(target != null){
-//            accompanyRepository.save(accompany);
-//        }
+//        System.out.println(form.getUser_number());
+//        System.out.println(form.getAc_region());
 //
 //        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "community/accompany/accompany_update" + accompany.getAc_num();
-//
+//        return "redirect://community/accompany";
 //    }
+
+
+    // 글 번호를 가지고 수정하는 메서드
+    // http://localhost:8070/community/accompany/update
+    @ResponseBody
+    @PostMapping("/community/accompany/update")
+    public String Accompanyupdate(
+                                  Model model, //모델
+                                  @RequestBody AccompanyForm form,
+                                  HttpSession session
+    ) {
+        System.out.println("컨트롤러 update() 메서드 실행");
+        System.out.println("form 이야" + form);
+
+        User user = (User) session.getAttribute("user");
+        Long getUserNumber = user.getUserNumber();
+        form.setUser(user);
+        form.getUser().setUserNumber(getUserNumber);
+
+//        // 유저 넘버 가져옴
+
+         // DTO -> Entity 로 변환한다.
+        Accompany accompany = form.toEntity();
+//        Date date = new Date();
+
+
+        Accompany result = accompanyService.updateAccompany(accompany);
+
+        model.addAttribute("accompany", result);
+
+        System.out.println(accompany);
+        System.out.println(result);
+
+        // 수정한 글 1건만 보여주고 싶을 때는
+        return "redirect:/community/accompany";
+
+    }
 
 
 //    //동행 글 정보

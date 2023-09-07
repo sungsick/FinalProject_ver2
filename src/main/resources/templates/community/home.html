@@ -6,6 +6,7 @@
     <title>Community</title>
     <link rel="shortcut icon" href="/img/member/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/member/community_main.css">
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
     <script src = "/jq/jquery-3.7.0.min.js"></script>
@@ -30,7 +31,7 @@
         <div class="main_content1">
             <div class="main_content1_text">
                 <div class="mct_1">동행을 찾고 있어요</div>
-                <div class="mct_2">여행 동행 더보러 가기</div>
+                <div class="mct_2" onclick="window.location.href='/community/accompany'">여행 동행 더보러 가기</div>
             </div>
 
             <div class="main_content1_box">
@@ -330,7 +331,7 @@
         <div class="main_content2">
             <div class="main_content1_text">
                 <div class="mct_1">여행 일정을 구경해보세요</div>
-                <div class="mct_2">여행 일정 구경하기</div>
+                <div class="mct_2" onclick="window.location.href='/community/plan'">여행 일정 구경하기</div>
             </div>
 
             <div class="main_content1_box">
@@ -380,9 +381,10 @@
             </div>
         </div>
     </div>
+    <footer th:include="/footer.html :: footer"></footer>
 </div>
 
-<div th:include="/footer.html :: footer"></div>
+
 <!-- Swiper JS -->
 
 
