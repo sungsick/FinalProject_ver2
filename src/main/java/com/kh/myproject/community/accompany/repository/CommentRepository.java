@@ -14,10 +14,9 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
 
     List<Comment> findByUser(User user);
 
-    @Query("SELECT co FROM Comment co WHERE co.co_content LIKE %:searchName% ORDER BY co.co_regdate")
-    List<Comment> findByCo_contentOrOrderByCo_regdate(@Param("searchName") String searchName);
-
-
     @Query("select co from Comment co join Accompany ac on ac.ac_num = co.accompany.ac_num where co.accompany.ac_num = :ac_num")
     List<Comment> findAllByAccompany_Acnum(Long ac_num);
+
+
+
 }

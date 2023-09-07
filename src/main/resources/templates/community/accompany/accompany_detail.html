@@ -219,7 +219,6 @@
                                 </div>
 
 
-
                                 <!-- 여기서부터 댓글 달기 -->
 
                                 <form method="post" action="/community/accompany/reWritePro">
@@ -235,10 +234,8 @@
                                     </div>
 
 
-
-
-                                        <div class="comment-block">
-                                            <th:block th:each="comment : ${commentList}" >
+                                    <div class="comment-block">
+                                        <th:block th:each="comment : ${commentList}">
                                             <div class="sc-5e8de0d6-1 kAbAZt">
                                                 <div class="sc-5e8de0d6-2 cpQiyf">
                                                     <div class="sc-c9e981f7-0 dendhJ">
@@ -249,7 +246,7 @@
                                                 </div>
                                                 <div class="sc-5e8de0d6-3 chnpuB">
                                                     <span class="sc-5e8de0d6-4 gBUxqr"
-                                                          th:text="${comment.user.userName}"></span>
+                                                          th:text="${user.getUserName()}"></span>
                                                     <span
                                                             class="sc-5e8de0d6-5 hotNUk"
                                                             th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
@@ -263,10 +260,8 @@
 
                                                 </div>
                                             </div>
-                                            </th:block>
-                                        </div>
-
-
+                                        </th:block>
+                                    </div>
 
 
                                     <!--                                 ajax안쓸거면 이거로 해야함 -->
@@ -289,137 +284,140 @@
 
 
                                 <!-- 여기까지 완료 -->
-                                <div class="another">
 
-                                    <div class="an_create_profile">
-                                        <div class="an_create_profile_con" id="container_modal">
-                                            <button id="btn_modal" alt="모달 창 열기 버튼">
+                                <!-- an_conatiner 끝-->
+
+                            </div><!--md container 끝-->
 
 
-                                                <img th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
-                                            </button>
+                            <div class="another">
 
-                                            <div class="an_profile_detail">
+                                <div class="an_create_profile">
+                                    <div class="an_create_profile_con" id="container_modal">
+                                        <button id="btn_modal" alt="모달 창 열기 버튼">
 
-                                                <p th:text="${#strings.substringBefore(accompany.user.userId,'@')}"></p>
 
-                                                <div class="an_container_two_2">
-                                                    <p class="an_container_two_2_p">
+                                            <img th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
+                                        </button>
+
+                                        <div class="an_profile_detail">
+
+                                            <p th:text="${accompany.user.userId}"></p>
+
+                                            <div class="an_container_two_2">
+                                                <p class="an_container_two_2_p">
                                                     <span class="ml_4"
                                                           th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></span>
-                                                    </p>
-                                                    <div class="an_container_two_jum"></div>
-                                                    <p class="user_agender"
-                                                       th:if="${accompany.user?.userGender == 'M'}">
-                                                        남</p>
-                                                    <p class="user_agender"
-                                                       th:if="${accompany.user?.userGender == 'F'}">
-                                                        여</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="click_profile_box">
-                                            <div class="click_profile_box_div">
-                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                     xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
-                                                          fill="#00b8ff"></path>
-                                                    <path d="M7.77467 12.9015C7.78623 12.6612 7.86817 12.4295 8.01029 12.2353C8.15241 12.0411 8.34846 11.893 8.57407 11.8093C8.79968 11.7256 9.04491 11.71 9.27931 11.7645C9.5137 11.8189 9.72691 11.9411 9.89247 12.1157C10.058 12.2904 10.1686 12.5098 10.2105 12.7468C10.2524 12.9838 10.2237 13.2278 10.1281 13.4486C10.0324 13.6695 9.87403 13.8573 9.67253 13.9888C9.47102 14.1204 9.23531 14.1898 8.99467 14.1885C8.82916 14.1871 8.66563 14.1523 8.51386 14.0863C8.36209 14.0202 8.22519 13.9243 8.11132 13.8042C7.99745 13.684 7.90896 13.5422 7.85111 13.3871C7.79327 13.232 7.76727 13.0669 7.77467 12.9015ZM8.06967 5.67455L8.00267 3.81055H9.98667L9.91967 5.67455L9.63767 10.6215H8.35167L8.06967 5.67455Z"
-                                                          fill="white"></path>
-                                                </svg>
-                                                <p class="sc-6916464b-10 hgFpaM">프로필 사진을 클릭해보세요!</p>
+                                                </p>
+                                                <div class="an_container_two_jum"></div>
+                                                <p class="user_agender"
+                                                   th:if="${accompany.user?.userGender == 'M'}">
+                                                    남</p>
+                                                <p class="user_agender"
+                                                   th:if="${accompany.user?.userGender == 'F'}">
+                                                    여</p>
                                             </div>
 
                                         </div>
                                     </div>
 
 
-                                    <!-- 함께하는 동행 div, 우측의 게시글 작성자 div 아래쪽 div를 뜻함 -->
+                                    <div class="click_profile_box">
+                                        <div class="click_profile_box_div">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
+                                                      fill="#00b8ff"></path>
+                                                <path d="M7.77467 12.9015C7.78623 12.6612 7.86817 12.4295 8.01029 12.2353C8.15241 12.0411 8.34846 11.893 8.57407 11.8093C8.79968 11.7256 9.04491 11.71 9.27931 11.7645C9.5137 11.8189 9.72691 11.9411 9.89247 12.1157C10.058 12.2904 10.1686 12.5098 10.2105 12.7468C10.2524 12.9838 10.2237 13.2278 10.1281 13.4486C10.0324 13.6695 9.87403 13.8573 9.67253 13.9888C9.47102 14.1204 9.23531 14.1898 8.99467 14.1885C8.82916 14.1871 8.66563 14.1523 8.51386 14.0863C8.36209 14.0202 8.22519 13.9243 8.11132 13.8042C7.99745 13.684 7.90896 13.5422 7.85111 13.3871C7.79327 13.232 7.76727 13.0669 7.77467 12.9015ZM8.06967 5.67455L8.00267 3.81055H9.98667L9.91967 5.67455L9.63767 10.6215H8.35167L8.06967 5.67455Z"
+                                                      fill="white"></path>
+                                            </svg>
+                                            <p class="sc-6916464b-10 hgFpaM">프로필 사진을 클릭해보세요!</p>
+                                        </div>
 
-                                    <!-- 지금은 필요없는 기능이라 뺀다 -->
+                                    </div>
+                                </div>
 
-                                    <div class="an_container">
-                                        <div class="an_container_one">
-                                            <div class="an_container_up_div">
-                                                <p class="an_container_up_div_mini">함께하는 동행</p>
-                                                <div class="bt_container_up_div_pIcon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                         viewBox="0 0 448 512">
-                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                        <style>svg {
-                                                        }</style>
-                                                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-                                                              fill="#ACADB1"></path>
-                                                    </svg>
 
-                                                </div>
-                                                <div class="dropdown_menu">
-                                                    <svg width="16" height="9" viewBox="0 0 16 9" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M1 1L8 8L15 1" stroke="#000" stroke-width="1"
-                                                              stroke-linecap="square" fill="#ACADB1"></path>
-                                                    </svg>
-                                                </div>
+                                <!-- 함께하는 동행 div, 우측의 게시글 작성자 div 아래쪽 div를 뜻함 -->
+
+                                <!-- 지금은 필요없는 기능이라 뺀다 -->
+
+                                <div class="an_container">
+                                    <div class="an_container_one">
+                                        <div class="an_container_up_div">
+                                            <p class="an_container_up_div_mini">함께하는 동행</p>
+                                            <div class="bt_container_up_div_pIcon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                     viewBox="0 0 448 512">
+                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                    <style>svg {
+                                                    }</style>
+                                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                                                          fill="#00b8ff"></path>
+                                                </svg>
+
+                                            </div>
+                                            <div class="dropdown_menu">
+                                                <svg width="16" height="9" viewBox="0 0 16 9"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1 1L8 8L15 1" stroke="#000" stroke-width="1"
+                                                          stroke-linecap="square" fill="#00b8ff"></path>
+                                                </svg>
                                             </div>
                                         </div>
-                                        <!-- 위에 박스 div 끝-->
+                                    </div>
+                                    <!-- 위에 박스 div 끝-->
 
 
-                                        <div class="an_container_two">
-                                            <div class="an_container_two_mini">
-                                                <div class="an_container_up_div_Icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                         viewBox="0 0 448 512">
-                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                        <style>svg {
-                                                            fill: #d3d5e0
-                                                        }</style>
-                                                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="an_container_up_div_Icon2">
+                                    <div class="an_container_two">
+                                        <div class="an_container_two_mini">
+                                            <div class="an_container_up_div_Icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                     viewBox="0 0 448 512">
+                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                    <style>svg {
+                                                        fill: #d3d5e0
+                                                    }</style>
+                                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
+                                                </svg>
+                                            </div>
+                                            <div class="an_container_up_div_Icon2">
 
                                                 <span class="an_container_two_1"
-                                                      th:text="${#strings.substringBefore(accompany.user.userId,'@')}"></span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                         viewBox="0 0 448 512">
-                                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                        <style>svg {
-                                                            fill: #00b8ff
-                                                        }</style>
-                                                        <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
-                                                    </svg>
-                                                </div>
+                                                      th:text="${accompany.user.userId}"></span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                     viewBox="0 0 448 512">
+                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                    <style>svg {
+                                                        fill: #00b8ff
+                                                    }</style>
+                                                    <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/>
+                                                </svg>
+                                            </div>
 
 
-                                                <!-- checkbox icon 끝 -->
+                                            <!-- checkbox icon 끝 -->
 
-                                                <div class="an_container_two_line"></div>
-                                                <div class="an_container_two_2">
-                                                    <p class="an_container_two_2_p">
+                                            <div class="an_container_two_line"></div>
+                                            <div class="an_container_two_2">
+                                                <p class="an_container_two_2_p">
                                                     <span class="ml_4"
                                                           th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></span>
-                                                    </p>
-                                                    <div class="an_container_two_jum"></div>
-                                                    <p class="user_agender"
-                                                       th:if="${accompany.user?.userGender == 'M'}">
-                                                        남</p>
-                                                    <p class="user_agender"
-                                                       th:if="${accompany.user?.userGender == 'F'}">
-                                                        여</p>
-                                                </div>
-
-
-                                                <div class="an_container_two_2_a"></div>
-                                                <p class="an_container_two_2_b">한국</p>
+                                                </p>
+                                                <div class="an_container_two_jum"></div>
+                                                <p class="user_agender"
+                                                   th:if="${accompany.user?.userGender == 'M'}">
+                                                    남</p>
+                                                <p class="user_agender"
+                                                   th:if="${accompany.user?.userGender == 'F'}">
+                                                    여</p>
                                             </div>
+
+
+                                            <div class="an_container_two_2_a"></div>
+                                            <p class="an_container_two_2_b">한국</p>
                                         </div>
                                     </div>
-                                    <!-- an_conatiner 끝-->
-
                                 </div>
 
                             </div>
@@ -450,126 +448,127 @@
 <div>
 
 
-
     <!--모달창 시작-->
     <div id="modal" class="modal-overlay">
-        <div class="modal-window"><!--dDJVYV-->
-            <div class="content">
-                <div class="dal_title"> <!--column-->
-                    <div class="dal_title1">
-                        <div class="dal_title1_in">
-                            <div class="an_container_up_div_Icon3"><!--fLHPjX-->
-                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                     viewBox="0 0 448 512" class="an_container_up_div_Icon3_con">
-                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                    <style>svg {
 
-                                    }</style>
-                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-                                          fill="#ACADB1"></path>
-                                </svg>
+            <div class="modal-window"><!--dDJVYV-->
+                <div class="content">
+                    <div class="dal_title"> <!--column-->
+                        <div class="dal_title1">
+                            <div class="dal_title1_in">
+                                <div class="an_container_up_div_Icon3"><!--fLHPjX-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                         viewBox="0 0 448 512" class="an_container_up_div_Icon3_con">
+                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <style>svg {
 
-
-                                <div class="an_container_up_div_Icon23">
-                                    <span class="an_container_two_13">kulkul-_-z</span>
+                                        }</style>
+                                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                                              fill="#ACADB1"></path>
+                                    </svg>
 
 
-                                    <div class="an_container_two3">
-                                        <div class="an_container_two_mini3"><!--nfGsC-->
+                                    <div class="an_container_up_div_Icon23">
+                                        <span class="an_container_two_13" th:text="${accompany.user.getUserId()}"></span>
 
-                                            <!-- checkbox icon 끝 -->
-                                            <div class="an_container_two_23">
-                                                <p class="an_container_two_2_p3">30대</p>
+
+                                        <div class="an_container_two3">
+                                            <div class="an_container_two_mini3"><!--nfGsC-->
+
+                                                <!-- checkbox icon 끝 -->
+                                                <div class="an_container_two_23">
+                                                    <p class="an_container_two_2_p3" th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></p>
+                                                    <div class="an_container_two_jum3"></div>
+                                                    <p class="an_container_two_2_p3" th:text="${accompany.user.userGender}"></p>
+                                                </div>
+
                                                 <div class="an_container_two_jum3"></div>
-                                                <p class="an_container_two_2_p3">여</p>
+                                                <p class="an_container_two_2_b3">한국</p>
+
                                             </div>
-
-                                            <div class="an_container_two_jum3"></div>
-                                            <p class="an_container_two_2_b3">한국</p>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="close-area">X</div>
                         </div>
-                        <div class="close-area">X</div>
-                    </div>
 
 
-                    <p class="dal_title1p">소개가 없습니다.</p>
-                    <div class="dal_title2">
-                        <button class="dal_title2_boxes">신고하기</button>
-                        <button class="dal_title2_boxes">차단하기</button>
-                        <button class="dal_title2_boxes">1:1 채팅</button>
-                    </div>
-
-                    <div class="dal_title3">
-                        <p>SNS 계정</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                                  fill="#00b8ff">
-                            </path>
-                        </svg>
-                        <span>등록된 계정이 없습니다.</span>
-                    </div>
-                    <div class="dal_title4">
-                        <p>나의 여행 관심사</p>
-                        <div class="dal_title4_boxes1">
-                            <div class="dal_title4_boxes2">선택된 관심사가 없어요</div>
+                        <p class="dal_title1p">소개가 없습니다.</p>
+                        <div class="dal_title2">
+                            <button class="dal_title2_boxes">신고하기</button>
+                            <button class="dal_title2_boxes">차단하기</button>
+                            <button class="dal_title2_boxes">1:1 채팅</button>
                         </div>
+
+                        <div class="dal_title3">
+                            <p>SNS 계정</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                                      fill="#00b8ff">
+                                </path>
+                            </svg>
+                            <span>등록된 계정이 없습니다.</span>
+                        </div>
+                        <div class="dal_title4">
+                            <p>나의 여행 관심사</p>
+                            <div class="dal_title4_boxes1">
+                                <div class="dal_title4_boxes2">선택된 관심사가 없어요</div>
+                            </div>
+                        </div>
+
+                    </div><!-- dal_title-->
+
+
+                    <div class="dal_md">
+                        <div class="dal_md_div">
+                            <p class="dal_md_divp">받은 동행 후기
+                                <span>0</span>
+                            </p>
+                            <p class="dal_md_divp2">더보기</p></div>
+                        <div class="dal_md_div2">
+                            <svg width="40" height="40" viewBox="0 0 20 17" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_395_10513)">
+                                    <path d="M13.75 0.5H6.25C2.79822 0.5 0 3.3276 0 6.81562C0 10.3036 2.79822 13.1312 6.25 13.1312H13.75C17.2018 13.1312 20 10.3036 20 6.81562C20 3.3276 17.2018 0.5 13.75 0.5Z"
+                                          fill="#dbdbdb"></path>
+                                    <path d="M7.41035 10.9688L8.90853 7.80971C9.11576 7.6003 9.39682 7.48266 9.68989 7.48266C9.98295 7.48266 10.264 7.6003 10.4712 7.80971L11.9703 10.9679C12.1775 11.1773 12.294 11.4613 12.294 11.7575C12.294 12.0536 12.1775 12.3376 11.9703 12.547L10.4721 15.7097C10.3694 15.8135 10.2475 15.8958 10.1133 15.9519C9.97917 16.008 9.83536 16.0369 9.69015 16.0368C9.54493 16.0367 9.40115 16.0077 9.26704 15.9514C9.13292 15.8952 9.0111 15.8127 8.90853 15.7088L7.41035 12.5497C7.30748 12.446 7.22586 12.3228 7.17017 12.1872C7.11448 12.0515 7.08582 11.9061 7.08582 11.7593C7.08582 11.6124 7.11448 11.467 7.17017 11.3314C7.22586 11.1958 7.30748 11.0725 7.41035 10.9688Z"
+                                          fill="#dbdbdb"></path>
+                                    <path d="M5 8.07898C5.69036 8.07898 6.25 7.51346 6.25 6.81586C6.25 6.11825 5.69036 5.55273 5 5.55273C4.30964 5.55273 3.75 6.11825 3.75 6.81586C3.75 7.51346 4.30964 8.07898 5 8.07898Z"
+                                          fill="white"></path>
+                                    <path d="M10 8.07898C10.6904 8.07898 11.25 7.51346 11.25 6.81586C11.25 6.11825 10.6904 5.55273 10 5.55273C9.30964 5.55273 8.75 6.11825 8.75 6.81586C8.75 7.51346 9.30964 8.07898 10 8.07898Z"
+                                          fill="white"></path>
+                                    <path d="M15 8.07898C15.6904 8.07898 16.25 7.51346 16.25 6.81586C16.25 6.11825 15.6904 5.55273 15 5.55273C14.3096 5.55273 13.75 6.11825 13.75 6.81586C13.75 7.51346 14.3096 8.07898 15 8.07898Z"
+                                          fill="white"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_395_10513">
+                                        <rect width="20" height="16" fill="white" transform="translate(0 0.5)"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <p>동행 후기 내역이 없습니다.</p></div>
+
                     </div>
 
-                </div><!-- dal_title-->
+
+                    <div class="dal_btm">
+                        <input name="text" placeholder="동행후기를 달아보세요! (50자 이내)"
+                               maxlength="50" class="dal_btm_text" value="">
+                        <button class="dal_btm_btn" disabled="">등록</button>
+
+                    </div>
+
+                </div> <!--content div-->
 
 
-                <div class="dal_md">
-                    <div class="dal_md_div">
-                        <p class="dal_md_divp">받은 동행 후기
-                            <span>0</span>
-                        </p>
-                        <p class="dal_md_divp2">더보기</p></div>
-                    <div class="dal_md_div2">
-                        <svg width="40" height="40" viewBox="0 0 20 17" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_395_10513)">
-                                <path d="M13.75 0.5H6.25C2.79822 0.5 0 3.3276 0 6.81562C0 10.3036 2.79822 13.1312 6.25 13.1312H13.75C17.2018 13.1312 20 10.3036 20 6.81562C20 3.3276 17.2018 0.5 13.75 0.5Z"
-                                      fill="#dbdbdb"></path>
-                                <path d="M7.41035 10.9688L8.90853 7.80971C9.11576 7.6003 9.39682 7.48266 9.68989 7.48266C9.98295 7.48266 10.264 7.6003 10.4712 7.80971L11.9703 10.9679C12.1775 11.1773 12.294 11.4613 12.294 11.7575C12.294 12.0536 12.1775 12.3376 11.9703 12.547L10.4721 15.7097C10.3694 15.8135 10.2475 15.8958 10.1133 15.9519C9.97917 16.008 9.83536 16.0369 9.69015 16.0368C9.54493 16.0367 9.40115 16.0077 9.26704 15.9514C9.13292 15.8952 9.0111 15.8127 8.90853 15.7088L7.41035 12.5497C7.30748 12.446 7.22586 12.3228 7.17017 12.1872C7.11448 12.0515 7.08582 11.9061 7.08582 11.7593C7.08582 11.6124 7.11448 11.467 7.17017 11.3314C7.22586 11.1958 7.30748 11.0725 7.41035 10.9688Z"
-                                      fill="#dbdbdb"></path>
-                                <path d="M5 8.07898C5.69036 8.07898 6.25 7.51346 6.25 6.81586C6.25 6.11825 5.69036 5.55273 5 5.55273C4.30964 5.55273 3.75 6.11825 3.75 6.81586C3.75 7.51346 4.30964 8.07898 5 8.07898Z"
-                                      fill="white"></path>
-                                <path d="M10 8.07898C10.6904 8.07898 11.25 7.51346 11.25 6.81586C11.25 6.11825 10.6904 5.55273 10 5.55273C9.30964 5.55273 8.75 6.11825 8.75 6.81586C8.75 7.51346 9.30964 8.07898 10 8.07898Z"
-                                      fill="white"></path>
-                                <path d="M15 8.07898C15.6904 8.07898 16.25 7.51346 16.25 6.81586C16.25 6.11825 15.6904 5.55273 15 5.55273C14.3096 5.55273 13.75 6.11825 13.75 6.81586C13.75 7.51346 14.3096 8.07898 15 8.07898Z"
-                                      fill="white"></path>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_395_10513">
-                                    <rect width="20" height="16" fill="white" transform="translate(0 0.5)"></rect>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <p>동행 후기 내역이 없습니다.</p></div>
-
+                <div>
                 </div>
-
-
-                <div class="dal_btm">
-                    <input name="text" placeholder="동행후기를 달아보세요! (50자 이내)"
-                           maxlength="50" class="dal_btm_text" value="">
-                    <button class="dal_btm_btn" disabled="">등록</button>
-
-                </div>
-
-            </div> <!--content div-->
-
-
-            <div>
             </div>
-
-        </div> <!--content div-->
-    </div>
+        </th:block>
+    </div> <!--content div-->
+</div>
 
 
 </div> <!--모달창 끝-->

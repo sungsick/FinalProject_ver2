@@ -613,7 +613,7 @@ img {
     flex-shrink: 0;
     width: 32px;
     height: 32px;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
     border: 1px solid rgb(219, 219, 219);
     border-radius: 50%;
     object-fit: cover;
@@ -689,6 +689,7 @@ img {
     align-items: center;
     width: max-content;
     height: 100%;
+    justify-content: center;
 }
 
 .an_container_two_2_p {
@@ -725,6 +726,17 @@ img {
     user-select: none;
     color: rgb(0, 0, 0);
 }
+.user_agender{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    white-space: nowrap;
+    user-select: none;
+    color: rgb(0, 0, 0);
+}
+
+
 
 .bt_container {
     display: flex;
@@ -891,9 +903,9 @@ img {
 
 #modal .modal-window {
     /* 모달 창 도화지ㅣㅣㅣㅣㅣ*/
-    background: rgb(255 255 255 / 70%);
+    background: rgb(255 255 255 / 80%);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(13.5px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
@@ -992,6 +1004,9 @@ img {
     width: calc(100% - 60px);
     height: auto;
     align-items: center;
+}
+.an_container_two_1 {
+   margin-right: 7px;
 }
 
 .an_container_two_13 {
