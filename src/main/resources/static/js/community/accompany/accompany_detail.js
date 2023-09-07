@@ -24,7 +24,7 @@ $(document).ready(() => {
     $('#deleteBtn').click(function () {
         console.log('delAccompany ajax 메서드 실행');
 
-        var ac_num = $('#ac_num_input').val(); // input 요소의 값을 가져옵니다.
+        var ac_num = $('#inputAcNum').val(); // input 요소의 값을 가져옵니다.
 
         var query = {
             ac_num: ac_num
@@ -48,6 +48,7 @@ $(document).ready(() => {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire('삭제되었습니다!', '', 'success');
+                        window.location.href = '/community/accompany/'
                     }
                 });
             },
