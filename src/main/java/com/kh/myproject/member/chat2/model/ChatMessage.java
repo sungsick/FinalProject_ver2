@@ -5,7 +5,7 @@ import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -33,10 +33,10 @@ public class ChatMessage {
     private String content; // 메시지 내용
 
     @Column
-    private LocalDateTime send_time; // 전송 시각
+    private Date sendTime; // 전송 시각
 
-    @ManyToOne
-    @JoinColumn(name = "userNumber")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sender_id")
     private User user; // 해당 메시지의 발신자  (테이블 컬럼명 : sender_id)
 
 

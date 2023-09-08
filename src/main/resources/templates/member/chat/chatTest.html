@@ -5,7 +5,7 @@
     <title>Title</title>
 
 </head>
-
+<link rel="stylesheet" href="/css/chat.css">
 <style>
 
     #yourMsg {
@@ -23,27 +23,40 @@
         border: 1px solid black;
         margin: 0 auto;
     }
+
+
 </style>
 <body>
 
-<button type="button" id="openChat"> 채팅방입장</button>
+<!--<button type="button" id="openChat"> 채팅방입장</button>-->
 
-<input type="hidden" value="1" id="user_number">
-<div class="container" id="container">
-    <h1 id="title_room">채팅방제목</h1>
-    <div id="chatting" class="chatting">
+<!--<input type="hidden" value="1" id="user_number">-->
+<!--<div class="container" id="container">-->
+<!--    <h1 id="title_room">채팅방제목</h1>-->
+<!--    <div id="chatting" class="chatting">-->
+<!--    </div>-->
+<!--    <div id="yourMsg">-->
+<!--        <table class="inputTable">-->
+<!--            <tr>-->
+<!--                <th>메시지</th>-->
+<!--                <th><input id="msg" placeholder="보내실 메시지를 입력하세요."></th>-->
+<!--                <th>-->
+<!--                    <button onclick="send()" id="sendBtn">보내기</button>-->
+<!--                </th>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class = "message-block">
+    <div class = "message-img">
+        <img class = "message-img"th:src="'/file/profile_image/' + ${user.userImg}" alt="">
     </div>
-    <div id="yourMsg">
-        <table class="inputTable">
-            <tr>
-                <th>메시지</th>
-                <th><input id="msg" placeholder="보내실 메시지를 입력하세요."></th>
-                <th>
-                    <button onclick="send()" id="sendBtn">보내기</button>
-                </th>
-            </tr>
-        </table>
+    <div>
+        <div th:text = "${user.userId}"></div>
+    <div class = "message-content" th:text = "${chatMessage.content}" ></div>
     </div>
+    <div class = "message-time" th:text = "${#dates.format(chatMessage.sendTime,'HH:mm')}">  </div>
 </div>
 <script src="/jq/jquery-3.7.0.min.js"></script>
 

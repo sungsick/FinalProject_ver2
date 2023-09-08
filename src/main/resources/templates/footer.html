@@ -1,5 +1,12 @@
 
 <footer>
+
+
+    <link href="/css/chat.css" rel="stylesheet" type="text/css">
+    <script defer src="/js/chat.js" type="text/javascript"></script>
+
+
+
    <div class="ft_main">
         <h1 class="ft_content1">
         <img class="ft_img" src="/img/member/logo.png"></h1>
@@ -33,5 +40,42 @@
        </div>
    </div>
 
+
+
+
+    <!-- chatting 창을 띄우기 위한 버튼과 모달창 -->
+
+    <div class="modal" style = "display:none">
+        <div class="ant-modal-root">
+
+            <div tabindex="-1" class="ant-modal-wrap">
+                <div role="dialog" aria-modal="true" class="ant-modal contentBox">
+                    <div tabindex="0" aria-hidden=""
+                         style="width: 0px; height: 0px; overflow: hidden; outline: none;"></div>
+                    <div class="ant-modal-content">
+                        <div class="ant-modal-body" style="padding: 30px;">
+                            <div class="content">
+                                <div style="height: 610px; overflow: scroll; padding-right: 10px;" class = "modal-content" >
+
+
+                                </div>
+                            </div>
+                            <div class = "modal-bottom" style="display: flex; justify-content: space-between; margin-top: 30px; position: relative; bottom: 0px; padding-right: 10px;">
+                                <button type="button" class="modal-btn _button_default_1vx5o_3"
+                                        style="height: 50px; flex: 1 1 0%; font-size: 16px;">나가기
+                                </button>
+                            </div>
+                            <textarea type="text" class = "message-input disappear" id = "message-input"></textarea>
+                        </div>
+                    </div>
+                    <div tabindex="0" aria-hidden="true" cursor="pointer"
+                         style="width: 0px; height: 0px; overflow: hidden; outline: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button id="live-chat">실시간 채팅 💬</button>
 </footer>
 

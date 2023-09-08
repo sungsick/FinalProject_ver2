@@ -17,6 +17,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
+
         @Query("SELECT u FROM User u WHERE u.userId = :user_id")
     // camel case -> snake case auto change
     User findByUserId(@Param("user_id") String user_id);

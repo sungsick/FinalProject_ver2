@@ -20,7 +20,7 @@ public class WebChatConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
-        registry.addHandler(myHandler,"/ws");
+        registry.addHandler(myHandler,"/ws/{roomId}/{userNumber}");
     }
 
 

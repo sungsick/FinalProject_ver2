@@ -3,6 +3,8 @@
 
 use finalproject;
 
+delete from finalproject.chat_message;
+delete from finalproject.chat_room;
 delete from finalproject.rent_info;
 delete from finalproject.area_tourism;
 delete from finalproject.ticket_info;
@@ -13,7 +15,8 @@ delete from finalproject.user;
 delete from finalproject.manager;
 
 
-
+alter table finalproject.chat_message auto_increment = 1;
+alter table finalproject.chat_room auto_increment = 1;
 alter table finalproject.rent_info auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
@@ -131,3 +134,29 @@ create table if not exists `comment`
     FOREIGN KEY (ac_num) REFERENCES accompany (ac_num)
 );
 
+
+create table if not exists chat_room(
+
+                          room_id bigint primary key auto_increment,
+                          user_number1  bigint not null, -- user table의 userNumber를 참고하는 컬럼
+                          user_number2  bigint not null,
+
+                          FOREIGN KEY (user_number1) REFERENCES user(user_number),
+                          FOREIGN KEY (user_number2) REFERENCES user(user_number)
+
+
+);
+
+
+create table if not exists chat_message(
+
+                             message_id bigint primary key auto_increment,
+                             room_id bigint not null,
+                             content varchar(3000),
+                             send_time datetime default now() not null,
+                             sender_id bigint not null,
+
+                             FOREIGN KEY (room_id) REFERENCES chat_room(room_id),
+                             FOREIGN KEY (sender_id) REFERENCES user(user_number)
+
+);
