@@ -3,6 +3,7 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
+import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.QnaForm;
 import com.kh.myproject.member.user.model.dto.UserForm;
@@ -52,7 +53,7 @@ public class UserController {
     public String home() {
 
 
-        return "community/home";
+        return "redirect:/community/home";
     }
 
 
@@ -318,8 +319,9 @@ public class UserController {
         List<Qna> qlist = qnaService.getQna(user.getUserId());
         List<FlightTicketInfo> fticket = userService.getFticketByNum(user.getUserNumber());
         List<RentReservationInfo> rticket = userService.getRticketByNum(user.getUserNumber());
+        List<Accompany> alist = userService.getAccompanyByNum(user.getUserNumber());
 
-
+        System.out.println(alist);
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user", newUser);
@@ -329,9 +331,9 @@ public class UserController {
         model.addAttribute("fticket", fticket);
 
         model.addAttribute("rticket", rticket);
-        System.out.println(fticket);
-        System.out.println("============================================");
-        System.out.println(rticket);
+
+        model.addAttribute("alist", alist);
+
         return "/member/user/mypage";
     }
 

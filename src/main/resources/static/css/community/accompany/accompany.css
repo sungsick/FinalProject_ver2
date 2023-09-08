@@ -592,7 +592,6 @@ button{
     border-radius: 14px;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
 }
-
 .user_info{
     width: 70%;
 }
@@ -604,6 +603,7 @@ button{
     align-items: center;
     justify-content: space-around;
 }
+
 
 .ml_4{
     font-size : 12px

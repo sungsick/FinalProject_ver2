@@ -8,8 +8,10 @@ delete from finalproject.ticket_info;
 delete from finalproject.qna;
 delete from finalproject.accompany;
 delete from finalproject.comment;
+delete from finalproject.rent_info;
 delete from finalproject.user;
 delete from finalproject.manager;
+
 
 
 
@@ -20,6 +22,7 @@ alter table finalproject.area_tourism auto_increment = 1;
 alter table finalproject.qna auto_increment = 1;
 alter table finalproject.accompany auto_increment = 1;
 alter table finalproject.comment auto_increment = 1;
+alter table finalproject.rent_info auto_increment = 1;
 
 
 CREATE TABLE if not exists `user`

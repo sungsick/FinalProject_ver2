@@ -1,6 +1,7 @@
 package com.kh.myproject.member.user.service;
 
 
+import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.repository.ManagerRepository;
@@ -104,7 +105,12 @@ public class UserService {
 
         return result;
     }
+    public List<Accompany> getAccompanyByNum(Long user_number) {
 
+        List<Accompany> result = userRepository.getAccompanyByNum(user_number);
+
+        return result;
+    }
     public User updateUser(User user){
 
 
