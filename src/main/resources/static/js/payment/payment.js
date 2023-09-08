@@ -235,7 +235,7 @@ $(function () {
             };
             // 카카오페이 결제전송
             $.ajax({
-                type: 'get'
+                type: 'post'
                 , url: '/kakaoPay'
                 // data: JSON.stringify(ticketInfo), // JSON 데이터 전송
                 // contentType: 'application/json' // JSON 데이터임을 명시
@@ -296,7 +296,32 @@ $(function () {
         $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
     });
 
+    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+// 시작일과 종료일 문자열
+    var startDateStr = document.querySelector("#depart-date").value;
+    var endDateStr = document.querySelector("#arrive-date").value;
 
+// 시작일과 종료일을 "월. 일. 시간" 형식에서 날짜와 시간으로 분리
+    var startDateParts = startDateStr.split('. ');
+    var endDateParts = endDateStr.split('. ');
+
+// "월. 일" 형식의 날짜를 Date 객체로 변환 (현재 년도 기준으로)
+    var startDate = new Date(new Date().getFullYear(), parseInt(startDateParts[0]) - 1, parseInt(startDateParts[1]), parseInt(startDateParts[2]));
+    var endDate = new Date(new Date().getFullYear(), parseInt(endDateParts[0]) - 1, parseInt(endDateParts[1]), parseInt(endDateParts[2]));
+// 두 날짜 사이의 차이를 계산
+    var timeDiff = endDate - startDate;
+
+    var startDayOfWeek = daysOfWeek[startDate.getDay()];
+    var endDayOfWeek = daysOfWeek[endDate.getDay()];
+// 밀리초를 일로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
+    var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+// 계산된 일수를 card-top-round-day 엘리먼트에 출력
+    document.querySelector(".card-top-round-day").textContent = daysDiff + "일";
+    document.querySelector("#depart-date-text").textContent = `${startDateParts[0]}.${startDateParts[1]}(${startDayOfWeek})`;
+    document.querySelector("#arrive-date-text").textContent = `${endDateParts[0]}.${endDateParts[1]}(${endDayOfWeek})`;
+    document.querySelector("#depart-time").textContent = `${startDateParts[2]}`;
+    document.querySelector("#arrive-time").textContent = `${endDateParts[2]}`;
 });
 // if (idx === 0) {
 //     $('.second-box-tabs-clicked-bar').css('margin-left', '0px')
