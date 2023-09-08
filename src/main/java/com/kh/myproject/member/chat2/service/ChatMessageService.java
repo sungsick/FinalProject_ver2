@@ -8,8 +8,14 @@ import com.kh.myproject.member.chat2.repository.ChatRoomRepository;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,7 +31,7 @@ public class ChatMessageService {
     ChatRoomRepository chatRoomRepository;
 
 
-    public void saveMessage(Long roomId, Long userNumber,String content){
+    public ChatMessage saveMessage(Long roomId, Long userNumber,String content){
 
         ChatMessage chatMessage = new ChatMessage();
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElse(null);
@@ -34,17 +40,40 @@ public class ChatMessageService {
         chatMessage.setUser(user);
         chatMessage.setChatRoom(chatRoom);
         chatMessage.setContent(content);
+        chatMessage.setSendTime(LocalDateTime.now());
 
-        chatMessageRepository.save(chatMessage);
-        System.out.println("chatmessage저장완료 saveMessage 메서드");
+
+        ChatMessage saved_message = chatMessageRepository.save(chatMessage);
+
+        return saved_message;
 
     }
 
     public List<ChatMessage> getAllMessage(Long roomId){
 
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElse(null);
-        List<ChatMessage> chatMessageList = chatMessageRepository.findAllByChatRoomOrderByMessageIdAsc(chatRoom);
+        List<ChatMessage> chatMessageList = chatMessageRepository.findAllByChatRoomOrderBySendTimeAsc(chatRoom);
 
         return chatMessageList;
+    }
+
+    public List<String> getLastMessageList(Long userNumber, List<ChatRoom> chatRoom){
+
+        List<String> messageList = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0,1,Sort.by("sendTime").descending());
+        String lastMessage = "";
+        for(int i = 0 ; i < chatRoom.size(); i++) {
+            Page<String> pageList = chatMessageRepository.selectLastMessageByChatRoom(chatRoom.get(i).getRoomId(),userNumber, pageable);
+            System.out.println(pageList.getContent());
+            if(pageList.getContent().size() != 0){
+                lastMessage = pageList.getContent().get(0);
+            }else{
+                lastMessage = "대화내용이 없습니다.";
+            }
+            messageList.add(lastMessage);
+        }
+
+        System.out.println(messageList);
+        return messageList;
     }
 }

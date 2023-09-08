@@ -1,5 +1,8 @@
 package com.kh.myproject.member.chat2;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.kh.myproject.member.chat2.model.ChatMessage;
 import com.kh.myproject.member.chat2.service.ChatMessageService;
 import com.kh.myproject.member.chat2.service.ChatRoomService;
 import org.json.simple.JSONObject;
@@ -38,7 +41,6 @@ public class MyHandler extends TextWebSocketHandler {
     SessionManager sessionManager;
 
 
-
     // 소켓 연결이 완료됐을 때 실행되는 메서드
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -54,8 +56,8 @@ public class MyHandler extends TextWebSocketHandler {
 
         //    /ws/roomId/userNumber
 
-        String str =session.getUri().getPath().substring((session.getId().lastIndexOf("/"))+5);
-        System.out.println("str = "+ str);
+        String str = session.getUri().getPath().substring((session.getId().lastIndexOf("/")) + 5);
+        System.out.println("str = " + str);
         Long roomId = Long.parseLong(str.split("/")[0]);
         Long userNumber = Long.parseLong(str.split("/")[1]);
 
@@ -66,7 +68,7 @@ public class MyHandler extends TextWebSocketHandler {
 
 
         // 현재 소켓에 접속한 세션의 정보를 저장해야한다.
-        sessionManager.addSession(roomId,userNumber,session);
+        sessionManager.addSession(roomId, userNumber, session);
 
         // 하나의 값만 유지하기 때문에 삭제는 따로 구현하지 않아도 되나?
 
@@ -83,35 +85,58 @@ public class MyHandler extends TextWebSocketHandler {
         // 이 메서드가 실행됐을 경우에는 특정 소켓의 session값을 가지고 있다.
         // 소켓이 열리는 즉시 해당 소켓의 세션 id를 보유하고 있는 객\\
 
-        String str =session.getUri().getPath().substring((session.getId().lastIndexOf("/"))+5);
-        System.out.println("str = "+ str);
+        String str = session.getUri().getPath().substring((session.getId().lastIndexOf("/")) + 5);
+        System.out.println("str = " + str);
 
         // 메시지를 전송한 사람의 정보.
         Long roomId = Long.parseLong(str.split("/")[0]);
         Long userNumber = Long.parseLong(str.split("/")[1]);
 
-        WebSocketSession yourSession = sessionManager.getSession(roomId,userNumber);
+        WebSocketSession yourSession = sessionManager.getSession(roomId, userNumber);
         // 나를 제외한 같은 방에 있는 유저의 세션을 얻어온다.
+
 
         try {
             // 현재 상대방은 소켓에 접속해이씾 않은 상태일 수 있다. 따라서 yourSession은 null일 수 있다.
             // 접속해있지 않다면 그냥 db에만 저장하면 된다.
-            if(yourSession!=null) {
-                yourSession.sendMessage(message);
-            }
+            // 수신자에게 Textessage의 payload형태로 데이터가 전송된다.
+
             System.out.println("message의 payload값" + message.getPayload());
             JSONObject jsonObject = null;
+            JSONObject userObj = null;
             JSONParser jsonParser = new JSONParser();
+            //객체 파싱을 위한 매퍼
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+
+            // 수신된 메시지의 payload값을 읽어온다. 이를 통해 메시지를 db에저장하는 작업을 수행한다.
             try {
                 jsonObject = (JSONObject) jsonParser.parse(message.getPayload());
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            String content = (String) jsonObject.get("content");
-            content = content.substring(0, content.length()-1);
-            System.out.println(content);
+            // 받은 message를 파싱해서 데이터베이스에 저장하는 작업을 거친다.
 
-            chatMessageService.saveMessage(roomId,userNumber,content);
+
+            String content = (String) jsonObject.get("content");
+//            content = content.substring(0, content.length()-; // enter 가 \ㅜ으로 입력됐으니 잘라준다.
+            ChatMessage chatMessage = chatMessageService.saveMessage(roomId, userNumber, content);// 저장 한 후의 message content를 가지고 온다.
+
+            //반환할때는 메시지에 대한 전체 내용이 담긴 chatMessage객체를 전달한다.
+
+            String parseSendMessage = "";
+
+            parseSendMessage = objectMapper.writeValueAsString(chatMessage);
+
+            jsonObject.put("message", parseSendMessage);
+            TextMessage sendMessage = new TextMessage(parseSendMessage);
+            // 객체를 JSON타입의 문자열로 파싱하고 chatMessage객체 문자열을 송신한다.
+            if (yourSession != null) {
+
+                System.out.println("yoursession에 메시지를 전송한다.");
+                yourSession.sendMessage(new TextMessage(jsonObject.toJSONString()));
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -145,10 +170,9 @@ public class MyHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
 
-        // close 이벤트가 발생한다.여기서 close는 소켃 연결 종료를 뜻하고 채팅방을 나가는 것은 아니다.
+        // close 이벤트가 발생한다.여기서 close는 소켃 연결 종료를 뜻하고 채팅방을 나가는 것은 아니다
 
-
-        System.out.println("close");
+        System.out.println("세션이 닫혔습니다.");
     }
 
     @Override

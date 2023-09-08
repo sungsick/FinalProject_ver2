@@ -1,9 +1,8 @@
 package com.kh.myproject.member.user.service;
 
 
-import com.kh.myproject.member.user.model.entity.Qna;
-import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.repository.ManagerRepository;
+import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.repository.QnaRepository;
 import com.kh.myproject.member.user.repository.UserRepository;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
@@ -11,10 +10,6 @@ import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -23,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j // 데이터베이스 로그를 확인
@@ -191,6 +185,11 @@ public class UserService {
 
         return result;
 
+    }
+
+    public User getUserByNumber(Long userNumber){
+
+        return userRepository.findById(userNumber).orElse(null);
     }
 
 }

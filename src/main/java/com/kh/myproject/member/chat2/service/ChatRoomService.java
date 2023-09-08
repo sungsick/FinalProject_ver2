@@ -1,5 +1,6 @@
 package com.kh.myproject.member.chat2.service;
 
+import com.kh.myproject.member.chat2.model.ChatRoom;
 import com.kh.myproject.member.chat2.repository.ChatRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class ChatRoomService {
     ChatRoomRepository chatRoomRepository;
 
 
-    public List<Long> getChatRoomList(Long userNumber){
+    public List<ChatRoom> getChatRoomList(Long userNumber){
 
 
         return chatRoomRepository.selectChatRoomByUserNumber(userNumber);

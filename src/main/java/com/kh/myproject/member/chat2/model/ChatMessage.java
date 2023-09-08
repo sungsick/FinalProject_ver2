@@ -5,7 +5,7 @@ import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Setter
@@ -33,7 +33,7 @@ public class ChatMessage {
     private String content; // 메시지 내용
 
     @Column
-    private Date sendTime; // 전송 시각
+    private LocalDateTime sendTime; // 전송 시각
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender_id")

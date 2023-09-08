@@ -43,6 +43,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-websocket:2.7.6'
 
 
+    // localDate타입 파싱을 위한 의존성 추가.
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0' // Jackson 버전에 맞게 변경
+
 
 
     // gson library

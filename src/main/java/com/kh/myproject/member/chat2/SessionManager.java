@@ -6,7 +6,6 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class SessionManager {
@@ -19,28 +18,52 @@ public class SessionManager {
     // 그러면 한쪽만 소켓 연결이 돼있더라도 나머지 한쪽은 다음번 접속시에 메시지를 수신할 수 있을 것이고
     // 접속했다면 실시간으로 통신이 가능한 것이다.
 
+    private final Map<Long, WebSocketSession> sessions = new HashMap<>();
+    private final Map<Long, Map<Long, WebSocketSession>> roomList = new HashMap<>();
 
-    private final Map<Long, Map<Long,WebSocketSession>> roomList = new ConcurrentHashMap<>();
+
+    // 소켓을 어떻게 담을까
+    // room_id로 먼저 접근한다. 해당 roomid에는 userNumber와 socket으로 구분된
+    // 1. roomId로 특정 roomId를 가진 Map<Long,Websocket>객체를 얻어온다
+    // 2. 해당 객체에는 {userNumber1 : sokcet1, userNumber2 : socket2} 의 형태로 데이터를 들고있다. 없을 수도 있따
+
+    // 이때 내가 추가하고자하는 userNumber의 값으로 socket을 sessions에 추가한다.
+    // 그리고 해당 sessions를 추가한다.
 
     public void addSession(Long roomId, Long userNumber, WebSocketSession session) {
 
-        Map<Long, WebSocketSession> sessions = new HashMap<>();
-        sessions.put(userNumber,session);
-        roomList.put(roomId,sessions);
+
+
+
+        Map<Long, WebSocketSession> sessions = new HashMap<>(); // 세션은 그때그떄 다른 걸 넣어줘야한다.
+
+        if (roomList.get(roomId) == null) {
+            sessions.put(userNumber, session);
+            roomList.put(roomId, sessions);
+        } else {
+            roomList.get(roomId).put(userNumber, session);
+        }
+        System.out.println("addsession실행 " + roomId + userNumber);
+
+        System.out.println(roomList);
+
+
     }
 
 
-    public WebSocketSession getSession(Long roomId ,Long userNumber) {
+    public WebSocketSession getSession(Long roomId, Long userNumber) {
 
         System.out.println("getSession메서드 실행");
-        Map<Long,WebSocketSession> chatRoom = roomList.get(roomId);
+        System.out.println("roomItd" + roomId + "iuserNumber" + userNumber);
+        Map<Long, WebSocketSession> chatRoom = roomList.get(roomId);
+        System.out.println("cHATROOKM" + chatRoom);
         WebSocketSession session = null;
 
-        System.out.println("roomList" +roomList);
-        System.out.println("chatRoom" + chatRoom);
-        for( Long userKey : chatRoom.keySet()){
+//        System.out.println("roomList" +roomList);
+//        System.out.println("chatRoom" + chatRoom);
+        for (Long userKey : chatRoom.keySet()) {
 
-            if(!userKey.equals(userNumber)){
+            if (!userKey.equals(userNumber)) {
                 session = chatRoom.get(userKey);
             }
         }

@@ -83,7 +83,7 @@ public class AccompanyService {
         // 파일을 업로드 하지 않았을 경우에는 기본 파일로 설정한다.
         if(fileName.equals("") || fileName == null){
 
-            new_fileName = "accDefault.jpeg";
+            new_fileName = "accDefault.png";
         }else {
 
             String extension = fileName.substring(fileName.lastIndexOf(".")); // 가지고 온 파일의 진짜 이름을 .을 포함한 확장자명까지 가지고 온다.
