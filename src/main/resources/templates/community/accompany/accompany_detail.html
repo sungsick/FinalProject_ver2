@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/community/accompany/accompany_detail.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-    <!--Bootstrap-->
 
+    <!--Bootstrap-->
+    <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 
@@ -223,7 +224,7 @@
 
                                 <form method="post" action="/community/accompany/reWritePro">
                                     <input th:value="${accompany.ac_num}" name="ac_num" id="inputAcNum2" type="hidden">
-                                    <div class="bt_com">
+                                    <div class="bt_com" th:if="${session.user != null}">
                                         <div class="bt_com_div">
 
                                             <textarea placeholder="댓글을 입력해주세요." name="co_content"
@@ -246,18 +247,21 @@
                                                 </div>
                                                 <div class="sc-5e8de0d6-3 chnpuB">
                                                     <span class="sc-5e8de0d6-4 gBUxqr"
-                                                          th:text="${user.getUserName()}"></span>
+                                                          th:text="${comment.user.userName}"></span>
                                                     <span
                                                             class="sc-5e8de0d6-5 hotNUk"
                                                             th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
                                                 </div>
                                             </div>
-
+                                            <textarea th:id="'textarea'+${comment.getCo_number()}" th:text="${comment.getCo_content()}"></textarea>
                                             <p class="sc-5e8de0d6-6 gUqDoq" th:text="${comment.co_content}"></p>
+                                            <!-- 이부분이 원래 댓글을 보여주는 text 박스-->
+
                                             <div class="sc-5e8de0d6-7 jXMuyg">
                                                 <div class="sc-5e8de0d6-8 fIIDkd">
                                                     <button class="add_reply_btn">답글 달기</button>
-
+                                                    <button th:id="${comment.getCo_number()}" type="button" class="add_reply_btnEdit">수정</button>
+                                                    <button class="add_reply_btnDelete">삭제</button>
                                                 </div>
                                             </div>
                                         </th:block>
@@ -266,9 +270,11 @@
 
                                     <!--                                 ajax안쓸거면 이거로 해야함 -->
 
-
-                                    <th:block th:if="${commentList == null}">
-                                        <div class="no-comment">
+<!--                                    <th:block th:if="${eventPtcpPsbOrdData != null && #lists.size(eventPtcpPsbOrdData.eventPtcpOrdInfoList) > 0}">-->
+<!--                                        <input type="hidden" id="ibx_TotalPurAplAmt" th:value="${totalPurAplAmt}"/>-->
+<!--                                    </th:block>-->
+                                    <th:block th:if="${#lists.isEmpty(commentList)}">
+                                        <div class="no-comment"> <!-- object-fit : cover ; 깨지지않게 조정-->
 
                                             <div class="no-comment-img">
 
@@ -283,14 +289,13 @@
                                 </form>
 
 
-                                <!-- 여기까지 완료 -->
 
                                 <!-- an_conatiner 끝-->
 
                             </div><!--md container 끝-->
 
 
-                            <div class="another">
+                            <div class="another">   <!-- 오른쪽 프로필 창 -->
 
                                 <div class="an_create_profile">
                                     <div class="an_create_profile_con" id="container_modal">
@@ -302,7 +307,7 @@
 
                                         <div class="an_profile_detail">
 
-                                            <p th:text="${accompany.user.userId}"></p>
+                                            <p th:text="${accompany.user.userName}"></p>
 
                                             <div class="an_container_two_2">
                                                 <p class="an_container_two_2_p">
@@ -384,7 +389,7 @@
                                             <div class="an_container_up_div_Icon2">
 
                                                 <span class="an_container_two_1"
-                                                      th:text="${accompany.user.userId}"></span>
+                                                      th:text="${accompany.user.userName}"></span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                      viewBox="0 0 448 512">
                                                     <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -594,7 +599,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 <script src="/jq/jquery-3.7.0.min.js"></script>
 <script src="/js/header.js"></script>
-<script src="/js/community/accompany/accompanyDetailComment.js"></script>
+<!--<script src="/js/community/accompany/accompanyDetailComment.js"></script>-->
 <script src="/js/community/accompany/accompany_detail_profile.js"></script>
 <script src="/js/community/accompany/accompany_detail.js"></script>
 <script src="/js/community/accompany/comment_write.js"></script>

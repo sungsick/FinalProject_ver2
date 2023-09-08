@@ -200,7 +200,7 @@ swiper-slide img {
 
 .trip_date {
     font-size: 12px;
-    color: forestgreen;
+    color: #588fee;
     font-weight: 600;
 }
 
@@ -580,6 +580,14 @@ button{
     border: 1px solid rgb(233, 233, 233);
     z-index: 1;
 }
+.fa-sliders::before{
+    color: #00b8ff;
+}
+.dxggeT{
+    margin-left: 10px;
+}
+
+
 
 .test1{
     cursor: pointer;
@@ -618,4 +626,60 @@ button{
     align-items: center;
     justify-content: space-around;
     font-size : 12px;
+}
+
+
+/* 어디로 여행 가시나요 dropdown*/
+.menu{
+    width:300px;
+    height:40px;
+    text-align:center;
+    line-height: 40px;
+}
+
+.menu>.sub{
+    display:none;
+    height:120px;
+    list-style:none;
+    overflow:hidden;
+}
+
+.menu>.sub li{
+
+    border-top:1px black solid;
+}
+
+.menu>.sub li>a{
+    text-decoration:none;
+    color:black;
+}
+
+.menu>.sub.up{
+    height:0px;
+    animation-name:slide_up;
+    animation-duration:1s;
+}
+
+.menu>.sub.down{
+    height:120px;
+    animation-name:slide_down;
+    animation-duration:1s;
+}
+
+@keyframes slide_up{
+    0%{
+        height:120px;
+    }
+    100%{
+        height:0px;
+    }
+}
+
+@keyframes slide_down{
+    0%{
+        height:0px;
+    }
+    100%{
+        height:120px;
+    }
 }

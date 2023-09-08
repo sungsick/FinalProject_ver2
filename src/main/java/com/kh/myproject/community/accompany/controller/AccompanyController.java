@@ -151,13 +151,14 @@ public class AccompanyController {
 
         // 해당페이지로 접속시 해당 게시글의 조회수를 올려줘야한다. 조회수가 올라간 상태로 게시글을 반환해야한다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
-        accompanyService.increaseViewCount(accompanyEntity.getAc_num()); // 객체를 찾아오기전에 미리 조회수를 올리고 찾아오기보다는 찾아오고 있을때 걔의조회수를 올려야하는데
+        accompanyService.increaseViewCount(accompanyEntity.getAc_num());
+        // 객체를 찾아오기전에 미리 조회수를 올리고 찾아오기보다는 찾아오고 있을때 걔의조회수를 올려야하는데
         // 그러면 클라이언트는 증가되기전의 조회수를 보므로 임의로 객체의 변수값을 바꿔준다.
         accompanyEntity.setAc_viewcount(accompanyEntity.getAc_viewcount()+1);
 
         System.out.println("accompanyEntity:"+accompanyEntity);
         List<Comment> commentEntity = commentRepository.findAllByAccompany_Acnum(ac_num);
-
+        System.out.println("commentEntity 값 " + commentEntity);
 
         model.addAttribute("commentList", commentEntity);
 

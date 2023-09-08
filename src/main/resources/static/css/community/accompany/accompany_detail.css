@@ -818,7 +818,7 @@ img {
 .bt_com_div_text {
     display: block;
     overflow: auto;
-    width: 85%;
+    width: 90%;
     font-weight: 400;
     font-size: 13px;
     padding: 12px;
@@ -1297,10 +1297,10 @@ img {
 }
 
 .comment-block {
-
+    height: 30px;
     margin-top: 30px;
-    border-bottom: 1px solid rgb(220, 220, 220)
-
+    border-bottom: 1px solid rgb(220, 220, 220);
+    margin-bottom:100px;
 }
 
 .kAbAZt {
@@ -1310,7 +1310,6 @@ img {
     height: auto;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid red;
 }
 
 .cpQiyf {
@@ -1418,27 +1417,23 @@ img {
 }
 
 
-
-
 /* no-comment 일때 css*/
 .no-comment {
-
+    box-sizing: border-box;
     text-align: center;
     font-size: 20px;
-    height: 100px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .no-comment-img {
-
-    width: 80px;
-    height: 100px;
-    margin-bottom: 30px;
-
+    width: 90px;
+    height: 149px;
+    object-fit: contain;
 }
 
 a {

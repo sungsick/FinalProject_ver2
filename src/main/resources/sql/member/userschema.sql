@@ -10,7 +10,7 @@ delete from finalproject.comment;
 delete from finalproject.accompany;
 delete from finalproject.user;
 delete from finalproject.manager;
-
+/* 왜 delete 를 넣었는지 궁금 */
 
 
 alter table finalproject.user auto_increment = 1;

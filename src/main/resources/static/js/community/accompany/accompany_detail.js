@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(() => {(
 // // 로그인 해서 user.number 가지고 있는 사람
 //
 //
@@ -13,6 +13,30 @@ $(document).ready(() => {
 //             editBtn.style.display = 'block';
 //         }
 //     }
+
+
+$('.add_reply_btnEdit').click(function (event) {
+
+    console.log('댓글 수정 버튼 AJAX 실행')
+    console.log(event)
+    const id = event.target.id
+
+    var query = JSON.stringify({
+        co_number: id,
+        co_content: $('#textarea'+id).val()
+    });
+
+    $.ajax({
+
+        url: '/community/accompany/commentEdit',
+        type: 'POST',
+        data: query,
+        contentType: 'application/json',
+        success: function (res) {
+            console.log("res :: ", res)
+
+        }
+    })
 
 
 // //취소 버튼 클릭시 accompany(동행 메인)으로 이동
@@ -61,5 +85,5 @@ $(document).ready(() => {
         });
     });
 
-})
+}))})
 
