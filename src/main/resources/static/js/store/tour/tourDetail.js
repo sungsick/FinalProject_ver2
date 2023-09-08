@@ -122,49 +122,6 @@ $('.map_btn').on('click', function () {
     });
 
 
-   /* var iwContent = `<div style="padding:5px;width: 90%">${title}</div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwPosition = new kakao.maps.LatLng(mapY, mapX); //인포윈도우 표시 위치입니다
-        iwRemoveable = true;
-
-// 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        position: iwPosition,
-        content: iwContent,
-        removable: iwRemoveable
-    });
-    infowindow.open(map, mapMarker);*/
-
-    /*dddddddddddddddddddddddddddddd*/
-    var content = '<div class="wrap">' +
-        '    <div class="info">' +
-        '        <div class="title">' +
-                        `${title}` +
-        '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-        '        </div>' +
-        '        <div class="body">' +
-        '            <div class="img">' +
-        '                <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
-        '           </div>' +
-        '            <div class="desc">' +
-        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' +
-        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' +
-        '            </div>' +
-        '        </div>' +
-        '    </div>' +
-        '</div>';
-
-// 마커 위에 커스텀오버레이를 표시합니다
-// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-    overlay = new kakao.maps.CustomOverlay({
-        content: content,
-        map: map,
-        position: mapMarker.getPosition()
-    });
-
-// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-    kakao.maps.event.addListener(mapMarker, 'click', function() {
-        overlay.setMap(map);
-    });
 
 // 로드뷰 초기화가 완료되면
     kakao.maps.event.addListener(roadview, 'init', function () {
@@ -175,24 +132,21 @@ $('.map_btn').on('click', function () {
             map: roadview
         });
 
-        var rLabel = new kakao.maps.InfoWindow({
-            position: placePosition,
-            content: `${title}`
-        });
 
-        rLabel.open(roadview, rvMarker);
     });
 
-    kakao.maps.event.addListener(mapMarker, 'click', function() {
-        // 마커 위에 인포윈도우를 표시합니다
-        overlay.open(map, mapMarker);
-    });
+    var content=
+                `<button class="find_to" onclick="window.open('about:blank').location.href='https://map.kakao.com/link/to/${title},${mapY},${mapX}'">
+                    <img src="/img/store/tour/pngwing.com (1).png">
+                    길찾기</button>`;
+
+    $('#container').append(content);
+
+
 
 
 });
-function closeOverlay() {
-    overlay.setMap(null);
-}
+
 
 
 // 지도와 로드뷰를 감싸고 있는 div의 class를 변경하여 지도를 숨기거나 보이게 하는 함수입니다

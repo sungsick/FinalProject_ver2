@@ -705,21 +705,37 @@ h6 > b {
 
 #btnRoadview, #btnMap {
     position: absolute;
-    top: 5px;
-    left: 5px;
     padding: 7px 12px;
     font-size: 14px;
     border: 1px solid #dbdbdb;
-    background-color: #fff;
-    border-radius: 2px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     z-index: 1;
     cursor: pointer;
+    background-color: #00b8ff;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    left: 22px;
+    top: 14px;
+}
+.find_to{
+    position: absolute;
+    bottom: 80px;
+    right: 30px;
+    z-index: 20;
+    background-color: #00b8ff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    color: #ffff;
+    font-weight: bold;
 }
 
-#btnRoadview:hover, #btnMap:hover {
-    background-color: #fcfcfc;
-    border: 1px solid #c1c1c1;
+
+.find_to img{
+    width: 66px;
+    height: 66px;
+    display: block;
 }
 
 #container.view_map #mapWrapper {
@@ -800,6 +816,10 @@ h6 > b {
     }
 }
 
+.active>.page-link, .page-link.active{
+    background-color: #00B8FF;
+    border-color: #00B8FF;
+}
 /*여행상점 메인*/
 
 

@@ -271,8 +271,8 @@ h1 {
 
 .none_result_table:before{
     content: '';
-    background-image: url("https://m-flight.naver.com/list-e9b61b3ce61c7b874b702933db2b7935.png");
-    background-size: 200px auto;
+    background-image: url("https://m-flight.naver.com/list-02ee448f930ef566221f52da1d238713.png");
+    background-size: 241px auto;
     background-position: 0 0;
     display: block;
     margin: 0 auto 27px;
@@ -346,10 +346,10 @@ h1 {
 }
 
 .end_route:before {
-    background-image: url("https://m-flight.naver.com/list-e9b61b3ce61c7b874b702933db2b7935.png");
+    background-image: url("https://m-flight.naver.com/list-02ee448f930ef566221f52da1d238713.png");
     -webkit-background-size: 200px auto;
-    background-size: 200px auto;
-    background-position: -138px -49px;
+    background-size: 241px auto;
+    background-position: -188px -42px;
     width: 18px;
     height: 9px;
     display: inline-block;

@@ -87,7 +87,12 @@ $(function () {
 /* 검색 시작 */
 $('#flight_search_btn').on('click', function () {
     if ($('#flight_date').val() === '') {
-        Swal.fire('날짜를 입력하세요.', '', 'error');
+        Swal.fire({
+            title: '날짜를 입력하세요.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        });
     } else {
         pageNo = 1;
         $('.loading_wrap').css('display', 'block'); //검색 모달
@@ -339,9 +344,18 @@ function dataTest(param) {
 
 
         if ($('#sessionUser').val() === '') {
-            Swal.fire('로그인후 이용하세요.', '', 'error').then(function () {
-
-                location.href = '/member/login';
+            Swal.fire({
+                title: '로그인 후 이용 가능합니다.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '로그인하러 가기',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '더 둘러보기'
+            }).then(function (result) {
+                if(result.isConfirmed){
+                    location.href = '/member/login';
+                }
             });
         } else {
             $.ajax({
