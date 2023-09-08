@@ -59,10 +59,6 @@ $('.search_area_btn').on('click', function () {
     });
 });
 
-/*$('.area_btn').on('click', function(){
-   $('.area_btn').not($(this).remove('sel'));
-   $(this).add('sel');
-});*/
 
 function insertArea(e) {
     areaCode = e.value;
@@ -86,6 +82,7 @@ function insertArea(e) {
         success: function (data) {
             console.log(data);
             var item = data.response.body.items.item;
+            console.log("item = " + item);
 
             $('.all_sigungu').empty();
             $('.sigungu_list').empty();
@@ -710,55 +707,3 @@ function getSearchKeyword(pageNum) {
     });
 }
 
-/*
-   $('#search_area_btn').on('click', function(){
-   alert('모달');
-});
-   $(function () {
-   $.ajax({
-      url: '/tourismInfo',
-      type: 'get',
-      dataType: 'text',
-      success: function (data) {
-         let item = JSON.parse(data).response.body.items.item;
-         for (let i = 0; i < item.length; i++) {
-            let content = `<p>${item[i].title}</p>
-                                 <p><img src="${item[i].firstimage}" width="500px" height="300px"></p>
-                                 <p>${item[i].zipcode}</p>
-                                 <p>${item[i].addr1}</p>
-                                 <p>${item[i].overview}</p>`;
-            $('.container1').append(content);
-            blogSearchByContentId(item[i].title);
-
-         }
-
-      }
-   });
-});
-
-   function blogSearchByContentId(title) {
-   $.ajax({
-      url: '/searchBlog',
-      type: 'get',
-      data: {
-         title: title
-      },
-      dataType: 'text',
-      success: function (data) {
-         let items = JSON.parse(data).items;
-         console.log(data);
-         for (let i = 0; i < items.length; i++) {
-            let content = `<p><a href="${items[i].link}">${items[i].title}</a></p>
-                                  <p>${items[i].description}</p>
-                                  <p><a href="${items[i].bloggerlink}">출처:${items[i].bloggername}</a></p>
-                                  <p>작성일:${items[i].postdate}</p><hr/>`;
-            $('.blog').append(content);
-         }
-
-      },
-      error: function () {
-         alert('블로그 오류');
-      }
-   });
-}
-*/
