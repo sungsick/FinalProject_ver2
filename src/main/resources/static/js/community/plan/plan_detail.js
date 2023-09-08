@@ -35,13 +35,19 @@
 //버튼 관련
 
 //일정 작성 완료 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
-const CompleteMySchedule = document.querySelector('.complete_write_btn');
+const CompleteMySchedule = document.querySelector('.complete_write_btn'); //일정 수정 완료하기
+const CompleteMySchedule2 = document.querySelector('.complete_write_btn2'); //다른 일정 보기
+
 
 var user = $('#sessionUser').val();
 var boardUser = $('#boardUser').val();
-/*CompleteMySchedule.addEventListener('click', () => {
-    window.location.href = '../plan';
-});*/
+
+//다른일정보기 클릭 시 Plan 메인으로 이동
+// CompleteMySchedule2.addEventListener('click', () => {
+//     window.location.href = '../plan';
+// });
+
+
 
 
 //1번째 테이블 장소 추가 버튼 클릭 시 plan_add로 이동
@@ -241,12 +247,16 @@ $('.complete_write_btn').on('click', function () {
     });
 });
 
+// 다른 일정 보기
+$('.complete_write_btn2').on('click', function (){
+    window.location.href = '../plan';
+});
 
 
-
-//삭제테스트
+// 일정 삭제 하기
 $('.complete_delete_btn').on('click', function () {
     //
+
     // alert("일정이 저장되었습니다.")
     var pbTitle = $('.art1_div_subject').text();
     var pbStartDate = $('#select_start_date').val();

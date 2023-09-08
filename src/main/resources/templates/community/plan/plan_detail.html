@@ -61,6 +61,17 @@
                                     <!--                                    </div>-->
                                     <div class="art1_div_subject" th:text="${plan.pbTitle}"></div>
                                     <span class="art1_div_menu">
+                                         <th:block th:if="${session.user != null}">
+                            <div class="complete_delete_btn" th:if="${plan.user.userNumber == session.user.userNumber}">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                     viewBox="0 0 448 512">
+                                    <style>svg {
+                                        fill: #df5368
+                                    }</style>
+                                    <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>
+                                </svg>
+                            </div>
+                            </th:block>
                                 </span>
                                 </div>
                             </div>
@@ -429,30 +440,6 @@
                                     <span>여행일정 추가</span></button>
                             </div>
                             </th:block>
-
-                            <!-- 삭제테스트-->
-                            <th:block th:if="${session.user != null}">
-                                <div class="add_place_area" th:if="${plan.user.userNumber == session.user.userNumber}">
-                                    <div class="add_place_area_icon">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19.9387 10.7632C19.9387 15.0508 12.4693 21.8536 12.4693 21.8536C12.4693 21.8536 5 15.0508 5 10.7632C5 6.47572 8.34413 3 12.4693 3C16.5945 3 19.9387 6.47572 19.9387 10.7632Z"
-                                                  fill="#7D7DFF"></path>
-                                            <circle cx="12.4699" cy="9.91282" r="3.37327" fill="white"></circle>
-                                        </svg>
-                                    </div>
-                                    <button class="complete_delete_btn" id="complete_delete_btn">
-                                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                             xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.5 1V12" stroke="#000" stroke-width="2" stroke-linecap="round"
-                                                  stroke-linejoin="round"></path>
-                                            <path d="M12 6.5L1 6.5" stroke="#000" stroke-width="2" stroke-linecap="round"
-                                                  stroke-linejoin="round"></path>
-                                        </svg>
-                                        <span>여행일정 삭제</span></button>
-                                </div>
-                            </th:block>
-
                         </div>
 
 
@@ -464,14 +451,16 @@
                             <input type="hidden" th:value="${plan.pbViewCount}" id="pbViewCount">
                         </div>
                             <div class="complete_write_area" th:if="${plan.user.userNumber != session.user.userNumber}">
-                                <button color="#fff" class="complete_write_btn">다른 일정 보기</button>
+                                <button color="#fff" class="complete_write_btn2">다른 일정 보기</button>
                             </div>
                         </th:block>
+
                         <th:block th:if="${session.user == null}">
                         <div class="complete_write_area">
-                            <button color="#fff" class="complete_write_btn">다른 일정 보기</button>
+                            <button color="#fff" class="complete_write_btn2">다른 일정 보기</button>
                         </div>
                         </th:block>
+
                     </div>
                     <div th:if="${session.user != null}">
                         <input type="hidden" th:value="${session.user.userNumber}" id="sessionUser">

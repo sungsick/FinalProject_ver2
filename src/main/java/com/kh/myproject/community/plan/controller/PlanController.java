@@ -64,6 +64,8 @@ public class PlanController {
     public String communityplandetail(@RequestParam("pbNum") Long pbNum, Model model) {
 
         PlanBoardDTO planBoardDTO = planBoardService.getOnePlanBoard(pbNum);
+//        planBoardDTO.setUser(user); //일정 담기 시 에도 추가
+//        planBoardService.savePlanBoard(planBoardDTO); //일정 담기 시에도 추가
         int maxDay = planBoardService.getMaxByPbNum(pbNum);
 
         if(planDetailTemporalList.isEmpty()){
@@ -188,15 +190,16 @@ public class PlanController {
         boardDTO.setUser(user);
 
         planBoardService.deleteAllPlanBoardDetail(boardDTO.getPbNum());
-        planBoardService.updatePlanBoard(boardDTO);
+        /*planBoardService.updatePlanBoard(boardDTO, planDetailTemporalList);*/
         planBoardService.savePlanBoard(boardDTO, planDetailTemporalList);
         /*planBoardService.deleteBoard(boardDTO.getPbNum());*/
 
         planDetailTemporalList.clear();
 
-        return "community/plan/plan";
+        return "redirect:community/plan/plan";
     }
 
+    // 일정 삭제 하기
     @PostMapping("/community/plan/completeDeletePlan")
     @ResponseBody
     public String completeDeletePlan(@RequestBody PlanBoardDTO boardDTO,

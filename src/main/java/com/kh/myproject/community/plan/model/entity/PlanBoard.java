@@ -47,8 +47,9 @@ public class PlanBoard {
     @JoinColumn(name = "user_number")
     private User user;  //유저번호
 
-    @OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "planBoard", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlanBoardDetail> planBoardDetails = new ArrayList<>();
+
     public PlanBoardDTO toDto(){
         return PlanBoardDTO.builder()
                 .pbNum(pbNum)
