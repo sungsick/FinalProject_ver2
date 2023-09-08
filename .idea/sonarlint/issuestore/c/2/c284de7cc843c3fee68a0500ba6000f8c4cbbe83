@@ -1,0 +1,9 @@
+
+r	java:S117:"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŞóÁ˜ıÿÿÿÿ8œë¿§1
+r	java:S117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İöÔäıÿÿÿÿ8œë¿§1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‰íìŠ8ŞûÁÊ¦1
+]	java:S125*"<This block of commented-out lines of code should be removed.(ƒç’¦ÿÿÿÿÿ8±ë¿§1
+]
+java:S4684U"@Replace this persistent entity with a simple POJO or DTO object.(¬ÔÃû8¹ë¿§1
+Y	java:S125’"<This block of commented-out lines of code should be removed.(†ªó¨8Ãë¿§1
+^	java:S125"<This block of commented-out lines of code should be removed.(şÒ¿®ûÿÿÿÿ8Œ±¦Ë¦1

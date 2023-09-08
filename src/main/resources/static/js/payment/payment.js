@@ -296,6 +296,7 @@ $(function () {
         $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
     });
 
+
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 // 시작일과 종료일 문자열
     var startDateStr = document.querySelector("#depart-date").value;
@@ -322,6 +323,44 @@ $(function () {
     document.querySelector("#arrive-date-text").textContent = `${endDateParts[0]}.${endDateParts[1]}(${endDayOfWeek})`;
     document.querySelector("#depart-time").textContent = `${startDateParts[2]}`;
     document.querySelector("#arrive-time").textContent = `${endDateParts[2]}`;
+
+
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+// 문자열 값을 정수로 변환합니다.
+    var amountIntType = parseInt(document.querySelector("#car-price").textContent);
+    var premiumPriceElement = document.querySelector("#premiumPrice");
+
+// 콤마(,)를 제거하고 숫자로 변환
+    var premiumPriceIntType = parseInt(premiumPriceElement.textContent.replace(/,/g, ""), 10);
+
+// 두 정수 값을 더합니다.
+    var total = amountIntType + premiumPriceIntType;
+    const formattedAmount3 = formatNumberWithCommas(total);
+    // 콤마(,)를 추가하고 반환
+    document.querySelector("#emphasis-price").textContent = formattedAmount3 + "원";
+    document.querySelector("#btnKakaoPay").textContent = formattedAmount3 + "원 바로 결제하기";
+
+
+    var amount = document.querySelector("#car-price").textContent;
+    var amount2 = document.querySelector("#car-price2").textContent;
+    const formattedAmount = formatNumberWithCommas(amount);
+    const formattedAmount2 = formatNumberWithCommas(amount2);
+    document.querySelector("#car-price").textContent = formattedAmount;
+    document.querySelector("#car-price2").textContent = formattedAmount2;
+
+    var carOptionString = document.querySelector(".prod-option-info-detail").textContent;
+    var carOptionArray = carOptionString.split(',');
+
+    var numberOfOptions = carOptionArray.length;
+
+    if (numberOfOptions === 1 && carOptionArray[0].trim() === "옵션없음") {
+        numberOfOptions = 0; // 옵션이 없는 경우 0으로 설정
+    }
+    document.querySelector("#optionLength").textContent = "총 " + numberOfOptions + "개 옵션";
+
 });
 // if (idx === 0) {
 //     $('.second-box-tabs-clicked-bar').css('margin-left', '0px')

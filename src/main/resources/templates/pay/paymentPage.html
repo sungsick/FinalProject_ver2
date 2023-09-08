@@ -42,7 +42,8 @@
                                         23년식 가솔린 5인승
                                     </div>
                                     <!--                                    차 가격 넣기-->
-                                    <div class="prodPrice" th:text="|${dto.getCar_discount()}원|">
+                                    <div class="prodPrice total_count" th:id="car-price"
+                                         th:text="|${dto.getCar_discount()}원|">
 
                                     </div>
                                 </div>
@@ -100,13 +101,14 @@
                                                 <div class="item-box-left">
                                                     <label class="label-cbx">
                                                         <!--                                                        갯수 옵션 인덱스 갯수 만큼-->
-                                                        <div>총 4개 옵션</div>
+                                                        <div th:id="optionLength">총 4개 옵션</div>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--                                        데이터 베이스에서 옵션 정보 가져오기-->
-                                        <div class="prod-option-info-detail" th:text="${dto.getCar_option()}"></div>
+                                        <div class="prod-option-info-detail" th:id="options"
+                                             th:text="${dto.getCar_option()}"></div>
                                     </div>
                                 </section>
                                 <section class="prod-info-section2">
@@ -531,7 +533,9 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">전화</div>
-                                                <div class="content">064-743-3727</div>
+                                                <div class="content" th:text="${dto.getCom_id().getCom_tel()}">
+                                                    064-743-3727
+                                                </div>
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">영업시간</div>
@@ -542,7 +546,10 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">주소</div>
-                                                <div class="content" id="companyAddress">제주특별자치도 제주시 도리로 110 발리렌트카</div>
+                                                <div class="content" id="companyAddress"
+                                                     th:text="${dto.getCom_id().getCom_location()}">제주특별자치도 제주시 도리로
+                                                    110 발리렌트카
+                                                </div>
                                             </div>
                                         </div>
                                         <!--                                        여기에 지도 넣기-->
@@ -739,17 +746,17 @@
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
                                 <div>대여료</div>
-                                <div>156,480</div>
+                                <div th:id="car-price2" th:text="${dto.getCar_discount()}">156,480</div>
                             </div>
                             <div class="priceWarp">
                                 <div>보험 (일반 자차)</div>
-                                <div>-136,350</div>
+                                <div id="premiumPrice">136,350</div>
                             </div>
                         </div>
                         <div class="totalPrice">
                             <div class="totalPrice-text">
                                 <div class="emphasis"> 총 결제 금액</div>
-                                <div class="emphasis-price">20,130원</div>
+                                <div class="emphasis-price" id="emphasis-price">20,130원</div>
                             </div>
                         </div>
                         <!--                        컨트롤러 임시 호출 결제시 totalPrice데이터 넘기기-->
