@@ -6,6 +6,7 @@
 //
 // })
 
+/* 얘는 무슨 코드지 ?*/
 let subToggle=true;
 $(".menu").click(()=>{
     if(subToggle){
@@ -14,4 +15,17 @@ $(".menu").click(()=>{
         $(".sub").slideUp(1000);
     }
     subToggle=!subToggle;
-});
+})
+
+.$("#countComment").click(function () {
+
+    console.log('댓글 많은 순으로 정렬')
+    console
+
+    $.ajax({
+
+        url:/community/accompany/
+
+    })
+
+})

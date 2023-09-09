@@ -165,6 +165,7 @@ public class AccompanyController {
 
         model.addAttribute("accompany", accompanyEntity);
 
+
         return "community/accompany/accompany_detail";
 
     }
@@ -186,11 +187,6 @@ public class AccompanyController {
 //    }
 //
 //
-
-
-
-
-
 
 
     // 동행 글의 수정 클릭 > 해당 글 번호 불러오기
@@ -219,19 +215,6 @@ public class AccompanyController {
         return "community/accompany/accompany_edit";
 
     }
-
-//    // 글 번호를 가지고 수정하는 메서드
-//    @RequestMapping(value = "/community/accompany/update", produces="text/plain;charset=UTF-8")
-//    public String accompanyUpdate(HttpServletRequest request, AccompanyForm form){
-//        System.out.println("컨트롤러 update() 메서드 실행");
-//        System.out.println(form.toString());
-//
-//        System.out.println(form.getUser_number());
-//        System.out.println(form.getAc_region());
-//
-//        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "redirect://community/accompany";
-//    }
 
 
     // 글 번호를 가지고 수정하는 메서드
@@ -302,28 +285,6 @@ public class AccompanyController {
 
         return "redirect:/community/accompany";
     }
-
-
-//    //동행 글 정보
-//    @GetMapping("/community/accompany/detail/{ac_num}") // http://localhost:8070/community/accompany
-//    public String communityAccompanyDetail(@PathVariable Long ac_num, Model model){
-//
-//        System.out.println("컨트롤러의 show() 메서드 실행");
-//        System.out.println("ac_num = " + ac_num);
-//
-//        // ac_num 한 건마다 해당되는 테이블에서 가지고 온다.
-//        // findById() id 값을 넣어주면 테이블에서 찾아서 결과를 반환한다.
-//        // 만약 데이터가 없다면 orElse(null) 메서드가 실행하면 null을 리턴시킨다.
-//
-//        Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
-//
-//        model.addAttribute("accompany", accompanyEntity);
-//
-//        return "community/accompany/accompany_detail";
-//
-//    }
-//
-//
 
 
 

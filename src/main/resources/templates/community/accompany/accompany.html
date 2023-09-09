@@ -72,7 +72,7 @@
                         <button class="sc-fe318b44-1 eTYLaQ">최신 순</button>
                         <button class="sc-fe318b44-1 diPORg">인기 순</button>
                         <button class="sc-fe318b44-1 diPORg">많이 본 순</button>
-                        <button class="sc-fe318b44-1 diPORg">댓글 순</button>
+                        <button class="sc-fe318b44-1 diPORg" id="countComment">댓글 순</button>
                         <button class="sc-fe318b44-1 diPORg">모집중</button>
                         <button class="sc-fe318b44-1 diPORg">모집완료</button>
                     </div>
@@ -122,8 +122,9 @@
 
                                     <div class = "user_info_bottom">
                                     <div class="ml_4" th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></div>
-                                    <div class="user_agender" th:if="${accompany.user?.userGender == 'M'}">남자</div>
-                                    <div class="user_agender" th:if="${accompany.user?.userGender == 'F'}">여자</div>
+                                        <div class="two_jum"></div>
+                                        <div class="user_gender4" th:if="${accompany.user?.userGender == 'M'}">남성</div>
+                                    <div class="user_gender4" th:if="${accompany.user?.userGender == 'F'}">여성</div>
                                     </div>
                                 </div>
                             </div>

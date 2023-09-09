@@ -38,5 +38,11 @@ void updateAccompany(@Param("accompany") Accompany accompany);
     @Modifying
     @Query("update Accompany a set a.ac_viewcount = a.ac_viewcount+1 where a.ac_num = :ac_num")
     void increaseViewCount(@Param("ac_num")Long ac_num);
+
+
+
+
+
+
 }
 
