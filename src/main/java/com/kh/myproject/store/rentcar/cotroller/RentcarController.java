@@ -38,6 +38,13 @@ public class RentcarController {
 
     }
 
+    @GetMapping("/store/rentcar/rentcarReserve")
+    public String rentcarReserve() {
+
+        return "store/rentcar/rentcarReserve";
+
+    }
+
 
 
 
@@ -58,7 +65,7 @@ public class RentcarController {
 
         }
  */
-    @RequestMapping("/MainSearch") // http://localhost:8080/store/rentcar/MainSearch
+    @RequestMapping("/rentcarReserve") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
                          @RequestParam String arrive_date,
@@ -96,7 +103,7 @@ public class RentcarController {
 
     //키워드 검색결과
 
-    @GetMapping("/rentcarReserve")
+    @GetMapping("/rentcarReserveKeyword")
     public ResponseEntity<List<RentcarInfoDTO>> reserveSearch(@RequestParam(value = "searchKeyword") String searchKeyword) {
 
         System.out.println("reserveSearch 컨트롤러 메서드 실행");
