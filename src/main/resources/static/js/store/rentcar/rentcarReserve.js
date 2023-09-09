@@ -13,6 +13,85 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).ready(function () {
     mainsearch();
 
+
+
+    // 웹페이지 로드 시 초기화
+    $("#result_location").hide();
+    $("#result_depart_date").hide();
+    $("#result_arrive_date").hide();
+
+    $("#input_location").click(function () {
+        if ($("#result_depart_date").is(":visible")) {
+            $("#result_depart_date").hide();
+        }
+
+        if ($("#result_arrive_date").is(":visible")) {
+            $("#result_arrive_date").hide();
+        }
+
+        $("#result_location").toggle();
+    });
+
+
+    $("#input_location_booking").click(function () {
+        if ($("#result_location").is(":visible")) {
+            $("#result_location").hide();
+        }
+
+        $("#result_depart_date").show();
+    });
+
+
+    $("#depart_date_booking").click(function () {
+        if ($("#result_depart_date").is(":visible")) {
+            $("#result_depart_date").hide();
+        }
+
+
+        $("#result_arrive_date").show();
+    });
+
+
+    $("#depart_date").click(function () {
+        if ($("#result_location").is(":visible")) {
+            $("#result_location").hide();
+        }
+
+        if ($("#result_arrive_date").is(":visible")) {
+            $("#result_arrive_date").hide();
+        }
+
+        $("#result_depart_date").toggle();
+    });
+
+
+    $("#arrive_date").click(function () {
+        if ($("#result_location").is(":visible")) {
+            $("#result_location").hide();
+        }
+
+        if ($("#result_depart_date").is(":visible")) {
+            $("#result_depart_date").hide();
+        }
+
+
+        $("#result_arrive_date").toggle();
+
+
+    });
+
+    $("#arrive_date_booking").click(function () {
+        if ($("#result_arrive_date").is(":visible")) {
+            $("#result_arrive_date").hide();
+        }
+
+
+    });
+
+
+
+
+
 // 가격 높은 순 정렬을 위한 컨트롤러 연결
     $('#high_price_list_btn').click(function () {
 

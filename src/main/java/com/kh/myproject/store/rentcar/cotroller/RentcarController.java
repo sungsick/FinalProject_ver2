@@ -39,7 +39,25 @@ public class RentcarController {
     }
 
     @GetMapping("/store/rentcar/rentcarReserve")
-    public String rentcarReserve() {
+    public String rentcarReserve(@RequestParam String input_location,
+                                 @RequestParam String depart_date,
+                                 @RequestParam String arrive_date,
+                                 @RequestParam String input_birth,
+                                    HttpSession session) {
+
+
+        System.out.println(input_location);
+        System.out.println(depart_date);
+        System.out.println(arrive_date);
+        System.out.println(input_birth);
+
+        session.setAttribute("input_location", input_location);
+        session.setAttribute("depart_date", depart_date);
+        session.setAttribute("arrive_date", arrive_date);
+        session.setAttribute("input_birth", input_birth);
+
+
+
 
         return "store/rentcar/rentcarReserve";
 

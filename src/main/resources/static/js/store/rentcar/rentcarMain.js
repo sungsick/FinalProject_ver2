@@ -385,36 +385,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
+
+
+
+
+
+
+
+
 //제주 버튼 눌렀을 때 이동하는 js
 
 function setSessionValuesAndRedirect() {
+
+    var input_location = "제주국제공항";
+    var input_birth = "990101";
+
     // 현재 날짜와 시간을 가져옴
     var currentDate = new Date();
-    var currentYear = currentDate.getFullYear();
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    // 세션 값 설정
-    sessionStorage.setItem("input_location", "제주국제공항");
-    sessionStorage.setItem("depart_date", currentYear + "-" + currentMonth + "-" + currentDay + " 08:00");
+    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+
+  //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
     // 하루 뒤의 날짜를 계산
     currentDate.setDate(currentDate.getDate() + 1);
-    var nextYear = currentDate.getFullYear();
+
     var nextMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var nextDay = ('0' + currentDate.getDate()).slice(-2);
 
     // arrive_date 세션 값 설정
-    sessionStorage.setItem("arrive_date", nextYear + "-" + nextMonth + "-" + nextDay + " 16:00");
+  //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    // input_birth 세션 값 설정
-    sessionStorage.setItem("input_birth", "990101");
+    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
 
-
-    console.log(currentYear + "-" + currentMonth + "-" + currentDay + " 08:00");
-
-
+console.log(input_location);
+    console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve";
+    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
 }
+

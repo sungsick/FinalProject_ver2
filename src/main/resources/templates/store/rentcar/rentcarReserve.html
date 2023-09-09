@@ -90,14 +90,198 @@
         </div>
     </div>
 
-    <!--
-        <div>
-            <input type="hidden" id="th_input_location" th:value="${input_location}"/>
-            <input type="hidden" id="th_depart_date" th:value="${depart_date}"/>
-            <input type="hidden" id="th_arrive_date" th:value="${arrive_date}"/>
-            <input type="hidden" id="th_input_birth" th:value="${input_birth}"/>
+    <!--서치바 토글창-->
+
+    <!--대여위치정하기 토글창-->
+
+    <div class="search_result" id="result_location">
+        <div class="search_result_grid">
+            <div class="result_left_text">
+                <p>차량 받을 장소를</p>
+                <p>선택해주세요.</p>
+            </div>
+            <!--
+                            <div class="result_select_area">
+                                <div class="result_select_area_text" style="">지도 검색</div>
+                                <div class="result_select_area_text" style="font-weight: bold;">공항</div>
+                                <div class="result_select_area_text" style="">지역별</div>
+                            </div>
+            -->
+            <div class="result_location_map">
+                <div id="map" class="map_container" style="width:774px; height:380px;">
+
+                </div>
+
+                <div class="result_map_text_box">
+                    <div class="result_map_inner">
+                        <div class="result_map_name">
+                            <img alt="이미지" class="result_map_icon"
+                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAM1BMVEVHcEwoKCgmJiYoKCgnJycnJycoKCgnJyclJSUoKCggICAoKCgnJycoKCgnJycoKCgnJydRxbuoAAAAD3RSTlMAQFAgt2ag8DCAEOCQ383YCelAAAABPUlEQVRIx82V2XbEIAhAxR010f//2k6NY08UzHjah/KoXDYBhfiteJCIBuAzbZmO3MRpE57UoWs3BpeI13mSQy7Mu0xJ4vTNW+NMKAGxu9Nhpe9QvU+CiY0g4293irJCRKWu+M1khzkXljlvltyYBlR9JGN11JVmc2t5uHtuqjpQTL3jHG01Ytn2mt3XiPgeqFnc0q5R8j1TSwgjoHkAxyT8AwBjYYF9hL8CtkPaTvoqNA/oqayfPNzcGno5u5poPm5zHcSo1JjOVXsPE3S5sGyvzq/Ejqh3peQcp00TIu1DfleoFMmNbtb+ZgbbsvJsrC8n/VJh35004fqax5fYtsgLT/hILuOTJ4Il1KFVkCSmHyKan5rThPCmMzHJ2ysxRP0VYfgTnwhm0/xXQu0SVmwSO0Al1A4gTPJiX74Ag4cgLHfcTgQAAAAASUVORK5CYII=">
+                            <input type="text" class="input_map_address" placeholder="지역이나 역, 건물 이름으로 검색"
+                                   id="input_map_keyword">
+                        </div>
+                        <div class="result_map_btn_wrap">
+                            <button type="button" class="result_location_btn_style location_search_btn"
+                                    id="input_map_search">장소 검색
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <button type="button" class="result_location_btn_style result_location_btn false"
+                            id="input_location_booking">여기서 차량 받기
+                    </button>
+                </div>
+
+            </div>
         </div>
-    -->
+
+    </div>
+
+
+    <!--대여 날짜 선택 토글창-->
+
+    <div class="search_result" id="result_depart_date">
+        <div class="search_result_date_grid">
+            <div class="result_left_text date">
+                <p>대여날짜 및 시간을</p>
+                <p>선택해주세요.</p>
+            </div>
+
+
+            <div class="rent_date_picker">
+                <div class="calender_wrap">
+
+
+                    <div class="calendar">
+
+                        <div id="depart_datepicker">
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="result_date_time">
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="z-index: 1;">
+                        <div class="rent_date_text">대여일시</div>
+                        <div class="rent_date_check" id="depart_date_check"></div>
+                        <div style="position: relative;">
+
+                            <select class="rent_time_check" id="depart_time">
+                                <!-- <select class="rent_time_check_input"> -->
+
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="button" class="rent_date_button"
+                        id="depart_date_booking">대여시간 선택
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--반납 날짜 및 시간 선택 토글창-->
+
+    <div class="search_result" id="result_arrive_date">
+        <div class="search_result_date_grid">
+            <div class="result_left_text date">
+                <p>반납날짜 및 시간을</p>
+                <p>선택해주세요.</p>
+            </div>
+
+
+            <div class="rent_date_picker">
+                <div class="calender_wrap">
+
+
+                    <div class="calendar">
+
+                        <div id="arrive_datepicker">
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="result_date_time">
+
+                <div style="display: flex; flex-direction: column;">
+                    <div style="z-index: 1;">
+                        <div class="rent_date_text">대여일시</div>
+                        <div class="rent_date_check" id="arrive_date_check"></div>
+                        <div style="position: relative;">
+
+                            <select class="rent_time_check" id="arrive_time">
+                                <!-- <select class="rent_time_check_input"> -->
+
+                                <option>08:00</option>
+                                <option>09:00</option>
+                                <option>10:00</option>
+                                <option>11:00</option>
+                                <option>12:00</option>
+                                <option>13:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
+                                <option>18:00</option>
+                                <option>19:00</option>
+                                <option>20:00</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="button" class="rent_date_button"
+                        id="arrive_date_booking">대여하기
+                </button>
+
+                <div class="rent_info_text">최소 24시간 이상 대여 가능합니다.</div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+<!--
+    <div>
+        <input type="hidden" id="th_input_location" th:value="${input_location}"/>
+        <input type="hidden" id="th_depart_date" th:value="${depart_date}"/>
+        <input type="hidden" id="th_arrive_date" th:value="${arrive_date}"/>
+        <input type="hidden" id="th_input_birth" th:value="${input_birth}"/>
+    </div>
+-->
 
     <!--검색 필터링-->
     <div width="auto" class="ContentsArea-ceSrvw reserv_contents_area">
