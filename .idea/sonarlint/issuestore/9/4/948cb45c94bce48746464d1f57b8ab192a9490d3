@@ -1,0 +1,14 @@
+
+p	java:S116"VRename this field "car_info_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜ÄÄºùÿÿÿÿ
+h	java:S116"SRename this field "car_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€¿žµ
+m	java:S116"SRename this field "car_year" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çÕœöÿÿÿÿÿ
+j	java:S116"URename this field "car_nation" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ùú¶Î
+m	java:S116"SRename this field "car_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š†õ‡ûÿÿÿÿ
+m	java:S116"SRename this field "oil_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó†Óôýÿÿÿÿ
+o	java:S116!"URename this field "driver_age" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë»äÎûÿÿÿÿ
+o	java:S116#"URename this field "car_people" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó¿ãÁüÿÿÿÿ
+i	java:S116%"TRename this field "car_price" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶¤‡ê
+l	java:S116'"WRename this field "car_discount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Ð«ó
+f	java:S116+"QRename this field "com_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äïðÄ
+o	java:S116-"URename this field "car_option" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒßïºùÿÿÿÿ
+f	java:S116/"RRename this field "car_img" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â¯ÊQ

@@ -1,5 +1,6 @@
 $(function () {
 
+
     /*###################################################################################################################*/
 
     // 유저 이름, 핸드폰 번호 가져오기
@@ -13,30 +14,40 @@ $(function () {
     defaultUserPhoneNumElement.value = defaultUserPhoneNum;
 
     if (!defaultUserName === '' || !defaultUserPhoneNum === '') {
+
         defaultUserNameElement.disabled = ture;
         defaultUserNameElement.backgroundColor = rgb(246, 246, 246);
+
     }
 
     /*###################################################################################################################*/
 
     // tab 기능
     var $tablink = $('.second-box-tabs div').click(function (e) {
+
         var idx = $tablink.index(this);
+
         $('.second-box-tabs div').css('color', 'rgb(170, 170, 170)');
         $('.second-box-tabs div').css('font-weight', '400');
         $(this).css('color', '#00ce7c');
         $(this).css('font-weight', '600');
 
         var marginLeftValue = idx * 33.3333;
+
         $('.second-box-tabs-clicked-bar').animate({
             'margin-left': marginLeftValue + '%'
         }, 200)
+
         $('.sections-con').removeClass('show');
         $('.third-box section:first > div').eq(idx).addClass('show')
 
+        /*###################################################################################################################*/
+
+        // 카카오 맵
         // 카카오맵의 지도가 로드되고 css가 바뀌게 되면 카카오맵이 감지하는 사이즈와 달라짐
         // 그러므로 display block이 되고난 이후 시점에 수동으로 relayout() 해주기
         if (idx === 2) {
+
             var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div
                 mapOption = {
                     center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -79,39 +90,56 @@ $(function () {
         }
     });
 
+    /*###################################################################################################################*/
+
     // 모달 열기
     $('.shuttle-button').click(function () {
+
         $('.modal').css('display', 'block');
         $("body").css('overflow', 'hidden');
         // $("body").css('margin-left', '1px');  // 스크롤로 인한 화면 꿀렁거림 제거
         // 이유 모르겠는데 위 현상 없어짐
+
     })
     // 모달 닫기
     $('.modal-btn').click(function () {
+
         $('.modal').css('display', 'none');
         $("body").css('overflow', 'auto');
         // $("body").css('margin-left', '0px');  // 스크롤로 인한 화면 꿀렁거림 제거
         // 이유 모르겠는데 위 현상 없어짐
+
     })
+
+    /*###################################################################################################################*/
 
     // 텍스트 숨기기
     $('.arrow').click(function () {
+
         if ($(this).hasClass('false')) {
+
             $('.arrow').removeClass('false');
             $('.arrow').addClass('onArrow');
             $('.policy-detail').css('max-height', '989px');
             $('.policy-detail').css('margin-bottom', '20px');
+
         } else {
+
             $('.arrow').removeClass('onArrow');
             $('.arrow').addClass('false');
             $('.policy-detail').css('max-height', '0px');
             $('.policy-detail').css('margin-bottom', '0px');
+
         }
     })
 
+    /*###################################################################################################################*/
+
     // 내륙, 제주 지역 선택텝
     var $landLocation = $('.insurance-locations div').click(function () {
+
         var idx = $landLocation.index(this);
+
         $('.insurance-locations div').removeClass('locationClick');
         $(this).addClass('locationClick');
 
@@ -131,7 +159,9 @@ $(function () {
         var btnKakaoPay = document.getElementById('btnKakaoPay');
 
         if (input_birth.value >= 2) {
+
             var inputValue = parseInt(input_birth.value.substring(0, 2));
+
         }
 
         if (input_birth.value.length >= 6) {
@@ -141,22 +171,28 @@ $(function () {
             console.log(absolute);
 
             if (absolute >= 20) {
+
                 console.log('20이상');
                 // 20세 이상
                 warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
                 warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
                 btnKakaoPay.disabled = false;
+
             } else if (absolute < 20) {
+
                 console.log('20이하');
                 // 20세 미만
                 warningDiv.textContent = "20세 미만입니다.";
                 warningDiv.style.color = "red"; // 빨간색으로 변경
                 btnKakaoPay.disabled = true;
+
             }
 
         } else {
+
             warningDiv.textContent = "'-' 을 제외한 생년월일 6자리를 입력하세요"; // 경고 메시지 초기화
             btnKakaoPay.disabled = true;
+
         }
     });
 
@@ -169,6 +205,7 @@ $(function () {
 
     // 인증번호 요청, 재요청 클릭시
     $('#verifyBtn').click(function () {
+
         const phoneNumberPattern = /^01([0|1|6|7|8|9]?)([0-9]{3,4})([0-9]{4})$/;
         const user_phone = $("#input_phone").val();
 
@@ -178,6 +215,7 @@ $(function () {
             $('#verifyBtn').text('재요청');
 
         } else {
+
             alert("잘못된 번호입니다")
             btnKakaoPay.disabled = true;
             $("#input_phone").focus();
@@ -215,6 +253,7 @@ $(function () {
 
             alert('인증이 완료됐습니다.');
             auth_check = true;
+
             $('#verify').addClass('auth');
             $('#verifyBtn').addClass('auth');
             $('#input_phone').val("인증완료");
@@ -223,12 +262,13 @@ $(function () {
             $('#input_phone').prop('disabled', true);
             $("#btnKakaoPay").disabled = false;
 
-
         } else {
+
             alert('잘못 입력했습니다. 인증번호를 확인하세요.');
             $('#input_auth').focus();
             auth_check = false;
             $("#btnKakaoPay").disabled = ture;
+
         }
     })
 
@@ -236,6 +276,7 @@ $(function () {
 
     // html에 이쁘게 표기하기
     const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
 // 시작일과 종료일 문자열
     var startDateStr = document.querySelector("#depart-date").value;
     var endDateStr = document.querySelector("#arrive-date").value;
@@ -247,11 +288,13 @@ $(function () {
 // "월. 일" 형식의 날짜를 Date 객체로 변환 (현재 년도 기준으로)
     var startDate = new Date(new Date().getFullYear(), parseInt(startDateParts[0]) - 1, parseInt(startDateParts[1]), parseInt(startDateParts[2]));
     var endDate = new Date(new Date().getFullYear(), parseInt(endDateParts[0]) - 1, parseInt(endDateParts[1]), parseInt(endDateParts[2]));
+
 // 두 날짜 사이의 차이를 계산
     var timeDiff = endDate - startDate;
 
     var startDayOfWeek = daysOfWeek[startDate.getDay()];
     var endDayOfWeek = daysOfWeek[endDate.getDay()];
+
 // 밀리초를 일로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
     var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
@@ -264,9 +307,11 @@ $(function () {
 
     /*###################################################################################################################*/
 
-    // 숫자에 콤마 넣기
+    // 총 가격 계산하기
     function formatNumberWithCommas(number) {
+
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     }
 
 // 문자열 값을 정수로 변환합니다.
@@ -279,28 +324,37 @@ $(function () {
 // 두 정수 값을 더합니다.
     var total = amountIntType + premiumPriceIntType;
     const formattedAmount3 = formatNumberWithCommas(total);
+
     // 콤마(,)를 추가하고 반환
     document.querySelector("#emphasis-price").textContent = formattedAmount3 + "원";
     document.querySelector("#btnKakaoPay").textContent = formattedAmount3 + "원 바로 결제하기";
 
-    /*###################################################################################################################*/
+    // success페이지 결과에도 콤마 넣기
 
-    // 옵션 갯수 계산
+
     var amount = document.querySelector("#car-price").textContent;
     var amount2 = document.querySelector("#car-price2").textContent;
+
     const formattedAmount = formatNumberWithCommas(amount);
     const formattedAmount2 = formatNumberWithCommas(amount2);
+
     document.querySelector("#car-price").textContent = formattedAmount;
     document.querySelector("#car-price2").textContent = formattedAmount2;
 
+    /*###################################################################################################################*/
+
+    // 옵션 갯수 계산
     var carOptionString = document.querySelector(".prod-option-info-detail").textContent;
     var carOptionArray = carOptionString.split(',');
 
     var numberOfOptions = carOptionArray.length;
 
     if (numberOfOptions === 1 && carOptionArray[0].trim() === "옵션없음") {
+
         numberOfOptions = 0; // 옵션이 없는 경우 0으로 설정
+
     }
+
     document.querySelector("#optionLength").textContent = "총 " + numberOfOptions + "개 옵션";
 
     /*###################################################################################################################*/
@@ -309,56 +363,77 @@ $(function () {
     $("#btnKakaoPay").click(function () {
 
         var query = {
+
             input_name: $("#input_name").val(),
             input_phone: $("#input_phone").val(),
             input_birth: $("#input_birth").val(),
             monthDay: $("#input_birth").val().substring(2),
             checkVal: $("input[formcontrolname=gender]:checked"),
             selectBox: $("select[name='selectBox']").val()
+
         }
+
         const phoneNumberPattern = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 형식검사 정규 표현식
         const birthpattern = /^(\d\d)(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])$/;
         var btnKakaoPay = document.getElementById('btnKakaoPay');
         var warningDiv = document.getElementById('warning');
 
         if (query.input_name === '') {
+
             /*######이름 입력 검사######*/
             query.input_name.disabled = false;
             alert('이름을 입력하세요.');
             $("#input_name").focus();
+
         } else if (query.input_phone === '') {
+
             /*######핸드폰 입력 검사######*/
             alert('핸드폰 번호를 입력하세요.');
             $("#input_phone").focus();
+
         } else if (!auth_check) {
+
             /*######핸드폰 인증 검사######*/
             alert('핸드폰 인증을 완료하세요.')
             $("#input_phone").focus();
+
         } else if (query.input_birth === '') {
+
             /*######생년월일 입력 검사######*/
             alert('생년월일을 입력하세요.');
             $("#input_birth").focus();
+
         } else if (!birthpattern.test(query.input_birth)) {
+
             /*######생년월일 유효성 검사######*/
             console.log(birthpattern.test(input_birth.value));
             warningDiv.textContent = "정확한 생년월일을 입력 하세요.";
             warningDiv.style.color = "red";
             btnKakaoPay.disabled = true;
             $("#input_birth").focus();
+
         } else if (!query.checkVal) {
+
             /*######성별 선택 검사######*/
             alert("성별을 선택해 주세요.");
             btnKakaoPay.disabled = true;
             $("input[formcontrolname='gender']:checked").focus();
+
         } else if (query.selectBox === "") {
+
+            /*######국적 선택 검사######*/
             alert("국적을 선택해 주세요.");
             $("select[name='selectBox']").focus();
+
         } else {
+
+            /*########결제 진입########*/
+
             $("#btnKakaoPay").disabled = false;
-            // 결제 진입
+
             var checkFlag = false;
-            // 결제 정보를 form에 저장한다.
-            var billInfo = {
+
+            var billInfo = {                // 결제 정보를 form에 저장한다.
 
                 rentName: $("#carName").val(),
                 rentType: $("#carType").val(),
@@ -371,15 +446,18 @@ $(function () {
                 rentArrivalDate: $('#arrivalDate').val(),
                 rentImg: $("#carImg").val(),
                 checkFlag: checkFlag,
-                // rentPeople: $("#carPeople").val(),
-                // carDiscount: $("#carDiscount").val(),
+
             };
-            // 카카오페이 결제전송
-            $.ajax({
+
+
+            $.ajax({                        // 카카오페이 결제전송
+
                 type: 'post'
                 , url: '/kakaoPay',
                 data: JSON.stringify(billInfo), // JSON 데이터 전송
                 contentType: 'application/json' // JSON 데이터임을 명시
+
+
                 , success: function (response) {
 
                     // 화면 중앙에 위치시키기 위한 x, y 좌표 계산
@@ -397,8 +475,6 @@ $(function () {
             })
         }
     })
-
-
 });
 
 

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PaybillDto {
+    
     private Long rentReservationId;
     private String rentName;
     private String rentType;
@@ -38,7 +39,7 @@ public class PaybillDto {
     private String ticVihicleId;
     private String tid;
     private User user;
-    
+
     private Boolean checkFlag;
 
     public FlightTicketInfo toTicketEntity() {
