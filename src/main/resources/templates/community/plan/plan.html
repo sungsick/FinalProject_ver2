@@ -177,86 +177,7 @@
 
             <div class="main_content1_box">
 
-                <!--<th:block th:each="plan : ${planList}">
-                    <th:block th:each="plandetail : ${planDetailList}" th:if="${plan.pbNum} == ${plandetail.planBoard.pbNum}">
 
-                        <div class="test2">
-                            <div class="test2_content1">
-                                <div class="user_profile">
-                                    <div class="user_img">
-                                        <img src="/img/member/신짱구.png">
-                                    </div>
-                                    <div class="user_info">
-                                        <div class="user_nick2" >닉네임</div> &lt;!&ndash;th:text="${user.userName}" 나중에 넣기&ndash;&gt;
-                                        <div class="user_agender2">20대 · 남성</div>
-                                    </div>
-                                </div>
-                                <div class="box_shortline"></div>
-                                <div class="trip_profile">
-                                    <div class="trip_info">
-                                        <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
-                                        </div>
-                                        <div class="trip_date" th:text="${plan.pbStartDate} + '-' + ${plan.pbEndDate}">&lt;!&ndash;9일 · 10/16-10/24&ndash;&gt;</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="map">
-&lt;!&ndash;                                <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>&ndash;&gt;
-
-&lt;!&ndash;                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d104994.83738849807!2d135.4036366286705!3d34.67771155001461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000e6553406e2e1%3A0xc55bc16ee46a2fe7!2z7J2867O4IOyYpOyCrOy5tOu2gCDsmKTsgqzsubTsi5w!5e0!3m2!1sko!2skr!4v1692607264229!5m2!1sko!2skr"&ndash;&gt;
-&lt;!&ndash;                                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"&ndash;&gt;
-&lt;!&ndash;                                        referrerpolicy="no-referrer-when-downgrade"></iframe>&ndash;&gt;
-                            </div>
-                            <div>
-                                <div class="test2_area">
-                                    <div class="area_text">
-                                        <i class="fa-solid fa-location-dot" style="color: #008ff6;"></i>오사카
-                                    </div>
-                                </div>
-                                <div class="nick_plan">nickname님의 여행일정</div>
-                            </div>
-                            &lt;!&ndash;Day버튼&ndash;&gt;
-                            <div class="test2_day_buttonarea">
-                                <div class="test2_day_buttonarea_2">
-                                    <div class="test2_day_buttons">
-                                        <button class="test2_day_button_selected">
-                                            <span class="sc-20343a87-3 cZhUke"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#fff" size="15"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.5143 12.7857C22.1619 12.462 22.1619 11.538 21.5143 11.2143L3.2715 2.09388C2.68733 1.80182 2 2.22657 2 2.87962L2 9.63235C2 10.1346 2.3726 10.559 2.87068 10.624L13.4216 12L2.87068 13.376C2.3726 13.441 2 13.8654 2 14.3676L2 21.1204C2 21.7734 2.68733 22.1982 3.2715 21.9061L21.5143 12.7857Z" fill="#fff"></path></svg></span>
-                                            Day1
-                                        </button>
-                                        <button class="test2_day_button_unselected">
-                                            Day2
-                                        </button>
-                                        <button class="test2_day_button_unselected">
-                                            Day3
-                                        </button>
-                                        <button class="test2_day_button_unselected">
-                                            Day4
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            &lt;!&ndash;여행지 &ndash;&gt;
-                            <div type="main" class="test2_place">
-                                <div class="test2_place_text">아직 선택된 장소가 없습니다.</div>
-                            </div>
-                            &lt;!&ndash;일정담기, 일정상세보기 버튼&ndash;&gt;
-                            <div class="test2_button">
-                                <button class="test2_btn1">
-                            <span class="test2_btn1_span">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.5303 13.5303C16.2374 13.8232 15.7625 13.8232 15.4696 13.5303L10.6967 8.75736C10.4038 8.46447 10.4038 7.98959 10.6967 7.6967C10.9896 7.40381 11.4644 7.40381 11.7573 7.6967L15.25 11.1893L15.25 2C15.25 1.58579 15.5858 1.25 16 1.25C16.4142 1.25 16.75 1.58579 16.75 2L16.75 11.1893L20.2426 7.6967C20.5355 7.40381 21.0104 7.40381 21.3033 7.6967C21.5962 7.98959 21.5962 8.46447 21.3033 8.75736L16.5303 13.5303Z" fill="#00CE7C"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M7.99988 2H6C3.79086 2 2 3.79086 2 6V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V6C22 5.98946 22 5.97894 21.9999 5.96842V14.0001H20.5V18C20.5 19.3807 19.3807 20.5 18 20.5H6C4.61929 20.5 3.5 19.3807 3.5 18V6C3.5 4.61929 4.61929 3.5 6 3.5H7.99988V2Z" fill="#00CE7C"></path></svg>
-                            </span>
-                                    "일정 담기"
-                                </button>
-                                <button class="test2_btn2">
-                            <span class="test2_btn2_span">
-                                <svg width="18" height="18" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="2.16667" cy="4.16667" r="0.666667" fill="#00CE7C"></circle><circle cx="2.16667" cy="8.83317" r="0.666667" fill="#00CE7C"></circle><circle cx="2.16667" cy="13.4997" r="0.666667" fill="#00CE7C"></circle><rect x="4.16675" y="3.5" width="10.6667" height="1" rx="0.5" fill="#00CE7C"></rect><rect x="4.16675" y="8.1665" width="10.6667" height="1" rx="0.5" fill="#00CE7C"></rect><rect x="4.16675" y="12.833" width="10.6667" height="1" rx="0.5" fill="#00CE7C"></rect></svg>
-                            </span>
-                                    "일정 상세보기"
-                                </button>
-                            </div>
-                        </div>
-                    </th:block>
-                </th:block>-->
 
                 <th:block th:each="plan, planStat : ${planList}">
                     <!--                    <th:block th:each="plandetail : ${planDetailList}" th:if="${plan.pbNum} == ${plandetail.planBoard.pbNum}">-->
@@ -491,24 +412,7 @@
 
             </div>
 
-            <!--            <div class="main_content1_box">-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--            </div>-->
-            <!--            <div class="main_content1_box">-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--            </div>-->
-            <!--            <div class="main_content1_box">-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--                <div class="test2"></div>-->
-            <!--            </div>-->
+
         </div>
 
     </div>
