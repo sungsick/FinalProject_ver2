@@ -2,26 +2,23 @@ package com.kh.myproject.api.kakaoPay.controller;
 
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
+import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
 import com.kh.myproject.api.kakaoPay.service.PayService;
-
-import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
-import com.kh.myproject.store.rentcar.service.RentcarService;
-
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.repository.FlightTicketRepository;
-import com.kh.myproject.store.rentcar.model.dto.CrawlingDto;
-
+import com.kh.myproject.store.rentcar.model.RentcarInfoDTO;
+import com.kh.myproject.store.rentcar.model.dto.RentReservationDto;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
+import com.kh.myproject.store.rentcar.repository.RentReservationRepository;
+import com.kh.myproject.store.rentcar.service.RentcarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.io.IOException;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -31,20 +28,29 @@ public class PayController {
 
     @Autowired
     FlightTicketRepository flightTicketRepository;
-    private final PayService payService;
-    private FlightTicketDto ticketDto;
-
 
     @Autowired
     private RentcarService rentcarService;
 
-/*
-    private SeleniumComponent seleniumComponent;
+    @Autowired
+    private RentReservationRepository rentReservationRepository;
 
-    // 결제버튼 클릭시 결제 페이지
+    private final PayService payService;
+    private FlightTicketDto ticketDto;
+
+    private RentReservationDto rentReservationDto;
+
+    private PaybillDto paybillDto;
+
+    private Boolean checkFlag = true;
+
+    /*
+        private SeleniumComponent seleniumComponent;
+
+        // 결제버튼 클릭시 결제 페이지
 
 
- */
+     */
     @GetMapping("/pay/payButton")
     public ModelAndView payButton() {
         ModelAndView payButton = new ModelAndView();
@@ -53,16 +59,15 @@ public class PayController {
     }
 
 
-
     @GetMapping("/pay/rentcarPaymentPage")
     public ModelAndView rentcarPaymentPage(@RequestParam("Car_info_id") Long Car_info_id, ModelAndView mav) {
 
         RentcarInfoDTO dto = rentcarService.rentcarPay(Car_info_id);
 
-        mav.addObject("dto",dto);
+        mav.addObject("dto", dto);
 
 
-       mav.setViewName("pay/paymentPage");
+        mav.setViewName("pay/paymentPage");
 
         return mav;
     }
@@ -81,19 +86,38 @@ public class PayController {
     @PostMapping("/kakaoPay")
 
     // RedirectView 형식으로 html에서 카카오 api 호출시 CORS오류 (보안정책이라고 함). @ResponseBody로 POST 캡슐화 후 readyResponse 직접 호출하니 해결됨.
-    public @ResponseBody KakaoPayReadyVO kakaoPay(@RequestBody FlightTicketDto ticket,
+    public @ResponseBody KakaoPayReadyVO kakaoPay(@RequestBody PaybillDto billInfo,
                                                   @ModelAttribute("user") User user) {
+//        if (Boolean.TRUE.equals(checkFlag)) {
         // 티켓에 유저정보 추가
-        ticket.setUser(user);
+        billInfo.setUser(user);
 
         // 결제 완료시 데이터 저장을 위해 전역변수에 저장
-        ticketDto = ticket;
+        log.info("################## 렌트카 전역변수에 저장");
 
-        log.info("kakaoPay post.....................................");
-        KakaoPayReadyVO readyResponse = payService.kakaoPayReady(ticket);
+        paybillDto = billInfo;
+
+        log.info("################## 렌트카 결제요청");
+        KakaoPayReadyVO readyResponse = payService.kakaoPayReady(billInfo);
         log.info(".........................결제고유 번호 : " + readyResponse.getTid());
-
+        log.info("################## 렌트카 결제요청 끝");
         return readyResponse;
+
+//        } else {
+//
+//            // 티켓에 유저정보 추가
+//            bill.setUser(user);
+//
+//            // 결제 완료시 데이터 저장을 위해 전역변수에 저장
+//            paybillDto = bill;
+//
+//            log.info("kakaoPay post.....................................");
+//            KakaoPayReadyVO readyResponse = payService.flightKakaoPayReady(bill);
+//            log.info(".........................결제고유 번호 : " + readyResponse.getTid());
+//            checkFlag = false;
+//            return readyResponse;
+//
+//        }
     }
 
     // api 결제 승인요청 / 완료시 데이터 저장
@@ -111,17 +135,31 @@ public class PayController {
         modelAndView.setViewName("pay/success");
         log.info("info : " + approveResponse);
 
-        // 결제 완료시 결제고유번호 tid 추가
-        ticketDto.setTid(approveResponse.getTid());
+        if (approveResponse.getQuantity() == 0) {
+            // 결제 완료시 결제고유번호 tid 추가
+            paybillDto.setTid(approveResponse.getTid());
 
-        // ticketDto toENtity
-        FlightTicketInfo ticketEntity = ticketDto.toEntity();
+            // ticketDto toENtity
+            FlightTicketInfo ticketEntity = paybillDto.toTicketEntity();
 
-        log.info("=================ticketEntity{}", ticketEntity);
-        // 결제 데이터 저장
-        flightTicketRepository.save(ticketEntity);
+            log.info("=================ticketEntity{}", ticketEntity);
+            // 결제 데이터 저장
+            flightTicketRepository.save(ticketEntity);
 
-        return modelAndView;
+            return modelAndView;
+        } else {
+            // 결제 완료시 결제고유번호 tid 추가
+            paybillDto.setTid(approveResponse.getTid());
+
+            // ticketDto toENtity
+            RentReservationInfo rentEntity = paybillDto.toRentEntity();
+
+            log.info("=================ticketEntity{}", rentEntity);
+            // 결제 데이터 저장
+            rentReservationRepository.save(rentEntity);
+
+            return modelAndView;
+        }
     }
 
     // 결제 취소시 실행 url

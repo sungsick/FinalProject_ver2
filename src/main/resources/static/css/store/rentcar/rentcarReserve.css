@@ -32,7 +32,6 @@
 }
 
 
-
 .search_bar_box {
     display: flex;
     width: 100%;
@@ -62,7 +61,6 @@
     overflow: hidden;
     white-space: nowrap;
 }
-
 
 
 .search_input_round {
@@ -96,10 +94,6 @@
     margin-top: 10px;
     text-overflow: ellipsis;
 }
-
-
-
-
 
 
 .input_title_and_detail {
@@ -156,6 +150,7 @@
     border-radius: 20px;
     font-size: 20px;
     box-shadow: 1px 1px 5px #00000026;
+
 }
 
 /*서치바 css 종료*/
@@ -227,12 +222,6 @@
 }
 
 
-
-
-
-
-
-
 .reserv_filter_division {
     font-size: 15px;
     font-weight: bold;
@@ -249,7 +238,7 @@
 .reserv_filter_text {
     font-size: 15px;
     font-weight: bold;
-    margin: 20px 0px 0px;
+    margin: 20px 0px 10px;
     position: relative;
 }
 
@@ -283,17 +272,18 @@
     will-change: transform;
 }
 
-.result_item:hover{
+.result_item:hover {
 
-    box-shadow: 5px 5px 5px 5px;
+    box-shadow: 5px 5px 5px 5px gray;
+
 
 }
 
 
-.price_box{
+.price_box {
     display: flex;
     flex-direction: row;
- text-align: center;
+    text-align: center;
     margin: 25px 0px 0px;
 }
 
@@ -330,7 +320,7 @@
 }
 
 
-.lowest_label{
+.lowest_label {
     font-size: 20px;
     font-weight: bold;
     line-height: 26px;
@@ -347,7 +337,8 @@
     margin: 0px 0px 0px;
 }
 
-.filter_button {
+/*필터 버튼 활성화/비활성화 css*/
+.nation_filter_button {
     height: 32px;
     padding: 7px 14px;
     display: flex;
@@ -363,7 +354,56 @@
     background-color: white;
 }
 
-.filter_button_default {
+.type_filter_button {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid gray;
+    color: black;
+    background-color: white;
+}
+
+
+.oil_filter_button {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid gray;
+    color: black;
+    background-color: white;
+}
+
+.age_filter_button {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid gray;
+    color: black;
+    background-color: white;
+}
+
+.nation_filter_button.active {
     height: 32px;
     padding: 7px 14px;
     display: flex;
@@ -379,7 +419,53 @@
     background-color: white;
 }
 
+.type_filter_button.active {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid #00ce7c;
+    color: #00ce7c;
+    background-color: white;
+}
 
+.oil_filter_button.active {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid #00ce7c;
+    color: #00ce7c;
+    background-color: white;
+}
+
+.age_filter_button.active {
+    height: 32px;
+    padding: 7px 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1.31;
+    border: 1px solid #00ce7c;
+    color: #00ce7c;
+    background-color: white;
+}
 
 
 .result_category_box {
@@ -432,6 +518,15 @@
     height: 40px;
     font-size: 14px;
     font-weight: 500;
+    background-color: #00ce7c;
+
+
+    border-width: 0px;
+    border-radius: 5px;
+    color: #fff;
+    outline: none;
+
+
 }
 
 .filter_text_input {

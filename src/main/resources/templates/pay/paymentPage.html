@@ -33,7 +33,7 @@
 
                                 <div class="fsTopInfoRight">
                                     <!--                                   차 이름 가져오기-->
-                                    <div class="prodName" th:text="${dto.getCar_name()}">
+                                    <div class="prodName" th:text="${dto.car_name}">
 
                                     </div>
                                     <!--                                    차 info중 넣을 수 있는 정보 넣기-->
@@ -43,7 +43,7 @@
                                     </div>
                                     <!--                                    차 가격 넣기-->
                                     <div class="prodPrice total_count" th:id="car-price"
-                                         th:text="|${dto.getCar_discount()}원|">
+                                         th:text="|${dto.car_price}원|">
 
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                         </div>
                                         <!--                                        데이터 베이스에서 옵션 정보 가져오기-->
                                         <div class="prod-option-info-detail" th:id="options"
-                                             th:text="${dto.getCar_option()}"></div>
+                                             th:text="${dto.car_option}"></div>
                                     </div>
                                 </section>
                                 <section class="prod-info-section2">
@@ -520,7 +520,7 @@
                                             <div class="company-info-detail-text">
                                                 <div class="label">업체명</div>
                                                 <div class="content" id="companyName"
-                                                     th:text="${dto.getCom_id().getCom_name()}"></div>
+                                                     th:text="${dto.com_id.com_name}"></div>
                                             </div>
                                             <!-- 리뷰시 작성한 정보 (평점, 점수의 평균점 적용. 점수에 따라 별 갯수 조정 가능?)-->
                                             <div class="company-info-detail-text">
@@ -533,7 +533,7 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">전화</div>
-                                                <div class="content" th:text="${dto.getCom_id().getCom_tel()}">
+                                                <div class="content" th:text="${dto.com_id.com_tel}">
                                                     064-743-3727
                                                 </div>
                                             </div>
@@ -547,7 +547,7 @@
                                             <div class="company-info-detail-text">
                                                 <div class="label">주소</div>
                                                 <div class="content" id="companyAddress"
-                                                     th:text="${dto.getCom_id().getCom_location()}">제주특별자치도 제주시 도리로
+                                                     th:text="${dto.com_id.com_location}">제주특별자치도 제주시 도리로
                                                     110 발리렌트카
                                                 </div>
                                             </div>
@@ -746,7 +746,7 @@
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
                                 <div>대여료</div>
-                                <div th:id="car-price2" th:text="${dto.getCar_discount()}">156,480</div>
+                                <div th:id="car-price2" th:text="${dto.car_price}">156,480</div>
                             </div>
                             <div class="priceWarp">
                                 <div>보험 (일반 자차)</div>
@@ -861,7 +861,29 @@
         </div>
     </div>
 </div>
+<div>
 
-
+    <input type="hidden" id="carName" th:value="${dto.car_name}">
+    <input type="hidden" id="carYear" th:value="${dto.car_year}">
+    <input type="hidden" id="carType" th:value="${dto.car_type}">
+    <input type="hidden" id="oilType" th:value="${dto.oil_type}">
+    <input type="hidden" id="carPeople" th:value="${dto.car_people}">
+    <input type="hidden" id="carPrice" th:value="${dto.car_price}">
+    <input type="hidden" id="carDiscount" th:value="${dto.car_discount}">
+    <input type="hidden" id="carOption" th:value="${dto.car_option}">
+    <input type="hidden" id="carImg" th:value="${dto.car_img}">
+    <input type="hidden" id="comName" th:value="${dto.com_id.com_name}">
+    <!--    <input type="hidden" id="carInfoId" th:value="${dto.car_info_id}">-->
+    <!--    <input type="hidden" id="carNation" th:value="${dto.car_nation}">-->
+    <!--    <input type="hidden" id="driverAge" th:value="${dto.driver_age}">-->
+    <!--    <input type="hidden" id="comId" th:value="${dto.com_id.id}">-->
+    <input type="hidden" id="userId" th:value="${user.userId}">
+    <input type="hidden" id="userName" th:value="${user.userName}">
+    <input type="hidden" id="userPhone" th:value="${user.userPhone}">
+    <input type="hidden" id="departureDate" th:value="${session.depart_date}">
+    <input type="hidden" id="arrivalDate" th:value="${session.arrive_date}">
+    <!--    <h1>[[${dto}]]</h1>-->
+    <!--    <h1>[[${session}]]</h1>-->
+</div>
 </body>
 </html>

@@ -25,7 +25,6 @@ public class FlightTicketDto {
     private User user;
     private String tid;
 
-
     public FlightTicketInfo toEntity() {
         return FlightTicketInfo.builder()
                 .ticTicketId(ticTicketId)

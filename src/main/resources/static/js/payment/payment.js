@@ -1,4 +1,24 @@
 $(function () {
+
+    /*###################################################################################################################*/
+
+    // 유저 이름, 핸드폰 번호 가져오기
+    const defaultUserName = document.getElementById('userName').value;
+    const defaultUserPhoneNum = document.getElementById('userPhone').value;
+
+    var defaultUserNameElement = document.getElementById("input_name");
+    var defaultUserPhoneNumElement = document.getElementById("input_phone");
+
+    defaultUserNameElement.value = defaultUserName;
+    defaultUserPhoneNumElement.value = defaultUserPhoneNum;
+
+    if (!defaultUserName === '' || !defaultUserPhoneNum === '') {
+        defaultUserNameElement.disabled = ture;
+        defaultUserNameElement.backgroundColor = rgb(246, 246, 246);
+    }
+
+    /*###################################################################################################################*/
+
     // tab 기능
     var $tablink = $('.second-box-tabs div').click(function (e) {
         var idx = $tablink.index(this);
@@ -59,6 +79,48 @@ $(function () {
         }
     });
 
+    // 모달 열기
+    $('.shuttle-button').click(function () {
+        $('.modal').css('display', 'block');
+        $("body").css('overflow', 'hidden');
+        // $("body").css('margin-left', '1px');  // 스크롤로 인한 화면 꿀렁거림 제거
+        // 이유 모르겠는데 위 현상 없어짐
+    })
+    // 모달 닫기
+    $('.modal-btn').click(function () {
+        $('.modal').css('display', 'none');
+        $("body").css('overflow', 'auto');
+        // $("body").css('margin-left', '0px');  // 스크롤로 인한 화면 꿀렁거림 제거
+        // 이유 모르겠는데 위 현상 없어짐
+    })
+
+    // 텍스트 숨기기
+    $('.arrow').click(function () {
+        if ($(this).hasClass('false')) {
+            $('.arrow').removeClass('false');
+            $('.arrow').addClass('onArrow');
+            $('.policy-detail').css('max-height', '989px');
+            $('.policy-detail').css('margin-bottom', '20px');
+        } else {
+            $('.arrow').removeClass('onArrow');
+            $('.arrow').addClass('false');
+            $('.policy-detail').css('max-height', '0px');
+            $('.policy-detail').css('margin-bottom', '0px');
+        }
+    })
+
+    // 내륙, 제주 지역 선택텝
+    var $landLocation = $('.insurance-locations div').click(function () {
+        var idx = $landLocation.index(this);
+        $('.insurance-locations div').removeClass('locationClick');
+        $(this).addClass('locationClick');
+
+        $('.insurance-info').removeClass('showTale');
+        $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
+    });
+
+    /*###################################################################################################################*/
+
     // 대여 가능 여부 생년 검사
     $('#input_birth').keyup(() => {
 
@@ -97,6 +159,8 @@ $(function () {
             btnKakaoPay.disabled = true;
         }
     });
+
+    /*###################################################################################################################*/
 
     // 핸드폰 인증
     var auth_num = '';
@@ -168,6 +232,79 @@ $(function () {
         }
     })
 
+    /*###################################################################################################################*/
+
+    // html에 이쁘게 표기하기
+    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+// 시작일과 종료일 문자열
+    var startDateStr = document.querySelector("#depart-date").value;
+    var endDateStr = document.querySelector("#arrive-date").value;
+
+// 시작일과 종료일을 "월. 일. 시간" 형식에서 날짜와 시간으로 분리
+    var startDateParts = startDateStr.split('. ');
+    var endDateParts = endDateStr.split('. ');
+
+// "월. 일" 형식의 날짜를 Date 객체로 변환 (현재 년도 기준으로)
+    var startDate = new Date(new Date().getFullYear(), parseInt(startDateParts[0]) - 1, parseInt(startDateParts[1]), parseInt(startDateParts[2]));
+    var endDate = new Date(new Date().getFullYear(), parseInt(endDateParts[0]) - 1, parseInt(endDateParts[1]), parseInt(endDateParts[2]));
+// 두 날짜 사이의 차이를 계산
+    var timeDiff = endDate - startDate;
+
+    var startDayOfWeek = daysOfWeek[startDate.getDay()];
+    var endDayOfWeek = daysOfWeek[endDate.getDay()];
+// 밀리초를 일로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
+    var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+// 계산된 일수를 card-top-round-day 엘리먼트에 출력
+    document.querySelector(".card-top-round-day").textContent = daysDiff + "일";
+    document.querySelector("#depart-date-text").textContent = `${startDateParts[0]}.${startDateParts[1]}(${startDayOfWeek})`;
+    document.querySelector("#arrive-date-text").textContent = `${endDateParts[0]}.${endDateParts[1]}(${endDayOfWeek})`;
+    document.querySelector("#depart-time").textContent = `${startDateParts[2]}`;
+    document.querySelector("#arrive-time").textContent = `${endDateParts[2]}`;
+
+    /*###################################################################################################################*/
+
+    // 숫자에 콤마 넣기
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+// 문자열 값을 정수로 변환합니다.
+    var amountIntType = parseInt(document.querySelector("#car-price").textContent);
+    var premiumPriceElement = document.querySelector("#premiumPrice");
+
+// 콤마(,)를 제거하고 숫자로 변환
+    var premiumPriceIntType = parseInt(premiumPriceElement.textContent.replace(/,/g, ""), 10);
+
+// 두 정수 값을 더합니다.
+    var total = amountIntType + premiumPriceIntType;
+    const formattedAmount3 = formatNumberWithCommas(total);
+    // 콤마(,)를 추가하고 반환
+    document.querySelector("#emphasis-price").textContent = formattedAmount3 + "원";
+    document.querySelector("#btnKakaoPay").textContent = formattedAmount3 + "원 바로 결제하기";
+
+    /*###################################################################################################################*/
+
+    // 옵션 갯수 계산
+    var amount = document.querySelector("#car-price").textContent;
+    var amount2 = document.querySelector("#car-price2").textContent;
+    const formattedAmount = formatNumberWithCommas(amount);
+    const formattedAmount2 = formatNumberWithCommas(amount2);
+    document.querySelector("#car-price").textContent = formattedAmount;
+    document.querySelector("#car-price2").textContent = formattedAmount2;
+
+    var carOptionString = document.querySelector(".prod-option-info-detail").textContent;
+    var carOptionArray = carOptionString.split(',');
+
+    var numberOfOptions = carOptionArray.length;
+
+    if (numberOfOptions === 1 && carOptionArray[0].trim() === "옵션없음") {
+        numberOfOptions = 0; // 옵션이 없는 경우 0으로 설정
+    }
+    document.querySelector("#optionLength").textContent = "총 " + numberOfOptions + "개 옵션";
+
+    /*###################################################################################################################*/
+
     // 카카오결제
     $("#btnKakaoPay").click(function () {
 
@@ -186,6 +323,7 @@ $(function () {
 
         if (query.input_name === '') {
             /*######이름 입력 검사######*/
+            query.input_name.disabled = false;
             alert('이름을 입력하세요.');
             $("#input_name").focus();
         } else if (query.input_phone === '') {
@@ -218,28 +356,32 @@ $(function () {
         } else {
             $("#btnKakaoPay").disabled = false;
             // 결제 진입
-
+            var checkFlag = false;
             // 결제 정보를 form에 저장한다.
-            var ticketInfo = {
-                // ticTicketId: $("#ticketId").val(),
-                // ticFlightDepartureDate: $("#departureDate").val(),
-                // ticFlightArrivalDate: $("#arrivalDate").val(),
-                // ticSeatGrade: $("#seatGrade").val(),
-                // ticAirlineName: $("#airlineName").val(),
-                // ticFee: $("#totalPrice").val(),
-                // ticFromLocation: $("#fromLocation").val(),
-                // ticToLocation: $("#toLocation").val(),
-                // ticVihicleId: $("#vehicleId").val(),
-                // userId: $("#userId").val(),
-                // userName: $("#userName").val()
+            var billInfo = {
+
+                rentName: $("#carName").val(),
+                rentType: $("#carType").val(),
+                rentYear: $("#carYear").val(),
+                rentCompany: $("#comName").val(),
+                rentOption: $("#carOption").val(),
+                rentOil: $("#oilType").val(),
+                rentPrice: total,
+                rentDepartureDate: $('#departureDate').val(),
+                rentArrivalDate: $('#arrivalDate').val(),
+                rentImg: $("#carImg").val(),
+                checkFlag: checkFlag,
+                // rentPeople: $("#carPeople").val(),
+                // carDiscount: $("#carDiscount").val(),
             };
             // 카카오페이 결제전송
             $.ajax({
                 type: 'post'
-                , url: '/kakaoPay'
-                // data: JSON.stringify(ticketInfo), // JSON 데이터 전송
-                // contentType: 'application/json' // JSON 데이터임을 명시
+                , url: '/kakaoPay',
+                data: JSON.stringify(billInfo), // JSON 데이터 전송
+                contentType: 'application/json' // JSON 데이터임을 명시
                 , success: function (response) {
+
                     // 화면 중앙에 위치시키기 위한 x, y 좌표 계산
                     var screenWidth = window.screen.width;
                     var screenHeight = window.screen.height;
@@ -256,117 +398,7 @@ $(function () {
         }
     })
 
-    // 모달 열기
-    $('.shuttle-button').click(function () {
-        $('.modal').css('display', 'block');
-        $("body").css('overflow', 'hidden');
-        // $("body").css('margin-left', '1px');  // 스크롤로 인한 화면 꿀렁거림 제거
-        // 이유 모르겠는데 위 현상 없어짐
-    })
-    // 모달 닫기
-    $('.modal-btn').click(function () {
-        $('.modal').css('display', 'none');
-        $("body").css('overflow', 'auto');
-        // $("body").css('margin-left', '0px');  // 스크롤로 인한 화면 꿀렁거림 제거
-        // 이유 모르겠는데 위 현상 없어짐
-    })
-
-    // 텍스트 숨기기
-    $('.arrow').click(function () {
-        if ($(this).hasClass('false')) {
-            $('.arrow').removeClass('false');
-            $('.arrow').addClass('onArrow');
-            $('.policy-detail').css('max-height', '989px');
-            $('.policy-detail').css('margin-bottom', '20px');
-        } else {
-            $('.arrow').removeClass('onArrow');
-            $('.arrow').addClass('false');
-            $('.policy-detail').css('max-height', '0px');
-            $('.policy-detail').css('margin-bottom', '0px');
-        }
-    })
-
-    // 내륙, 제주 지역 선택텝
-    var $landLocation = $('.insurance-locations div').click(function () {
-        var idx = $landLocation.index(this);
-        $('.insurance-locations div').removeClass('locationClick');
-        $(this).addClass('locationClick');
-
-        $('.insurance-info').removeClass('showTale');
-        $('.sections-con.show > section:nth-child(1) > table').eq(idx).addClass('showTale');
-    });
-
-
-    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-// 시작일과 종료일 문자열
-    var startDateStr = document.querySelector("#depart-date").value;
-    var endDateStr = document.querySelector("#arrive-date").value;
-
-// 시작일과 종료일을 "월. 일. 시간" 형식에서 날짜와 시간으로 분리
-    var startDateParts = startDateStr.split('. ');
-    var endDateParts = endDateStr.split('. ');
-
-// "월. 일" 형식의 날짜를 Date 객체로 변환 (현재 년도 기준으로)
-    var startDate = new Date(new Date().getFullYear(), parseInt(startDateParts[0]) - 1, parseInt(startDateParts[1]), parseInt(startDateParts[2]));
-    var endDate = new Date(new Date().getFullYear(), parseInt(endDateParts[0]) - 1, parseInt(endDateParts[1]), parseInt(endDateParts[2]));
-// 두 날짜 사이의 차이를 계산
-    var timeDiff = endDate - startDate;
-
-    var startDayOfWeek = daysOfWeek[startDate.getDay()];
-    var endDayOfWeek = daysOfWeek[endDate.getDay()];
-// 밀리초를 일로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
-    var daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-// 계산된 일수를 card-top-round-day 엘리먼트에 출력
-    document.querySelector(".card-top-round-day").textContent = daysDiff + "일";
-    document.querySelector("#depart-date-text").textContent = `${startDateParts[0]}.${startDateParts[1]}(${startDayOfWeek})`;
-    document.querySelector("#arrive-date-text").textContent = `${endDateParts[0]}.${endDateParts[1]}(${endDayOfWeek})`;
-    document.querySelector("#depart-time").textContent = `${startDateParts[2]}`;
-    document.querySelector("#arrive-time").textContent = `${endDateParts[2]}`;
-
-
-    function formatNumberWithCommas(number) {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-// 문자열 값을 정수로 변환합니다.
-    var amountIntType = parseInt(document.querySelector("#car-price").textContent);
-    var premiumPriceElement = document.querySelector("#premiumPrice");
-
-// 콤마(,)를 제거하고 숫자로 변환
-    var premiumPriceIntType = parseInt(premiumPriceElement.textContent.replace(/,/g, ""), 10);
-
-// 두 정수 값을 더합니다.
-    var total = amountIntType + premiumPriceIntType;
-    const formattedAmount3 = formatNumberWithCommas(total);
-    // 콤마(,)를 추가하고 반환
-    document.querySelector("#emphasis-price").textContent = formattedAmount3 + "원";
-    document.querySelector("#btnKakaoPay").textContent = formattedAmount3 + "원 바로 결제하기";
-
-
-    var amount = document.querySelector("#car-price").textContent;
-    var amount2 = document.querySelector("#car-price2").textContent;
-    const formattedAmount = formatNumberWithCommas(amount);
-    const formattedAmount2 = formatNumberWithCommas(amount2);
-    document.querySelector("#car-price").textContent = formattedAmount;
-    document.querySelector("#car-price2").textContent = formattedAmount2;
-
-    var carOptionString = document.querySelector(".prod-option-info-detail").textContent;
-    var carOptionArray = carOptionString.split(',');
-
-    var numberOfOptions = carOptionArray.length;
-
-    if (numberOfOptions === 1 && carOptionArray[0].trim() === "옵션없음") {
-        numberOfOptions = 0; // 옵션이 없는 경우 0으로 설정
-    }
-    document.querySelector("#optionLength").textContent = "총 " + numberOfOptions + "개 옵션";
 
 });
-// if (idx === 0) {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '0px')
-// } else if (idx === 1) {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '243px')
-// } else {
-//     $('.second-box-tabs-clicked-bar').css('margin-left', '486px')
-// }
+
 
