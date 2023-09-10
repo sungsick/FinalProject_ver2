@@ -89,8 +89,6 @@ svg:not(:root) {
 }
 
 
-
-
 .lfdViP > :nth-child(n+2) {
     margin-top: 0px;
 }
@@ -161,22 +159,6 @@ svg:not(:root) {
     outline: none;
 }
 
-/*
-button{
-    appearance: button;
-    text-transform: none;
-    margin: 0px;
-    font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
-    overflow: visible;
-    user-select: none;
-    -webkit-user-drag: none;
-    cursor: pointer;
-    border: 0px;
-    outline: none;
-}
-*/
-
-
 .diPORg {
     width: auto;
     height: 40px;
@@ -205,7 +187,7 @@ button{
     outline: none;
 }
 
-.diPORg:hover{
+.diPORg:hover {
     background-color: #00b8ff;
 }
 
@@ -256,8 +238,6 @@ button{
     border: 1px solid rgb(233, 233, 233);
     z-index: 1;
 }
-
-
 
 
 /*여행일정*/
@@ -431,7 +411,7 @@ button{
     margin-right: 5px;
 }
 
-.nick_plan{
+.nick_plan {
     margin-bottom: 10px;
 
 }
@@ -446,6 +426,7 @@ button{
     margin-bottom: 10px;
     padding-left: 20px;
 }
+
 .test2_day_buttonarea_2 {
     display: flex;
     -webkit-box-align: center;
@@ -461,7 +442,7 @@ button{
     height: 31px;
 }
 
-.test2_day_button_selected{
+.test2_day_button_selected {
     position: relative;
     display: flex;
     -webkit-box-align: center;
@@ -497,7 +478,7 @@ svg:not(:root) {
     color: rgb(255, 255, 255);
 }
 
-.test2_day_button_unselected{
+.test2_day_button_unselected {
     position: relative;
     display: flex;
     -webkit-box-align: center;
@@ -517,7 +498,7 @@ svg:not(:root) {
     transition: width 0.25s ease-out 0s;
 }
 
-.test2_day_button_selected, .test2_day_button_unselected{
+.test2_day_button_selected, .test2_day_button_unselected {
     text-transform: none;
     margin: 0px;
     font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
@@ -529,13 +510,6 @@ svg:not(:root) {
     border: 0px;
     outline: none;
 }
-
-
-
-
-
-
-
 
 
 /*여행지*/
@@ -560,8 +534,6 @@ svg:not(:root) {
     border: 1px dashed rgb(233, 233, 233);
     border-radius: 10px;
 }
-
-
 
 
 .swiper {
@@ -596,9 +568,6 @@ svg:not(:root) {
     height: 100%;
     object-fit: cover;
 }
-
-
-
 
 
 /*일정담기, 일정상세보기 버튼*/
@@ -645,9 +614,6 @@ svg:not(:root) {
     height: 24px;
 }
 
-
-
-/*카카오맵*/
 /*카카오맵*/
 .map_wrap, .map_wrap * {
     margin: 0;
@@ -666,13 +632,3 @@ svg:not(:root) {
     width: 100%;
     height: 100%;
 }
-
-
-
-
-
-
-
-
-
-

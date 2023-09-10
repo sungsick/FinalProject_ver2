@@ -1,16 +1,17 @@
-
 /*body{*/
 /*    zoom: 1.1;*/
 /*}*/
 
 
 @media screen and (max-width: 1199px)
+
 ._next {
     overflow: hidden;
     width: 100%;
     height: 100vh;
     padding: 0px;
 }
+
 ._next {
     position: relative;
     box-sizing: border-box;
@@ -21,10 +22,13 @@
 
 
 }
+
 @media screen and (max-width: 1199px)
+
 ._next {
     box-sizing: inherit;
 }
+
 .container {
     position: relative;
     display: flex;
@@ -81,7 +85,7 @@
 
 }
 
-.art1{
+.art1 {
     width: 100%;
     height: auto;
     display: flex;
@@ -92,7 +96,7 @@
     justify-content: space-between;
 }
 
-.art1_div_btn{
+.art1_div_btn {
     border-radius: 10px;
     font-weight: 400;
     font-size: 14px;
@@ -105,7 +109,7 @@
 }
 
 
-.art1_div_subject{
+.art1_div_subject {
     width: 100%;
     /*font-weight: 500;*/
     font-size: 16px;
@@ -115,7 +119,7 @@
     font-weight: bold;
 }
 
-.art1_div_menu{
+.art1_div_menu {
     width: 24px;
     height: 24px;
     display: flex;
@@ -135,19 +139,19 @@
     width: 30px;
 }
 
-.art1_div > svg{
+.art1_div > svg {
     cursor: pointer;
     width: 9px;
     height: 16px;
     fill: none;
 }
 
-.art1_div > svg:not(:root){
+.art1_div > svg:not(:root) {
     overflow: initial;
     overflow-clip-margin: content-box;
 }
 
-.art1_1{
+.art1_1 {
     width: 100%;
     height: max-content;
     box-sizing: border-box;
@@ -162,7 +166,7 @@
 
 }
 
-.select_date_input{
+.select_date_input {
     width: 282px;
     box-sizing: border-box;
     float: left;
@@ -172,7 +176,7 @@
     margin-right: 50px; /* 조정된 부분 */
 }
 
-.select_date_input:last-child{
+.select_date_input:last-child {
     margin-right: 0; /* 마지막 요소의 간격 제거 */
 }
 
@@ -211,80 +215,14 @@
     width: 100%;
 }
 
-/*.art1_1btn{*/
-/*    background: rgb(251, 251, 251);*/
-/*    width: 100%;*/
-/*    height: 73px;*/
-/*    border-radius: 10px;*/
-/*    font-weight: 400;*/
-/*    font-size: 14px;*/
-/*    line-height: 21px;*/
-/*    display: flex;*/
-/*    -webkit-box-pack: justify;*/
-/*    justify-content: space-between;*/
-/*    -webkit-box-align: center;*/
-/*    align-items: center;*/
-/*    box-sizing: border-box;*/
-/*    padding: 0px 118px;*/
-/*    border: transparent;*/
-/*}*/
-/*.art1_1btn > svg{*/
-/*    width: 15px;*/
-/*    height: 17px;*/
-/*    fill: #0064DE;*/
-/*}*/
-
-/*.art1_1btn > svg:not(:root) {*/
-/*    overflow: initial;*/
-/*    overflow-clip-margin: content-box;*/
-/*}*/
-
-/*.art1_1btn_span_icon {*/
-/*    overflow: initial;*/
-/*    width: 15px;*/
-/*    height: 17px;*/
-/*    fill: #0064DE;*/
-/*}*/
-
-/*.art1_1btn_span_st {*/
-/*    font-weight: 400;*/
-/*    font-size: 14px;*/
-/*    line-height: 21px;*/
-/*    padding-left: 10px;*/
-/*    box-sizing: border-box;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*}*/
-
-/*.art1_1btn_span_md {*/
-/*    width: 9px;*/
-/*    height: 2px;*/
-/*    background: rgb(210, 210, 210);*/
-/*    margin-left: 10px;*/
-/*}*/
-
-/*.art1_1btn_span_ed {*/
-/*    font-weight: 400;*/
-/*    font-size: 14px;*/
-/*    line-height: 21px;*/
-/*    padding-left: 10px;*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-/*.art1_1btn_span2 {*/
-/*    margin: 0px;*/
-/*    padding: 0px;*/
-/*    font-style: normal;*/
-/*    border: 0px;*/
-/*}*/
-
 
 .article2 {
     /*<!-- 여기서부터 아래 2번째 상자 hjiFwe-->*/
     width: 100%;
     height: auto;
 }
-.article_sc{
+
+.article_sc {
     /*<!-- 2번째 상자 안에서 2가지로 쪼개짐 eviLym-->*/
     display: flex;
     -webkit-box-align: center;
@@ -297,6 +235,7 @@
     margin-top: 10px;
     flex-direction: column;
 }
+
 .article_sc_in {
     /*<!-- 줄마다 쪼개짐 gumIDO-->*/
     display: flex;
@@ -346,8 +285,6 @@
 }
 
 
-
-
 .sc_des_div2_des > svg {
     width: 24px;
     height: 24px;
@@ -391,9 +328,7 @@
 }
 
 
-
-
-.form-select_place{
+.form-select_place {
     display: flex;
     justify-content: center;
     -webkit-box-align: center;
@@ -408,8 +343,6 @@
     font-weight: bold;
 
 }
-
-
 
 
 .sc_des2 {
@@ -487,9 +420,6 @@
 }
 
 
-
-
-
 .sc_date_start {
     margin-left: 10px;
     font-weight: bold;
@@ -499,11 +429,6 @@
     margin-left: 10px;
     font-weight: bold;
 }
-
-
-
-
-
 
 
 .ctn1_span2 {
@@ -525,36 +450,29 @@
 }
 
 
-
 .day1_span {
     color: #d3d5e0;
     font-weight: 500;
 }
 
 
-
-
-
-
-
-
-
-
 /* 여기서부터 난제,,, */
 [data-rbd-droppable-context-id="5"] {
     overflow-anchor: none;
 }
+
 [data-rbd-drag-handle-context-id="5"] {
 
     cursor: grab;
 }
+
 [data-rbd-drag-handle-context-id="5"] {
     -webkit-touch-callout: none;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     touch-action: manipulation;
 }
 
-.box{
+.box {
     user-select: none;
     height: auto;
     box-sizing: border-box;
@@ -563,38 +481,7 @@
 }
 
 
-
-
-
-/*.sc_ctn_des {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-sizing: border-box;
-    position: relative;
-    border: 1px solid green;
- !*   display: flex;*!
-
-}
-
-.sc_ctn_des::before { !*여기까진 ok*!
-    display: block;
-    width: 1px;
-    height: 100%;
-    content: "";
-    position: absolute;
-    left: 74px;
-    top: 0px;
-    border-right: 1px dashed rgb(219, 219, 219);
-}*/
-
-
-
-
-
-
-
-.ctn1_des_num{
+.ctn1_des_num {
     width: 20px;
     height: 20px;
     border-radius: 20px;
@@ -610,21 +497,7 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.btm_btn{
+.btm_btn {
 
     width: 100%;
     height: 71px;
@@ -640,8 +513,8 @@
     white-space: pre-wrap;
     border: transparent;
 }
-.place_add_btn, .memo_add_btn
-{
+
+.place_add_btn, .memo_add_btn {
     width: 110px;
     height: 35px;
     margin: 0px 5px;
@@ -658,7 +531,8 @@
     border: transparent;
     color: #ffffff;
 }
-.article4{
+
+.article4 {
     width: 100%;
     height: auto;
     padding: 0px 18px;
@@ -667,12 +541,14 @@
     word-break: break-all;
     white-space: pre-wrap;
 }
-.article4_line{
+
+.article4_line {
     position: relative;
     box-sizing: border-box;
     width: 100%;
     padding: 10px 0px 24px;
 }
+
 .article4_line::before {
     content: "";
     position: absolute;
@@ -682,7 +558,8 @@
     height: 1px;
     background: rgb(233, 233, 233);
 }
-.add_place_area{
+
+.add_place_area {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -693,7 +570,8 @@
     height: auto;
     margin-top: 10px;
 }
-.add_place_area_icon{
+
+.add_place_area_icon {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -704,7 +582,8 @@
     background-color: rgb(236, 236, 255);
     border-radius: 10px;
 }
-.schedule_add_btn{
+
+.schedule_add_btn {
     cursor: pointer;
     display: flex;
     -webkit-box-align: center;
@@ -721,15 +600,17 @@
     border-radius: 14px;
     border: transparent;
 }
+
 .schedule_add_btn > span {
     margin-left: 10px;
 }
 
-.complete_write_area{
+.complete_write_area {
     width: 92%;
     margin: 30px 4% 0px;
 }
-.complete_write_btn{
+
+.complete_write_btn {
     width: 100%;
     height: 48px;
     background: #00b8ff;
@@ -745,12 +626,8 @@
 }
 
 
-
-
-
-
 /*수정중*/
-.article3{
+.article3 {
     width: 100%;
     height: auto;
 
@@ -762,12 +639,12 @@
     margin-bottom: 20px;
     border: 1px solid #ddd;
 }
+
 th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
-
 
 
 /*카카오맵*/
@@ -788,170 +665,3 @@ th, td {
     width: 100%;
     height: 100%;
 }
-/*
-#menu_wrap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 250px;
-    margin: 10px 0 30px 10px;
-    padding: 5px;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.7);
-    z-index: 1;
-    font-size: 12px;
-    border-radius: 10px;
-}
-
-.bg_white {
-    background: #fff;
-}
-
-#menu_wrap hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 2px solid #5F5F5F;
-    margin: 3px 0;
-}
-
-#menu_wrap .option {
-    text-align: center;
-}
-
-#menu_wrap .option p {
-    margin: 10px 0;
-}
-
-#menu_wrap .option button {
-    margin-left: 5px;
-}
-
-#placesList li {
-    list-style: none;
-}
-
-#placesList .item {
-    position: relative;
-    border-bottom: 1px solid #888;
-    overflow: hidden;
-    cursor: pointer;
-    min-height: 65px;
-}
-
-#placesList .item span {
-    display: block;
-    margin-top: 4px;
-}
-
-#placesList .item h5, #placesList .item .info {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#placesList .item .info {
-    padding: 10px 0 10px 55px;
-}
-
-#placesList .info .gray {
-    color: #8a8a8a;
-}
-
-#placesList .info .jibun {
-    padding-left: 26px;
-    background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;
-}
-
-#placesList .info .tel {
-    color: #009900;
-}
-
-#placesList .item .markerbg {
-    float: left;
-    position: absolute;
-    width: 36px;
-    height: 37px;
-    margin: 10px 0 0 10px;
-    background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;
-}
-
-#placesList .item .marker_1 {
-    background-position: 0 -10px;
-}
-
-#placesList .item .marker_2 {
-    background-position: 0 -56px;
-}
-
-#placesList .item .marker_3 {
-    background-position: 0 -102px
-}
-
-#placesList .item .marker_4 {
-    background-position: 0 -148px;
-}
-
-#placesList .item .marker_5 {
-    background-position: 0 -194px;
-}
-
-#placesList .item .marker_6 {
-    background-position: 0 -240px;
-}
-
-#placesList .item .marker_7 {
-    background-position: 0 -286px;
-}
-
-#placesList .item .marker_8 {
-    background-position: 0 -332px;
-}
-
-#placesList .item .marker_9 {
-    background-position: 0 -378px;
-}
-
-#placesList .item .marker_10 {
-    background-position: 0 -423px;
-}
-
-#placesList .item .marker_11 {
-    background-position: 0 -470px;
-}
-
-#placesList .item .marker_12 {
-    background-position: 0 -516px;
-}
-
-#placesList .item .marker_13 {
-    background-position: 0 -562px;
-}
-
-#placesList .item .marker_14 {
-    background-position: 0 -608px;
-}
-
-#placesList .item .marker_15 {
-    background-position: 0 -654px;
-}
-
-#pagination {
-    margin: 10px auto;
-    text-align: center;
-}
-
-#pagination a {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-#pagination .on {
-    font-weight: bold;
-    cursor: default;
-    color: #777;
-}
-
-
- */

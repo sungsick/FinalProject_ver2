@@ -169,8 +169,6 @@
 
         <div class="main_content2">
             <div class="main_content1_text">
-<!--                <h3 th:text="${planList}"></h3>-->
-<!--                <h3 th:text="${planDetailList}"></h3>-->
                 <div class="mct_1">여행 일정 게시판</div>
                 <div class="mct_2">여행 일정 구경하기</div>
             </div>
@@ -226,7 +224,6 @@
                                         };
                                     /*[/]*/
 
-                                    // center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 
                                     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
                                     var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -361,8 +358,6 @@
                                         </div>
                                     </th:block>
 
-                                    <!--                                        <div class="swiper-slide"><span>장소2</span><br><span>장소카테고리2</span></div>-->
-                                    <!--                                        <div class="swiper-slide"><span>장소3</span><br><span>장소카테고리3</span></div>-->
                                 </div>
                                 <div class="swiper-button-next"></div>
                                 <div class="swiper-button-prev"></div>
@@ -406,7 +401,7 @@
                             </button>
                         </div>
                     </div>
-                    <!--                    </th:block>-->
+
                 </th:block>
 
 
@@ -420,21 +415,6 @@
 </div>
 
 <div th:include="/footer.html :: footer"></div>
-
-<script>
-    //일정 담기 클릭 시 마이페이지-내일정으로 이동 (합쳐지면 제작)
-
-
-    //일정 상세보기 클릭 시 plan_detail(일정 상세보기)로 이동
-   /*
-    const ViewScheduleDetail = document.querySelector('.test2_btn2');
-
-    ViewScheduleDetail.addEventListener('click', () => {
-        window.location.href = '../community/plan/detail';
-    });
-
-    */
-</script>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
