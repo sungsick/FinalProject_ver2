@@ -1,0 +1,10 @@
+
+r	java:S1174"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŞóÁ˜ıÿÿÿÿ8—˜ˆÔ§1
+r	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İöÔäıÿÿÿÿ8…ÌÚÖ§1
+‡
+java:S1488M"eImmediately return this expression instead of assigning it to the temporary variable "readyResponse".(Ë¯ËÔùÿÿÿÿ8ğ²ŞÖ§1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‰íìŠ8˜˜ˆÔ§1
+]
+java:S4684E"@Replace this persistent entity with a simple POJO or DTO object.(¬ÔÃû8¦˜ˆÔ§1
+Y	java:S125Œ"<This block of commented-out lines of code should be removed.(†ªó¨8•ÌÚÖ§1
+^	java:S125˜"<This block of commented-out lines of code should be removed.(şÒ¿®ûÿÿÿÿ8•ÌÚÖ§1

@@ -50,7 +50,7 @@ public class FlightController {
         return mav;
     }
 
-    @GetMapping("/pay/flightPayment")
+    @GetMapping("/store/flight/pay/flightPayment")
     public ModelAndView flightTest(ModelAndView mav,
                                    @ModelAttribute("user") User user,
                                    @ModelAttribute("ticket") FlightTicketDto ticket) {
@@ -64,7 +64,7 @@ public class FlightController {
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
 //        mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("pay/flightPaymentPage");
+        mav.setViewName("store/pay/flightPaymentPage");
         return mav;
     }
 
@@ -75,7 +75,7 @@ public class FlightController {
         return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
-    @GetMapping("/tour/flight/searchFlight")
+    @GetMapping("/store/flight/searchFlight")
     public ResponseEntity<?> searchFlight(@RequestParam("startAirport") String startAirport,
                                           @RequestParam("endAirport") String endAirport,
                                           @RequestParam("startDate") String startDate,
@@ -98,8 +98,7 @@ public class FlightController {
 
     @PostMapping("/store/flight/reservationFlight")
     public void saveFlight(@RequestBody FlightTicketDto ticket,
-                           @ModelAttribute("user") User user/*,
-                           ModelAndView mav*/) {
+                           @ModelAttribute("user") User user) {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보
         ticket.setUser(user); //dto에 유저정보 저장
@@ -111,14 +110,14 @@ public class FlightController {
         //flightService.saveFlight(ticketInfo); //db에 저장
     }
 
-    @GetMapping("/store/flight/remove")
+    /*@GetMapping("/store/flight/remove")
     public ModelAndView removeTicket(@RequestParam("ticketId")Long ticketId,
                                      ModelAndView mav){
         flightService.removeTicket(ticketId);
 
         mav.setViewName("tourMain");
         return mav;
-    }
+    }*/
 
 
 }

@@ -127,7 +127,7 @@ function searchFlight(pageNo, numOfRows) {
 
 
     $.ajax({
-        url: '/tour/flight/searchFlight',
+        url: '/store/flight/searchFlight',
         type: 'get',
         data: data,
         dataType: 'json',
@@ -364,7 +364,7 @@ function dataTest(param) {
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
                 success: function (data) {
-                    location.href = '/pay/flightPayment';
+                    location.href = '/store/flight/pay/flightPayment';
                 }
             });
         }

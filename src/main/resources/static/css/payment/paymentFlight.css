@@ -10,7 +10,7 @@
 /*}*/
 
 :root {
-    --ant-primary-color: rgb(0, 206, 124);
+    --ant-primary-color: #6DC2E7;
     --ant-primary-color-disabled: #a3ffce;
     --ant-primary-color-hover: #23db8b;
     --ant-primary-color-active: #00a86b;
@@ -22,7 +22,7 @@
     --ant-primary-3: #76f5b5;
     --ant-primary-4: #4ae89e;
     --ant-primary-5: #23db8b;
-    --ant-primary-6: #00ce7c;
+    --ant-primary-6: #00B8FF;
     --ant-primary-7: #00a86b;
     --ant-primary-8: #008257;
     --ant-primary-9: #005c40;
@@ -58,8 +58,8 @@
 }
 
 :root {
-    --adm-color-primary: #00ce7c;
-    --main_color: #00ce7c;
+    --adm-color-primary: #00B8FF;
+    --main_color: #00B8FF;
     --main_color_1: #e5faf1;
     --main_color_0: #f2fcf8;
     --disable_color: #99ebca;
@@ -359,7 +359,7 @@
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
-    color: #00ce7c;
+    color: #00B8FF;
     font-weight: 600;
     cursor: pointer;
     transition: color 0.3s ease 0s;
@@ -384,7 +384,7 @@
     left: 0%;
     width: 50%;
     height: 2px;
-    background: #00ce7c;
+    background: #00B8FF;
     transition: left 0.3s ease 0s;
 }
 
@@ -418,14 +418,14 @@
     margin-top: 15px;
     padding: 20px 30px;
     border-radius: 10px;
-    border: 1px solid #00ce7c;
+    border: 1px solid #00B8FF;
 }
 
 .prod-option-count {
     display: flex;
     flex-direction: column;
     font-weight: 600;
-    color: #00ce7c;
+    color: #00B8FF;
     border-bottom: 1px solid rgb(234, 234, 234);
     font-size: 18px;
 }
@@ -490,7 +490,7 @@
 }
 
 .item-box-left input:checked + .label-cbx-checkbox {
-    border-color: #00ce7c;
+    border-color: #00B8FF;
 }
 
 .item-box-left .label-cbx-checkbox {
@@ -501,7 +501,7 @@
     height: 20px;
     border: 1px solid rgb(200, 204, 212);
     border-radius: 3px;
-    border-color: #00ce7c;
+    border-color: #00B8FF;
 }
 
 .item-box-left .label-cbx-checkbox svg {
@@ -515,7 +515,7 @@
 }
 
 .item-box-left input:checked + .label-cbx-checkbox svg path {
-    fill: #00ce7c;
+    fill: #00B8FF;
 }
 
 .item-box-left + .label-cbx-checkbox svg polyline {
@@ -552,7 +552,7 @@
 .driver-info-section-condition-top {
     display: flex;
     flex-flow: wrap;
-    color: rgb(29, 96, 228);
+    color: #0064de;
     align-items: flex-end;
     font-size: 14px;
 }
@@ -666,7 +666,7 @@ a, area, button, [role=button], input:not([type="range"]), label, select, summar
 
 .warning {
     font-size: 14px;
-    color: rgb(89, 178, 106);
+    color: #0064de;
 }
 
 .driver-info-section-inputs-text-phone {
@@ -698,8 +698,8 @@ button, html [type=button], [type=reset], [type=submit] {
     border-radius: 5px;
     font-size: 16px;
     color: rgb(255, 255, 255);
-    background-color: #00ce7c;
-    border: 1px solid #00ce7c;
+    background-color: #00B8FF;
+    border: 1px solid #00B8FF;
     margin-left: 15px;
 }
 
@@ -804,8 +804,8 @@ button, input, optgroup, select, textarea {
 }
 
 .kKuJJW input[type="radio"]:checked + label::before {
-    border: 1px solid #00ce7c;
-    background-color: #00ce7c;
+    border: 1px solid #00B8FF;
+    background-color: #00B8FF;
     content: "";
     display: block;
     width: 24px;
@@ -901,13 +901,13 @@ button, input, optgroup, select, textarea {
 .emphasis {
     font-size: 16px;
     font-weight: 600;
-    color: #00ce7c;
+    color: #00B8FF;
 }
 
 .emphasis-price {
     font-size: 18px;
     font-weight: 700;
-    color: #00ce7c;
+    color: #00B8FF;
 }
 
 .jLwBLr {
@@ -920,7 +920,7 @@ button, input, optgroup, select, textarea {
 ._button_default_1vx5o_3 {
     border-width: 0px;
     border-radius: 5px;
-    background-color: #00ce7c;
+    background-color: #00B8FF;
     color: #fff;
     outline: none;
 }
@@ -1240,7 +1240,7 @@ p {
     font-weight: 400;
     height: 40px;
     text-align: center;
-    color: #00ce7c;
+    color: #00B8FF;
     text-decoration: underline;
     text-underline-offset: 3px;
 }

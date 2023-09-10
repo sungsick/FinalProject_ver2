@@ -5,52 +5,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="/css/payment/payment.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/payment/payment.css}" rel="stylesheet" type="text/css">
     <link href="/css/header.css" rel="stylesheet">
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/9647b4736a.js"></script>
     <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
+    <script defer src="/js/payment/payment.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d79bff4156bd5880de4362bbce25ad4e&libraries=services"></script>
+    <script src="/js/header.js"></script>
 </head>
 <body>
-
-<script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
-<script src="/js/payment/payment.js" type="text/javascript"></script>
-
-
-
-
-
-<div id="root">
+<div id="root" class="next">
     <header th:include="/header.html :: header"></header>
-
     <div class="mainBody">
         <div class="container">
             <div class="contents">
-
-
-
                 <div>
                     <div class="firstBox">
                         <section class="firstSection">
                             <div class="fsTop">
+                                <!--                                [[${dto}]]-->
                                 <div class="fsTopInfo">
                                     <!--                                    차 이미지, 클릭시 해당하는 car id가 가지고 있는 이미지 넣기-->
                                     <img class="fsTopInfoLeft"
-                                         src="	https://ims-mobility-public.s3.ap-northeast-2.amazonaws.com/cars/6.png">
+                                         src="	https://ims-mobility-public.s3.ap-northeast-2.amazonaws.com/cars/6.png"
+                                         th:src="'/img/store/rentcar/' + ${dto.car_img}">
                                 </div>
 
                                 <div class="fsTopInfoRight">
                                     <!--                                   차 이름 가져오기-->
-                                    <div class="prodName" th:text="${dto.getCar_name()}">
+                                    <div class="prodName" th:text="${dto.car_name}">
 
                                     </div>
                                     <!--                                    차 info중 넣을 수 있는 정보 넣기-->
-                                    <div class="prodInfo">
+                                    <div class="prodInfo"
+                                         th:text="|${dto.car_year} ${dto.oil_type} ${dto.car_people}인승|">
                                         23년식 가솔린 5인승
                                     </div>
                                     <!--                                    차 가격 넣기-->
-                                    <div class="prodPrice" th:text="${dto.getCar_discount()}">
+                                    <div class="prodPrice total_count" th:id="car-price"
+                                         th:text="|${dto.car_price}원|">
 
                                     </div>
                                 </div>
@@ -59,14 +55,16 @@
                                 <div class="card-top">
                                     <!--                                    렌트시 선택한 date 정보 넣기-->
                                     <div class="card-top-info">
-                                        <div class="card-top-info-date" th:text="${session.depart_date}"></div>
-                                        <div class="card-top-info-time"></div>
+                                        <input type="hidden" id="depart-date" th:value="${session.depart_date}">
+                                        <div class="card-top-info-date" id="depart-date-text"></div>
+                                        <div class="card-top-info-time" id="depart-time"></div>
                                     </div>
                                     <!--                                    렌트 시작일, 종료일 계산 넣기-->
                                     <div class="card-top-round-day">1일</div>
                                     <div class="card-top-info">
-                                        <div class="card-top-info-date" th:text="${session.arrive_date}"></div>
-                                        <div class="card-top-info-time"></div>
+                                        <input type="hidden" id="arrive-date" th:value="${session.arrive_date}">
+                                        <div class="card-top-info-date" id="arrive-date-text">09.01(수)</div>
+                                        <div class="card-top-info-time" id="arrive-time">8:00</div>
                                     </div>
                                 </div>
                                 <!--                                렌트 할 회사의 위치 (그냥 렌트카 회사 name으로 넣어도 될듯)-->
@@ -83,7 +81,7 @@
                         <!--                        차량 옵션정보 (table만든 데이터 집어넣기)-->
                         <div class="second-box-tabs">
                             <div class="second-box-tabs-non-click" data-a="0"
-                                 style="color:#00ce7c; font-weight:600">
+                                 style="color:#00B8FF; font-weight:600">
                                 예약정보
                             </div>
                             <div class="second-box-tabs-non-click" data-a="1">
@@ -106,13 +104,14 @@
                                                 <div class="item-box-left">
                                                     <label class="label-cbx">
                                                         <!--                                                        갯수 옵션 인덱스 갯수 만큼-->
-                                                        <div>총 4개 옵션</div>
+                                                        <div th:id="optionLength">총 4개 옵션</div>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--                                        데이터 베이스에서 옵션 정보 가져오기-->
-                                        <div class="prod-option-info-detail" th:text="${dto.getCar_option()}"></div>
+                                        <div class="prod-option-info-detail" th:id="options"
+                                             th:text="${dto.car_option}"></div>
                                     </div>
                                 </section>
                                 <section class="prod-info-section2">
@@ -523,7 +522,8 @@
                                         <div style="display: flex; flex-direction: column;">
                                             <div class="company-info-detail-text">
                                                 <div class="label">업체명</div>
-                                                <div class="content" id="companyName" th:text="${dto.getCom_id().getCom_name()}"></div>
+                                                <div class="content" id="companyName"
+                                                     th:text="${dto.com_id.com_name}"></div>
                                             </div>
                                             <!-- 리뷰시 작성한 정보 (평점, 점수의 평균점 적용. 점수에 따라 별 갯수 조정 가능?)-->
                                             <div class="company-info-detail-text">
@@ -536,7 +536,9 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">전화</div>
-                                                <div class="content">064-743-3727</div>
+                                                <div class="content" th:text="${dto.com_id.com_tel}">
+                                                    064-743-3727
+                                                </div>
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">영업시간</div>
@@ -547,7 +549,10 @@
                                             </div>
                                             <div class="company-info-detail-text">
                                                 <div class="label">주소</div>
-                                                <div class="content" id="companyAddress">제주특별자치도 제주시 도리로 110 발리렌트카</div>
+                                                <div class="content" id="companyAddress"
+                                                     th:text="${dto.com_id.com_location}">제주특별자치도 제주시 도리로
+                                                    110 발리렌트카
+                                                </div>
                                             </div>
                                         </div>
                                         <!--                                        여기에 지도 넣기-->
@@ -744,17 +749,17 @@
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
                                 <div>대여료</div>
-                                <div>156,480</div>
+                                <div th:id="car-price2" th:text="${dto.car_price}">156,480</div>
                             </div>
                             <div class="priceWarp">
                                 <div>보험 (일반 자차)</div>
-                                <div>-136,350</div>
+                                <div id="premiumPrice">136,350</div>
                             </div>
                         </div>
                         <div class="totalPrice">
                             <div class="totalPrice-text">
                                 <div class="emphasis"> 총 결제 금액</div>
-                                <div class="emphasis-price">20,130원</div>
+                                <div class="emphasis-price" id="emphasis-price">20,130원</div>
                             </div>
                         </div>
                         <!--                        컨트롤러 임시 호출 결제시 totalPrice데이터 넘기기-->
@@ -768,7 +773,7 @@
         </div>
     </div>
 </div>
-<div th:include="/footer.html :: footer"></div>
+<footer th:include="/footer.html :: footer"></footer>
 <div class="modal">
     <div class="ant-modal-root">
         <div class="ant-modal-mask"></div>
@@ -859,7 +864,29 @@
         </div>
     </div>
 </div>
+<div>
 
-
+    <input type="hidden" id="carName" th:value="${dto.car_name}">
+    <input type="hidden" id="carYear" th:value="${dto.car_year}">
+    <input type="hidden" id="carType" th:value="${dto.car_type}">
+    <input type="hidden" id="oilType" th:value="${dto.oil_type}">
+    <input type="hidden" id="carPeople" th:value="${dto.car_people}">
+    <input type="hidden" id="carPrice" th:value="${dto.car_price}">
+    <input type="hidden" id="carDiscount" th:value="${dto.car_discount}">
+    <input type="hidden" id="carOption" th:value="${dto.car_option}">
+    <input type="hidden" id="carImg" th:value="${dto.car_img}">
+    <input type="hidden" id="comName" th:value="${dto.com_id.com_name}">
+    <!--    <input type="hidden" id="carInfoId" th:value="${dto.car_info_id}">-->
+    <!--    <input type="hidden" id="carNation" th:value="${dto.car_nation}">-->
+    <!--    <input type="hidden" id="driverAge" th:value="${dto.driver_age}">-->
+    <!--    <input type="hidden" id="comId" th:value="${dto.com_id.id}">-->
+    <input type="hidden" id="userId" th:value="${user.userId}">
+    <input type="hidden" id="userName" th:value="${user.userName}">
+    <input type="hidden" id="userPhone" th:value="${user.userPhone}">
+    <input type="hidden" id="departureDate" th:value="${session.depart_date}">
+    <input type="hidden" id="arrivalDate" th:value="${session.arrive_date}">
+    <!--    <h1>[[${dto}]]</h1>-->
+    <!--    <h1>[[${session}]]</h1>-->
+</div>
 </body>
 </html>

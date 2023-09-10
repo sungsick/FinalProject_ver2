@@ -47,7 +47,7 @@ function moveToPay(e) {
         console.log(carInfoId);
 
 
-        location.href = '/pay/rentcarPaymentPage?Car_info_id=' + carInfoId; // car_info_id를 사용하여 URL을 생성하고 이동
+        location.href = '/store/rentcar/pay/rentcarPaymentPage?Car_info_id=' + carInfoId; // car_info_id를 사용하여 URL을 생성하고 이동
 
 
     }
