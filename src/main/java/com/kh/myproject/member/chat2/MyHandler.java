@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.kh.myproject.member.chat2.model.ChatMessage;
 import com.kh.myproject.member.chat2.service.ChatMessageService;
 import com.kh.myproject.member.chat2.service.ChatRoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,6 +25,7 @@ import java.util.Map;
 // 이 클래스에서 실제 클라이언트간의 채팅과 관련된 모든 로직이 수행된다.
 @Service
 @SessionAttributes("user")
+@Slf4j
 public class MyHandler extends TextWebSocketHandler {
 
     Map<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
@@ -47,7 +49,7 @@ public class MyHandler extends TextWebSocketHandler {
 
 
         // 채팅방 첫 접속이라면 userNumber만 붙어 있을 것이다.
-        System.out.println("연결완료");
+        log.info("연결완료");
 
         // 현재 소켓통신으로 넘어오는 url은 ws + userNumber의 형태를 가지고 있다.
         // 하지만 여기선 첫번째 통신과 두번째 통신으로 나누어져야하낟
@@ -57,15 +59,12 @@ public class MyHandler extends TextWebSocketHandler {
         //    /ws/roomId/userNumber
 
         String str = session.getUri().getPath().substring((session.getId().lastIndexOf("/")) + 5);
-        System.out.println("str = " + str);
         Long roomId = Long.parseLong(str.split("/")[0]);
         Long userNumber = Long.parseLong(str.split("/")[1]);
 
-        System.out.println("roomId" + roomId);
-        System.out.println("userNumber" + userNumber);
 
-        System.out.println("연결된 소켓의 roomId 는" + roomId);
 
+        log.info("연결된 소켓의 RoomIㅇ는 {}",roomId);
 
         // 현재 소켓에 접속한 세션의 정보를 저장해야한다.
         sessionManager.addSession(roomId, userNumber, session);
@@ -81,9 +80,16 @@ public class MyHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
 
-        // 특정 소켓이 send 메서드를 실행하면 실행되는 핸들러 메서드이다.
-        // 이 메서드가 실행됐을 경우에는 특정 소켓의 session값을 가지고 있다.
-        // 소켓이 열리는 즉시 해당 소켓의 세션 id를 보유하고 있는 객\\
+
+        String type = "";  // 전송된 메시지의 타입.
+        JSONObject jsonObject = null;
+        JSONParser jsonParser = new JSONParser();
+        //객체 파싱을 위한 매퍼
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // 객체 json 파싱을 위한 타임 모듈 추가.
+        objectMapper.registerModule(new JavaTimeModule());
+
 
         String str = session.getUri().getPath().substring((session.getId().lastIndexOf("/")) + 5);
         System.out.println("str = " + str);
@@ -97,30 +103,24 @@ public class MyHandler extends TextWebSocketHandler {
 
 
         try {
-            // 현재 상대방은 소켓에 접속해이씾 않은 상태일 수 있다. 따라서 yourSession은 null일 수 있다.
-            // 접속해있지 않다면 그냥 db에만 저장하면 된다.
-            // 수신자에게 Textessage의 payload형태로 데이터가 전송된다.
 
-            System.out.println("message의 payload값" + message.getPayload());
-            JSONObject jsonObject = null;
-            JSONObject userObj = null;
-            JSONParser jsonParser = new JSONParser();
-            //객체 파싱을 위한 매퍼
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
+            type = (String) ((JSONObject) jsonParser.parse(message.getPayload())).get("type");
+
+            if (type.equals("close")) { // 소켓 종료 알림시 세션 제거후 바로 메서드 종료.
+                sessionManager.removeSession(roomId, userNumber);
+                System.out.println("session remove 실행");
+                return;
+            }
+
+            jsonObject = (JSONObject) jsonParser.parse(message.getPayload());
 
 
             // 수신된 메시지의 payload값을 읽어온다. 이를 통해 메시지를 db에저장하는 작업을 수행한다.
-            try {
-                jsonObject = (JSONObject) jsonParser.parse(message.getPayload());
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+
             // 받은 message를 파싱해서 데이터베이스에 저장하는 작업을 거친다.
 
 
             String content = (String) jsonObject.get("content");
-//            content = content.substring(0, content.length()-; // enter 가 \ㅜ으로 입력됐으니 잘라준다.
             ChatMessage chatMessage = chatMessageService.saveMessage(roomId, userNumber, content);// 저장 한 후의 message content를 가지고 온다.
 
             //반환할때는 메시지에 대한 전체 내용이 담긴 chatMessage객체를 전달한다.
@@ -138,26 +138,11 @@ public class MyHandler extends TextWebSocketHandler {
                 yourSession.sendMessage(new TextMessage(jsonObject.toJSONString()));
             }
 
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-        // 메시지를 보냈을떄 해당 roomId를 가지고 있는 user에게 메시지를 보낸다. (본인제외)
-//        for (String key : userList.keySet()) {
-//
-//            WebSocketSession wss = userList.get(key);
-//            if (!session.getId().equals(wss.getId())) { // 메시지를 보낸 사람과 userList에 서로 다른 사람일때만 메시지를 보낸다.
-//
-//                try {
-//                    wss.sendMessage(message); // 해당 세션으로 메시지를 보낸다.
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//
-//        }
-
     }
 
 
@@ -165,18 +150,25 @@ public class MyHandler extends TextWebSocketHandler {
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 
         System.out.println("error");
+        ;
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
 
-        // close 이벤트가 발생한다.여기서 close는 소켃 연결 종료를 뜻하고 채팅방을 나가는 것은 아니다
+        log.info("핸들러에의해 remove 메서드 실행(비정상적인 경로로 종료 / reoload, 페이지 종료 등");
+        String str = session.getUri().getPath().substring((session.getId().lastIndexOf("/")) + 5);
+        Long roomId = Long.parseLong(str.split("/")[0]);
+        Long userNumber = Long.parseLong(str.split("/")[1]);
+        sessionManager.removeSession(roomId, userNumber);
 
-        System.out.println("세션이 닫혔습니다.");
     }
 
     @Override
     public boolean supportsPartialMessages() {
         return false;
     }
+
+
 }
+

@@ -7,8 +7,22 @@
     left: 0;
     z-index: 1000;
     height: 100%;
-    background-color: #00000073;
 }
+
+
+.ant-modal-root{
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    outline: 0;
+    z-index: 1000;
+}
+
+
 
 .ant-modal-wrap {
 
@@ -23,12 +37,13 @@
     font-weight: bold;
     box-shadow: 0px 5px 15px gray;
     z-index: 9999;
+
+
 }
 
 .ant-modal {
 
     box-sizing: border-box;
-    padding: 0 0 24px;
     color: #000000d9;
     font-size: 14px;
     font-variant: tabular-nums;
@@ -46,7 +61,7 @@
 .contentBox {
     transform-origin: 216.5px 845px;
     border-radius: 10px;
-    width: 480px !important;
+    width: 430px !important;
 }
 
 .contentBox .ant-modal-content {
@@ -62,6 +77,7 @@
     border-radius: 2px;
     box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
     pointer-events: auto;
+    /*height: 400px;*/
 }
 
 .ant-modal-body {
@@ -70,6 +86,7 @@
     line-height: 1.5715;
     word-wrap: break-word;
     padding-bottom : 10px;
+    height: 550px;
 }
 
 .modal-intro-content {
@@ -105,7 +122,11 @@
 }
 .modal-content{
 
+    overflow : scroll;
     border : none;
+    height: 450px;
+    padding-right: 10px;
+
 }
 .modal-content-sections .sub-description {
     font-size: 13px;
@@ -337,8 +358,6 @@
 
     width: auto;
     padding: 5px 10px;
-    display: flex;
-    align-items: center;
     border-radius: 10px;
     border: 1px solid rgb(218, 218, 218);
     box-shadow: rgb(230, 230, 230);
@@ -346,7 +365,8 @@
     margin-right: 10px;
     margin-left: 10px;
     font-weight: 450;
-
+    max-width: 250px;
+    width: auto;
 }
 
 .message-time{
@@ -417,4 +437,46 @@
 
 .text-area-box{
     text-align: center;
+}
+
+
+.no-show{
+
+    width: 100%;
+    height: 100%;
+    z-index: 8888;
+
+
+}
+
+
+
+.my-message{
+
+    justify-content: right;
+
+}
+
+.my-message-content{
+
+    background-color: #d6f2fc;
+    border : 1px solid white;
+}
+
+.chat-room-info{
+
+    position : fixed;
+    height: 40px;
+    font-size: 18px;
+    padding-left: 10px;
+    background-color: white;
+    width: 380px;
+    border-bottom : 1px solid rgb(230,230,230);
+    /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); !* 가로, 세로, 번짐, 색상 설정 *!*/
+}
+
+.show-chat-room-info{
+
+    box-sizing: border-box;
+    padding-top: 60px;
 }

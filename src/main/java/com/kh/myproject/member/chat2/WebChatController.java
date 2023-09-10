@@ -7,6 +7,7 @@ import com.kh.myproject.member.chat2.service.ChatMessageService;
 import com.kh.myproject.member.chat2.service.ChatRoomService;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @SessionAttributes({"user","user1","user2","user3","user4"})
 
@@ -36,9 +38,6 @@ public class WebChatController {
     @PostMapping("/getUserNumber")
     @ResponseBody
     public Map<String,Object> getUserNumber(HttpSession session){
-
-
-
 
         List<ChatRoom> roomList = null;
         Map<String, Object> userInfo = new HashMap<>();
@@ -147,12 +146,18 @@ public class WebChatController {
 
     @PostMapping("/getMessageList")
     @ResponseBody
-    public List<ChatMessage> getMessageList(@ModelAttribute("roomId")Long roomId){
+    public Map<String,Object> getMessageList(@ModelAttribute("roomId")Long roomId){
+
+
+        Map<String,Object> chatRoomInfo = new HashMap<>();
 
         List<ChatMessage> chatMessageList = chatMessageService.getAllMessage(roomId);
+        ChatRoom chatRoom = chatRoomService.getChatRoomByRoomId(roomId);
 
+        chatRoomInfo.put("chatRoom",chatRoom);
+        chatRoomInfo.put("chatMessageList",chatMessageList);
 
-        return chatMessageList;
+        return chatRoomInfo;
     }
 
 

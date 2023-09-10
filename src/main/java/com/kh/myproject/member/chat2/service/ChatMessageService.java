@@ -14,8 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,7 +40,7 @@ public class ChatMessageService {
         chatMessage.setUser(user);
         chatMessage.setChatRoom(chatRoom);
         chatMessage.setContent(content);
-        chatMessage.setSendTime(LocalDateTime.now());
+        chatMessage.setSendTime(new Date());
 
 
         ChatMessage saved_message = chatMessageRepository.save(chatMessage);
@@ -63,7 +63,7 @@ public class ChatMessageService {
         Pageable pageable = PageRequest.of(0,1,Sort.by("sendTime").descending());
         String lastMessage = "";
         for(int i = 0 ; i < chatRoom.size(); i++) {
-            Page<String> pageList = chatMessageRepository.selectLastMessageByChatRoom(chatRoom.get(i).getRoomId(),userNumber, pageable);
+            Page<String> pageList = chatMessageRepository.selectLastMessageByChatRoom(chatRoom.get(i).getRoomId(), pageable);
             System.out.println(pageList.getContent());
             if(pageList.getContent().size() != 0){
                 lastMessage = pageList.getContent().get(0);

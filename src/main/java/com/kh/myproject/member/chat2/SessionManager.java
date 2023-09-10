@@ -43,36 +43,34 @@ public class SessionManager {
         } else {
             roomList.get(roomId).put(userNumber, session);
         }
-        System.out.println("addsession실행 " + roomId + userNumber);
 
         System.out.println(roomList);
 
-
     }
-
 
     public WebSocketSession getSession(Long roomId, Long userNumber) {
 
-        System.out.println("getSession메서드 실행");
-        System.out.println("roomItd" + roomId + "iuserNumber" + userNumber);
+
         Map<Long, WebSocketSession> chatRoom = roomList.get(roomId);
-        System.out.println("cHATROOKM" + chatRoom);
         WebSocketSession session = null;
 
-//        System.out.println("roomList" +roomList);
-//        System.out.println("chatRoom" + chatRoom);
+
         for (Long userKey : chatRoom.keySet()) {
 
             if (!userKey.equals(userNumber)) {
                 session = chatRoom.get(userKey);
             }
         }
-        System.out.println("getSession의값 " + session);
         return session;
     }
 
-//    public Collection<WebSocketSession> getAllSessions() {
-//        return sessions.values();
-//    }
+    public void removeSession(Long roomId, Long userNumber){
+
+        roomList.get(roomId).remove(userNumber);
+
+
+    }
+
+
 
 }
