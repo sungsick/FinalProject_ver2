@@ -263,7 +263,7 @@ h1 {
 
 .none_result_table{
         text-align: center;
-        display: none;
+        /*display: none;*/
         flex-direction: column;
         justify-content: center;
         height: 300px;
