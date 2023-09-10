@@ -3,8 +3,10 @@ package com.kh.myproject.community.plan.model.entity;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +47,9 @@ public class PlanBoard {
     @JoinColumn(name = "user_number")
     private User user;  //유저번호
 
-    @OneToMany(mappedBy = "planBoard", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "planBoard", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PlanBoardDetail> planBoardDetails = new ArrayList<>();
+
     public PlanBoardDTO toDto(){
         return PlanBoardDTO.builder()
                 .pbNum(pbNum)

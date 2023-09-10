@@ -34,7 +34,7 @@ public class PlanBoardDetail {
     @Column
     private int pbdDate; //일자번호(여행일 1일차 2일차)
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name ="pb_num")
     private PlanBoard planBoard; //pbNum
 
