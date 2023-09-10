@@ -1,9 +1,4 @@
 $(document).ready(function () {
-
-
-    $("#ui-datepicker-div").hide(); //자동으로 생성되는 div객체 숨김
-
-
     // 웹페이지 로드 시 초기화
     $("#result_location").hide();
     $("#result_depart_date").hide();
@@ -140,8 +135,6 @@ $(function () {
 
     $("#depart_datepicker").datepicker({
 
-
-
         dateFormat: 'mm.dd' //Input Display Format 변경
 
         , nextText: ">"
@@ -175,7 +168,6 @@ $(function () {
         , minDate: 0 //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 
         , maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-
 
 
 
@@ -244,7 +236,6 @@ $(function () {
 
 
     });
-
 
 
     //초기값을 오늘 날짜로 설정
