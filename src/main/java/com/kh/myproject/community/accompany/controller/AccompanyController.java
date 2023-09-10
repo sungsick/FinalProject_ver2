@@ -34,14 +34,14 @@ public class AccompanyController {
     @Autowired
     AccompanyService accompanyService;
 
-    //여행커뮤니티 홈(메인페이지 병합 전 삭제)
-    @GetMapping("/community/home") //http://localhost:8070/community/home
-    public String communityhome() {
-
-        System.out.println("communityhome 테스트..");
-
-        return "community/home";
-    }
+//    //여행커뮤니티 홈(메인페이지 병합 전 삭제)
+//    @GetMapping("/community/home") //http://localhost:8070/community/home
+//    public String communityhome() {
+//
+//        System.out.println("communityhome 테스트..");
+//
+//        return "community/home";
+//    }
 
 
     //동행 리스트(동행 메인)

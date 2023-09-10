@@ -133,7 +133,7 @@ swiper-slide img {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    width: 50%;
+    width: 30%;
     height: 100%;
 }
 
@@ -171,8 +171,8 @@ swiper-slide img {
 
 
 .user_nick {
-
-    font-size: 14px;
+    text-align : center;
+    font-size: 12px;
 }
 
 .user_gender4{
@@ -369,10 +369,11 @@ swiper-slide img {
 
 
 /* 동행 메뉴바 */
-.lfdViP {
+.sectionBar {
     position: relative;
     width: 1200px;
-    margin: 0px auto;
+    margin: 0 auto; /* 가로 중앙 정렬을 위해 좌우 margin을 auto로 설정 */
+    margin-top: 130px; /* 위쪽 margin을 130px로 설정 */
 }
 
 .bPhBqO {
@@ -448,7 +449,7 @@ svg:not(:root) {
 
 
 
-.lfdViP > :nth-child(n+2) {
+.sectionBar > :nth-child(n+2) {
     margin-top: 0px;
 }
 
@@ -534,8 +535,8 @@ svg:not(:root) {
     flex-shrink: 0;
     font-weight: 400;
     font-size: 14px;
-    color: rgb(255, 255, 255);
-    background: rgb(37, 37, 37);
+    /*color: rgb(255, 255, 255);*/
+    color: rgb(37, 37, 37);
     margin-right: 12px;
     line-height: 21px;
     transition: all 0.25s ease-out 0s;
@@ -564,7 +565,7 @@ button{
     flex-shrink: 0;
     font-weight: 400;
     font-size: 14px;
-    color: rgb(37, 37, 37);
+    /*color: rgb(37, 37, 37);*/
     background: rgb(248, 248, 248);
     margin-right: 12px;
     line-height: 21px;
@@ -602,7 +603,7 @@ button{
     cursor: pointer;
 }
 
-.ezRbfq {
+.regionBox {
     padding: 0px 14px;
     position: relative;
     display: flex;
@@ -642,6 +643,7 @@ button{
     border-radius: 14px;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
 }
+
 .user_info{
     width: 70%;
 }
@@ -649,9 +651,15 @@ button{
 
 .user_info_bottom{
     display: flex;
-    justify-content: space-between;
+    flex-shrink: 0;
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: max-content;
+    height: auto;
+    justify-content: space-evenly;
+    margin-left: 10px;
 }
-
 
 .ml_4{
     user-select: none;
@@ -687,7 +695,7 @@ button{
     line-height: 40px;
 }
 #allRegion{
-    height:40px;
+    height:auto;
     text-align:center;
     line-height: 40px;
     position:relative;
@@ -695,25 +703,41 @@ button{
 
 #allRegion>.sub{
     display:none;
-    height:auto;
+    height:367px;
     list-style:none;
     overflow:hidden;
     background-color: white;
     z-index: 9999;
     position: absolute;
-    width: 160px;
-
+    width: 74px;
+    margin-right:1400px;
+    margin-top: 11px;
+    border:1px solid #9b9999;
+    border-radius: 10px;
+    margin-left: -30px;
 }
 #allRegion>.sub li{
-    border-top:1px black solid;
     background-color: white;
+    width: 130px;
+    margin-left: -50px;
+    right: 60px;
+    border-radius: 9px;
+    margin-top: 5px;
+
+}
+#allRegion>.sub li:hover{
+    border: 2px solid rgb(184, 219, 243);
+    background-color: rgb(198, 220, 236);
+    font-weight: 900;
+    font-size: 20px;
+    color: #ce2222;
+    text-decoration-color: #dc2222;
+
 }
 
 #allRegion>.sub li>button{
     text-decoration:none;
-    color:black;
-    border: 3px solid gray;
-    background-color: white;
+    background-color: transparent;
 }
 
 #allRegion>.sub.up{

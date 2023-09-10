@@ -4,6 +4,8 @@
 //     console.log(UserDate)
 //
 // })
+
+/* 최근 글 순으로 정렬*/
 $("#recent").click(() => {
     const recent = "recent"
     window.location.href = `/community/accompany?orderby=${recent}`;
@@ -17,6 +19,7 @@ $("#viewcount").click(() => {
 
 let regionChoice = true;
 
+/* 모든 지역 클릭하면 슬라이드다운 */
 $("#allRegion").click(() => {
     const regionUl = $(".sub"); // .sub 클래스를 가진 ul 요소 선택
 
@@ -29,6 +32,8 @@ $("#allRegion").click(() => {
     regionChoice = !regionChoice;
 });
 
+
+/* 지역 선택 해서 동행글 쿼리*/
 $(".regionAt").click((event) => {
 
     const id = event.target.name;
