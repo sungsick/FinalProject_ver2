@@ -1,6 +1,9 @@
 package com.kh.myproject.member.user.repository;
 
 import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.community.plan.model.entity.PlanBoardDetail;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
@@ -115,5 +118,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT a FROM Accompany a WHERE a.user.userNumber = :user_number")
     List<Accompany> getAccompanyByNum(@Param("user_number") Long user_number);
     int countByUserGender(String gender);
+
+    @Query("SELECT p FROM PlanBoard p WHERE p.user.userNumber = :user_number")
+    List<PlanBoard> getPlanByNum(@Param("user_number") Long user_number);
+
 
 }

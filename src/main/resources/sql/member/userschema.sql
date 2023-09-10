@@ -9,6 +9,8 @@ delete from finalproject.qna;
 delete from finalproject.accompany;
 delete from finalproject.comment;
 delete from finalproject.rent_info;
+delete from finalproject.plan_board_detail;
+delete from finalproject.plan_board;
 delete from finalproject.user;
 delete from finalproject.manager;
 
@@ -23,6 +25,8 @@ alter table finalproject.qna auto_increment = 1;
 alter table finalproject.accompany auto_increment = 1;
 alter table finalproject.comment auto_increment = 1;
 alter table finalproject.rent_info auto_increment = 1;
+alter table finalproject.plan_board auto_increment = 1;
+alter table finalproject.plan_board_detail auto_increment = 1;
 
 
 CREATE TABLE if not exists `user`

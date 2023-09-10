@@ -1,53 +1,11 @@
-// const ctn1deslist1 = document.querySelector('.ctn1_des_li');
-// const hujitongSvg = document.querySelector('.ctn1_des_li .sc_des_mark_hujitong > svg');
-// const pencilSvg = document.querySelector('.ctn1_des_li .pencil > svg');
-//
-// ctn1deslist1.addEventListener('mouseenter', () => {
-//     hujitongSvg.style.fill = '#df5368';
-//     pencilSvg.style.fill = '#00B8FF';
-//     ctn1deslist1.style.fill = '#00B8FF'; // 클래스에 스타일을 적용하는 것이 아니라 직접 fill 색상 변경
-// }, false);
-//
-// ctn1deslist1.addEventListener('mouseleave', () => {
-//     hujitongSvg.style.fill = '#ffffff';
-//     pencilSvg.style.fill = '#ffffff';
-//     ctn1deslist1.style.fill = '#E9E9E9'; // 클래스에 스타일을 적용하는 것이 아니라 직접 fill 색상 변경
-// }, false);
-//
-//
-// const ctn1deslist2 = document.querySelector('.ctn1_des_li2');
-// const hujitongSvg2 = document.querySelector('.ctn1_des_li2 .sc_des_mark_hujitong > svg');
-// const pencilSvg2 = document.querySelector('.ctn1_des_li2 .pencil > svg');
-//
-// ctn1deslist2.addEventListener('mouseenter', () => {
-//     hujitongSvg2.style.fill = '#df5368';
-//     pencilSvg2.style.fill = '#00B8FF';
-//     ctn1deslist2.style.fill = '#00B8FF'; // 클래스에 스타일을 적용하는 것이 아니라 직접 fill 색상 변경
-// }, false);
-//
-// ctn1deslist2.addEventListener('mouseleave', () => {
-//     hujitongSvg2.style.fill = '#ffffff';
-//     pencilSvg2.style.fill = '#ffffff';
-//     ctn1deslist2.style.fill = '#E9E9E9'; // 클래스에 스타일을 적용하는 것이 아니라 직접 fill 색상 변경
-// }, false);
-//
-
 //버튼 관련
 
 //일정 작성 완료 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
-const CompleteMySchedule = document.querySelector('.complete_write_btn'); //일정 수정 완료하기
-const CompleteMySchedule2 = document.querySelector('.complete_write_btn2'); //다른 일정 보기
+const CompleteMySchedule = document.querySelector('.complete_write_btn');
 
-
-var user = $('#sessionUser').val();
-var boardUser = $('#boardUser').val();
-
-//다른일정보기 클릭 시 Plan 메인으로 이동
-// CompleteMySchedule2.addEventListener('click', () => {
-//     window.location.href = '../plan';
-// });
-
-
+/*CompleteMySchedule.addEventListener('click', () => {
+    window.location.href = '../plan';
+});*/
 
 
 //1번째 테이블 장소 추가 버튼 클릭 시 plan_add로 이동
@@ -61,11 +19,12 @@ for(var i = 0; i < PlaceAddBtn.length; i++){
 }
 */
 
-function test(e) {
-    if(e.id === "detailPlaceAdd"){
-        location.href = `/community/plan/add?day=${e.value}&type=detail`;
+function test(e){
+    if(e.id === "writePlaceAdd"){
+        location.href = `/community/plan/add?day=${e.value}&type=write`;
     }
 }
+
 
 
 var dayValues = document.querySelectorAll('.place_add_btn');
@@ -73,9 +32,7 @@ var dayValues = document.querySelectorAll('.place_add_btn');
 var dayValue = dayValues.length + 1; // 테이블 번호 카운터 초기화
 
 // 이벤트 리스너를 추가하여 버튼 클릭 시 테이블을 추가하는 함수를 호출
-if (user !== undefined && user === boardUser) {
-    document.getElementById('schedule_add_btn').addEventListener('click', addTable);
-}
+document.getElementById('schedule_add_btn').addEventListener('click', addTable);
 
 
 function addTable() {
@@ -135,10 +92,8 @@ function addTable() {
     var placeButton = document.createElement('button');
     placeButton.className = 'place_add_btn';
     placeButton.textContent = '장소 추가';
-    placeButton.id = 'detailPlaceAdd';
-    placeButton.onclick = function () {
-        test(this)
-    };
+    placeButton.id = 'writePlaceAdd';
+    placeButton.onclick = function(){test(this)};
     placeButton.value = dayValue.toString();
     buttonsDiv.appendChild(placeButton);
 
@@ -165,7 +120,7 @@ function addTable() {
 }
 
 // 테이블 행 삭제하는 함수
-function deletePlan(day, place_name) {
+function deletePlan(day, place_name){
 
 
     console.log(day);
@@ -175,20 +130,21 @@ function deletePlan(day, place_name) {
         url: '/community/plan/deletePlan',
         type: 'post',
         data: {
-            day: day,
-            placeName: place_name
+            day : day,
+            placeName : place_name
         },
         success: function (data) {
             console.log('성공');
             location.reload();
         },
-        error: function (data) {
+        error: function(data){
             console.log('삭제실패');
         }
 
     });
 
 }
+
 
 
 //일정작성완료 버튼 클릭 시
@@ -199,14 +155,12 @@ $('.complete_write_btn').on('click', function () {
     var pbStartDate = $('#select_start_date').val();
     var pbEndDate = $('#select_end_date').val();
     var pbRegion = $('.form-select_place').val();
-    var pbNum = $('#pbNum').val();
-    var pbViewCount = $('#pbViewCount').val();
+    var pbViewCount = 0;
 
 // planBoardDTO 객체 생성 및 값 설정
     var planBoardDTO = {
-
+        // pbNum: pbNum, //게시글번호
         // pbWriteDate: pbWriteDate, //작성일자
-        pbNum: pbNum, //게시글번호
         pbTitle: pbTitle, //글제목
         pbStartDate: pbStartDate, //시작날짜
         pbEndDate: pbEndDate, //종료날짜
@@ -228,9 +182,10 @@ $('.complete_write_btn').on('click', function () {
 //     };
 
 
+
 // AJAX 요청 설정
     $.ajax({
-        url: '/community/plan/completeUpdatePlan', // 실제 서버 엔드포인트 URL
+        url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL
         type: 'post',
         contentType: 'application/json', // 데이터 형식을 JSON으로 설정
         data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
@@ -247,56 +202,6 @@ $('.complete_write_btn').on('click', function () {
     });
 });
 
-// 다른 일정 보기
-$('.complete_write_btn2').on('click', function (){
-    window.location.href = '../plan';
-});
-
-
-// 일정 삭제 하기
-$('.complete_delete_btn').on('click', function () {
-    //
-
-    // alert("일정이 저장되었습니다.")
-    var pbTitle = $('.art1_div_subject').text();
-    var pbStartDate = $('#select_start_date').val();
-    var pbEndDate = $('#select_end_date').val();
-    var pbRegion = $('.form-select_place').val();
-    var pbNum = $('#pbNum').val();
-    var pbViewCount = $('#pbViewCount').val();
-
-// planBoardDTO 객체 생성 및 값 설정
-    var planBoardDTO = {
-
-        // pbWriteDate: pbWriteDate, //작성일자
-        pbNum: pbNum, //게시글번호
-        pbTitle: pbTitle, //글제목
-        pbStartDate: pbStartDate, //시작날짜
-        pbEndDate: pbEndDate, //종료날짜
-        pbRegion: pbRegion, //여행지역
-        pbViewCount: pbViewCount, //조회수
-    };
-
-
-
-// AJAX 요청 설정
-    $.ajax({
-        url: '/community/plan/completeDeletePlan', // 실제 서버 엔드포인트 URL
-        type: 'post',
-        contentType: 'application/json', // 데이터 형식을 JSON으로 설정
-        data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
-        success: function (data) {
-            console.log('성공');
-            alert("일정이 삭제되었습니다.");
-            // 서버 응답에 대한 처리
-            location.href = "/community/plan";
-        },
-        error: function (data) {
-            console.log('실패');
-            // 에러 처리
-        }
-    });
-});
 
 
 
@@ -305,7 +210,7 @@ $('.complete_delete_btn').on('click', function () {
 
 // 날짜 선택 관련
 // 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
-document.getElementById('select_start_date').addEventListener('change', function () {
+document.getElementById('select_start_date').addEventListener('change', function() {
     // 선택한 날짜 값을 가져옵니다.
     var selectedStartDate = this.value;
 
@@ -314,7 +219,7 @@ document.getElementById('select_start_date').addEventListener('change', function
 });
 
 // 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
-document.getElementById('select_end_date').addEventListener('change', function () {
+document.getElementById('select_end_date').addEventListener('change', function() {
     // 선택한 날짜 값을 가져옵니다.
     var selectedEndDate = this.value;
 
@@ -324,17 +229,13 @@ document.getElementById('select_end_date').addEventListener('change', function (
 
 //----------------------------------------------------------------------------------
 
-var pbdXElements = document.querySelectorAll('.pbdx');
-
-
-var pbdYElements = document.querySelectorAll('.pbdy');
-
 //카카오맵 관련
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
-        center: new kakao.maps.LatLng(pbdYElements[0].value, pbdXElements[0].value), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(33.379777, 126.545873), // 지도의 중심좌표
         level: 10 // 지도의 확대 레벨
     };
+
 
 
 /*
@@ -374,7 +275,10 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var markers = [];
 
 // Plan 객체에서 pbdX와 pbdY 값을 추출합니다
+var pbdXElements = document.querySelectorAll('.pbdx');
 
+
+var pbdYElements = document.querySelectorAll('.pbdy');
 
 // 좌표를 담을 배열
 var positions = [];
@@ -419,6 +323,13 @@ function setMarkers(map) {
         markers[i].setMap(map);
     }
 }
+
+
+
+
+
+
+
 
 
 //

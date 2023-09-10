@@ -130,8 +130,7 @@ swiper-slide img {
 .user_info_bottom{
 
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .user_img img {
@@ -165,7 +164,6 @@ swiper-slide img {
 }
 
 .user_nick {
-    text-align : center;
     font-size: 12px;
 }
 

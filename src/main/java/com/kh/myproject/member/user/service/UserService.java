@@ -2,9 +2,14 @@ package com.kh.myproject.member.user.service;
 
 
 import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.community.plan.model.entity.PlanBoardDetail;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.repository.ManagerRepository;
+import com.kh.myproject.member.user.repository.BoardDetailRepository;
 import com.kh.myproject.member.user.repository.QnaRepository;
 import com.kh.myproject.member.user.repository.UserRepository;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
@@ -40,6 +45,9 @@ public class UserService {
 
     @Autowired
     private ManagerRepository managerRepository;
+
+    @Autowired
+    private BoardDetailRepository boardDetailRepository;
 
     // Article 전체 목록 조회 실행
     public List<User> index() {
@@ -108,6 +116,36 @@ public class UserService {
     public List<Accompany> getAccompanyByNum(Long user_number) {
 
         List<Accompany> result = userRepository.getAccompanyByNum(user_number);
+
+        return result;
+    }
+
+    public List<PlanBoardDTO> getPlanByNum(Long user_number) {
+
+
+
+        List<PlanBoardDTO> result = new ArrayList<>();
+
+        List<PlanBoard> list = userRepository.getPlanByNum(user_number);
+        System.out.println("UserService의 getPlanByNum 실행"+ user_number);
+        for(int i = 0; i < list.size(); i++){
+            PlanBoardDTO boardDTO = list.get(i).toDto();
+            result.add(boardDTO);
+        }
+        return result;
+    }
+
+    public List<PlanBoardDetailDTO> getPlanDetail() {
+
+
+        List<PlanBoardDetailDTO> result = new ArrayList<>();
+
+        List<PlanBoardDetail> list = boardDetailRepository.findAll();
+
+        for(int i = 0; i < list.size(); i++){
+            PlanBoardDetailDTO boardDetailDTO = list.get(i).toDto();
+            result.add(boardDetailDTO);
+        }
 
         return result;
     }

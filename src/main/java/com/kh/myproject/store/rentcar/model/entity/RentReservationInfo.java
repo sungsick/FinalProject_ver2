@@ -20,8 +20,6 @@ public class RentReservationInfo {
     private Long rentReservationId;
 
     @Column
-    private String rentId;
-    @Column
     private String rentName;
     @Column
     private String rentType;
@@ -50,7 +48,6 @@ public class RentReservationInfo {
     public RentReservationDto toDto() {
         return RentReservationDto.builder()
                 .rentReservationId(rentReservationId)
-                .rentId(rentId)
                 .rentName(rentName)
                 .rentType(rentType)
                 .rentCompany(rentCompany)

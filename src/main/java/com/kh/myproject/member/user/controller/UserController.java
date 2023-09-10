@@ -4,6 +4,10 @@ package com.kh.myproject.member.user.controller;
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
 import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
+import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.community.plan.model.entity.PlanBoardDetail;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.QnaForm;
 import com.kh.myproject.member.user.model.dto.UserForm;
@@ -320,8 +324,11 @@ public class UserController {
         List<FlightTicketInfo> fticket = userService.getFticketByNum(user.getUserNumber());
         List<RentReservationInfo> rticket = userService.getRticketByNum(user.getUserNumber());
         List<Accompany> alist = userService.getAccompanyByNum(user.getUserNumber());
+        List<PlanBoardDTO> planList = userService.getPlanByNum(user.getUserNumber());
+        List<PlanBoardDetailDTO> planDetailList = userService.getPlanDetail();
 
-        System.out.println(alist);
+        System.out.println(planList);
+        System.out.println(planDetailList);
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
         model.addAttribute("user", newUser);
@@ -333,6 +340,10 @@ public class UserController {
         model.addAttribute("rticket", rticket);
 
         model.addAttribute("alist", alist);
+
+        model.addAttribute("planList", planList);
+
+        model.addAttribute("planDetailList", planDetailList);
 
         return "/member/user/mypage";
     }
