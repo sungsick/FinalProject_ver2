@@ -514,28 +514,35 @@ function updateCarList(data) {
     var carListContainer = $(".reserv_result_gird");
     carListContainer.empty(); // 기존 목록 삭제
 
+
+
     // 반환된 데이터를 반복하여 목록에 추가
     for (var i = 0; i < data.length; i++) {
         var carInfo = data[i];
+
         var carItemHtml = `
                 <!-- 차량 안내 카드1 -->
-                <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}'">
+                <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}&carimg=${carInfo.car_img}'">
                     <div><span class="result_item_year">${carInfo.car_year}</span></div>
                     <p class="result_item_name" id="car_name">${carInfo.car_name}</p>
                     <p class="result_item_type">${carInfo.car_type}</p>
                     <img src="/img/store/rentcar/${carInfo.car_img}" style="width: 100%; max-width: 163px;">
                     <div class="price_box">
-                        <p class="lowest_label">최저</p>
+                      
                         <p class="PriceText-iWKXRR result_item_price">${carInfo.car_discount}</p>
                         <p class="result_item_price">원</p>
                     </div>
                 </div>
             `;
+
+        console.log(carInfo.car_img);
         carListContainer.append(carItemHtml);
     }
 }
 
 
+
+//reserve 페이지로 넘어갔을 때 자동으로 결과 나오는 함수
 function mainsearch() {
 
 
@@ -557,7 +564,7 @@ function mainsearch() {
                     <p class="result_item_type">${carInfo.car_type}</p>
                     <img src="/img/store/rentcar/${carInfo.car_img}" style="width: 100%; max-width: 163px;">
                     <div class="price_box">
-                        <p class="lowest_label">최저</p>
+                      
                         <p class="PriceText-iWKXRR result_item_price">${carInfo.car_discount}</p>
                         <p class="result_item_price">원</p>
                     </div>

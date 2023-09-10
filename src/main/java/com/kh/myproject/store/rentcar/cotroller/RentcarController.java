@@ -38,6 +38,8 @@ public class RentcarController {
 
     }
 
+
+    //메인에서 지역버튼 눌렀을 때 컨트롤러
     @GetMapping("/store/rentcar/rentcarReserve")
     public String rentcarReserve(@RequestParam String input_location,
                                  @RequestParam String depart_date,
@@ -66,23 +68,6 @@ public class RentcarController {
 
 
 
-    /*
-        @GetMapping("/store/rentcar/rentcarReserve")
-        public String rentcarReserve() {
-
-            return "store/rentcar/rentcarReserve";
-
-        }
-
-
-
-        @GetMapping("/store/rentcar/rentcarChoice")
-        public String rentcarChoice() {
-
-            return "store/rentcar/rentcarChoice";
-
-        }
- */
     @RequestMapping("/rentcarReserve") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
@@ -356,17 +341,22 @@ public class RentcarController {
                                 @RequestParam("cartype") String cartype,
                                 @RequestParam("caryear") String caryear,
                                 @RequestParam("carprice") String carprice,
-
-            Model model, HttpSession session) {
+                                @RequestParam(value="carimg", required=false) String carimg,
+                                Model model, HttpSession session) {
 
         List<RentcarInfoEntity> rentcarComList = rentcarService.FindCombycarname(car_name);
 
+        System.out.println(car_name);
+        System.out.println(cartype);
+        System.out.println(caryear);
+        System.out.println(carprice);
+        System.out.println(carimg);
 
         session.setAttribute("cartype", cartype);
         session.setAttribute("caryear", caryear);
         session.setAttribute("carprice", carprice);
         session.setAttribute("car_name", car_name);
-
+        session.setAttribute("carimg", carimg);
         model.addAttribute("rentcarComList",rentcarComList);
 
 
