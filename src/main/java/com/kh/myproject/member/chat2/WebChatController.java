@@ -1,8 +1,8 @@
 package com.kh.myproject.member.chat2;
 
 
-import com.kh.myproject.member.chat2.model.ChatMessage;
-import com.kh.myproject.member.chat2.model.ChatRoom;
+import com.kh.myproject.member.chat2.model.entity.ChatMessage;
+import com.kh.myproject.member.chat2.model.entity.ChatRoom;
 import com.kh.myproject.member.chat2.service.ChatMessageService;
 import com.kh.myproject.member.chat2.service.ChatRoomService;
 import com.kh.myproject.member.user.model.entity.User;
@@ -35,57 +35,57 @@ public class WebChatController {
     @Autowired
     UserService userService;
 
+//    @PostMapping("/getUserNumber")
+//    @ResponseBody
+//    public Map<String,Object> getUserNumber(HttpSession session){
+//
+//        List<ChatRoom> roomList = null;
+//        Map<String, Object> userInfo = new HashMap<>();
+//        long userNumber = -1;
+//
+//        // null 일수 있기 때문에 sessionㄱ 객체로 뽑아낸다
+//        User user = (User)session.getAttribute("user");
+//
+//        System.out.println("usergetNumber" + user.getUserNumber());
+//
+//        if(user == null){
+//            user = userService.getUserByNumber(Long.valueOf(1));
+//        }
+//        if(user != null){ // 이미 1번 유저가 접속해있다면.
+//
+//            if(user.getUserNumber() == 1) {
+//                user = userService.getUserByNumber(Long.valueOf(2));
+//
+//            }else if(user.getUserNumber() == 2){
+//                user = userService.getUserByNumber(Long.valueOf(3));
+//
+//            } else if(user.getUserNumber() == 3){
+//                user = userService.getUserByNumber(Long.valueOf(4));
+//
+//            }
+//        }
+//
+//        List<String> lastMessageList = null;
+//        if(user != null) {
+//
+//            userNumber = user.getUserNumber();
+//            roomList = chatRoomService.getChatRoomList(userNumber);
+//            lastMessageList = chatMessageService.getLastMessageList(userNumber,roomList);
+//
+//        }
+//
+//
+//        // 채팅방을 열게되면 채팅방 목록에 해당하는 마지막 메시지 리스트를 받아와야한다.
+//        // 여기도 바꿔야하낟. 테스트하려면.
+//        userInfo.put("user",user);
+//        userInfo.put("roomList",roomList); // roomList객체를 반환한다.
+//        userInfo.put("lastMessageList",lastMessageList);
+//        return userInfo;
+//    }
+
     @PostMapping("/getUserNumber")
     @ResponseBody
-    public Map<String,Object> getUserNumber(HttpSession session){
-
-        List<ChatRoom> roomList = null;
-        Map<String, Object> userInfo = new HashMap<>();
-        long userNumber = -1;
-
-        // null 일수 있기 때문에 sessionㄱ 객체로 뽑아낸다
-        User user = (User)session.getAttribute("user");
-
-        System.out.println("usergetNumber" + user.getUserNumber());
-
-        if(user == null){
-            user = userService.getUserByNumber(Long.valueOf(1));
-        }
-        if(user != null){ // 이미 1번 유저가 접속해있다면.
-
-            if(user.getUserNumber() == 1) {
-                user = userService.getUserByNumber(Long.valueOf(2));
-
-            }else if(user.getUserNumber() == 2){
-                user = userService.getUserByNumber(Long.valueOf(3));
-
-            } else if(user.getUserNumber() == 3){
-                user = userService.getUserByNumber(Long.valueOf(4));
-
-            }
-        }
-
-        List<String> lastMessageList = null;
-        if(user != null) {
-
-            userNumber = user.getUserNumber();
-            roomList = chatRoomService.getChatRoomList(userNumber);
-            lastMessageList = chatMessageService.getLastMessageList(userNumber,roomList);
-
-        }
-
-
-        // 채팅방을 열게되면 채팅방 목록에 해당하는 마지막 메시지 리스트를 받아와야한다.
-        // 여기도 바꿔야하낟. 테스트하려면.
-        userInfo.put("user",user);
-        userInfo.put("roomList",roomList); // roomList객체를 반환한다.
-        userInfo.put("lastMessageList",lastMessageList);
-        return userInfo;
-    }
-
-    @PostMapping("/getUserNumber2")
-    @ResponseBody
-    public Long getUserNumber2(HttpSession session,@ModelAttribute("userNumber")Long userNumber,Model model){
+    public Long getUserNumber(HttpSession session,@ModelAttribute("userNumber")Long userNumber,Model model){
 
         User user = (User) session.getAttribute("user");
         System.out.println(user);
@@ -255,6 +255,15 @@ public class WebChatController {
 
     }
 
+    @ResponseBody
+    @RequestMapping("/addChatRoom")
+    public void addChatRoom(@ModelAttribute("writerNumber")Long writerNumber,
+                              @ModelAttribute("userNumber")Long userNumber){
+
+
+            chatRoomService.addChatRoom(writerNumber, userNumber);
+
+    }
 
 
 

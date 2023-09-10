@@ -1,4 +1,4 @@
-package com.kh.myproject.member.chat2.model;
+package com.kh.myproject.member.chat2.model.entity;
 
 
 import com.kh.myproject.member.user.model.entity.User;
@@ -12,6 +12,8 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
+@Builder
 public class ChatRoom {
 
 

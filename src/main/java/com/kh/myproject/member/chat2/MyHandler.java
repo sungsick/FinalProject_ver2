@@ -2,7 +2,7 @@ package com.kh.myproject.member.chat2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.kh.myproject.member.chat2.model.ChatMessage;
+import com.kh.myproject.member.chat2.model.entity.ChatMessage;
 import com.kh.myproject.member.chat2.service.ChatMessageService;
 import com.kh.myproject.member.chat2.service.ChatRoomService;
 import lombok.extern.slf4j.Slf4j;

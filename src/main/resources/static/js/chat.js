@@ -1,15 +1,13 @@
-var userNumber = -1;
+var userNumber = -1; // document load후에 현재의 세션값으로 초기화된다.
 var user;
 var roomId = -1;
 var webSocket = null;
 
 
-
-console.log(userNumber)
-
-
 var url = location.pathname;
 console.log(url);
+
+console.log(userNumber)
 
 if (url === '/chatTest1') {
     userNumber = 1;
@@ -22,6 +20,27 @@ if (url === '/chatTest1') {
 }
 
 
+$.ajax({
+
+    method: 'POST',
+    url: '/getUserNumber',
+    data: {userNumber: userNumber}, // 임의로 설정한 userNumber를 넘겨주고 그걸 세션으로 더해준다.
+    // 그러면 chatTest1에서는 세션1이 추가되고 chatTest2에서는 세션2기 추가될 것.
+    // ***********실제로는 data쿼리없이 진짜 data만 받아와야한다.**********************
+    // 여기서 userNumber를 얻어온 후
+    success: function (data) {
+
+
+        // 이떄 얻어낸 usernUmber를 컨트롤러의 세션user에서 얻어온 userNumber와 동일한 값으로 본다.
+        userNumber = data;
+        console.log(userNumber + "userNumber값");
+
+    }, error: function () {
+
+    }
+})
+
+
 //클릭관련 이벤트 함수는 위쪽 배치. 실제 실행되는 함수는 아래쪽 배치.
 $('#quit-chat-btn').click(function () {
     $('.modal').css('display', 'none');
@@ -29,8 +48,10 @@ $('#quit-chat-btn').click(function () {
     $('#message-input').addClass('disappear'); // 채팅입력하는 채팅창 disappear
     $('.message-block').remove(); // 채팅 메시지 블럭 제거
     $('#back-chat-btn').addClass('disappear'); // 뒤로가기버튼 disappear
+    $('.chat-room-info').addClass('disappear');
+    $('#modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
 
-    if(webSocket != null){
+    if (webSocket != null) {
 
         webSocket.close();
 
@@ -57,7 +78,7 @@ $('#back-chat-btn').click(function () { // 뒤로가기 버튼 클릭시 채팅�
 $('#live-chat').click(function () {
 
     //모달을 열때마다 userNumber를 요청한다.
-    getUserNumber();
+    showChatRoom();
 
     // 소켓이 열린 상태라면 실행해서는 안된다.
 
@@ -75,40 +96,6 @@ $('.message-input').on('keypress', function (e) {
     }
 )
 
-
-function getUserNumber() {
-
-    console.log(userNumber)
-
-    if (userNumber == -1) {
-
-        $.ajax({
-
-            method: 'POST',
-            url: '/getUserNumber2',
-            data: {userNumber: userNumber}, // 임의로 설정한 userNumber를 넘겨주고 그걸 세션으로 더해준다.
-            // 그러면 chatTest1에서는 세션1이 추가되고 chatTest2에서는 세션2기 추가될 것.
-
-            // 실제로는 data쿼리없이 진짜 data만 받아와야한다.
-            // 여기서 userNumber를 얻어온 후
-            success: function (data) {
-
-                userNumber = data;
-                console.log(userNumber + "userNumber값");
-
-                showChatRoom(); // 콜백함수기 때문에 따로 실행하면 안된다.
-            }, error: function () {
-
-            }
-        })
-    } else {
-
-        showChatRoom(); // 콜백함수기 때문에 따로 실행하면 안된다.
-
-    }
-
-
-}
 
 // 모달 열기 + 채팅방 목록 불러오는 함수
 // 처음 모달을 열떄는 소켓 통신이 되어있어야한다.
@@ -130,15 +117,13 @@ function showChatRoom() {
 
             console.log(data)
             user = data.user; // 현재 접속한 유저 정보를 저장한다.
-            var roomList = data.roomList; // 현재 속해있는 방의 리스트를 가지고 온다.
-            var lastMessageList = data.lastMessageList;
 
             userNumber = user.userNumber;
 
             $('.modal').css('display', 'block');
 
 
-            addSocket(data); // roomList정보에 맞게 소켓정보를 추가해준다.
+            addLastMessage(data); // roomList정보에 맞게 소켓정보를 추가해준다.
 
             // 채팅방 목록 불러오기 완료, 불러온 채팅방 ui 추가.
 
@@ -151,7 +136,7 @@ function showChatRoom() {
 
 }
 
-function addSocket(data) {
+function addLastMessage(data) {
 
     // 소켓 추가하는 기능.
     user = data.user; // 현재 접속한 유저 정보를 저장한다.
@@ -209,7 +194,7 @@ function sendMessage(e) {
         var message = {
             user: user,
             content: $('.message-input').val(),
-            sendTime:new Date(),
+            sendTime: new Date(),
         }
 
         addMessageBlock(message);
@@ -274,8 +259,6 @@ function run() {
 function addMessageBlock(message) {
 
 
-
-
     var user = message.user; // db의 필드명인 sendId로 저장되는 것이 아니고 Message객체의 필드인 USer객체이름인 user로 저장된다.
     var date = new Date(message.sendTime); // date타입을 string으로 가지고 있기 때문에 다시 파싱한다.
     var hour = String(date.getHours()).padStart(2, '0');
@@ -285,9 +268,7 @@ function addMessageBlock(message) {
     var userId = user.userId.split('@')[0];
     var body = '';
 
-
-
-    if(message.user.userNumber != userNumber){ //발신자와 수신자가 다를떄.
+    if (message.user.userNumber != userNumber) { //발신자와 수신자가 다를떄.
 
         body = '<div class = "message-block">' +
             '<div class = "message-img">' +
@@ -300,7 +281,7 @@ function addMessageBlock(message) {
             `<div class = "message-time">${formattedDate}</div>` +
             '</div>'
 
-    }else{
+    } else {
 
         body = '<div class = "message-block my-message">' +
             `<div class = "message-time">${formattedDate}</div>` +
@@ -363,7 +344,6 @@ function joinChatRoom(element) {
             }
 
 
-
             ``
             // 이전 대화내용을 모두 불러온다.
             // userNumber는 전역변수로 선언돼있다.
@@ -394,3 +374,54 @@ function joinChatRoom(element) {
 
 
 // show 채팅방 들어가ㄴㄴㄴ
+
+
+// accompany_detail의 1:1채팅 클릭시
+// 1:1채팅 버튼 클릭시.
+// 로그인이 돼있는 상태여야한다.
+// detail은 로그인하지 않은 상태에서도 볼 수 있으므로 session을 검사하낟.
+$('#chat-btn').click(function () {
+
+    console.log('1:1 채팅 클릭!');
+
+
+    console.log($('#chat-btn').val());
+    var writerNumber = $('#chat-btn').val();
+
+    console.log(userNumber)
+    console.log(writerNumber)
+
+    if (userNumber == writerNumber) { // 내가 나한테 채팅을 걸려고 한다면.
+
+        alert("본인에게는 채팅을 거실 수 없습니다.");
+    } else if (userNumber == -1) {
+        alert("로그인 후 채팅하실 수 있습니다.")
+
+    } else if (userNumber != -1) { // 현재 가지고 있는 userNumber값이 없을때만 채팅방을 생성한다.
+        $.ajax({
+
+
+            url: '/addChatRoom',
+            method: 'POST',
+            data: {
+                writerNumber: writerNumber,
+                userNumber: userNumber
+                // 맨 처음 userNumber를 한번 얻어온 후로 그 userNumber가 곧 세션값이라고 본다.
+                // 따라서 컨트롤러에서 세션을 얻는것이 아닌, 여기서 쿼리로 넘겨준다.
+            },
+            success: function (data) {
+
+                console.log('통신성공 data' + data);
+
+                showChatRoom();
+
+            }, error: function () {
+
+
+            }
+
+
+        })
+    }
+
+})

@@ -1,8 +1,8 @@
 package com.kh.myproject.member.chat2.service;
 
 
-import com.kh.myproject.member.chat2.model.ChatMessage;
-import com.kh.myproject.member.chat2.model.ChatRoom;
+import com.kh.myproject.member.chat2.model.entity.ChatMessage;
+import com.kh.myproject.member.chat2.model.entity.ChatRoom;
 import com.kh.myproject.member.chat2.repository.ChatMessageRepository;
 import com.kh.myproject.member.chat2.repository.ChatRoomRepository;
 import com.kh.myproject.member.user.model.entity.User;
