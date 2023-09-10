@@ -1,0 +1,15 @@
+
+{
+java:S2293X"YReplace the type specification in this constructor call with the diamond operator ("<>").(á¯±©ûÿÿÿÿ8ì‘ôÖ§1
+v
+java:S2293k"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ¯ğ8ì‘ôÖ§1
+{
+java:S2293v"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ê¬¤ïşÿÿÿÿ8í‘ôÖ§1
+o
+java:S11928"MDefine a constant instead of duplicating this literal "total_amount" 3 times.(öüĞúúÿÿÿÿ8í‘ôÖ§1
+r	java:S117g"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öç°Öüÿÿÿÿ8í‘ôÖ§1
+J
+java:S54115"(Use a primitive boolean expression here.(ÈÄ§½úÿÿÿÿ8î‘ôÖ§1
+J
+java:S5411L"(Use a primitive boolean expression here.(ÈÄ§½úÿÿÿÿ8î‘ôÖ§1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¦•€8î‘ôÖ§1

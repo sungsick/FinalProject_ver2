@@ -1,0 +1,12 @@
+
+f	java:S117/"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Ë„È
+f	java:S1174"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñœÓ‚
+½
+java:S1845"¡Rename method "FindAll" to prevent any misunderstanding/clash with method "findAll" defined in interface "org.springframework.data.jpa.repository.JpaRepository".(‰–°áøÿÿÿÿ
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰–°áøÿÿÿÿ
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃˆÊÄøÿÿÿÿ
+c	java:S100""NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É¡
+c	java:S100&"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëçÙ
+c	java:S100/"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡Ë„È
+Q	java:S125+"<This block of commented-out lines of code should be removed.(ä†­˜
+c	java:S1004"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñœÓ‚

@@ -418,7 +418,7 @@ function moveToJeju() {
     // arrive_date 세션 값 설정
   //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
 console.log(input_location);
     console.log(input_birth);
@@ -451,7 +451,7 @@ function moveToSeoul() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
@@ -485,7 +485,7 @@ function moveToGangneung() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
@@ -520,7 +520,7 @@ function moveToBusan() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
@@ -554,7 +554,7 @@ function moveToYeosu() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
@@ -588,7 +588,7 @@ function moveToGyeongju() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + "." + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
