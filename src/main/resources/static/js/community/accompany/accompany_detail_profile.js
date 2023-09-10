@@ -1,5 +1,5 @@
 const loremIpsum = document.getElementById("accompany_detail")
-fetch("http://localhost:8070/community/accompany/accompany_detail")
+fetch("http://localhost:8060/community/accompany/accompany_detail")
     .then(response => response.text())
     .then(result => loremIpsum.innerHTML = result)
 const modal = document.getElementById("modal")

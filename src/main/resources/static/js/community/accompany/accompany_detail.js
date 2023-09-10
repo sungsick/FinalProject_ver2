@@ -1,41 +1,103 @@
+$('.add_reply_btnEdit').click(function (event) {
+
+    console.log('댓글 수정 버튼 AJAX 실행')
+
+    $('.commentDelBtn').css('display', 'block')
+    $('.gUqDoq').css('display', 'none')
+    $('.add_reply_btnUpdate').css('display', 'inline-block')
+});
 
 
-// 로그인 해서 user.number 가지고 있는 사람이거나 user
+$('.add_reply_btnUpdate').click(function (event) {
 
-// $(document).ready(function() {
-//
-//     const editBtn = document.getElementsByClassName('bt_container_m_view');
-//
-//     console.log()
-//
-//     for(let i = 0; i < editBtn.length; i++) {
-//         if (user.user_number !== accompany.user_number) {
-//             editBtn.style.display= 'none';
-//         } else {
-//             editBtn.style.display = 'block';
-//         }
-//     }
-// });
+    console.log('댓글 수정 버튼 AJAX 실행')
+    console.log(event)
+    const id = event.target.id
 
 
-//취소 버튼 클릭시 accompany(동행 메인)으로 이동
-const cancelbtn = document.querySelector('.bt_container_m_btn');
+    var query = JSON.stringify({
+        co_number: id,
+        co_content: $('#textarea' + id).val()
+    });
 
-cancelbtn.addEventListener('click', () => {
+    $.ajax({
 
-    fetch('community/accompany/delete',{
-      method: 'GET',
+        url: '/community/accompany/commentEdit',
+        type: 'POST',
+        data: query,
+        contentType: 'application/json',
+        success: function (res) {
+            console.log("res :: ", res)
 
+            $('.commentDelBtn').css('display', 'none')
+            $('.gUqDoq').css('display', 'block')
+            $('.add_reply_btnUpdate').css('display', 'none')
+            window.location.reload();
+        }
     })
-        .then(response => {
-            if (response.ok) {
-                alert('삭제 성공!!')
+});
 
-            }else {
-                alert('eles로 감???')
-            }
-        })
-        .catch(error => {
-            console.log('삭제 요청 중 오류 발생:', error);
-        })
+$('.add_reply_btnDelete').click(function (event) {
+
+    console.log('댓글 삭제 버튼 ajax 실행');
+    const co_number = event.target.id
+    console.log(co_number)
+
+    var query = JSON.stringify({
+        co_number: co_number
+    });
+
+    $.ajax({
+        url: '/community/accompany/commentDelete',
+        type: 'POST',
+        data: query,
+        contentType: 'application/json',
+        success: function (res) {
+            console.log("res ::", res)
+
+            window.location.reload();
+        }
+    })
+});
+
+
+$('#deleteBtn').click(function () {
+    console.log('delAccompany ajax 메서드 실행');
+
+    var ac_num = $('#inputAcNum').val(); // input 요소의 값을 가져옵니다.
+
+    var query = {
+        ac_num: ac_num
+    };
+    console.log('ac_num실행 중');
+    console.log('delAccompany ajax실행 중');
+
+    $.ajax({
+        url: '/community/accompany/delete',
+        method: 'POST',
+        data: query,
+        success: function (data) {
+            console.log("result : " + data);
+
+            Swal.fire({
+                title: '게시물을 삭제하시겠습니까?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: '삭제',
+                cancelButtonText: '아니오'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('삭제',
+                        '삭제되었습니다.',
+                        'success')
+                    window.location.href = '/community/accompany/'
+                }
+            });
+        },
+        error: function () {
+            Swal.fire('삭제 실패', '작업 수행에 실패하였습니다.', 'error');
+        }
+    })
 });

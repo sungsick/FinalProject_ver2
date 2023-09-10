@@ -38,5 +38,23 @@ void updateAccompany(@Param("accompany") Accompany accompany);
     @Modifying
     @Query("update Accompany a set a.ac_viewcount = a.ac_viewcount+1 where a.ac_num = :ac_num")
     void increaseViewCount(@Param("ac_num")Long ac_num);
+
+    @Query("select max(a.ac_viewcount) from Accompany a")
+    int findTopByAc_viewcount();
+
+//    @Query("select Accompany a.*, count(Comment co.ac_num) count from accompany a join Comment co on a.ac_num = co.ac_num group by ac.ac_num order by count desc")
+//@Query("SELECT a, COUNT(c.co_number) AS commentCount " +
+//        "FROM Accompany a " +
+//        "LEFT JOIN Comment c ON a.ac_num = c.co_number " +
+//        "GROUP BY a.ac_num " +
+//        "ORDER BY commentCount DESC")
+// List<Accompany> getAccompaniesBy
+
+    @Query("select a from Accompany a where now() between a.ac_startdate and a.ac_enddate")
+    List<Accompany> findByAc_startdateIsBetweenAndAc_enddate();
+
+    @Query("select a from Accompany a where not now() between a.ac_startdate and a.ac_enddate")
+    List<Accompany> findByAc_startdateIsFalseBetweenAndAc_enddate();
+
 }
 

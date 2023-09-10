@@ -5,13 +5,14 @@ use finalproject;
 
 delete from finalproject.chat_message;
 delete from finalproject.chat_room;
-delete from finalproject.rent_info;
+
+
 delete from finalproject.area_tourism;
+delete from finalproject.rent_info;
 delete from finalproject.ticket_info;
 delete from finalproject.qna;
-delete from finalproject.accompany;
 delete from finalproject.comment;
-delete from finalproject.rent_info;
+delete from finalproject.accompany;
 delete from finalproject.plan_board_detail;
 delete from finalproject.plan_board;
 delete from finalproject.user;

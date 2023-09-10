@@ -158,13 +158,6 @@ function getListItem(index, places) {
 
 
         temp = {
-            //day : $('#day').val(),
-            // PlaceName: places.place_name,
-            // address_name: places.address_name,
-            // CategoryGroupName: places.category_group_name,
-            // id: places.id,
-
-
             pbdDate : $('#day').val(),
             pbdPlaceName : places.place_name,
             pbdCategoryGroupName : places.category_group_name,
@@ -206,16 +199,6 @@ $('.add_place_btn').on('click', function () {
 
     });
 });
-
-// 장소 추가하기 이동 버튼 클릭 시 plan_write(일정 쓰기)으로 이동
-// const MoveMySchedule = document.querySelector('.add_place_btn');
-//
-// MoveMySchedule.addEventListener('click', () => {
-//
-//     // window.location.href =`../plan/write/${item}`;
-//     window.location.href = '../plan/write';
-// });
-
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 function addMarker(position, idx, title) {

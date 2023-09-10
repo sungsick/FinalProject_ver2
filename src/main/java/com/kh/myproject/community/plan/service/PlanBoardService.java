@@ -32,6 +32,9 @@ public class PlanBoardService {
         // 4. db에 저장하기 위해 boardDTo를 엔티티로 변환
         PlanBoard planBoard = boardDTO.toEntity();
 
+        List<PlanBoardDetail> detailList = new ArrayList<>();
+
+
         for (int i = 0; i < planList.size(); i++) {
 
             // 5. list[i]에 있는 dto객체를 detailDTO에 저장
@@ -43,9 +46,13 @@ public class PlanBoardService {
             // 7. 일정DTO를 db에 저장하기 위해 엔티티로 변환
             PlanBoardDetail detail = detailDTO.toEntity();
 
-            // 8. 일정하나를 db에 저장 => 5번 부터 다시(List에 size만큼 반복)
-            detailRepository.save(detail);
+            detailList.add(detail);
+            /*// 8. 일정하나를 db에 저장 => 5번 부터 다시(List에 size만큼 반복)
+            detailRepository.save(detail);*/
         }
+        planBoard.setPlanBoardDetails(detailList);
+
+        planBoardRepository.save(planBoard);
 
     }
 
@@ -106,9 +113,33 @@ public class PlanBoardService {
         return detailRepository.getMaxByPbNum(pbNum);
     }
 
-    public void updatePlanBoard(PlanBoardDTO planBoardDTO){
+    public void updatePlanBoard(PlanBoardDTO planBoardDTO,
+                                List<PlanBoardDetailDTO> planList){
 
-        planBoardRepository.updatePlanBoardByPbNum(planBoardDTO.toEntity());
+        // 4. db에 저장하기 위해 boardDTo를 엔티티로 변환
+        PlanBoard planBoard = planBoardDTO.toEntity();
+
+        List<PlanBoardDetail> detailList = new ArrayList<>();
+
+
+        for (int i = 0; i < planList.size(); i++) {
+
+            // 5. list[i]에 있는 dto객체를 detailDTO에 저장
+            PlanBoardDetailDTO detailDTO = planList.get(i);
+
+            // 6. 일정이 어느게시글인지를 저장
+            detailDTO.setPlanBoard(planBoard);
+
+            // 7. 일정DTO를 db에 저장하기 위해 엔티티로 변환
+            PlanBoardDetail detail = detailDTO.toEntity();
+
+            detailList.add(detail);
+            /*// 8. 일정하나를 db에 저장 => 5번 부터 다시(List에 size만큼 반복)
+            detailRepository.save(detail);*/
+        }
+        planBoard.setPlanBoardDetails(detailList);
+
+        planBoardRepository.updatePlanBoardByPbNum(planBoard);
     }
 
     public void deleteAllPlanBoardDetail(Long pbNum){

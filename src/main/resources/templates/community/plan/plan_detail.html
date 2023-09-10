@@ -25,40 +25,18 @@
                             <div class="map_wrap">
                                 <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
-                                <!--
-                                <div id="menu_wrap" class="bg_white">
-                                    <div class="option">
-                                        <div>
-                                            <form onsubmit="searchPlaces(); return false;">
-                                                키워드 : <input type="text" value="제주도" id="keyword" size="15">
-                                                <button type="submit">검색하기</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <ul id="placesList"></ul>
-                                    <div id="pagination"></div>
-                                </div>
-                                -->
+
                             </div>
                         </div>
                     </div>
-                    <!--여기까지 구글맵-->
+
 
                     <div class="content">
                         <div class="article">
                             <div class="art1">
                                 <div class="art1_div_btn">
 
-                                    <!--                                    <div class="art1_div_svg">-->
-                                    <!--                                        <svg width=" 9-->
-                                    <!--                                          " height="16" viewBox="0 0 9 16" fill="none"-->
-                                    <!--                                             xmlns="http://www.w3.org/2000/svg"-->
-                                    <!--                                             style="cursor: pointer;">-->
-                                    <!--                                            <path d="M8 1L1 8L8 15" stroke="#252533" stroke-width="1"-->
-                                    <!--                                                  stroke-linecap="square" fill="#2564d0"></path>-->
-                                    <!--                                        </svg>-->
-                                    <!--                                    </div>-->
+
                                     <div class="art1_div_subject" th:text="${plan.pbTitle}"></div>
                                     <span class="art1_div_menu">
                                          <th:block th:if="${session.user != null}">
@@ -85,11 +63,16 @@
                                         <div class="select_date_box">
                                             <h5>떠나는 날</h5>
                                             <th:block th:if="${session.user != null}">
-                                                <input th:if="${plan.user.userNumber == session.user.userNumber}" type="date" data-placeholder="출발일" id="select_start_date" th:value="${plan.pbStartDate}">
-                                                <input th:if="${plan.user.userNumber != session.user.userNumber}" type="date" data-placeholder="출발일" id="select_start_date" th:value="${plan.pbStartDate}" readonly>
+                                                <input th:if="${plan.user.userNumber == session.user.userNumber}"
+                                                       type="date" data-placeholder="출발일" id="select_start_date"
+                                                       th:value="${plan.pbStartDate}">
+                                                <input th:if="${plan.user.userNumber != session.user.userNumber}"
+                                                       type="date" data-placeholder="출발일" id="select_start_date"
+                                                       th:value="${plan.pbStartDate}" readonly>
                                             </th:block>
                                             <th:block th:if="${session.user == null}">
-                                                <input type="date" data-placeholder="출발일" id="select_start_date" th:value="${plan.pbStartDate}" readonly>
+                                                <input type="date" data-placeholder="출발일" id="select_start_date"
+                                                       th:value="${plan.pbStartDate}" readonly>
                                             </th:block>
                                         </div>
 
@@ -100,11 +83,16 @@
                                         <div class="select_date_box">
                                             <h5>돌아오는 날</h5>
                                             <th:block th:if="${session.user != null}">
-                                                <input th:if="${plan.user.userNumber == session.user.userNumber}" type="date" data-placeholder="도착일" id="select_end_date" th:value="${plan.pbEndDate}">
-                                                <input th:if="${plan.user.userNumber != session.user.userNumber}" type="date" data-placeholder="도착일" id="select_end_date" th:value="${plan.pbEndDate}" readonly>
+                                                <input th:if="${plan.user.userNumber == session.user.userNumber}"
+                                                       type="date" data-placeholder="도착일" id="select_end_date"
+                                                       th:value="${plan.pbEndDate}">
+                                                <input th:if="${plan.user.userNumber != session.user.userNumber}"
+                                                       type="date" data-placeholder="도착일" id="select_end_date"
+                                                       th:value="${plan.pbEndDate}" readonly>
                                             </th:block>
                                             <th:block th:if="${session.user == null}">
-                                                <input type="date" data-placeholder="도착일" id="select_end_date" th:value="${plan.pbEndDate}" readonly>
+                                                <input type="date" data-placeholder="도착일" id="select_end_date"
+                                                       th:value="${plan.pbEndDate}" readonly>
                                             </th:block>
                                         </div>
                                     </div>
@@ -158,7 +146,8 @@
                                                                 </select>
                                                                 <th:block
                                                                         th:if="${plan.user.userNumber != session.user.userNumber}">
-                                                                    <span th:if="${plan.pbRegion == '1'}" th:text="서울"></span>
+                                                                    <span th:if="${plan.pbRegion == '1'}"
+                                                                          th:text="서울"></span>
                                                                     <!--로그인한 유저와 작성한 유저가 다르면 선택한 장소만 출력-->
                                                                     <span th:if="${plan.pbRegion == '2'}"
                                                                           th:text="경기도"></span>
@@ -172,12 +161,14 @@
                                                                           th:text="전라도"></span>
                                                                     <span th:if="${plan.pbRegion == '7'}"
                                                                           th:text="제주도"></span>
-                                                                    <span th:if="${plan.pbRegion == '8'}" th:text="기타"></span>
+                                                                    <span th:if="${plan.pbRegion == '8'}"
+                                                                          th:text="기타"></span>
                                                                 </th:block>
                                                             </th:block>
                                                             <th:block
                                                                     th:if="${session.user == null}">
-                                                                <span th:if="${plan.pbRegion == '1'}" th:text="서울"></span>
+                                                                <span th:if="${plan.pbRegion == '1'}"
+                                                                      th:text="서울"></span>
                                                                 <!--로그인한 유저와 작성한 유저가 다르면 선택한 장소만 출력-->
                                                                 <span th:if="${plan.pbRegion == '2'}"
                                                                       th:text="경기도"></span>
@@ -191,20 +182,11 @@
                                                                       th:text="전라도"></span>
                                                                 <span th:if="${plan.pbRegion == '7'}"
                                                                       th:text="제주도"></span>
-                                                                <span th:if="${plan.pbRegion == '8'}" th:text="기타"></span>
+                                                                <span th:if="${plan.pbRegion == '8'}"
+                                                                      th:text="기타"></span>
                                                             </th:block>
 
                                                         </div>
-                                                        <!--                                                        <div class="sc_des_mark_hujitong">-->
-                                                        <!--                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em"-->
-                                                        <!--                                                                 viewBox="0 0 448 512">-->
-                                                        <!--                                                                &lt;!&ndash;! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. &ndash;&gt;-->
-                                                        <!--                                                                <style>svg {-->
-                                                        <!--                                                                    fill: #df5368-->
-                                                        <!--                                                                }</style>-->
-                                                        <!--                                                                <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>-->
-                                                        <!--                                                            </svg>-->
-                                                        <!--                                                        </div>-->
 
                                                     </div>
 
@@ -229,32 +211,18 @@
                                                                 </svg>
                                                             </div>
 
-                                                            <div class="sc_date_start" th:text="${plan.pbStartDate}">YYYY-MM-DD</div>
+                                                            <div class="sc_date_start" th:text="${plan.pbStartDate}">
+                                                                YYYY-MM-DD
+                                                            </div>
                                                             <span class="art1_1btn_span_md">~</span>
 
 
-                                                            <div class="sc_date_end" th:text="${plan.pbEndDate}">YYYY-MM-DD</div>
-
-
-
-
-
-
-
+                                                            <div class="sc_date_end" th:text="${plan.pbEndDate}">
+                                                                YYYY-MM-DD
+                                                            </div>
 
 
                                                         </div>
-                                                        <!--                                                        <div class="sc_des_mark_hujitong">-->
-
-                                                        <!--                                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em"-->
-                                                        <!--                                                                 viewBox="0 0 448 512">-->
-                                                        <!--                                                                &lt;!&ndash;! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. &ndash;&gt;-->
-                                                        <!--                                                                <style>svg {-->
-                                                        <!--                                                                    fill: #df5368-->
-                                                        <!--                                                                }</style>-->
-                                                        <!--                                                                <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>-->
-                                                        <!--                                                            </svg>-->
-                                                        <!--                                                        </div>-->
 
                                                     </div>
 
@@ -267,83 +235,6 @@
                         </div>
 
                         <div class="article3">
-                            <!-- <th:block th:each=""-->
-                            <!--<th:block th:if="${maxDay == null}">
-                                <div class="table_area">        &lt;!&ndash;기본제공테이블&ndash;&gt;
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">
-                                        <span class="ctn1_span">
-                                                 <span class="ctn1_span2"><svg width="15" height="15"
-                                                                               viewBox="0 0 24 24" fill="#253333"
-                                                                               xmlns="http://www.w3.org/2000/svg"
-                                                                               color="#333333" size="15"><path
-                                                         fill-rule="evenodd" clip-rule="evenodd"
-                                                         d="M21.5143 12.7857C22.1619 12.462 22.1619 11.538 21.5143 11.2143L3.2715 2.09388C2.68733 1.80182 2 2.22657 2 2.87962L2 9.63235C2 10.1346 2.3726 10.559 2.87068 10.624L13.4216 12L2.87068 13.376C2.3726 13.441 2 13.8654 2 14.3676L2 21.1204C2 21.7734 2.68733 22.1982 3.2715 21.9061L21.5143 12.7857Z"
-                                                         fill=#ffffff></path></svg></span>
-                                                <span class="day1_span">Day1</span>
-                                        </span>
-                                            </th>
-                                            <th scope="col">여행지</th>
-                                            <th scope="col">장소분류</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-
-                                        <tr>
-                                            &lt;!&ndash; Map의 key 출력 &ndash;&gt;
-                                            <th scope="row">
-                                                <div class="ctn1_des_num">1</div>
-                                            </th>
-                                            &lt;!&ndash; Map의 value(PlanDTO 목록) 반복하며 출력 &ndash;&gt;
-                                            <td>
-                                                <p></p>
-                                            </td>
-                                            <td>
-                                                &lt;!&ndash;<th:block th:each="plan : ${entry.value}" th:if="${entry.key == 1}">&ndash;&gt;
-                                                <p></p>
-                                                &lt;!&ndash;</th:block>&ndash;&gt;
-                                            </td>
-                                            <td>
-                                                <th:block th:if="${session.user != null}">
-                                                <div class="sc_des_mark_hujitong" th:if="${plan.user.userNumber == session.user.userNumber}">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                         viewBox="0 0 448 512">
-                                                        <style>svg {
-                                                            fill: #df5368
-                                                        }</style>
-                                                        <path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/>
-                                                    </svg>
-                                                </div>
-                                                </th:block>
-
-                                            </td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                    <th:block th:if="${session.user != null}">
-
-                                    <div th:if="${plan.user.userNumber == session.user.userNumber}" width="100%" height="71px" display="flex" class="btm_btn">
-                                        <button class="place_add_btn" onclick="test(this)" value="1">장소 추가</button>
-                                        <button class="memo_add_btn">메모 추가</button>
-                                    </div>
-                                    </th:block>-->
-
-
-
-
-
-
-
-                                <!--</div>
-                            </th:block>-->
-
-
                             <th:block th:if="${maxDay != null}">
                                 <div th:each="num : ${#numbers.sequence(1, maxDay)}" class="table_area">
                                     <table class="table">
@@ -370,7 +261,8 @@
 
 
                                         <!--<th:block th:each="entry : ${planMap}">-->
-                                        <tr th:each="planDetail, planStat : ${planDetailList}" th:if="${planDetail.pbdDate == num}">
+                                        <tr th:each="planDetail, planStat : ${planDetailList}"
+                                            th:if="${planDetail.pbdDate == num}">
                                             <!-- Map의 key 출력 -->
                                             <th scope="row">
                                                 <div class="ctn1_des_num" th:text="${planStat.count}"></div>
@@ -386,7 +278,9 @@
                                             </td>
                                             <td>
                                                 <th:block th:if="${session.user != null}">
-                                                    <div class="sc_des_mark_hujitong" th:if="${plan.user.userNumber == session.user.userNumber}" th:attr="onclick=|deletePlan('${num}','${planDetail.pbdPlaceName}')|">
+                                                    <div class="sc_des_mark_hujitong"
+                                                         th:if="${plan.user.userNumber == session.user.userNumber}"
+                                                         th:attr="onclick=|deletePlan('${num}','${planDetail.pbdPlaceName}')|">
                                                         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                              viewBox="0 0 448 512">
                                                             <style>svg {
@@ -404,8 +298,11 @@
                                         </tbody>
                                     </table>
                                     <th:block th:if="${session.user != null}">
-                                        <div th:if="${plan.user.userNumber == session.user.userNumber}" width="100%" height="71px" display="flex" class="btm_btn">
-                                            <button class="place_add_btn" onclick="test(this)" th:value="${num}" id="detailPlaceAdd">장소 추가</button>
+                                        <div th:if="${plan.user.userNumber == session.user.userNumber}" width="100%"
+                                             height="71px" display="flex" class="btm_btn">
+                                            <button class="place_add_btn" onclick="test(this)" th:value="${num}"
+                                                    id="detailPlaceAdd">장소 추가
+                                            </button>
                                             <button class="memo_add_btn">메모 추가</button>
                                         </div>
                                     </th:block>
@@ -420,45 +317,45 @@
                         <div height="auto" class="article4">
                             <div class="article4_line"></div>
                             <th:block th:if="${session.user != null}">
-                            <div class="add_place_area" th:if="${plan.user.userNumber == session.user.userNumber}">
-                                <div class="add_place_area_icon">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19.9387 10.7632C19.9387 15.0508 12.4693 21.8536 12.4693 21.8536C12.4693 21.8536 5 15.0508 5 10.7632C5 6.47572 8.34413 3 12.4693 3C16.5945 3 19.9387 6.47572 19.9387 10.7632Z"
-                                              fill="#7D7DFF"></path>
-                                        <circle cx="12.4699" cy="9.91282" r="3.37327" fill="white"></circle>
-                                    </svg>
+                                <div class="add_place_area" th:if="${plan.user.userNumber == session.user.userNumber}">
+                                    <div class="add_place_area_icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.9387 10.7632C19.9387 15.0508 12.4693 21.8536 12.4693 21.8536C12.4693 21.8536 5 15.0508 5 10.7632C5 6.47572 8.34413 3 12.4693 3C16.5945 3 19.9387 6.47572 19.9387 10.7632Z"
+                                                  fill="#7D7DFF"></path>
+                                            <circle cx="12.4699" cy="9.91282" r="3.37327" fill="white"></circle>
+                                        </svg>
+                                    </div>
+                                    <button class="schedule_add_btn" id="schedule_add_btn">
+                                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.5 1V12" stroke="#000" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M12 6.5L1 6.5" stroke="#000" stroke-width="2"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>여행일정 추가</span></button>
                                 </div>
-                                <button class="schedule_add_btn" id="schedule_add_btn">
-                                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6.5 1V12" stroke="#000" stroke-width="2" stroke-linecap="round"
-                                              stroke-linejoin="round"></path>
-                                        <path d="M12 6.5L1 6.5" stroke="#000" stroke-width="2" stroke-linecap="round"
-                                              stroke-linejoin="round"></path>
-                                    </svg>
-                                    <span>여행일정 추가</span></button>
-                            </div>
                             </th:block>
                         </div>
 
 
-
                         <th:block th:if="${session.user != null}">
-                        <div class="complete_write_area" th:if="${plan.user.userNumber == session.user.userNumber}">
-                            <button color="#fff" class="complete_write_btn">일정 수정 완료하기</button>
-                            <input type="hidden" th:value="${plan.pbNum}" id="pbNum">
-                            <input type="hidden" th:value="${plan.pbViewCount}" id="pbViewCount">
-                        </div>
+                            <div class="complete_write_area" th:if="${plan.user.userNumber == session.user.userNumber}">
+                                <button color="#fff" class="complete_write_btn">일정 수정 완료하기</button>
+                                <input type="hidden" th:value="${plan.pbNum}" id="pbNum">
+                                <input type="hidden" th:value="${plan.pbViewCount}" id="pbViewCount">
+                            </div>
                             <div class="complete_write_area" th:if="${plan.user.userNumber != session.user.userNumber}">
                                 <button color="#fff" class="complete_write_btn2">다른 일정 보기</button>
                             </div>
                         </th:block>
 
                         <th:block th:if="${session.user == null}">
-                        <div class="complete_write_area">
-                            <button color="#fff" class="complete_write_btn2">다른 일정 보기</button>
-                        </div>
+                            <div class="complete_write_area">
+                                <button color="#fff" class="complete_write_btn2">다른 일정 보기</button>
+                            </div>
                         </th:block>
 
                     </div>
