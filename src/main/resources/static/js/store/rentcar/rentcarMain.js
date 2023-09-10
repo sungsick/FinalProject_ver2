@@ -184,7 +184,7 @@ $(function () {
 
 
     //초기값을 오늘 날짜로 설정
-    $('#depart_datepicker₩').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+    $('#depart_datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 
 
     //반납날짜 날짜선택

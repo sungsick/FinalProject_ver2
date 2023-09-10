@@ -4,6 +4,7 @@
     min-height: calc(100vh - 246px);
     height: auto;
     padding: 0px 0px 60px;
+    margin-top: 149px;
 }
 
 .search_bar_wrap {

@@ -45,7 +45,6 @@ function easyFlightSearch(index) {
     console.log(index);
     console.log(startAirport);
     console.log(endAirport);
+
     location.href="/store/flight/flights?startAirport=" + startAirport + "&endAirport=" + endAirport + "&startDate=" + startDate + "&pageNo=" + 1;
-
-
 }

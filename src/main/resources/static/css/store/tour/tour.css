@@ -33,11 +33,16 @@ h6 > b {
 }
 
 .page_title h2 {
-    margin: 15px 0;
+    margin: 15px 0 35px 0;
+}
+
+.detail_info_title h4 {
+    display: inline-block;
 }
 
 .detail_info_top {
     margin-top: 15px;
+    height: 250px;
 }
 
 .detail_info_img {
@@ -45,17 +50,30 @@ h6 > b {
     width: 360px;
     height: 240px;
     overflow: hidden;
+    background-color: #f2f2f2;
+    text-align: center;
+    line-height: 240px;
 }
 
 .detail_info_img img {
     max-width: 100%;
 }
 
+.info_table_wrap {
+    display: inline-block;
+    width: 60%;
+    float: right;
+    overflow: auto;
+    height: 100%;
+}
+
 .detail_info_table {
     display: inline-table;
     float: right;
-    width: 60%;
+    width: 100%;
     border-collapse: collapse;
+    max-height: 250px;
+    overflow: scroll;
 }
 
 .detail_info_row {
@@ -68,12 +86,152 @@ h6 > b {
     padding: 10px;
 }
 
+.detail_info_col a {
+    color: black;
+}
+
+.detail_info_col a:hover {
+    text-decoration: underline;
+    color: #00b8ff;
+}
+
 .detail_info_col:first-child {
     width: 30%;
     font-size: 16px;
     text-align: center;
     font-weight: bold;
     background-color: rgb(248, 248, 248);
+}
+
+.detail_info_row .business_hour {
+    border: none;
+    background-color: transparent;
+}
+
+.map_info {
+    border: none;
+}
+
+.map_btn {
+    background-color: #00b8ff;
+    border: none;
+    color: white;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    width: 120px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+#map {
+    /*height: 100%;*/
+}
+
+.wrap {
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    width: 288px;
+    height: 132px;
+    margin-left: -144px;
+    text-align: left;
+    overflow: hidden;
+    font-size: 12px;
+    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+    line-height: 1.5;
+}
+
+.wrap * {
+    padding: 0;
+    margin: 0;
+}
+
+.wrap .info {
+    width: 286px;
+    height: 120px;
+    border-radius: 5px;
+    border-bottom: 2px solid #ccc;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+    background: #fff;
+}
+
+.wrap .info:nth-child(1) {
+    border: 0;
+    box-shadow: 0px 1px 2px #888;
+}
+
+.info .title {
+    padding: 5px 0 0 10px;
+    height: 30px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #888;
+    width: 17px;
+    height: 17px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+}
+
+.info .close:hover {
+    cursor: pointer;
+}
+
+.info .body {
+    position: relative;
+    overflow: hidden;
+}
+
+.info .desc {
+    position: relative;
+    margin: 13px 0 0 90px;
+    height: 75px;
+}
+
+.desc .ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.desc .jibun {
+    font-size: 11px;
+    color: #888;
+    margin-top: -2px;
+}
+
+.info .img {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 73px;
+    height: 71px;
+    border: 1px solid #ddd;
+    color: #888;
+    overflow: hidden;
+}
+
+.info:after {
+    content: '';
+    position: absolute;
+    margin-left: -12px;
+    left: 50%;
+    bottom: 0;
+    width: 22px;
+    height: 12px;
+    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+.info .link {
+    color: #5085BB;
 }
 
 .detail_info_bottom strong {
@@ -112,6 +270,19 @@ h6 > b {
 .post_date {
     color: gray;
     margin-left: 10px;
+}
+
+.more_search {
+    text-align: center;
+    background-color: #f7f9fa;
+    margin-top: 30px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 /*관광 정보 검색*/
@@ -173,7 +344,8 @@ h6 > b {
 .type_keyword {
     display: none;
 }
-.tour_container{
+
+.tour_container {
     margin-top: 150px;
 }
 
@@ -182,12 +354,22 @@ h6 > b {
     cursor: pointer;
 }
 
-.tour_search_container, .content_container, .tour_detail_container {
+.tour_search_container, .content_container {
     margin: 0 auto;
     width: 1150px;
     position: relative;
+}
+
+.content_container {
     padding-top: 35px;
 }
+
+.tour_detail_container {
+    margin: 150px auto 0 auto;
+    width: 1150px;
+    position: relative;
+}
+
 .search_type_container {
     width: 300px;
     position: relative;
@@ -212,11 +394,11 @@ h6 > b {
 }
 
 .type_btn {
-        padding: 10px 15px;
-        margin: 0 15px;
-        font-size: 22px;
-        font-weight: 600;
-        border-radius: 15px;
+    padding: 10px 15px;
+    margin: 0 15px;
+    font-size: 22px;
+    font-weight: 600;
+    border-radius: 15px;
 }
 
 .on {
@@ -273,7 +455,6 @@ h6 > b {
 }
 
 
-
 .tour_search_col:first-child {
     width: 15%;
     font-size: 18px;
@@ -310,7 +491,7 @@ h6 > b {
     height: 100%;
     width: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 9999;
     background: rgba(0, 0, 0, 0.5);
     display: none;
     top: 0;
@@ -333,8 +514,9 @@ h6 > b {
     display: block;
 }
 
-.area_modal {
+#area_modal {
     width: 790px;
+    max-height: 60%;
 }
 
 .modal_close_btn {
@@ -388,16 +570,21 @@ h6 > b {
     float: left;
 }
 
-.area_modal .modal_body .box {
+#area_modal .modal_body .box {
     width: 290px;
     max-height: 100%;
     overflow-y: auto;
 }
 
-.area_modal .modal_body .modal_sido_box .box_sigungu {
+.modal_container .modal_form .modal_body .modal_sido_box #sigungu_box {
     margin-right: 0;
     width: 425px;
 
+}
+
+.modal_container .modal_form {
+    width: 700px;
+    max-height: 70%;
 }
 
 .box .sigungu_list {
@@ -492,12 +679,14 @@ h6 > b {
     color: #ffffff;
 }
 
-.content_type_modal {
+#content_type_modal {
     width: 300px;
+    max-height: 60%;
 }
 
-.service_modal {
+#service_modal {
     width: auto;
+    max-height: 60%;
 }
 
 .modal_content_type_box {
@@ -509,8 +698,130 @@ h6 > b {
     text-align: center;
 }
 
-.pagination{
+
+#container {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    padding: 0;
+}
+
+#btnRoadview, #btnMap {
+    position: absolute;
+    padding: 7px 12px;
+    font-size: 14px;
+    border: 1px solid #dbdbdb;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    z-index: 1;
+    cursor: pointer;
+    background-color: #00b8ff;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    left: 22px;
+    top: 14px;
+}
+.find_to{
+    position: absolute;
+    bottom: 80px;
+    right: 30px;
+    z-index: 20;
+    background-color: #00b8ff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    color: #ffff;
+    font-weight: bold;
+}
+
+
+.find_to img{
+    width: 66px;
+    height: 66px;
+    display: block;
+}
+
+#container.view_map #mapWrapper {
+    z-index: 10;
+}
+
+#container.view_map #btnMap {
+    display: none;
+}
+
+#container.view_roadview #mapWrapper {
+    z-index: 0;
+}
+
+#container.view_roadview #btnRoadview {
+    display: none;
+}
+
+.pagination {
     justify-content: center;
+}
+
+.loading_wrap {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.loading-box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, .2);
+}
+
+.loading-box .circles {
+    padding-top: 10px;
+}
+
+.loading-box .circles i {
+    animation: scaleBounce .3s alternate infinite;
+    display: inline-block;
+    margin: 0 4px;
+    width: 10px;
+    height: 10px;
+    background: #00a5e5;
+    border-radius: 50em;
+}
+
+.loading-box .circles i:nth-child(2) {
+    animation-delay: .1s;
+}
+
+.loading-box .circles i:nth-child(3) {
+    animation-delay: .2s;
+}
+
+.loading-box p {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+@keyframes scaleBounce {
+    from {
+        transform: scale(.7)
+    }
+    to {
+        transform: scale(1.3)
+    }
+}
+
+.active>.page-link, .page-link.active{
+    background-color: #00B8FF;
+    border-color: #00B8FF;
 }
 /*여행상점 메인*/
 
@@ -637,7 +948,7 @@ h6 > b {
 
 .shop_carousel {
     width: auto;
-    height: 270px;
+    height: 380px;
 }
 
 .flight_rank_container {
@@ -714,16 +1025,17 @@ h6 > b {
 
 /*지역 페이지*/
 
-.cities_container{
+.cities_container {
     margin-top: 115px;
 }
+
 .cities_title_container {
     width: 100%;
     position: relative;
 
 }
 
-.title_img{
+.title_img {
     position: absolute;
     width: 100%;
     height: 335px;
@@ -732,20 +1044,7 @@ h6 > b {
     filter: brightness(50%);
     display: inline-block;
 }
-/*.cities_title_container:before {
-    content: "";
-    position: absolute;
-    background-image: url("/img/store/tour/cities/seoul/title.jpg");
 
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 335px;
-    z-index: -1;
-    bottom: 10px;
-    background-color: rgba(29, 27, 27, 0.5);
-    background-blend-mode: multiply;
-}*/
 
 .cities_title_city_info {
     width: 1100px;
@@ -808,22 +1107,6 @@ h6 > b {
     font-weight: bold;
 }
 
-/*.cities_nav_link::after {
-    position: absolute;
-    content: '';
-    height: 1px;
-    transition: 0.5s;
-    background-color: #00b8ff;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    opacity: 0;
-}
-
-.cities_nav_link:hover::after {
-    opacity: 1;
-    font-weight: bold;
-}*/
 
 .cities_card_container {
     margin: 0 auto;
@@ -869,9 +1152,6 @@ h6 > b {
     transition: opacity 0.5s;
 }
 
-.cities_card {
-
-}
 
 .cities_card button {
     background-color: rgba(0, 0, 0, 0);
@@ -896,79 +1176,58 @@ h6 > b {
     opacity: 0;
 }
 
-.flight_rank_container {
-    margin: 0 auto;
-    width: 1150px;
-    margin-top: 50px;
-}
 
-.flight_rank_card {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    width: 250px;
-    height: 250px;
-    background: rgb(255, 255, 255);
-    border-radius: 14px;
-    box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
-    transition: 1s;
-}
-
-.flight_rank_title {
-    vertical-align: middle;
-}
-
-.flight_rank_bgimg {
-    transition: 1s;
-    height: 250px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 14px;
-}
-
-.flight_rank_card:hover {
-    scale: 1.1;
-}
-
-.flight_rank_card:not(:hover) {
-    scale: 1;
-}
-
-#flight_jeju {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/236/850/CJU/00006");
-}
-
-#flight_busan {
-
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/736/602043/PUS/00003");
-}
-
-#flight_yeosu {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/703/3042/RSU/00001");
-}
-
-#flight_cheongju {
-    background-image: url("https://media.interparkcdn.net/interpark-tour/w_232,h_232,q_auto,f_auto/city/default/00001.jpg");
-}
-
-.flight_rank_text {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.flight_rank_text span {
-    margin: 0 10px;
-}
-
-.flight_rank_text i:before {
-    content: url("https://openimage.interpark.com/tour-desktop/pages/air/main/icon-oneway.png");
-}
-
-.mySwiper img{
-    height: 300px;
+.mySwiper img {
+    height: 380px;
     width: 100%;
+
+}
+
+#visual1{
+    object-fit: cover;
+    object-position: center;
+}
+
+.visual_wrap{
+
+    position: relative;
+    height: 380px;
+    text-align: center;
+    color: white;
+}
+
+
+.visual_text{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
+
+.visual_text strong{
+    font-size: 30px;
+}
+
+.visual_text span{
+    font-size: 18px;
+}
+
+#visual2{
+    background: url(/img/store/tour/tourmain/main_02.jpg) center no-repeat;
+    background-size: 1200px 380px;
+}
+
+#visual3{
+    background: url("/img/store/tour/tourmain/main_03.jpg") center no-repeat;
+    background-size: cover;
+}
+
+
+.visual_wrap .visual_title{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 333px;
+    height: 317px;
 }

@@ -78,9 +78,8 @@ public class PayController {
     }
 
     // api 결제요청
-    @PostMapping("/kakaoPay")
-
     // RedirectView 형식으로 html에서 카카오 api 호출시 CORS오류 (보안정책이라고 함). @ResponseBody로 POST 캡슐화 후 readyResponse 직접 호출하니 해결됨.
+    @PostMapping("/kakaoPay")
     public @ResponseBody KakaoPayReadyVO kakaoPay(@RequestBody FlightTicketDto ticket,
                                                   @ModelAttribute("user") User user) {
         // 티켓에 유저정보 추가

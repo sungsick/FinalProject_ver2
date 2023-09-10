@@ -26,9 +26,18 @@ $(document).ready(function () {
 function moveToPay(e) {
 
     if ($('#sessionUser').val() === '') {
-        Swal.fire('로그인후 이용하세요.', '', 'error').then(function () {
-
-            location.href = '/member/login';
+        Swal.fire({
+            title: '로그인 후 이용 가능합니다.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '로그인하러 가기',
+            cancelButtonColor: '#d33',
+            cancelButtonText: '더 둘러보기'
+        }).then(function (result) {
+            if(result.isConfirmed){
+                location.href = '/member/login';
+            }
         });
     } else {
 

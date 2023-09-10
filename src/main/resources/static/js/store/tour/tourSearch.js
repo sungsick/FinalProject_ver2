@@ -10,6 +10,7 @@ var cat2 = '';
 var cat2Name = '';
 var cat3 = '';
 var cat3Name = '';
+var keyWord = '';
 var totalCount = 0;
 var pageNo = 1;
 var totalPage = 0;
@@ -58,10 +59,6 @@ $('.search_area_btn').on('click', function () {
     });
 });
 
-/*$('.area_btn').on('click', function(){
-   $('.area_btn').not($(this).remove('sel'));
-   $(this).add('sel');
-});*/
 
 function insertArea(e) {
     areaCode = e.value;
@@ -85,6 +82,7 @@ function insertArea(e) {
         success: function (data) {
             console.log(data);
             var item = data.response.body.items.item;
+            console.log("item = " + item);
 
             $('.all_sigungu').empty();
             $('.sigungu_list').empty();
@@ -348,137 +346,12 @@ $('#search_area_btn').on('click', function () {
     console.log('지역기반 조회버튼 클릭');
 
     getAreaBaseList(pageNo);
-    /*$.ajax({
-        url: '/store/tour/getAreaBaseList',
-        data: {
-            contentTypeId: contentTypeId,
-            areaCode: areaCode,
-            sigunguCode: sigunguCode,
-            cat1: cat1,
-            cat2: cat2,
-            cat3: cat3
-        },
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
 
-            console.log(data);
-            var item = data.response.body.items.item;
-            totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
-            totalPage = Math.ceil(totalCount / numOfRows);
-            var currentPage = parseInt(data.response.body.pageNo);
-
-            startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
-            endPage = startPage + barSize - 1;
-            if (endPage >= totalPage) {
-                endPage = totalPage;
-            }
-
-            var firstPage = "";
-            var previousPage = "";
-            var mainPage = "";
-            var nextPage = "";
-            var lastPage = "";
-
-            console.log("totalPage = " + totalPage);
-            console.log("startPage = " + startPage);
-            console.log("endPage = " + endPage);
-
-            $('.search_result').empty();
-            $('.content_card_box').empty();
-            $('.paging_bar').empty();
-
-            var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
-            $('.search_result').prepend(content);
-
-
-            for (var i = 0; i < item.length; i++) {
-                var image = item[i].firstimage;
-
-                if (item[i].firstimage === '') {
-                    image = '/img/store/tour/noimage.png';
-                }
-                content =
-                    `<div class="content_card">
-                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
-                                        <span class="thumb_img">
-                                            <img src="${image}">
-                                        </span>
-                                        <strong class="thumb_name">${item[i].title}</strong>
-                                    </a>
-                                </div>`;
-
-                $('.content_card_box').append(content);
-            }
-
-            if (currentPage === 1) {
-                firstPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            } else {
-                firstPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            }
-
-            for (var i = startPage; i <= endPage; i++) {
-                if (i === currentPage) {
-                    mainPage += `<li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                } else {
-                    mainPage += `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                }
-            }
-
-            if (currentPage >= totalPage) {
-                lastPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            } else {
-                lastPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            }
-
-            var pageBar =
-                `<ul class="pagination">
-                    ${firstPage}
-                    ${previousPage}
-                    ${mainPage}
-                    ${nextPage}
-                    ${lastPage}
-                </ul>`;
-
-            $('.paging_bar').append(pageBar);
-
-        },
-        error: function () {
-            console.log('에러');
-        }
-    });*/
 });
 
-function getAreaBaseList(pageNum){
+function getAreaBaseList(pageNum) {
+
+    $('.loading_wrap').css('display', 'block');
 
     $.ajax({
         url: '/store/tour/getAreaBaseList',
@@ -498,7 +371,7 @@ function getAreaBaseList(pageNum){
             console.log(data);
             var item = data.response.body.items.item;
             totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
+            var numOfRows = 12;
             totalPage = Math.ceil(totalCount / numOfRows);
             var currentPage = parseInt(data.response.body.pageNo);
 
@@ -604,6 +477,7 @@ function getAreaBaseList(pageNum){
 
             $('.paging_bar').append(pageBar);
 
+            $('.loading_wrap').css('display', 'none');
         },
         error: function () {
             console.log('에러');
@@ -611,568 +485,61 @@ function getAreaBaseList(pageNum){
     });
 
 }
+
 function getFirstPageList() {
 
     console.log("첫페이지 이동");
 
     pageNo = 1;
 
-    getAreaBaseList(pageNo);
-    /*$.ajax({
-        url: '/store/tour/getAreaBaseList',
-        data: {
-            contentTypeId: contentTypeId,
-            areaCode: areaCode,
-            sigunguCode: sigunguCode,
-            cat1: cat1,
-            cat2: cat2,
-            cat3: cat3
-        },
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
+    if (searchType === '지역별') {
 
-            console.log(data);
-            var item = data.response.body.items.item;
-            totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
-            totalPage = Math.ceil(totalCount / numOfRows);
-            var currentPage = parseInt(data.response.body.pageNo);
+        getAreaBaseList(pageNo);
+    } else if (searchType === '통합') {
+        getSearchKeyword(pageNo);
+    }
 
-
-            startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
-            endPage = startPage + barSize - 1;
-            if (endPage >= totalPage) {
-                endPage = totalPage;
-            }
-
-            var firstPage = "";
-            var previousPage = "";
-            var mainPage = "";
-            var nextPage = "";
-            var lastPage = "";
-
-            console.log("totalPage = " + totalPage);
-            console.log("startPage = " + startPage);
-            console.log("endPage = " + endPage);
-
-            $('.search_result').empty();
-            $('.content_card_box').empty();
-            $('.paging_bar').empty();
-
-            var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
-            $('.search_result').prepend(content);
-
-
-            for (var i = 0; i < item.length; i++) {
-                var image = item[i].firstimage;
-
-                if (item[i].firstimage === '') {
-                    image = '/img/store/tour/noimage.png';
-                }
-                content =
-                    `<div class="content_card">
-                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
-                                        <span class="thumb_img">
-                                            <img src="${image}">
-                                        </span>
-                                        <strong class="thumb_name">${item[i].title}</strong>
-                                    </a>
-                                </div>`;
-
-                $('.content_card_box').append(content);
-            }
-
-            if (currentPage === 1) {
-                firstPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            } else {
-                firstPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            }
-
-            for (var i = startPage; i <= endPage; i++) {
-                if (i === currentPage) {
-                    mainPage += `<li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                } else {
-                    mainPage += `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                }
-            }
-
-            if (currentPage >= totalPage) {
-                lastPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            } else {
-                lastPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            }
-
-            var pageBar =
-                `<ul class="pagination">
-                    ${firstPage}
-                    ${previousPage}
-                    ${mainPage}
-                    ${nextPage}
-                    ${lastPage}
-                </ul>`;
-
-            $('.paging_bar').append(pageBar);
-
-        },
-        error: function () {
-            console.log('에러');
-        }
-    });*/
 }
 
 function getPreviousPageList(pageNum) {
     console.log("이전페이지 이동");
 
-    if(pageNum <= barSize){
+    if (pageNum <= barSize) {
         pageNo = 1;
     } else {
         pageNo = startPage - barSize;
     }
 
-    getAreaBaseList(pageNo);
+    if (searchType === '지역별') {
 
-    /*if (pageNum <= barSize) {
-        getFirstPageList();
-    } else {
+        getAreaBaseList(pageNo);
+    } else if (searchType === '통합') {
+        getSearchKeyword(pageNo);
+    }
 
-        pageNo = startPage - barSize;
-
-        $.ajax({
-            url: '/store/tour/getPreviousPageList',
-            data: {
-                contentTypeId: contentTypeId,
-                areaCode: areaCode,
-                sigunguCode: sigunguCode,
-                cat1: cat1,
-                cat2: cat2,
-                cat3: cat3,
-                pageNo: pageNo
-            },
-            type: 'get',
-            dataType: 'json',
-            success: function (data) {
-
-                console.log(data);
-                var item = data.response.body.items.item;
-                totalCount = parseInt(data.response.body.totalCount);
-                var numOfRows = parseInt(data.response.body.numOfRows);
-                totalPage = Math.ceil(totalCount / numOfRows);
-                var currentPage = parseInt(data.response.body.pageNo);
-
-
-                startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
-                endPage = startPage + barSize - 1;
-                if (endPage >= totalPage) {
-                    endPage = totalPage;
-                }
-
-                var firstPage = "";
-                var previousPage = "";
-                var mainPage = "";
-                var nextPage = "";
-                var lastPage = "";
-
-                console.log("totalPage = " + totalPage);
-                console.log("startPage = " + startPage);
-                console.log("endPage = " + endPage);
-
-                $('.search_result').empty();
-                $('.content_card_box').empty();
-                $('.paging_bar').empty();
-
-                var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
-                $('.search_result').prepend(content);
-
-
-                for (var i = 0; i < item.length; i++) {
-                    var image = item[i].firstimage;
-
-                    if (item[i].firstimage === '') {
-                        image = '/img/store/tour/noimage.png';
-                    }
-                    content =
-                        `<div class="content_card">
-                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
-                                        <span class="thumb_img">
-                                            <img src="${image}">
-                                        </span>
-                                        <strong class="thumb_name">${item[i].title}</strong>
-                                    </a>
-                                </div>`;
-
-                    $('.content_card_box').append(content);
-                }
-
-                if (currentPage === 1) {
-                    firstPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                    previousPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-                } else {
-                    firstPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                    previousPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-                }
-
-                for (var i = startPage; i <= endPage; i++) {
-                    if (i === currentPage) {
-                        mainPage += `<li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                    } else {
-                        mainPage += `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                    }
-                }
-
-                if (currentPage >= totalPage) {
-                    lastPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                    nextPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-                } else {
-                    lastPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                    nextPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-                }
-
-                var pageBar =
-                    `<ul class="pagination">
-                    ${firstPage}
-                    ${previousPage}
-                    ${mainPage}
-                    ${nextPage}
-                    ${lastPage}
-                </ul>`;
-
-                $('.paging_bar').append(pageBar);
-
-            },
-            error: function () {
-                console.log('에러');
-            }
-        });
-    }*/
 }
 
 function getMainPageList(e) {
     pageNo = parseInt(e.textContent);
 
-    getAreaBaseList(pageNo);
-    /*$.ajax({
-        url: '/store/tour/getMainPageList',
-        data: {
-            contentTypeId: contentTypeId,
-            areaCode: areaCode,
-            sigunguCode: sigunguCode,
-            cat1: cat1,
-            cat2: cat2,
-            cat3: cat3,
-            pageNo: pageNo
-        },
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
+    if (searchType === '지역별') {
 
-            console.log(data);
-            var item = data.response.body.items.item;
-            totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
-            totalPage = Math.ceil(totalCount / numOfRows);
-
-            var currentPage = parseInt(data.response.body.pageNo);
-
-
-            startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
-            endPage = startPage + barSize - 1;
-            if (endPage >= totalPage) {
-                endPage = totalPage;
-            }
-
-            var firstPage = "";
-            var previousPage = "";
-            var mainPage = "";
-            var nextPage = "";
-            var lastPage = "";
-
-            console.log("totalPage = " + totalPage);
-            console.log("startPage = " + startPage);
-            console.log("endPage = " + endPage);
-
-            $('.search_result').empty();
-            $('.content_card_box').empty();
-            $('.paging_bar').empty();
-
-            var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
-            $('.search_result').prepend(content);
-
-
-            for (var i = 0; i < item.length; i++) {
-                var image = item[i].firstimage;
-
-                if (item[i].firstimage === '') {
-                    image = '/img/store/tour/noimage.png';
-                }
-                content =
-                    `<div class="content_card">
-                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
-                                        <span class="thumb_img">
-                                            <img src="${image}">
-                                        </span>
-                                        <strong class="thumb_name">${item[i].title}</strong>
-                                    </a>
-                                </div>`;
-
-                $('.content_card_box').append(content);
-            }
-
-            if (currentPage === 1) {
-                firstPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            } else {
-                firstPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            }
-
-            for (var i = startPage; i <= endPage; i++) {
-                if (i === currentPage) {
-                    mainPage += `<li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                } else {
-                    mainPage += `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                }
-            }
-
-            if (currentPage >= totalPage) {
-                lastPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            } else {
-                lastPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            }
-
-            var pageBar =
-                `<ul class="pagination">
-                    ${firstPage}
-                    ${previousPage}
-                    ${mainPage}
-                    ${nextPage}
-                    ${lastPage}
-                </ul>`;
-
-            $('.paging_bar').append(pageBar);
-
-        },
-        error: function () {
-            console.log('에러');
-        }
-    });*/
+        getAreaBaseList(pageNo);
+    } else if (searchType === '통합') {
+        getSearchKeyword(pageNo);
+    }
 
 }
 
 function getNextPageList(pageNum) {
     pageNo = pageNum + 1;
 
-    getAreaBaseList(pageNo);
+    if (searchType === '지역별') {
 
-    /*$.ajax({
-        url: '/store/tour/getNextPageList',
-        data: {
-            contentTypeId: contentTypeId,
-            areaCode: areaCode,
-            sigunguCode: sigunguCode,
-            cat1: cat1,
-            cat2: cat2,
-            cat3: cat3,
-            pageNo: pageNo
-        },
-        type: 'get',
-        dataType: 'json',
-        success: function (data) {
-
-            console.log(data);
-            var item = data.response.body.items.item;
-            totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
-            totalPage = Math.ceil(totalCount / numOfRows);
-
-            var currentPage = parseInt(data.response.body.pageNo);
-
-
-            startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
-            endPage = startPage + barSize - 1;
-            if (endPage >= totalPage) {
-                endPage = totalPage;
-            }
-
-            var firstPage = "";
-            var previousPage = "";
-            var mainPage = "";
-            var nextPage = "";
-            var lastPage = "";
-
-            console.log("totalPage = " + totalPage);
-            console.log("startPage = " + startPage);
-            console.log("endPage = " + endPage);
-
-            $('.search_result').empty();
-            $('.content_card_box').empty();
-            $('.paging_bar').empty();
-
-            var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
-            $('.search_result').prepend(content);
-
-
-            for (var i = 0; i < item.length; i++) {
-                var image = item[i].firstimage;
-
-                if (item[i].firstimage === '') {
-                    image = '/img/store/tour/noimage.png';
-                }
-                content =
-                    `<div class="content_card">
-                                    <a href="/store/tour/tourDetail?contentId=${item[i].contentid}">
-                                        <span class="thumb_img">
-                                            <img src="${image}">
-                                        </span>
-                                        <strong class="thumb_name">${item[i].title}</strong>
-                                    </a>
-                                </div>`;
-
-                $('.content_card_box').append(content);
-            }
-
-            if (currentPage === 1) {
-                firstPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            } else {
-                firstPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getFirstPageList()">처음</a>
-                             </li>`;
-
-                previousPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getPreviousPageList(endPage)">이전</a>
-                                </li>`;
-            }
-
-            for (var i = startPage; i <= endPage; i++) {
-                if (i === currentPage) {
-                    mainPage += `<li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                } else {
-                    mainPage += `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getMainPageList(this)">${i}</a>
-                                </li>`;
-                }
-            }
-
-            if (currentPage >= totalPage) {
-                lastPage = `<li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item disabled">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            } else {
-                lastPage = `<li class="page-item">
-                                <a class="page-link" href="javascript:void(0)" onclick="getLastPageList(totalPage)">마지막</a>
-                             </li>`;
-
-                nextPage = `<li class="page-item">
-                                    <a class="page-link" href="javascript:void(0)" onclick="getNextPageList(endPage)">다음</a>
-                                </li>`;
-            }
-
-            var pageBar =
-                `<ul class="pagination">
-                    ${firstPage}
-                    ${previousPage}
-                    ${mainPage}
-                    ${nextPage}
-                    ${lastPage}
-                </ul>`;
-
-            $('.paging_bar').append(pageBar);
-
-        },
-        error: function () {
-            console.log('에러');
-        }
-    });*/
+        getAreaBaseList(pageNo);
+    } else if (searchType === '통합') {
+        getSearchKeyword(pageNo);
+    }
 
 }
 
@@ -1180,31 +547,55 @@ function getLastPageList(totalPage) {
 
     pageNo = totalPage;
 
-    getAreaBaseList(pageNo);
+    if (searchType === '지역별') {
 
-    /*$.ajax({
-        url: '/store/tour/getLastPageList',
+        getAreaBaseList(pageNo);
+    } else if (searchType === '통합') {
+        getSearchKeyword(pageNo);
+    }
+
+}
+
+$('#search_keyword_btn').on('click', function () {
+
+    console.log("통합검색 버튼 클릭");
+    keyWord = $('input[name=keyword]').val();
+    console.log("keyWord = " + keyWord);
+
+    if(keyWord === ''){
+        alert('검색어를 입력하세요.');
+        return;
+    }
+
+    pageNo = 1;
+    getSearchKeyword(pageNo);
+
+});
+
+function getSearchKeyword(pageNum) {
+
+    $('.loading_wrap').css('display', 'block');
+
+    $.ajax({
+        url: '/store/tour/getSearchKeyword',
         data: {
-            contentTypeId: contentTypeId,
             areaCode: areaCode,
             sigunguCode: sigunguCode,
             cat1: cat1,
             cat2: cat2,
             cat3: cat3,
-            pageNo: pageNo
+            pageNo: pageNum,
+            keyWord: keyWord
         },
         type: 'get',
         dataType: 'json',
         success: function (data) {
-
             console.log(data);
             var item = data.response.body.items.item;
             totalCount = parseInt(data.response.body.totalCount);
-            var numOfRows = parseInt(data.response.body.numOfRows);
+            var numOfRows = 12;
             totalPage = Math.ceil(totalCount / numOfRows);
-
             var currentPage = parseInt(data.response.body.pageNo);
-
 
             startPage = Math.floor(((currentPage - 1) / barSize)) * barSize + 1;
             endPage = startPage + barSize - 1;
@@ -1308,63 +699,11 @@ function getLastPageList(totalPage) {
 
             $('.paging_bar').append(pageBar);
 
+            $('.loading_wrap').css('display', 'none');
         },
         error: function () {
-            console.log('에러');
+            console.log('통합검색 에러 발생');
         }
-    });*/
-
+    });
 }
 
-/*
-   $('#search_area_btn').on('click', function(){
-   alert('모달');
-});
-   $(function () {
-   $.ajax({
-      url: '/tourismInfo',
-      type: 'get',
-      dataType: 'text',
-      success: function (data) {
-         let item = JSON.parse(data).response.body.items.item;
-         for (let i = 0; i < item.length; i++) {
-            let content = `<p>${item[i].title}</p>
-                                 <p><img src="${item[i].firstimage}" width="500px" height="300px"></p>
-                                 <p>${item[i].zipcode}</p>
-                                 <p>${item[i].addr1}</p>
-                                 <p>${item[i].overview}</p>`;
-            $('.container1').append(content);
-            blogSearchByContentId(item[i].title);
-
-         }
-
-      }
-   });
-});
-
-   function blogSearchByContentId(title) {
-   $.ajax({
-      url: '/searchBlog',
-      type: 'get',
-      data: {
-         title: title
-      },
-      dataType: 'text',
-      success: function (data) {
-         let items = JSON.parse(data).items;
-         console.log(data);
-         for (let i = 0; i < items.length; i++) {
-            let content = `<p><a href="${items[i].link}">${items[i].title}</a></p>
-                                  <p>${items[i].description}</p>
-                                  <p><a href="${items[i].bloggerlink}">출처:${items[i].bloggername}</a></p>
-                                  <p>작성일:${items[i].postdate}</p><hr/>`;
-            $('.blog').append(content);
-         }
-
-      },
-      error: function () {
-         alert('블로그 오류');
-      }
-   });
-}
-*/

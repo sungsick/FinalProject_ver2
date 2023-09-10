@@ -68,7 +68,7 @@ public class RentcarController {
 
 
 
-    @RequestMapping("/rentcarReserve") // http://localhost:8080/store/rentcar/MainSearch
+    @RequestMapping("/store/rentcar/rentcarReserve") // http://localhost:8080/store/rentcar/MainSearch
     public String sample(@RequestParam String input_location,
                          @RequestParam String depart_date,
                          @RequestParam String arrive_date,

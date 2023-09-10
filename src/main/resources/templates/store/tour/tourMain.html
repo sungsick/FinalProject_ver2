@@ -89,19 +89,34 @@
             <div class="shop_carousel">
                 <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
                                   centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-                    <swiper-slide><img
-                            src="https://tripsoda.s3.ap-northeast-2.amazonaws.com/prod/banner/1678361195310-1" alt="">
+                    <swiper-slide>
+                        <a href="/store/rentcar/rentcarMain">
+                            <img src="/img/store/tour/tourmain/main_01.png"
+                                 alt="" id="visual1">
+                        </a>
                     </swiper-slide>
-                    <swiper-slide><img
-                            src="https://tripsoda.s3.ap-northeast-2.amazonaws.com/prod/banner/1678361195310-1" alt="">
+                    <swiper-slide>
+                        <a href="https://www.101hongfestival.co.kr/" target="_blank">
+                            <div class="visual_wrap" id="visual2">
+                                <img class="visual_title" src="/img/store/tour/tourmain/main_text.png">
+                            </div>
+                        </a>
                     </swiper-slide>
-                    <swiper-slide><img
-                            src="https://tripsoda.s3.ap-northeast-2.amazonaws.com/prod/banner/1678361195310-1" alt="">
+                    <swiper-slide>
+                        <a href="https://seodong.iksan.go.kr/main/inner.php?sMenu=main#" target="_blank">
+                            <div class="visual_wrap" id="visual3">
+                                <div class="visual_text">
+                                    <strong>2023 익산 서동축제<br>
+                                        용감하고 씩씩한 서동!
+                                    </strong>
+                                    <br><br><br><br><br><br><br><br>
+                                    <span>
+                                    축제 기간 : 2023년 9월 15일(금) ~ 9월 17일(일)
+                                </span>
+                                </div>
+                            </div>
+                        </a>
                     </swiper-slide>
-                    <swiper-slide><img
-                            src="https://tripsoda.s3.ap-northeast-2.amazonaws.com/prod/banner/1678361195310-1" alt="">
-                    </swiper-slide>
-
                 </swiper-container>
             </div>
             <!--항공 페이지-->
@@ -147,15 +162,10 @@
         </div>
     </div>
 
-    <div th:include="/footer.html :: footer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-            crossorigin="anonymous"></script>
-    <script src="/js/header.js"></script>
-    <script src="/js/store/tour/tourMain.js"></script>
+    <footer th:include="/footer.html :: footer"></footer>
 </div>
-<script src = "/js/header.js"> </script>
+<script src="/js/store/tour/tourMain.js"></script>
+<script src="/js/header.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

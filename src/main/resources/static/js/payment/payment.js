@@ -164,7 +164,7 @@ $(function () {
             alert('잘못 입력했습니다. 인증번호를 확인하세요.');
             $('#input_auth').focus();
             auth_check = false;
-            $("#btnKakaoPay").disabled = ture;
+            $("#btnKakaoPay").disabled = true;
         }
     })
 
