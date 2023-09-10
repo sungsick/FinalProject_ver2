@@ -32,44 +32,38 @@ public class AccompanyController {
     @Autowired
     AccompanyService accompanyService;
 
-    //여행커뮤니티 홈(메인페이지 병합 전 삭제)
-    @GetMapping("/community/home") //http://localhost:8070/community/home
-    public String communityhome() {
-
-        System.out.println("communityhome 테스트..");
-
-        return "community/home";
-    }
-
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
     public String communityAccompany(Model model,
-                                     @RequestParam(required = false, name = "orderby") String orderby) {
+                                     @RequestParam(required = false, name = "orderby") String orderby,
+                                     @RequestParam(name = "searchName", defaultValue = "") String searchName) {
 
         System.out.println("컨트롤러의 ");
         // 목록보기
 
-        // db에서 정보를 가져오는 locig을 짜야함
+
         List<Accompany> accompanyEntity;
-        if (orderby != null && orderby.equals("recent")) {
-            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_regdate"));
-        } else if (orderby != null && orderby.equals("viewcount")) {
-            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_viewcount"));
-        }
+        if (searchName.equals("")) {
+            if (orderby != null && orderby.equals("recent")) {
+                accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_regdate"));
+            } else if (orderby != null && orderby.equals("viewcount")) {
+                accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_viewcount"));
+            }
 
 //        else if (orderby != null && orderby.equals("co_count")) {
 //            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount(); }
 
-        else if (orderby != null && orderby.equals("in_period")) {
-            accompanyEntity = accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
+            else if (orderby != null && orderby.equals("in_period")) {
+                accompanyEntity = accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
 
-        } else if (orderby != null && orderby.equals("out_of_period")) {
-            accompanyEntity = accompanyRepository.findByAc_startdateIsFalseBetweenAndAc_enddate();
-        }
-
-        else {
-            accompanyEntity = accompanyRepository.findAll();
+            } else if (orderby != null && orderby.equals("out_of_period")) {
+                accompanyEntity = accompanyRepository.findByAc_startdateIsFalseBetweenAndAc_enddate();
+            } else {
+                accompanyEntity = accompanyRepository.findAll();
+            }
+        } else {
+            accompanyEntity = accompanyService.selectBySearchName(searchName);
         }
 
 //        Accompany ac = accompanyEntity.get(0);
@@ -108,7 +102,7 @@ public class AccompanyController {
             AccompanyForm form,
             @RequestParam(value = "start_date", defaultValue = "") String start_date,
             @RequestParam(value = "end_date", defaultValue = "") String end_date,
-            @RequestParam(value = "ac_region", defaultValue = "") String ac_regionp,
+            @RequestParam(value = "ac_region", defaultValue = "") String ac_region,
             @RequestParam("ac_title") String ac_title,
             @RequestParam("ac_text") String ac_text,
             @RequestParam("ac_people") String ac_people,
@@ -181,10 +175,7 @@ public class AccompanyController {
         System.out.println("commentEntity 값 " + commentEntity);
 
         model.addAttribute("commentList", commentEntity);
-
-
         model.addAttribute("accompany", accompanyEntity);
-
 
         return "community/accompany/accompany_detail";
 
@@ -236,6 +227,19 @@ public class AccompanyController {
 
     }
 
+//    // 글 번호를 가지고 수정하는 메서드
+//    @RequestMapping(value = "/community/accompany/update", produces="text/plain;charset=UTF-8")
+//    public String accompanyUpdate(HttpServletRequest request, AccompanyForm form){
+//        System.out.println("컨트롤러 update() 메서드 실행");
+//        System.out.println(form.toString());
+//
+//        System.out.println(form.getUser_number());
+//        System.out.println(form.getAc_region());
+//
+//        // 수정한 글 1건만 보여주고 싶을 때는
+//        return "redirect://community/accompany";
+//    }
+
 
     // 글 번호를 가지고 수정하는 메서드
     // http://localhost:8070/community/accompany/update
@@ -253,6 +257,7 @@ public class AccompanyController {
         Long getUserNumber = user.getUserNumber();
         form.setUser(user);
         form.getUser().setUserNumber(getUserNumber);
+
 //        // 유저 넘버 가져옴
 
 
@@ -261,6 +266,7 @@ public class AccompanyController {
         // DTO -> Entity 로 변환한다.
         Accompany accompany = form.toEntity();
 //        Date date = new Date();
+
 
         Accompany result = accompanyService.updateAccompany(accompany);
 

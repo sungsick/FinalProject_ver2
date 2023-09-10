@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>accompany.html</title>
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/community/accompany/accompany.css">
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
 
@@ -103,11 +104,7 @@
             <div class="main_content1_box" >
                 <th:block th:each="accompany : ${accompanyList}" >
                 <div class="test1" th:onclick="'location.href=\'/community/accompany/detail?ac_num='+ @{${accompany.ac_num}} + '\''"> <!-- 여기가 한 박스-->
-
                     <!--                                        <a th:href="@{/board/view/{id}(id = ${board.id})}">글 상세보기</a>-->
-
-
-
                         <div class="test1_content1" >
                             <div class="user_profile">
                                 <div class="user_img">
@@ -119,7 +116,7 @@
 
                                 </div>
                                 <div class="user_info">
-                                    <div class="user_nick" th:text="${accompany.user?.userName}"></div>
+                                    <div class="user_nick" th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></div>
 <!--                                    <div class="user_agender" th:text="${user.userDate}">20대</div>-->
 
                                     <div class = "user_info_bottom">
@@ -196,13 +193,7 @@
                         </li>
                     </ul>
                 </nav>
-
-
             </div>
-
-
-            <div th:include="/footer.html :: footer"></div>
-
 
             <!-- Swiper JS -->
             <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
@@ -211,8 +202,9 @@
         <script src="/js/community/accompany/accompany.js"></script>
 
         </div>
+    <footer th:include="/footer.html :: footer"></footer>
     </div>
-</div>
+
 </body>
 
 </html>

@@ -3,16 +3,25 @@
 
 use finalproject;
 
+delete from finalproject.chat_message;
+delete from finalproject.chat_room;
+
+
 delete from finalproject.area_tourism;
+delete from finalproject.rent_info;
 delete from finalproject.ticket_info;
 delete from finalproject.qna;
 delete from finalproject.comment;
 delete from finalproject.accompany;
+delete from finalproject.plan_board_detail;
+delete from finalproject.plan_board;
 delete from finalproject.user;
 delete from finalproject.manager;
-/* 왜 delete 를 넣었는지 궁금 */
 
 
+alter table finalproject.chat_message auto_increment = 1;
+alter table finalproject.chat_room auto_increment = 1;
+alter table finalproject.rent_info auto_increment = 1;
 alter table finalproject.user auto_increment = 1;
 alter table finalproject.manager auto_increment = 1;
 alter table finalproject.ticket_info auto_increment = 1;
@@ -20,6 +29,9 @@ alter table finalproject.area_tourism auto_increment = 1;
 alter table finalproject.qna auto_increment = 1;
 alter table finalproject.accompany auto_increment = 1;
 alter table finalproject.comment auto_increment = 1;
+alter table finalproject.rent_info auto_increment = 1;
+alter table finalproject.plan_board auto_increment = 1;
+alter table finalproject.plan_board_detail auto_increment = 1;
 
 
 CREATE TABLE if not exists `user`
@@ -42,6 +54,7 @@ CREATE TABLE if not exists `ticket_info`
     `tic_ticket_id`             bigint       NOT NULL,
     `tic_flight_departure_date` varchar(100) NOT NULL,
     `tic_flight_arrival_date`   varchar(100) NOT NULL,
+    `tic_airline_logo`          varchar(100) NOT NULL,
     `tic_seat_grade`            varchar(100) NOT NULL,
     `tic_airline_name`          varchar(100) NOT NULL,
     `tic_fee`                   int          NOT NULL,
@@ -50,6 +63,23 @@ CREATE TABLE if not exists `ticket_info`
     `tic_vihicle_id`            varchar(100) NOT NULL,
     `user_number`               bigint       NOT NULL
 );
+CREATE TABLE if not exists `rent_info`
+(
+    `rent_id`             bigint       NOT NULL auto_increment,
+    `rent_name`           varchar(100) NOT NULL,
+    `rent_type`           varchar(100) NOT NULL,
+    `rent_company`        varchar(100) NOT NULL,
+    `rent_option`         varchar(3000),
+    `rent_price`          varchar(100) NOT NULL,
+    `rent_departure_date` date         NOT NULL,
+    `rent_arrival_date`   date         NOT NULL,
+    `rent_img`            varchar(100) NOT NULL,
+    `rent_accommodate`    bigint       NOT NULL,
+    `rent_year`           varchar(30)  NOT NULL,
+    `rent_oil`            varchar(30)  NOT NULL,
+    `user_number`         bigint       NOT NULL
+);
+
 
 CREATE TABLE if not exists `area_tourism`(
     `area_id` bigint not null primary key auto_increment,
@@ -111,3 +141,29 @@ create table if not exists `comment`
     FOREIGN KEY (ac_num) REFERENCES accompany (ac_num)
 );
 
+
+create table if not exists chat_room(
+
+                          room_id bigint primary key auto_increment,
+                          user_number1  bigint not null, -- user table의 userNumber를 참고하는 컬럼
+                          user_number2  bigint not null,
+
+                          FOREIGN KEY (user_number1) REFERENCES user(user_number),
+                          FOREIGN KEY (user_number2) REFERENCES user(user_number)
+
+
+);
+
+
+create table if not exists chat_message(
+
+                             message_id bigint primary key auto_increment,
+                             room_id bigint not null,
+                             content varchar(3000),
+                             send_time datetime default now() not null,
+                             sender_id bigint not null,
+
+                             FOREIGN KEY (room_id) REFERENCES chat_room(room_id),
+                             FOREIGN KEY (sender_id) REFERENCES user(user_number)
+
+);

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지 메인</title>
     <link rel="stylesheet" href="/css/member/manager/headerAndSideNav.css">
-    <link rel="stylesheet" href="/css/member/manager/user.css">
+    <link rel="stylesheet" href="/css/member/manager/plan.css">
     <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -24,33 +24,80 @@
 <div class="section">
     <div class="main_content">
         <h4 class="content_title">
-            유저 정보 관리
+            동행 글 관리
         </h4>
-        <div class="content_boxes">
-            <div class="content_box">
 
-                오늘 탈퇴한 회원수 .
+        <div class="usertable" id="usertable">
 
+            <div class="usertable-inner">
+                <div class="user-search-bar">
+                    <div>
+                        <select name="user-search-option" id="user-search-option">
+                            <option value="all">전체</option>
+                            <option value="user_id">유저 아이디</option>
+                            <option value="user_name">유저 이름</option>
+
+                        </select>
+                    </div>
+
+                    <div class="user-search-input">
+
+
+                        <span><i class="fa-solid fa-magnifying-glass" id="search-icon"></i></span>
+                        <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+
+
+                    </div>
+
+                </div>
             </div>
-            <div class="content_box">
-                <div class="content_box_inner">접속자수</div>
+            <div class="field-bar">
+                <div>글 번호</div>
+                <div>작성자</div>
+                <div>출발날짜</div>
+                <div>도착날짜</div>
+                <div>여행지역</div>
+                <div>삭제</div>
             </div>
-            <div class="content_box">
-                <div class="content_box_inner">방문자 수?</div>
+            <div th:if="${#lists.isEmpty(planList)}" class="no-user">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <style>svg {
+                            fill: #ff0000
+                        }</style>
+                        <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
+                    </svg>
+                </div>
+                <div class="warning-title">표시할 유저 정보가 없습니다.</div>
             </div>
+
+
+            <th:block th:if="${!#lists.isEmpty(planList)}">
+                <div class="userinfo-box" th:each="planList : ${planList}">
+
+
+                    <div th:text="${planList.pbNum}"></div>
+                    <div th:text="${planList.user.userName}"></div>
+                    <div th:text="${planList.pbStartDate}"></div>
+                    <div th:text="${planList.pbEndDate}"></div>
+                    <div th:text="${planList.pbRegion}"></div>
+
+
+                    <div class="ml_4 user-del-btn" th:id="${planList.pbNum}" onclick="delPlan(this)">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512">
+                            <style>svg {
+                                fill: #ff0000
+                            }</style>
+                            <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/>
+                        </svg>
+                    </div>
+
+                </div>
+            </th:block>
         </div>
-        <div class="graphes">
-            <div class="mygraph mg1">
 
-
-                <canvas id="myChart"></canvas>
-
-            </div>
-            <div class="mygraph mg2" id=container>
-
-
-            </div>
-        </div>
     </div>
 </div>
 
@@ -62,6 +109,6 @@
 <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
 <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/js/member/manager/user.js"></script>
+<script src="/js/member/manager/plan.js"></script>
 </body>
 </html>

@@ -20,9 +20,9 @@ public class AccompanyServiceM {
     @Autowired
     AccompanyRepositoryM accompanyRepository;
 
-    public void deleteByUserNumber(Long user_number){
+    public void deleteByUserNumber(String userNumber){
 
-        accompanyRepository.deleteByUserNumber(user_number);
+        accompanyRepository.deleteById(Long.parseLong(userNumber));
     }
 
     public List<Accompany> findAll(){
