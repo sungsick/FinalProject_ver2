@@ -46,11 +46,10 @@
             <div class="sc-50c338b6-0 flYSGk">
                 <div class="sc-50c338b6-1 ljbcoF">
                     <div class="sc-fe318b44-0 bPOjyX">
-                        <button class="sc-fe318b44-1 eTYLaQ">최신 순</button>
-                        <button class="sc-fe318b44-1 diPORg">조회수 순</button>
-                        <button class="sc-fe318b44-1 diPORg" id="countComment">댓글 순</button>
-                        <button class="sc-fe318b44-1 diPORg">모집중</button>
-                        <button class="sc-fe318b44-1 diPORg">모집완료</button>
+                        <button class="accompanyQuery" name="recent" id="recent">최신 순</button>
+                        <button class="accompanyQuery" name="viewcount" id="viewcount">조회수 순</button>
+                        <button class="accompanyQuery" name="countComment" id="countComment">댓글 순</button>
+
                     </div>
                 </div>
 
@@ -59,29 +58,33 @@
                 <div class="sc-758baf56-0 lcwauR">
                     <div class="sc-758baf56-1 dunNSc">
                         <i class="fa-solid fa-sliders"></i>
-                        <span class="sc-758baf56-2 dxggeT">조회기간</span></div>
+                        <span class="searchPeriod">조회기간</span>
+                        <input type="date" name="startAt" class="queryStartdate">
+                        <input type="date" name="endAt" class="queryEnddate">
+                        <button class="searchPeriodBtn">검색</button>
+                    </div>
                     <div class="sc-758baf56-3 ezRbfq">
                         <i class="fa-solid fa-sliders"></i>
-                        <div class="sc-758baf56-4 hCYEIH" id="allRegion">모든 국가
-                        <ul class="sub">
+                        <div class="sc-758baf56-4 hCYEIH" id="allRegion">모든 지역
+                        <ul class="sub" style="display: none;">
                             <li>
-                                <button class="allRegionBtn" id="seoul">서울</button>
+                                <button class="regionAt" name="서울">서울</button>
                                 <!-- db에서 가져와서 th 로 지역값 바꾸기-->
                             </li>
                             <li>
-                                <button class="allRegionBtn" id="gyeongi">경기도</button>
+                                <button class="regionAt" name="경기도">경기도</button>
                             </li>
                             <li>
-                                <button class="allRegionBtn" id="gyeongs">경상도</button>
+                                <button class="regionAt" name="경상도">경상도</button>
                             </li>
                             <li>
-                                <button class="allRegionBtn" id="junla">전라도</button>
+                                <button class="regionAt" name="전라도">전라도</button>
                             </li>
                             <li>
-                                <button class="allRegionBtn" id="choongc">충청도</button>
+                                <button class="regionAt" name="충청도">충청도</button>
                             </li>
                             <li>
-                                <button class="allRegionBtn" id="jeju">제주도</button>
+                                <button class="regionAt" name="제주도">제주도</button>
                             </li>
 
                         </ul>
@@ -209,6 +212,7 @@
             <script src="/jq/jquery-3.7.0.min.js"></script>
             <script src="/js/header.js"></script>
         <script src="/js/community/accompany/accompany.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
         </div>
     </div>

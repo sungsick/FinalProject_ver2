@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -42,19 +43,30 @@ void updateAccompany(@Param("accompany") Accompany accompany);
     @Query("select max(a.ac_viewcount) from Accompany a")
     int findTopByAc_viewcount();
 
-//    @Query("select Accompany a.*, count(Comment co.ac_num) count from accompany a join Comment co on a.ac_num = co.ac_num group by ac.ac_num order by count desc")
-//@Query("SELECT a, COUNT(c.co_number) AS commentCount " +
-//        "FROM Accompany a " +
-//        "LEFT JOIN Comment c ON a.ac_num = c.co_number " +
-//        "GROUP BY a.ac_num " +
-//        "ORDER BY commentCount DESC")
-// List<Accompany> getAccompaniesBy
+    // 동행글을 최근 날짜별로 쿼리
+    @Query("select a from Accompany a order by a.ac_viewcount desc")
+    List<Accompany> findByAc_numOrderByAc_regdateDesc();
 
-    @Query("select a from Accompany a where now() between a.ac_startdate and a.ac_enddate")
-    List<Accompany> findByAc_startdateIsBetweenAndAc_enddate();
+    // 동행글을 최근 날짜별로 쿼리
+    @Query("select a from Accompany a order by a.ac_regdate")
+    List<Accompany> findByAc_numOrderByAc_regdate();
 
-    @Query("select a from Accompany a where not now() between a.ac_startdate and a.ac_enddate")
-    List<Accompany> findByAc_startdateIsFalseBetweenAndAc_enddate();
+
+    // 시작날짜와 마지막날짜 사이의 게시글을 찾는 쿼리
+    @Query("SELECT a FROM Accompany a WHERE a.ac_startdate BETWEEN :startDate AND :endDate")
+    List<Accompany> findByAc_startdateBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+    // 지역 선택하면 해당 지역 게시글만 나오게 쿼리
+    @Query("SELECT a FROM Accompany a WHERE a.ac_region LIKE %:ac_region%")
+    List<Accompany> findByAc_regionContains(String ac_region);
+
+    //
+    //    @Query("select Accompany a.*, count(Comment co.ac_num) count from accompany a join Comment co on a.ac_num = co.ac_num group by ac.ac_num order by count desc")
+@Query("SELECT a, COUNT(c.co_number) AS commentCount FROM Accompany a " +
+        "LEFT JOIN Comment c ON a.ac_num = c.accompany.ac_num " +
+        "GROUP BY a.ac_num " +
+        "ORDER BY commentCount DESC")
+ List<Accompany> findAccompanyWithCommentCount();
 
 }
 

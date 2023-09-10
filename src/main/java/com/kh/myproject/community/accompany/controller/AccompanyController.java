@@ -9,6 +9,8 @@ import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +47,11 @@ public class AccompanyController {
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
     public String communityAccompany(Model model,
-                                     @RequestParam(required = false, name = "orderby") String orderby) {
+                                     @RequestParam(required = false, name = "orderby") String orderby,
+                                     @RequestParam(required = false, name = "startAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startAt,
+                                     @RequestParam(required = false, name = "endAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endAt,
+                                     @RequestParam(required = false, name = "regionAt") String regionAt
+        ) {
 
         System.out.println("컨트롤러의 ");
         // 목록보기
@@ -53,30 +59,29 @@ public class AccompanyController {
         // db에서 정보를 가져오는 locig을 짜야함
         List<Accompany> accompanyEntity;
         if (orderby != null && orderby.equals("recent")) {
-            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_regdate"));
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
+
         } else if (orderby != null && orderby.equals("viewcount")) {
-            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_viewcount"));
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
         }
 
-//        else if (orderby != null && orderby.equals("co_count")) {
-//            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount(); }
+        else if (orderby != null && orderby.equals("countComment")) {
+            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
+            System.out.println("accompanyEntity값을 넣어줌" + accompanyEntity);
+        }
+        else if (startAt != null && endAt != null) {
+            // 시작 날짜와 종료 날짜 사이의 게시글 검색
+            accompanyEntity = accompanyRepository.findByAc_startdateBetween(startAt, endAt);
+        }
+        else if (regionAt != null) {
+            // 지역 선택하면 해당 지역 게시글만 검색
 
-        else if (orderby != null && orderby.equals("in_period")) {
-            accompanyEntity = accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
-
-        } else if (orderby != null && orderby.equals("out_of_period")) {
-            accompanyEntity = accompanyRepository.findByAc_startdateIsFalseBetweenAndAc_enddate();
+            accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
         }
 
         else {
-            accompanyEntity = accompanyRepository.findAll();
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
         }
-
-//        Accompany ac = accompanyEntity.get(0);
-//
-//
-//        User acUser = ac.getUser();
-//        System.out.println(acUser);
 
 
         model.addAttribute("accompanyList", accompanyEntity);
@@ -84,6 +89,13 @@ public class AccompanyController {
 
         return "community/accompany/accompany";
     }
+
+
+//        Accompany ac = accompanyEntity.get(0);
+//
+//
+//        User acUser = ac.getUser();
+//        System.out.println(acUser);
 
 
     //동행 글 쓰기

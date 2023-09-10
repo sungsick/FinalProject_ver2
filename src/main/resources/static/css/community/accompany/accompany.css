@@ -489,7 +489,41 @@ svg:not(:root) {
     transition: all 0.25s ease-out 0s;
 }
 
-.eTYLaQ {
+.recent {
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    background: rgb(37, 37, 37);
+    margin-right: 12px;
+    line-height: 21px;
+    transition: all 0.25s ease-out 0s;
+}
+.viewcount{
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgb(255, 255, 255);
+    background: rgb(37, 37, 37);
+    margin-right: 12px;
+    line-height: 21px;
+    transition: all 0.25s ease-out 0s;
+}
+#countComment{
     width: auto;
     height: 40px;
     padding: 10px;
@@ -508,7 +542,6 @@ svg:not(:root) {
 }
 
 button{
-    appearance: button;
     text-transform: none;
     margin: 0px;
     font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
@@ -520,7 +553,7 @@ button{
     outline: none;
 }
 
-.diPORg {
+.accompanyQuery {
     width: auto;
     height: 40px;
     padding: 10px;
@@ -538,7 +571,7 @@ button{
     transition: all 0.25s ease-out 0s;
 }
 
-.diPORg:hover{
+.accompanyQuery:hover{
     background-color: #00b8ff;
 }
 
@@ -592,7 +625,7 @@ button{
 .fa-sliders::before{
     color: #00b8ff;
 }
-.dxggeT{
+.searchDate{
     margin-left: 10px;
 }
 
@@ -661,7 +694,6 @@ button{
     line-height: 40px;
 }
 #allRegion{
-    width:300px;
     height:40px;
     text-align:center;
     line-height: 40px;
@@ -679,25 +711,24 @@ button{
     width: 160px;
 
 }
-.menu>.sub li{
+#allRegion>.sub li{
     border-top:1px black solid;
     background-color: white;
 }
 
-.menu>.sub li>a{
+#allRegion>.sub li>button{
     text-decoration:none;
     color:black;
     border: 3px solid gray;
     background-color: white;
 }
 
-.menu>.sub.up{
-    height:0px;
+#allRegion>.sub.up{
     animation-name:slide_up;
     animation-duration:1s;
 }
 
-.menu>.sub.down{
+#allRegion>.sub.down{
     height:120px;
     animation-name:slide_down;
     animation-duration:1s;
