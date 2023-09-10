@@ -520,6 +520,7 @@ function updateCarList(data) {
     for (var i = 0; i < data.length; i++) {
         var carInfo = data[i];
 
+
         var carItemHtml = `
                 <!-- 차량 안내 카드1 -->
                 <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}&carimg=${carInfo.car_img}'">
@@ -558,7 +559,7 @@ function mainsearch() {
                 var carInfo = data[i];
                 var carItemHtml = `
                 <!-- 차량 안내 카드1 -->
-                <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}'">
+                <div class="result_item" id="result_item" onclick="location.href='/store/rentcar/rentcarChoice?car_name=${carInfo.car_name}&cartype=${carInfo.car_type}&caryear=${carInfo.car_year}&carprice=${carInfo.car_discount}&carimg=${carInfo.car_img}'">
                     <div><span class="result_item_year">${carInfo.car_year}</span></div>
                     <p class="result_item_name" id="car_name">${carInfo.car_name}</p>
                     <p class="result_item_type">${carInfo.car_type}</p>
