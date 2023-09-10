@@ -2,7 +2,6 @@ package com.kh.myproject.store.flight.controller;
 
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
-import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,10 +117,6 @@ public class FlightController {
 
 
 
-        // db삽입 후 mypage및 manager page에서 확인하기 위해 저장 -- 영찬
-        FlightTicketInfo fti = ticket.toEntity();
-        flightService.saveFlight(fti);
-        
 
 
     }

@@ -37,12 +37,12 @@ public class AccompanyService {
         return result;
     }
 
-    public List<Accompany> findAll() {
+    public List<Accompany> findAll(){
 
         return accompanyRepository.findAll();
     }
 
-    public List<Accompany> selectBySearchName(String searchName) {
+    public List<Accompany> selectBySearchName(String searchName){
 
 
         return accompanyRepository.findByAc_textOrAc_titleOrderBOrderByAc_regdateDesc("%" + searchName + "%");
@@ -66,13 +66,22 @@ public class AccompanyService {
     public String saveAccompanyImage(String file_name, MultipartFile multipartfile) {
 
 
+        String fileName = multipartfile.getOriginalFilename(); // 사용자가 올린 파일의 진짜 이름을 가지고 온다.
+        String new_fileName = "";
+
+        if (fileName.equals("") || fileName == null) {
+            return "accDefault.png";
+        }
+
+
+
         System.out.println("넘어온 fiel_name" + file_name);
 
         String resourcesPath = "";
 
         try {
             ClassPathResource resource = new ClassPathResource("/static/file/accompany_image"); // 빈 문자열로 생성
-            URLDecoder.decode(resource.getPath(), "UTF-8"); // 어차피 경로가 영어기때문에 디코딩 시키지 않아도 됨.
+            URLDecoder.decode(resource.getPath(),"UTF-8"); // 어차피 경로가 영어기때문에 디코딩 시키지 않아도 됨.
 
             File file = resource.getFile(); // 위의 resource객체의 경로를 똑같이 가지는 file객체 생성.
             resourcesPath = file.getAbsolutePath(); // 해당 경로 전체를 읽어온다.
@@ -88,17 +97,9 @@ public class AccompanyService {
 
         // request 객체를 이용해서 여기서 파일업로드를 진행한다.
 
-        String fileName = multipartfile.getOriginalFilename(); // 사용자가 올린 파일의 진짜 이름을 가지고 온다.
-        String new_fileName = "";
-        // 파일을 업로드 하지 않았을 경우에는 기본 파일로 설정한다.
-        if (fileName.equals("") || fileName == null) {
+        String extension = fileName.substring(fileName.lastIndexOf(".")); // 가지고 온 파일의 진짜 이름을 .을 포함한 확장자명까지 가지고 온다.
+        new_fileName = file_name + extension; // 확장자명은 그대로 가지고 오고 새로운 이미지 (게시글 번호)번호로 서버에 파일을 저장시킨다.
 
-            new_fileName = "accDefault.jpeg";
-        } else {
-
-            String extension = fileName.substring(fileName.lastIndexOf(".")); // 가지고 온 파일의 진짜 이름을 .을 포함한 확장자명까지 가지고 온다.
-            new_fileName = file_name + extension; // 확장자명은 그대로 가지고 오고 새로운 이미지 (게시글 번호)번호로 서버에 파일을 저장시킨다.
-        }
         String filePath = resourcesPath + "/" + new_fileName; // 서버의 절대경로와 파일이름을 합친곳에 file객체를 저장시킨다.
 
         System.out.println("newfilename" + new_fileName);
@@ -115,16 +116,14 @@ public class AccompanyService {
         return new_fileName;
 
 
+
     }
 
-    // 조회수 증가 메서드
-    public void increaseViewCount(Long ac_num) {
+
+    // 조회수 증가 메서드ㅜ
+    public void increaseViewCount(Long ac_num){
 
         accompanyRepository.increaseViewCount(ac_num);
     }
-
-
-
-
 
 }

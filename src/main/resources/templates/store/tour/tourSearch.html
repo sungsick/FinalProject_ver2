@@ -7,6 +7,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/store/tour/tour.css}">
+    <link rel="stylesheet" href="/css/footer.css">
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -246,9 +247,8 @@
             </div>
         </div>
     </div>
+    <footer th:include="/footer.html :: footer"></footer>
 
-
-    <div th:include="/footer.html :: footer"></div>
 </div>
 
 <script src="/jq/jquery-3.7.0.min.js"></script>

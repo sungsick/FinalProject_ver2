@@ -37,13 +37,15 @@ public class FlightTicketInfo {
     private String ticToLocation;
     @Column
     private String ticVihicleId;
+    @Column
+    private String tid;
 
 
     @ManyToOne()
     @JoinColumn(name = "userNumber")
     private User user;
 
-    public FlightTicketDto toDto(){
+    public FlightTicketDto toDto() {
         return FlightTicketDto.builder()
                 .ticTicketId(ticTicketId)
                 .ticFlightDepartureDate(ticFlightDepartureDate)

@@ -10,10 +10,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 
+
+
 public interface QnaRepositoryM extends JpaRepository<Qna, Long> {
 
     @Query("SELECT q FROM Qna q WHERE q.qnaWriter = :qna_writer")
     List<Qna> findAllByWriter(@Param("qna_writer") String qna_writer);
+
 
     @Modifying
     @Transactional

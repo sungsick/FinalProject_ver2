@@ -1,6 +1,10 @@
 package com.kh.myproject.member.user.repository;
 
+import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,11 +13,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
 
 
         @Query("SELECT u FROM User u WHERE u.userId = :user_id")
@@ -85,8 +89,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select count(*) from User u")
     int selectUserCount();
 
+    @Query("select u from User u order by u.userRegdate desc")
+    int findUserByPage(int startNo, int endNo);
 
     Page<User> findAll(Pageable pageable);
+
+
+//    @Query("select u from User u where u.userId = :user_id order by u.userRegdate desc")
+//    List<User> selectByUserId(@Param("user_id")String user_id);
+//
+//    @Query("select u from User u where u.userName = :user_name order by u.userRegdate desc")
+//    List<User> selectByUserName(@Param("user_name")String user_name);
 
 
     Page<User> findByUserNameLike(Pageable pageable,String user_name);
@@ -95,6 +108,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int countByUserNameLike(String user_name);
     int countByUserIdLike(String user_id);
 
+    @Query("SELECT f FROM FlightTicketInfo f WHERE f.user.userNumber = :user_number")
+    List<FlightTicketInfo> getFticketByNum(@Param("user_number") Long user_number);
+
+    @Query("SELECT r FROM RentReservationInfo r WHERE r.user.userNumber = :user_number")
+    List<RentReservationInfo> getRticketByNum(@Param("user_number") Long user_number);
+
+    @Query("SELECT a FROM Accompany a WHERE a.user.userNumber = :user_number")
+    List<Accompany> getAccompanyByNum(@Param("user_number") Long user_number);
     int countByUserGender(String gender);
+
+    @Query("SELECT p FROM PlanBoard p WHERE p.user.userNumber = :user_number")
+    List<PlanBoard> getPlanByNum(@Param("user_number") Long user_number);
+
 
 }

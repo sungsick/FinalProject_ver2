@@ -133,7 +133,7 @@ swiper-slide img {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    width: 30%;
+    width: 50%;
     height: 100%;
 }
 
@@ -171,8 +171,8 @@ swiper-slide img {
 
 
 .user_nick {
-    text-align : center;
-    font-size: 12px;
+
+    font-size: 14px;
 }
 
 .user_gender4{
@@ -642,7 +642,6 @@ button{
     border-radius: 14px;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
 }
-
 .user_info{
     width: 70%;
 }
@@ -650,15 +649,9 @@ button{
 
 .user_info_bottom{
     display: flex;
-    flex-shrink: 0;
-    -webkit-box-align: center;
-    align-items: center;
-    box-sizing: border-box;
-    width: max-content;
-    height: auto;
-    justify-content: space-evenly;
-    margin-left: 10px;
+    justify-content: space-between;
 }
+
 
 .ml_4{
     user-select: none;

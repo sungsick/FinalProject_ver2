@@ -2,6 +2,13 @@ body{
     margin: 0px;
     background-color: rgb(220, 233, 245);
 }
+.micon{
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 27px;
+    margin-right: 30px;
+    margin-bottom:44px;
+}
 header{
     display: flex;
     width: 100%;
@@ -33,9 +40,12 @@ header{
     height: 100%;
 }
 .header_icons{
+    display: flex;
+    align-items: center;
     position: absolute;
     right: 20px;
     margin-right: 50px;
+    cursor: pointer;
 }
 .side_nav{
     position: fixed;

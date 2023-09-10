@@ -6,8 +6,6 @@ import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.accompany.entity.Comment;
 import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.CommentService;
-import com.kh.myproject.community.accompany.vo.CommentUpdateVo;
-import com.kh.myproject.community.accompany.vo.CommentUpdateVo;
 import com.kh.myproject.member.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 @SessionAttributes({"user", "accompany"})
