@@ -8,6 +8,7 @@ import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,21 +44,42 @@ public class AccompanyController {
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityAccompany(Model model) {
-
+    public String communityAccompany(Model model,
+                                     @RequestParam(required = false, name = "orderby") String orderby) {
 
         System.out.println("컨트롤러의 ");
         // 목록보기
 
         // db에서 정보를 가져오는 locig을 짜야함
-        List<Accompany> accompanyEntity = accompanyRepository.findAll();
-        Accompany ac = accompanyEntity.get(0);
-        User acUser = ac.getUser();
-        System.out.println(acUser);
+        List<Accompany> accompanyEntity;
+        if (orderby != null && orderby.equals("recent")) {
+            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_regdate"));
+        } else if (orderby != null && orderby.equals("viewcount")) {
+            accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_viewcount"));
+        }
+
+//        else if (orderby != null && orderby.equals("co_count")) {
+//            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount(); }
+
+        else if (orderby != null && orderby.equals("in_period")) {
+            accompanyEntity = accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
+
+        } else if (orderby != null && orderby.equals("out_of_period")) {
+            accompanyEntity = accompanyRepository.findByAc_startdateIsFalseBetweenAndAc_enddate();
+        }
+
+        else {
+            accompanyEntity = accompanyRepository.findAll();
+        }
+
+//        Accompany ac = accompanyEntity.get(0);
+//
+//
+//        User acUser = ac.getUser();
+//        System.out.println(acUser);
 
 
         model.addAttribute("accompanyList", accompanyEntity);
-
 
 
         return "community/accompany/accompany";
@@ -82,18 +104,18 @@ public class AccompanyController {
 
     @PostMapping("/community/accompany/writePro") // http://localhost:8070/community/accompany/write
     public String accompanyWritePro(
-                                    HttpSession session,
-                                    AccompanyForm form,
-                                    @RequestParam(value = "start_date",defaultValue = "") String start_date,
-                                    @RequestParam(value = "end_date" ,defaultValue = "") String end_date,
-                                    @RequestParam(value = "ac_region",defaultValue = "") String ac_regionp,
-                                    @RequestParam("ac_title") String ac_title,
-                                    @RequestParam("ac_text") String ac_text,
-                                    @RequestParam("ac_people") String ac_people,
-                                    @RequestParam("accompany_image") MultipartFile multipartFile) {
+            HttpSession session,
+            AccompanyForm form,
+            @RequestParam(value = "start_date", defaultValue = "") String start_date,
+            @RequestParam(value = "end_date", defaultValue = "") String end_date,
+            @RequestParam(value = "ac_region", defaultValue = "") String ac_regionp,
+            @RequestParam("ac_title") String ac_title,
+            @RequestParam("ac_text") String ac_text,
+            @RequestParam("ac_people") String ac_people,
+            @RequestParam("accompany_image") MultipartFile multipartFile) {
 
 
-        User user = (User)session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         // accompany 의 date는 java에서도 date타입이기 때문에 우선은 form데이터를 받을때는 string으로 받지만 이후에 date타입으로 포매팅 시켜서 저장한다.
         // date타입으로 처리할떄의 장점은 날짜 계산이 편하다는 것이다. 물론 db에서 날짜를 가져오기를 start_date와 end_date를 diff함수를 이용해
         // 날짜 차이를 가지고 올 수 있기는 하지만 여러개의 글을 동시에 보여줘야하는 경우가 있기 때문에 글목록을 보여줄때마다 항상 날짜의 차이를 따로 가지고 올수는 없다.
@@ -108,7 +130,7 @@ public class AccompanyController {
         try {
             ac_startdate = sdf.parse(start_date);
             ac_enddate = sdf.parse(end_date);
-        }catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -116,7 +138,8 @@ public class AccompanyController {
 
         // image명은 현재 accompany게시글의 최대값 +1 + .확장자명으로 지정한다.
         int ac_max = accompanyService.getMaxAcNum();
-        String ac_picture = accompanyService.saveAccompanyImage(String.valueOf("acc" +(ac_max + 1)),multipartFile);
+        String ac_picture
+                = accompanyService.saveAccompanyImage(String.valueOf("acc" + (ac_max + 1)), multipartFile);
 
         // Repository에게 Entity를 데이터베이스에 저장하게 한다
         // id 가 자동으로 증가된다.
@@ -139,12 +162,9 @@ public class AccompanyController {
     }
 
 
-
-
-
     //클릭으로 동행게시글을 들어갔을떄
     @GetMapping("community/accompany/detail")
-    public String AccompanyDetail(@RequestParam(value = "ac_num",defaultValue = "0") Long ac_num,
+    public String AccompanyDetail(@RequestParam(value = "ac_num", defaultValue = "0") Long ac_num,
                                   Model model) {
         System.out.println("컨트롤러의 AccompanyDetail() 메서드를 실행");
         System.out.println("ac_num = " + ac_num);
@@ -154,9 +174,9 @@ public class AccompanyController {
         accompanyService.increaseViewCount(accompanyEntity.getAc_num());
         // 객체를 찾아오기전에 미리 조회수를 올리고 찾아오기보다는 찾아오고 있을때 걔의조회수를 올려야하는데
         // 그러면 클라이언트는 증가되기전의 조회수를 보므로 임의로 객체의 변수값을 바꿔준다.
-        accompanyEntity.setAc_viewcount(accompanyEntity.getAc_viewcount()+1);
+        accompanyEntity.setAc_viewcount(accompanyEntity.getAc_viewcount() + 1);
 
-        System.out.println("accompanyEntity:"+accompanyEntity);
+        System.out.println("accompanyEntity:" + accompanyEntity);
         List<Comment> commentEntity = commentRepository.findAllByAccompany_Acnum(ac_num);
         System.out.println("commentEntity 값 " + commentEntity);
 
@@ -222,9 +242,9 @@ public class AccompanyController {
     @ResponseBody
     @PostMapping("/community/accompany/update")
     public String Accompanyupdate(
-                                  Model model, //모델
-                                  @RequestBody AccompanyForm form,
-                                  HttpSession session
+            Model model, //모델
+            @RequestBody AccompanyForm form,
+            HttpSession session
     ) {
         System.out.println("컨트롤러 update() 메서드 실행");
         System.out.println("form 이야" + form);
@@ -233,13 +253,14 @@ public class AccompanyController {
         Long getUserNumber = user.getUserNumber();
         form.setUser(user);
         form.getUser().setUserNumber(getUserNumber);
-
 //        // 유저 넘버 가져옴
 
-         // DTO -> Entity 로 변환한다.
+
+        // DTO의 데이터를 Entity로 변환한다.
+        form.setAc_picture(form.getAc_picture());
+        // DTO -> Entity 로 변환한다.
         Accompany accompany = form.toEntity();
 //        Date date = new Date();
-
 
         Accompany result = accompanyService.updateAccompany(accompany);
 
@@ -252,7 +273,6 @@ public class AccompanyController {
         return "redirect:/community/accompany";
 
     }
-
 
 
     // 글 삭제하기
@@ -277,7 +297,7 @@ public class AccompanyController {
         System.out.println(accompanyEntity.toString());
 
         //데이터 삭제
-        if(accompanyEntity != null) {
+        if (accompanyEntity != null) {
             accompanyRepository.delete(accompanyEntity);
 
             rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
@@ -285,8 +305,6 @@ public class AccompanyController {
 
         return "redirect:/community/accompany";
     }
-
-
 
 
 

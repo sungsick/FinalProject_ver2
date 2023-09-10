@@ -34,31 +34,8 @@
 
 
 
-                            <div class="menu">
+                            <div class="">
                                     <input placeholder="어디로 여행가시나요?" class="sc-cfa28f78-3 iRtETS" value="">
-
-                                <ul class="sub">
-                                    <li>
-                                        <a href="#None">서울</a>
-                                        <!-- db에서 가져와서 th 로 지역값 바꾸기-->
-                                    </li>
-                                    <li>
-                                        <a href="#None">경기도</a>
-                                    </li>
-                                    <li>
-                                        <a href="#None">경상도</a>
-                                    </li>
-                                    <li>
-                                        <a href="#None">전라도</a>
-                                    </li>
-                                    <li>
-                                        <a href="#None">충청도</a>
-                                    </li>
-                                    <li>
-                                        <a href="#None">제주도</a>
-                                    </li>
-
-                                </ul>
                             </div>
 
 
@@ -70,8 +47,7 @@
                 <div class="sc-50c338b6-1 ljbcoF">
                     <div class="sc-fe318b44-0 bPOjyX">
                         <button class="sc-fe318b44-1 eTYLaQ">최신 순</button>
-                        <button class="sc-fe318b44-1 diPORg">인기 순</button>
-                        <button class="sc-fe318b44-1 diPORg">많이 본 순</button>
+                        <button class="sc-fe318b44-1 diPORg">조회수 순</button>
                         <button class="sc-fe318b44-1 diPORg" id="countComment">댓글 순</button>
                         <button class="sc-fe318b44-1 diPORg">모집중</button>
                         <button class="sc-fe318b44-1 diPORg">모집완료</button>
@@ -86,7 +62,33 @@
                         <span class="sc-758baf56-2 dxggeT">조회기간</span></div>
                     <div class="sc-758baf56-3 ezRbfq">
                         <i class="fa-solid fa-sliders"></i>
-                        <p class="sc-758baf56-4 hCYEIH">모든 국가</p></div>
+                        <div class="sc-758baf56-4 hCYEIH" id="allRegion">모든 국가
+                        <ul class="sub">
+                            <li>
+                                <button class="allRegionBtn" id="seoul">서울</button>
+                                <!-- db에서 가져와서 th 로 지역값 바꾸기-->
+                            </li>
+                            <li>
+                                <button class="allRegionBtn" id="gyeongi">경기도</button>
+                            </li>
+                            <li>
+                                <button class="allRegionBtn" id="gyeongs">경상도</button>
+                            </li>
+                            <li>
+                                <button class="allRegionBtn" id="junla">전라도</button>
+                            </li>
+                            <li>
+                                <button class="allRegionBtn" id="choongc">충청도</button>
+                            </li>
+                            <li>
+                                <button class="allRegionBtn" id="jeju">제주도</button>
+                            </li>
+
+                        </ul>
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

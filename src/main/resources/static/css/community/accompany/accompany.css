@@ -177,8 +177,6 @@ swiper-slide img {
 
 .user_gender4{
     user-select: none;
-    z-index: 8;
-    overflow: hidden;
     display: -webkit-box;
     font-size: 12px;
     font-weight: 400;
@@ -190,7 +188,6 @@ swiper-slide img {
     -webkit-line-clamp: 1;
 }
 .two_jum{
-    z-index: 8;
     display: flex;
     width: 2px;
     height: 2px;
@@ -325,12 +322,6 @@ swiper-slide img {
     font-size: 11px;
 }
 
-.user_agender3 {
-    font-size: 11px;
-    color: #588fee;
-    font-weight: 600;
-    width: 60px;
-}
 
 .map {
     z-index: 1;
@@ -638,7 +629,6 @@ button{
 
 .ml_4{
     user-select: none;
-    z-index: 8;
     overflow: hidden;
     display: -webkit-box;
     font-size: 12px;
@@ -670,22 +660,35 @@ button{
     text-align:center;
     line-height: 40px;
 }
-
-.menu>.sub{
-    display:none;
-    height:120px;
-    list-style:none;
-    overflow:hidden;
+#allRegion{
+    width:300px;
+    height:40px;
+    text-align:center;
+    line-height: 40px;
+    position:relative;
 }
 
-.menu>.sub li{
+#allRegion>.sub{
+    display:none;
+    height:auto;
+    list-style:none;
+    overflow:hidden;
+    background-color: white;
+    z-index: 9999;
+    position: absolute;
+    width: 160px;
 
+}
+.menu>.sub li{
     border-top:1px black solid;
+    background-color: white;
 }
 
 .menu>.sub li>a{
     text-decoration:none;
     color:black;
+    border: 3px solid gray;
+    background-color: white;
 }
 
 .menu>.sub.up{

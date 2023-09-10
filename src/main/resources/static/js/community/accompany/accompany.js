@@ -6,9 +6,9 @@
 //
 // })
 
-/* 얘는 무슨 코드지 ?*/
+/* 하단 검색창에 지역 검색하면 필터링 되서 동행글이 지역별로 나오는 코드 */
 let subToggle=true;
-$(".menu").click(()=>{
+$("#allRegion").click(()=>{
     if(subToggle){
         $(".sub").slideDown(1000);
     }else{
@@ -17,15 +17,26 @@ $(".menu").click(()=>{
     subToggle=!subToggle;
 })
 
-.$("#countComment").click(function () {
+$(".allRegionBtn").click((event) => {
 
-    console.log('댓글 많은 순으로 정렬')
-    console
+    event.target.id
+       console.log(event.target.id)
 
-    $.ajax({
 
-        url:/community/accompany/
 
-    })
+
 
 })
+//
+// .$("#countComment").click(function () {
+//
+//     console.log('댓글 많은 순으로 정렬')
+//     console.log(event)
+//
+//     $.ajax({
+//
+//         url:/community/accompany/
+//
+//     })
+//
+// })

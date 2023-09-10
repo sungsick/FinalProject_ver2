@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,6 +51,15 @@ public class AccompanyService {
     public int getMaxAcNum() {
 
         return accompanyRepository.findTopByAc_num();
+    }
+
+//    public List<Accompany> (String in_period){
+//        return accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
+//    }
+
+    public int getMaxAcViewCount() {
+
+        return accompanyRepository.findTopByAc_viewcount();
     }
 
 
@@ -107,11 +117,14 @@ public class AccompanyService {
 
     }
 
-
     // 조회수 증가 메서드
     public void increaseViewCount(Long ac_num) {
 
         accompanyRepository.increaseViewCount(ac_num);
     }
+
+
+
+
 
 }
