@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,27 +27,31 @@ public class AccompanyController {
     @Autowired
     AccompanyService accompanyService;
 
+
+
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityaccompany(Model model) {
+    public String communityaccompany(@RequestParam(name = "searchName" , defaultValue = "") String searchName,
+                                     Model model) {
 
+        // 검색어 없이 들어왔을 경우 전체 리스트를 보여준다.
 
-        System.out.println("컨트롤러의 ");
-        // 목록보기
+        List<Accompany> accompanyList = new ArrayList<>();
 
-        // db에서 정보를 가져오는 locig을 짜야함
-        List<Accompany> accompanyEntity = accompanyRepository.findAll();
-        Accompany ac = accompanyEntity.get(0);
-        User acUser = ac.getUser();
-        System.out.println(acUser);
+        if(searchName.equals("")){
+            accompanyList = accompanyService.findAll();
+        }else{ // 검색어가 있을 경우.
 
+            accompanyList = accompanyService.selectBySearchName(searchName);
 
-        model.addAttribute("accompanyList", accompanyEntity);
+        }
 
-
+        System.out.println(accompanyList);
+        model.addAttribute("accompanyList",accompanyList);
 
         return "community/accompany/accompany";
     }
+
 
 
     //동행 글 쓰기

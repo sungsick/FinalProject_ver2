@@ -20,11 +20,14 @@ public class MultiClient {
 		BufferedReader in = null;
 		try {
 			socket = new Socket("localhost", 8000);
+			// 여기서 서버와 바로 소켓 통신이 이뤄진다.
+
 			System.out.println("[서버와 연결되었습니다]");
 
 			String name = "user" + (int)(Math.random()*10);
-			Thread sendThread = new SendThread(socket, name);
-			sendThread.start();
+			Thread sendThread = new SendThread(socket, name); // 메서드가 실행되면 새로운 스레드를 생성한다.
+			// 랜덤으로 생성한 유저 번호와 지정한 포트번호에서 생성된 스레드로 스레드 객체를 생성한다.으
+			sendThread.start(); // thread 클래스의 오버라이딩된 start메서드. 여기서 대기중이던 seversockeㅅ과 연결되는 지점이라고 생각된다.
 
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			while (in != null) {

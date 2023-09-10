@@ -21,7 +21,6 @@ public class HomeController {
     public String communityHome(Model model){
 
         List<Accompany> accompanyRecent = homeService.findTop8byOrderByRegdateAsc();
-        System.out.println(accompanyRecent);
         model.addAttribute("accompanyList", accompanyRecent);
 
 

@@ -3,10 +3,8 @@ package com.kh.myproject.community.plan.model.entity;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
