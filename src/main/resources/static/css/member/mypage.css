@@ -12,7 +12,42 @@ body{
     align-items: flex-start;
 }
 
+.swiper {
+    width: 100%;
+    height: 100%;
+}
 
+.swiper-slide {
+    text-align: center;
+    font-size: 15px;
+    background: #fff;
+    font-weight: bold;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    display: none;
+}
 .next{
 
     height: 100%;
@@ -251,25 +286,35 @@ li:hover{
     background: rgb(255, 255, 255);
     border-radius: 14px;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
+
 }
 .test1_content1 {
     position: relative;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+    justify-content: space-around;
     width: 100%;
-    height: max-content;
+    height: 45px;
     padding: 12px 9px;
+    box-sizing: border-box;
 
 }
 .user_profile, .trip_profile {
-    width: 44%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-
+.trip_info{
+    width: 100%;
+}
+.trip_info_bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size : 12px;
+}
 
 .update_user_nick[disabled]{
 
@@ -286,7 +331,7 @@ li:hover{
 
 .user_agender {
     font-size: 10px;
-    color: #00B8FF;
+    color: #588fee;
     font-weight: 600;
 }
 
@@ -316,7 +361,7 @@ li:hover{
 }
 .trip_len {
     font-size: 10px;
-    color: #9a9a9a;
+    color: #00B8FF;
     font-weight: 600;
 }
 
@@ -356,7 +401,9 @@ li:hover{
     font-size: 16px;
     font-weight: 600;
 }
-
+.mlw_4{
+    font-size: 12px;
+}
 .text_sub {
     font-size: 14px;
     padding: 8px 0px;
@@ -378,7 +425,7 @@ li:hover{
     font-size: 13px;
     font-weight: 600;
     line-height: 19px;
-    color: #00B8FF;
+    color: rgb(0, 143, 246);
 }
 
 .img_area i {
@@ -386,9 +433,11 @@ li:hover{
 }
 
 .accompany_box{
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
     justify-content: space-around;
-    margin: 40px 0px;
 }
 
 .submit_btn{
@@ -403,10 +452,16 @@ li:hover{
     display: flex;
     justify-content: space-between;
 }
+.main_content1_text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 .submit_end input{
     width: 120px;
 }
-.option1_btn{
+.option4_btn{
     background-color: #F0F9FFFF;
 }
 
@@ -420,7 +475,16 @@ li:hover{
     border : 1px solid rgb(248, 248, 248);
     background-color: #f8f8f8;
 }
+.user_info{
+    width: 70%;
+}
 
+
+.user_info_bottom{
+
+    display: flex;
+    justify-content: space-between;
+}
 .info_box input{
     width: 120px;
     border-radius: 10px ;
@@ -787,13 +851,6 @@ textarea{
     top: 8px;
     left: 8px;
     z-index: 3;
-}
-
-.user_profile, .trip_profile {
-    width: 44%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .user_img {

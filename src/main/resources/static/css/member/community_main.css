@@ -36,6 +36,7 @@
     display: flex;
     flex-direction: column;
     margin: 50px 0px;
+
 }
 
 .next {
@@ -52,6 +53,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .mct_1 {
@@ -61,15 +63,16 @@
 
 .mct_2 {
     font-size: 14px;
-    color: rgb(0, 182, 206);
+    color: #00b8ff;
     font-weight: 600;
     cursor: pointer;
 }
 
 .main_content1_box {
-    margin: 30px 0px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
 }
 
 .test2 {
@@ -119,6 +122,16 @@ swiper-slide img {
     width: 50%;
     height: 100%;
 }
+.user_info{
+    width: 70%;
+}
+
+
+.user_info_bottom{
+
+    display: flex;
+    justify-content: space-between;
+}
 
 .user_img img {
     display: flex;
@@ -136,14 +149,15 @@ swiper-slide img {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+    justify-content: space-around;
     width: 100%;
-    height: max-content;
+    height: 45px;
     padding: 12px 9px;
+    box-sizing: border-box;
 
 }
-
 .user_profile, .trip_profile {
-    width: 44%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -181,7 +195,16 @@ swiper-slide img {
     color: forestgreen;
     font-weight: 600;
 }
+.trip_info{
+    width: 100%;
+}
 
+.trip_info_bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size : 12px;
+}
 .test1_content2 {
     position: relative;
     overflow: hidden;
@@ -203,7 +226,9 @@ swiper-slide img {
 .test1_content3 {
     padding: 8px 8px;
 }
-
+.ml_4{
+    font-size : 12px
+}
 .text_title {
     font-size: 16px;
     font-weight: 600;

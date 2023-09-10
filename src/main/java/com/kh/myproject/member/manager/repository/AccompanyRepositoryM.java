@@ -11,12 +11,4 @@ import java.util.List;
 
 public interface AccompanyRepositoryM extends JpaRepository<Accompany,Long> {
 
-
-
-    @Query("delete from Accompany a where a.user.userNumber = :user_number")
-    @Modifying
-    @Transactional
-    void deleteByUserNumber(Long user_number);
-
-
 }

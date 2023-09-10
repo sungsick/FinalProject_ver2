@@ -16,7 +16,6 @@ import javax.persistence.Column;
 public class RentReservationDto {
 
     private Long rentReservationId;
-    private String rentId;
     private String rentName;
     private String rentType;
     private String rentCompany;
@@ -32,7 +31,6 @@ public class RentReservationDto {
     public RentReservationInfo toEntity(){
         return RentReservationInfo.builder()
                 .rentReservationId(rentReservationId)
-                .rentId(rentId)
                 .rentName(rentName)
                 .rentType(rentType)
                 .rentCompany(rentCompany)
