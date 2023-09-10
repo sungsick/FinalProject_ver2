@@ -144,7 +144,7 @@ $(function () {
 
         $('.second-box-tabs div').css('color', 'rgb(170, 170, 170)');
         $('.second-box-tabs div').css('font-weight', '400');
-        $(this).css('color', '#00ce7c');
+        $(this).css('color', '#00B8FF');
         $(this).css('font-weight', '600');
 
         var marginLeftValue = idx * 50;

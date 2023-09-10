@@ -29,7 +29,7 @@ $(function () {
 
         $('.second-box-tabs div').css('color', 'rgb(170, 170, 170)');
         $('.second-box-tabs div').css('font-weight', '400');
-        $(this).css('color', '#00ce7c');
+        $(this).css('color', '#00B8FF');
         $(this).css('font-weight', '600');
 
         var marginLeftValue = idx * 33.3333;
@@ -175,7 +175,7 @@ $(function () {
                 console.log('20이상');
                 // 20세 이상
                 warningDiv.textContent = "만 20세, 해당 차량 대여 가능합니다.";
-                warningDiv.style.color = "rgb(89, 178, 106)"; // 기본 색상으로 변경
+                warningDiv.style.color = "#0064de"; // 기본 색상으로 변경
                 btnKakaoPay.disabled = false;
 
             } else if (absolute < 20) {
