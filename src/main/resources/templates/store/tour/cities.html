@@ -15,7 +15,7 @@
 
     <div class="cities_container">
         <div class="cities_title_container">
-            <img class="title_img" th:src="'/img/store/tour/cities/' + ${cityName} + '/title.jpg'" />
+            <img class="title_img" th:src="'/img/store/tour/cities/' + ${cityName} + '/title.jpg'"/>
             <div class="cities_title_city_info">
                 <div class="cities_title_city_name">
                     <th:block th:switch="${cityName}">
@@ -53,18 +53,20 @@
         <div class="cities_card_container" id="cities_recommend_place">
             <h2>지역 관광지</h2>
             <div class="cities_card_box" id="cities_recommend_place_box1">
-            <th:block th:each="tourism : ${tourismList}">
-                <div class="cities_card" th:style="'background-image:url(/img/store/tour/cities/'+${tourism.getAreaName()}+'/'+${tourismStat.count}+'.jpg);'">
-                    <span th:text="${tourism.getPlaceName()}"></span>
-                    <button th:onclick="|location.href='@{/store/tour/tourDetail(contentId=${tourism.placeId})}'|">자세히 보기</button>
-                </div>
-            </th:block>
+                <th:block th:each="tourism : ${tourismList}">
+                    <div class="cities_card"
+                         th:style="'background-image:url(/img/store/tour/cities/'+${tourism.getAreaName()}+'/'+${tourismStat.count}+'.jpg);'">
+                        <span th:text="${tourism.getPlaceName()}"></span>
+                        <button th:onclick="|location.href='@{/store/tour/tourDetail(contentId=${tourism.placeId})}'|">
+                            자세히 보기
+                        </button>
+                    </div>
+                </th:block>
             </div>
         </div>
     </div>
+    <footer th:include="/footer.html :: footer"></footer>
 </div>
-</div>
-<footer th:include="/footer.html :: footer"></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

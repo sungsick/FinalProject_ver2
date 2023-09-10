@@ -149,6 +149,13 @@ $('#content_type_confirm_btn').on('click', function () {
     closeModal();
 });
 
+$('#content_type_cancel_btn').on('click', function(){
+   contentTypeId = '';
+   contentTypeName = '';
+   insertContentType(contentTypeName);
+   $('.modal_btn[name=contentTypeId]').removeClass('sel');
+});
+
 function insertContentType(contentTypeName) {
     $('#area_content_id').text(contentTypeName);
 }

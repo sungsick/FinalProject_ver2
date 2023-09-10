@@ -304,6 +304,7 @@ $(function () {
 
 
 
+    $('#ui-datepicker-div').remove(); //기본생성되는? datepicker 삭제
 
 
 
