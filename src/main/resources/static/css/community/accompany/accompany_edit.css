@@ -451,4 +451,6 @@ button {
     width: 100%; /* 가로 너비 100% 설정 */
 }
 
-
+#fileInput{
+    display: none;
+}

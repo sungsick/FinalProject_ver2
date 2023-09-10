@@ -21,4 +21,5 @@ public interface PlanBoardDetailRepository extends JpaRepository<PlanBoardDetail
     @Modifying
     @Transactional
     void deleteAllByPlanBoard_pbNum(@Param("pbNum") Long pbNum);
+
 }

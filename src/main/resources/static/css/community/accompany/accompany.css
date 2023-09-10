@@ -188,12 +188,12 @@ swiper-slide img {
     -webkit-line-clamp: 1;
 }
 .two_jum{
-    display: flex;
-    width: 2px;
-    height: 2px;
-    margin: 0px 6px;
-    background: rgb(0, 143, 246);
-    border-radius: 50%;
+    /*display: flex;*/
+    /*width: 2px;*/
+    /*height: 2px;*/
+    /*margin: 0px 6px;*/
+    /*background: rgb(0, 143, 246);*/
+    /*border-radius: 50%;*/
 }
 
 .box_shortline {
@@ -627,7 +627,7 @@ button{
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
-    color: rgb(0, 143, 246);
+    /*color: rgb(0, 143, 246);*/
     text-overflow: ellipsis;
     overflow-wrap: break-word;
     -webkit-box-orient: vertical;

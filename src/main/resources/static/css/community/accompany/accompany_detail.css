@@ -1425,12 +1425,14 @@ img {
     align-items: center;
     flex-direction: column;
     margin-top: 100px;
+
 }
 
 .no-comment-img {
     width: 90px;
     height: 149px;
     object-fit: contain;
+    margin-bottom: 20px;
 }
 
 a {
@@ -1452,4 +1454,9 @@ a {
 }
 .add_reply_btnUpdate{
     display: none;
+}
+
+.icon-img{
+
+    border-radius: 50px;
 }

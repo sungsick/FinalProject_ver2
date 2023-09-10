@@ -7,6 +7,7 @@ import com.kh.myproject.community.accompany.repository.AccompanyRepository;
 import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
+import com.kh.myproject.member.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,9 @@ public class AccompanyController {
 
     @Autowired
     AccompanyService accompanyService;
+
+    @Autowired
+    UserService userService;
 
 
     //동행 리스트(동행 메인)
@@ -243,37 +247,54 @@ public class AccompanyController {
 
     // 글 번호를 가지고 수정하는 메서드
     // http://localhost:8070/community/accompany/update
-    @ResponseBody
     @PostMapping("/community/accompany/update")
     public String Accompanyupdate(
             Model model, //모델
-            @RequestBody AccompanyForm form,
-            HttpSession session
+            @RequestParam("enddate")String enddate,
+            @RequestParam("startdate")String startdate,
+            @RequestParam("accompany_image")MultipartFile multipartFile,
+            @RequestParam("user_number")Long user_number,
+            @RequestParam("ac_num")Long ac_num,
+            AccompanyForm form
     ) {
-        System.out.println("컨트롤러 update() 메서드 실행");
-        System.out.println("form 이야" + form);
 
-        User user = (User) session.getAttribute("user");
-        Long getUserNumber = user.getUserNumber();
+        User user = userService.getUserByNumber(user_number);
+        Accompany accompany = accompanyService.getAccompany(ac_num);
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date ac_startdate = new Date();
+        Date ac_enddate = new Date();
+        try {
+            ac_startdate = sdf.parse(startdate);
+            ac_enddate = sdf.parse(enddate);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+
+        // image명은 현재 accompany게시글의 최대값 +1 + .확장자명으로 지정한다.
+        int ac_max = accompanyService.getMaxAcNum();
+        String ac_picture
+                = accompanyService.saveAccompanyImage(String.valueOf("acc" + (ac_max + 1)), multipartFile);
+
+        // Repository에게 Entity를 데이터베이스에 저장하게 한다
+        // id 가 자동으로 증가된다.
+
+        form.setAc_regdate(accompany.getAc_regdate());
+        form.setAc_viewcount(accompany.getAc_viewcount());
+        form.setAc_status(accompany.getAc_status());
+        form.setAc_travelstyle(accompany.getAc_travelstyle());
+        form.setAc_personalhash(accompany.getAc_personalhash());
+        form.setAc_picture(ac_picture); // 파일명 수정
+        form.setAc_startdate(ac_startdate); // 동행시작일
+        form.setAc_enddate(ac_enddate); // 동행 종료일
         form.setUser(user);
-        form.getUser().setUserNumber(getUserNumber);
 
-//        // 유저 넘버 가져옴
-
-
-        // DTO의 데이터를 Entity로 변환한다.
-        form.setAc_picture(form.getAc_picture());
-        // DTO -> Entity 로 변환한다.
-        Accompany accompany = form.toEntity();
-//        Date date = new Date();
-
-
-        Accompany result = accompanyService.updateAccompany(accompany);
-
-        model.addAttribute("accompany", result);
-
-        System.out.println(accompany);
-        System.out.println(result);
+        Accompany saved = form.toEntity();
+        accompanyService.saveAccompany(saved);
 
         // 수정한 글 1건만 보여주고 싶을 때는
         return "redirect:/community/accompany";

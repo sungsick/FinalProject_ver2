@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>accompany_detail.html</title>
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/community/accompany/accompany_detail.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 
@@ -308,12 +309,14 @@
                                         <button id="btn_modal" alt="모달 창 열기 버튼">
 
 
-                                            <img th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
+                                            <img class = "icon-img" th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
                                         </button>
 
                                         <div class="an_profile_detail">
 
-                                            <p th:text="${accompany.user.userName}"></p>
+
+
+                                            <p th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></p>
 
                                             <div class="an_container_two_2">
                                                 <p class="an_container_two_2_p">
@@ -355,14 +358,10 @@
                                         <div class="an_container_up_div">
                                             <p class="an_container_up_div_mini">함께하는 동행</p>
                                             <div class="bt_container_up_div_pIcon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                                     viewBox="0 0 448 512">
-                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                    <style>svg {
-                                                    }</style>
-                                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-                                                          fill="#00b8ff"></path>
-                                                </svg>
+
+                                                <img class = "icon-img" th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
+
+
 
                                             </div>
                                             <div class="dropdown_menu">
@@ -391,8 +390,9 @@
                                             </div>
                                             <div class="an_container_up_div_Icon_name">
 
+
                                                 <span class="an_container_two_1"
-                                                      th:text="${accompany.user.userName}"></span>
+                                                      th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                      viewBox="0 0 448 512">
                                                     <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->

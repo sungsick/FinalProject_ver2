@@ -1,9 +1,8 @@
 package com.kh.myproject.community.plan.repository;
 
-import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
-import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
 import com.kh.myproject.community.plan.model.entity.PlanBoard;
-import com.kh.myproject.community.plan.model.entity.PlanBoardDetail;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +30,8 @@ public interface PlanBoardRepository extends JpaRepository<PlanBoard, Long> {
             "pb.pb_title = :#{#planBoard.pbTitle} " +
             "where pb.pb_num = :#{#planBoard.pbNum}", nativeQuery = true)
     void updatePlanBoardByPbNum(@Param("planBoard") PlanBoard planBoard);
+
+    Page<PlanBoard> findAll(Pageable pageable);
 
 }
 

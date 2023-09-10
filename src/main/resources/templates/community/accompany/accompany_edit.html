@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>accompany_edit.html</title>
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/community/accompany/accompany_write.css">
+    <link rel="stylesheet" href="/css/community/accompany/accompany_edit.css">
     <!--Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -31,7 +31,7 @@
         <!-- 메인부분 코드 작성 -->
         <!-- <img src="/img/accompanyIntro.PNG"> -->
         <!---->
-
+        <form action="/community/accompany/update" id = "form" method="post" enctype="multipart/form-data">
         <div class="category">
             <div class="category-1">
                 <div class="C-nav-3">
@@ -86,7 +86,7 @@
                             <div class="select_date_input">
                                 <h4>출발일</h4>
                                 <div class="select_date_box">
-                                    <input type="date" id="select_date" name="ac_startdate" th:value="${#dates.format(accompany.ac_startdate, 'yyyy-MM-dd')}">
+                                    <input type="date" id="select_date" name="startdate" th:value="${#dates.format(accompany.ac_startdate, 'yyyy-MM-dd')}">
                                 </div>
 
                             </div>
@@ -94,7 +94,7 @@
                             <div class="select_date_input">
                                 <h4>도착일</h4>
                                 <div class="select_date_box">
-                                    <input type="date" id="select_date2" name="ac_enddate" th:value="${#dates.format(accompany.ac_enddate, 'yyyy-MM-dd')}">
+                                    <input type="date" id="select_date2" name="enddate" th:value="${#dates.format(accompany.ac_enddate, 'yyyy-MM-dd')}">
                                 </div>
 
                             </div>
@@ -138,10 +138,9 @@
                 <p class="sc-9332fd40-1 besauD">배경사진을 선택해주세요</p>
             </div>
 
+            <input id="fileInput" type="file" name="accompany_image"
+                   accept="image/bmp,image/gif,image/jpg,image/jpeg,image/png,image/raw,image/tif,image/heif,image/heic,image/mp4,image/avi,image/mov,image/wmv,image/mkv,image/mpg,image/rm,image/asf,image/m4v,image/mpeg,image/mpg">
         </div>
-        <input id="fileInput" type="file" name="ac_picture"
-               accept="image/bmp,image/gif,image/jpg,image/jpeg,image/png,image/raw,image/tif,image/heif,image/heic,image/mp4,image/avi,image/mov,image/wmv,image/mkv,image/mpg,image/rm,image/asf,image/m4v,image/mpeg,image/mpg"
-               style="display: none; margin: 0px; padding: 0px;">
 
 
         <div class="write_title">
@@ -160,11 +159,15 @@
             <input type="submit" value="작성완료" class="writebtn" style="width: calc(50% - 8px);">
         </div>
 
+        </form>
+
 
     </div>
 
+
 </div>
-</div>
+
+
 
 
 

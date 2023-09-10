@@ -8,11 +8,13 @@ import com.kh.myproject.community.plan.repository.PlanBoardDetailRepository;
 import com.kh.myproject.community.plan.repository.PlanBoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -149,6 +151,21 @@ public class PlanBoardService {
     public void deleteBoard(Long pbNum){
         planBoardRepository.deleteById(pbNum);
     }
+
+    public List<PlanBoard> getPlanBoardList(int count){
+
+        Pageable pageable = PageRequest.of(0,count);
+//        List<PlanBoardDTO> planBoardDTOList = planBoardRepository.findTopBy8OrderBy();
+        Page<PlanBoard> planBoardList = planBoardRepository.findAll(pageable);
+        List<PlanBoard> planBoardDTOList = planBoardList.getContent();
+        System.out.println(planBoardDTOList);
+
+        return planBoardDTOList;
+    }
+
+
+
+
 
 
 }

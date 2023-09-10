@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -124,6 +123,17 @@ public class AccompanyService {
     public void increaseViewCount(Long ac_num){
 
         accompanyRepository.increaseViewCount(ac_num);
+    }
+
+    public Accompany getAccompany(Long ac_num){
+
+
+        return accompanyRepository.findById(ac_num).orElse(null);
+    }
+
+    public Accompany saveAccompany(Accompany accompany){
+
+        return accompanyRepository.save(accompany);
     }
 
 }
