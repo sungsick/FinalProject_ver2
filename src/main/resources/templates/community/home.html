@@ -55,7 +55,7 @@
 
                                 </div>
                                 <div class="user_info">
-                                    <div class="user_nick" th:text="${acclist.user?.userName}"></div>
+                                    <div class="user_nick" th:text="${#strings.setSplit(acclist.user.userId,'@')[0]}"></div>
                                     <!--                                    <div class="user_agender" th:text="${user.userDate}">20대</div>-->
 
                                     <div class = "user_info_bottom">

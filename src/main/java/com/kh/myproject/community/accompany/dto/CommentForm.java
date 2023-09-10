@@ -17,7 +17,7 @@ public class CommentForm {
     private Long co_number;
     private String co_content;
     private String co_regdate;
-    private Accompany ac_num;
+    private Accompany accompany;
     private  User user;
 
     public Comment toEntity() {
@@ -25,7 +25,7 @@ public class CommentForm {
                 .co_number(co_number)
                 .co_content(co_content)
                 .co_regdate(co_regdate)
-                .ac_num(ac_num)
+                .accompany(accompany)
                 .user(user)
                 .build();
     }

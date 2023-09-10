@@ -11,7 +11,9 @@
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 <body>
 
@@ -38,8 +40,8 @@
                         <span>어디로 떠나볼까요?</span>
                     </div>
                     <div class="C-nav-btn1">
-                        <input type="text" name="ac_num" th:value="${accompany.ac_num}">
-                        <input type="text" name="user_number" th:value="${accompany.user.userNumber}">
+                        <input type="hidden" name="ac_num" th:value="${accompany.ac_num}">
+                        <input type="hidden" name="user_number" th:value="${accompany.user.userNumber}">
                         <input id="region" type="hidden" name="ac_region" th:value="${accompany.ac_region}">
                         <div class="C-nav-btn">
                             <span class="C-nav-btn-sp" value="전체">전체</span>
@@ -84,7 +86,7 @@
                             <div class="select_date_input">
                                 <h4>출발일</h4>
                                 <div class="select_date_box">
-                                    <input type="date" id="select_date" name="ac_startdate" th:value="${accompany.ac_startdate}">
+                                    <input type="date" id="select_date" name="ac_startdate" th:value="${#dates.format(accompany.ac_startdate, 'yyyy-MM-dd')}">
                                 </div>
 
                             </div>
@@ -92,7 +94,7 @@
                             <div class="select_date_input">
                                 <h4>도착일</h4>
                                 <div class="select_date_box">
-                                    <input type="date" id="select_date2" name="ac_enddate" th:value="${accompany.ac_enddate}">
+                                    <input type="date" id="select_date2" name="ac_enddate" th:value="${#dates.format(accompany.ac_enddate, 'yyyy-MM-dd')}">
                                 </div>
 
                             </div>

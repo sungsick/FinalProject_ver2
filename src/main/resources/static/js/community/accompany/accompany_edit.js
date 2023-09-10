@@ -26,7 +26,7 @@ $(function () {
 
 
         function editPerson() {
-            let selectedPerson = document.getElementById("#customRange1").value;
+            let selectedPerson = document.getElementById("customRange1").value;
             document.getElementById("#slider_value_view").innerText = selectedPerson;
 
         }
@@ -143,8 +143,12 @@ $('.writebtn').click(function () {
         data: query,
         contentType: 'application/json',
         success : function (data) {
-            alert("저장완료");
-            window.location.href = '/community/accompany';
+
+            Swal.fire('수정이 완료됐습니다', '', 'success').then((result) => {
+
+                location.href = '/community/accompany';
+
+            })
 
     },
         error: function () {
