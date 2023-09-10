@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ticket_info")
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -37,6 +38,8 @@ public class FlightTicketInfo {
     private String ticToLocation;
     @Column
     private String ticVihicleId;
+    @Column
+    private String tid;
 
 
     // 어떤 유저의 ticket인지 user_number FK 설정
@@ -45,7 +48,7 @@ public class FlightTicketInfo {
     @JoinColumn(name = "userNumber")
     private User user;
 
-    public FlightTicketDto toDto(){
+    public FlightTicketDto toDto() {
         return FlightTicketDto.builder()
                 .ticTicketId(ticTicketId)
                 .ticFlightDepartureDate(ticFlightDepartureDate)
@@ -58,6 +61,7 @@ public class FlightTicketInfo {
                 .ticToLocation(ticToLocation)
                 .ticVihicleId(ticVihicleId)
                 .user(user)
+                .tid(tid)
                 .build();
     }
 }

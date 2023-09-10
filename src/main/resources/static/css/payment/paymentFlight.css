@@ -58,6 +58,14 @@
 }
 
 :root {
+    --adm-color-primary: #00ce7c;
+    --main_color: #00ce7c;
+    --main_color_1: #e5faf1;
+    --main_color_0: #f2fcf8;
+    --disable_color: #99ebca;
+}
+
+:root {
     --mbsc-safe-top: 0;
     --mbsc-safe-right: 0;
     --mbsc-safe-bottom: 0;
@@ -295,8 +303,18 @@
     width: 1.6rem;
     height: 1.6rem;
     margin: 0 0.8rem;
-    background: url(https://www.koreanair.com/itinerary__to.svg) 50% 50%/16px 16px no-repeat;
+    background: 50% 50%/16px 16px no-repeat;
     vertical-align: -0.2rem;
+}
+
+.airlineLogo {
+    width: 16%;
+    margin-right: 13px;
+}
+
+#logo_img {
+    display: flex;
+    align-items: center;
 }
 
 .card-bottom {
@@ -526,6 +544,7 @@
     border-radius: 8px;
     padding: 16px 20px;
     margin-top: 23px;
+    margin-bottom: 80px;
     display: flex;
     flex-direction: column;
 }
@@ -596,6 +615,14 @@ input:not([type="range"]), label, select, summary, textarea {
     border-radius: 5px;
     outline: none;
     background-color: #fff;
+}
+
+#input_phone {
+    width: 59%;
+}
+
+#input_auth {
+    width: 59%;
 }
 
 button, input {
@@ -1066,6 +1093,11 @@ button {
     width: 100%;
     font-size: 14px;
     display: none;
+}
+
+.insurance-info-modalTable {
+    width: 100%;
+    font-size: 14px;
 }
 
 table {
@@ -1688,7 +1720,7 @@ select {
     margin-bottom: 2rem !important;
 }
 
-.insurance-info .thead__th {
+.insurance-info-modalTable .thead__th {
     padding: 1.6rem;
     border-bottom: 1px solid #dee0e2;
     background-color: #f8f9fc;
@@ -1699,13 +1731,13 @@ select {
     border-top: 1px solid black;
 }
 
-.insurance-info tr {
+.insurance-info-modalTable tr {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
 }
 
-.insurance-info .tbody__td {
+.insurance-info-modalTable .tbody__td {
     padding: 1.6rem;
     border-top: 1px solid #dee0e2;
     background-color: #fff;
@@ -1727,7 +1759,7 @@ select {
     border-top: 0;
 }
 
-.insurance-info showTale {
+.insurance-info-modalTable {
     border-bottom: 1px solid black;
 }
 
@@ -1749,4 +1781,41 @@ select {
     color: #555;
     font-weight: 400;
     font-size: 14px;
+}
+
+.code-share {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100%;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-right: 0.4rem;
+    background: url(https://www.koreanair.com/codeshare-kl.png) 50% 50%/16px 16px no-repeat;
+}
+
+/*.code-share .-lj {*/
+/*    background: url(https://www.koreanair.com/codeshare-kl.png) 50% 50%/16px 16px no-repeat;*/
+/*}*/
+
+.itinerary__codeshare[_ngcontent-yis-c25] {
+    color: #00256c;
+    font-size: 14px;
+    line-height: 1.58;
+    margin-bottom: 8px;
+}
+
+#btnKakaoPay {
+    margin-top: 60px;
+}
+
+sel-nation-ADT-0 {
+
+    border-color: #0064de;
+    color: #0064de
+}
+
+.auth {
+    display: none;
 }

@@ -30,40 +30,40 @@
                             </div>
                             <div style="padding: 7px 30px 0px;">
                                 <div class="success-result-info">
-                                    <div>320,000원
+                                    <div th:text="${info.amount.total}">320,000원
                                     </div>
                                 </div>
                                 <div class="orderInfo" style="margin-bottom: 15px;">
-                                    <div>상호명</div>
-                                    <div>유저 아이디</div>
+                                    <div>구매자</div>
+                                    <div th:text="${info.partner_user_id}">유저 아이디</div>
                                 </div>
                                 <section class="orderInfo-detail">
                                     <div class="orderInfo-con" style="margin-top: 5px;">
                                         <div class="orderInfo">
                                             <div>상품명</div>
-                                            <div>굿모닝</div>
+                                            <div th:text="${info.item_name}">굿모닝</div>
                                         </div>
                                         <div class=" orderInfo">
                                             <div>주문금액</div>
-                                            <div>320,000원</div>
+                                            <div th:text="${info.amount.total}">320,000원</div>
                                         </div>
                                         <div class="orderInfo">
                                             <div>결제일시</div>
-                                            <div>2023.09.02 12:53:12</div>
+                                            <div th:text="${info.approved_at}">2023.09.02 12:53:12</div>
                                         </div>
                                         <div class="orderInfo">
                                             <div>주문번호</div>
-                                            <div>td2164mcvdke312</div>
+                                            <div th:text="${info.tid}">td2164mcvdke312</div>
                                         </div>
                                     </div>
                                 </section>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; margin-top: 30px; position: relative; bottom: 0px; padding-right: 10px;">
-                            <button type="button" class="modal-btn _button_default_1vx5o_3"
-                                    style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인
-                            </button>
-                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 30px; position: relative; bottom: 0px; padding-right: 10px;">
+                        <button type="button" class="modal-btn _button_default_1vx5o_3"
+                                style="height: 50px; flex: 1 1 0%; font-size: 16px;" id="confirm">확인
+                        </button>
                     </div>
                 </div>
             </div>
@@ -72,3 +72,13 @@
 </div>
 </body>
 </html>
+
+<!--결제일시:     [[${info.approved_at}]]<br/>-->
+<!--주문번호:    [[${info.partner_order_id}]]<br/>-->
+<!--상품명:    [[${info.item_name}]]<br/>-->
+<!--상품수량:    [[${info.quantity}]]<br/>-->
+<!--결제금액:    [[${info.amount.total}]]<br/>-->
+<!--결제방법:    [[${info.payment_method_type}]]<br/>-->
+
+
+<!--<h2>[[${info}]]</h2>-->

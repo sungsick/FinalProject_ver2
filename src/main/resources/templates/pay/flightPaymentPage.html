@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      style="--adm-color-primary: #00ce7c; --main_color: #00ce7c; --main_color_1: #e5faf1; --main_color_0: #f2fcf8; --disable_color: #99ebca;">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,15 +8,11 @@
     <script crossorigin="anonymous" src="https://kit.fontawesome.com/9647b4736a.js"></script>
     <script src="/jq/jquery-3.7.0.min.js" type="text/javascript"></script>
     <script defer src="/js/payment/paymentFlight.js" type="text/javascript"></script>
-
+    <!--생년월일 없애기, 렌트카로 옮기기 생년월일 매서드 옮기기-->
 </head>
 <body>
 <div id="root">
     <header th:include="/header.html :: header"></header>
-    <h1 th:text="${ticket}"></h1>
-    <h1 th:text="${ticket.ticAirlineName}"></h1>
-    <h1 th:text="${ticket.user.userName}"></h1>
-    <h1>[[${ticket}]]</h1>
     <div class="mainBody">
         <div class="container">
             <div class="contents">
@@ -33,29 +28,37 @@
                                     <!--                                    출발지 정보-->
                                     <div class="card-top-info">
                                         <div class="card-top-info-time">GMP</div>
-                                        <div class="card-top-info-date">서울/김포</div>
+                                        <div class="card-top-info-date" th:text="${ticket.ticFromLocation}">서울/김포</div>
                                     </div>
                                     <div _ngcontent-wej-c25="" class="itinerary__to">
                                     </div>
                                     <!--도착지 정보-->
                                     <div class="card-top-info">
                                         <div class="card-top-info-time">CJU</div>
-                                        <div class="card-top-info-date">제주</div>
+                                        <div class="card-top-info-date" th:text="${ticket.ticToLocation}">제주</div>
                                     </div>
                                 </div>
                                 <!--                                출발, 도착 date 정보-->
-                                <div class="card-bottom">
-                                    <div class="card-bottom-text">2023년 09월 11일 (월) 출발시각 06:05 -도착시각 07:20</div>
-                                    <!--                                항공사 이미지-->
-                                    <div class="card-bottom-address">
-                                        <span class="code-share -lj"></span>
-                                        진에어 운항
+                                <p class="card-bottom">
+                                <div class="card-bottom-text" id="flightDateInfo">2023년 09월 11일 (월) 출발시각 06:05 -도착시각
+                                    07:20
+                                </div>
+                                <!--                                항공사 이름-->
+                                <div _ngcontent-yis-c25 class="itinerary__etc ng-star-inserted">
+                                    <p _ngcontent-yis-c25="" class="itinerary__codeshare ng-star-inserted"
+                                       id="logo_img">
+                                        <!--                                항공사 이미지-->
+                                        <img class="airlineLogo"
+                                             th:src="'/img/store/flight/' + ${ticket.ticAirlineLogo}">
+                                        [[${ticket.ticAirlineName}]]
+                                    </p>
+                                </div>
+                                <!--                                좌석정보-->
+                                <div class="sit-info">
+                                    <div class="card-top-info-time" style="margin-right: 10px"
+                                         th:text="${ticket.ticVihicleId}">KE5153
                                     </div>
-                                    <!--                                좌석정보-->
-                                    <div class="sit-info">
-                                        <div class="card-top-info-time" style="margin-right: 10px">KE5153</div>
-                                        <div class="card-top-info-date">일반석(S)</div>
-                                    </div>
+                                    <div class="card-top-info-date" th:text="${ticket.ticSeatGrade}">일반석(S)</div>
                                 </div>
                             </div>
                         </section>
@@ -69,7 +72,7 @@
                                 승객정보
                             </div>
                             <div class="second-box-tabs-non-click" data-a="1">
-                                보험/유의사항
+                                환불/규정 안내
                             </div>
                             <div class="second-box-tabs-clicked-bar"></div>
                         </div>
@@ -77,103 +80,17 @@
                     <div class="third-box">
                         <section>
                             <div class="sections-con show">
-                                <section class="prod-info-section1">
-                                    <div class="prod-option">항공권 변경</div>
-                                    <div class="prod-option-info">
-                                        <div class="prod-option-count">
-                                            <div class="item-box">
-                                                <div class="item-box-left">
-                                                    <label class="label-cbx">
-                                                        <div>변경 안내</div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="prod-option-info-detail">구매처에 따라 항공권 운임 차액 및 변경 규정이 다를 수 있습니다.
-                                            대한항공 홈페이지에서 구매한 항공권은 홈페이지, 앱 또는 서비스 센터에서 변경할 수 있습니다.
-                                            항공권 구매처가 대한항공이 아닌 경우에는 해당 구매처를 통해 문의해 주시기 바랍니다.
-                                        </div>
-                                    </div>
-                                </section>
-                                <section class="prod-info-section2">
-                                    <div class="prod-option">
-                                        <div>적용 규정</div>
-                                        <div class="sub-title">항공권 구매 후 변경 시 운임 규정 확인이 필요합니다.<img class="icon"
-                                                                                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAJFBMVEVHcEyqqqqrq6uvr6+qqqqqqqqqqqqqqqqnp6erq6uqqqqqqqqzWaB7AAAAC3RSTlMAwDYQ0lvtgCBwl9YmRtEAAAFZSURBVDjLjVQrT8RAEJ4ruXAEc6drmhMIMCd4hCARiDWXIBDnOENSc8kdqqaKBEeCQWNrWNhrge/PsW3Z3eljCSOa6Xwzs/Mm+qWdm4lQk/sZtegxREXypSk/g6V1Qx4DV9MomG6AnCEjAXldsychVGqBA6i54Ycxbi0PPDnzPcBoLZxObb+tmYB7rV+MKuYBl83Yj3FXpSzyVrqjWJWSXby3y3CElf6e2pCGkQ1sqb9JbhQzabi40A5NcEQA2QRSbTa2espwA+1+YPOkw1dXizFdoNMbnQI+aKGoh8SWkqIP0NLQpXf+7FKUHMi+OSA+7V8oHaAIb33APvxA7HPFHueA9APZVx+gE2QlYYAuCSuiA8oisrI7oCw7a5QDykax1jqgbC0l9nUXoCga4xM0x8c7cHpE086I+oZ6+fcaeBens2r5vHc5BbNvrfPMcwBW/zkZ/iPTPUs/xvenV5RBgJoAAAAASUVORK5CYII=">
-                                        </div>
-                                    </div>
-                                    <div class="prod-option-info">
-                                        <div class="prod-option-count">
-                                            <div class="item-box">
-                                                <div class="item-box-left">
-                                                    <label class="label-cbx">
-                                                        <div>대여 조건 및 주의상항</div>
-                                                    </label>
-                                                </div>
-                                                <div id="checkbox_value">수수료 및 차액</div>
-                                            </div>
-                                        </div>
-                                        <div class="prod-option-info-bottom">
-                                            <div class="precautions-con">
-                                                <div class="precautions-con-detail">
-                                                    <div class="precautions-con-detail-textBox"></div>
-                                                    <div>항공권을 구매하고 받으신 e-티켓 확인증(Itinerary & Receipt)에서 운임규정을 확인할 수
-                                                        있습니다.
-                                                    </div>
-                                                </div>
-                                                <div class="precautions-con-detail">
-                                                    <div class="precautions-con-detail-textBox"></div>
-                                                    <div>홈페이지(PC, 모바일), 앱에서 구매한 항공권의 경우, 예약 상세조회 후, [예약 변경]을 진행하시면 변경
-                                                        규정, 운임 차액 등을 확인할 수 있습니다.
-                                                    </div>
-                                                </div>
-                                                <div class="precautions-con-detail">
-                                                    <div class="precautions-con-detail-textBox"></div>
-                                                    <div>대한항공 서비스센터 , 시내/공항지점에서 항공권 구매 또는 변경하는 경우 항공권 서비스 수수료가 부과됩니다.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+
                                 <section class="driver-info-section">
-                                    <div class="prod-option">
-                                        <div>예약부도위약금</div>
-                                        <div class="sub-title">위약금 안내<img class="icon"
-                                                                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAJFBMVEVHcEyqqqqrq6uvr6+qqqqqqqqqqqqqqqqnp6erq6uqqqqqqqqzWaB7AAAAC3RSTlMAwDYQ0lvtgCBwl9YmRtEAAAFZSURBVDjLjVQrT8RAEJ4ruXAEc6drmhMIMCd4hCARiDWXIBDnOENSc8kdqqaKBEeCQWNrWNhrge/PsW3Z3eljCSOa6Xwzs/Mm+qWdm4lQk/sZtegxREXypSk/g6V1Qx4DV9MomG6AnCEjAXldsychVGqBA6i54Ycxbi0PPDnzPcBoLZxObb+tmYB7rV+MKuYBl83Yj3FXpSzyVrqjWJWSXby3y3CElf6e2pCGkQ1sqb9JbhQzabi40A5NcEQA2QRSbTa2espwA+1+YPOkw1dXizFdoNMbnQI+aKGoh8SWkqIP0NLQpXf+7FKUHMi+OSA+7V8oHaAIb33APvxA7HPFHueA9APZVx+gE2QlYYAuCSuiA8oisrI7oCw7a5QDykax1jqgbC0l9nUXoCga4xM0x8c7cHpE086I+oZ6+fcaeBens2r5vHc5BbNvrfPMcwBW/zkZ/iPTPUs/xvenV5RBgJoAAAAASUVORK5CYII=">
-                                        </div>
-                                    </div>
-                                    <div class="driver-info-section-condition">
-                                        <div class="driver-info-section-condition-top">
-                                            <div class="driver-info-section-condition-top-title">
-                                                <img class="driver-info-section-condition-top-title-img"
-                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAS1BMVEVHcEwbYOUYX+oZX+YUXvIbYOQcYOQcX+QcX+QbYOUcX+QcYOMdX+QcYOUcX+UdYOT///+Mr/Le6fwvbebx9v6qxPW5zvepw/VjkuzHPR81AAAAD3RSTlMAPhUdCoLV9+xsv7ijWJB/IO4VAAABM0lEQVRIx61WW2KDMAzL+w2hhLa7/0kXBu1asMHppk+QsGMLO4xtobhOwVhrQtJcsRNIH21+gY1eHtBF/8ZeNVogdKUB+iIBM5MmozBAXtzlAzi+5ft8DNu18Sv8Wz72XGBfspIuE+CeJ1cmk2Ae1dWZCL32d59QuU/DveyTWkL0+0/dhoorEkIAFZr5wwRUSiAtwAQ/zYiZnlKOtaZQz8ptGq4F6p5iXW4CpzfhUafUJkgsgM8v4/gFvggM9FGpRRphPzHQqJe5rLBl2wWmTWDgQ+OCAJcVFyTI3EeCHrYGLuhg86GCaj7Q3qggIj8QKph/INkiEMiUwby0zBnlqG5dxwxlEm/mcaDxw+9uow1j8fm4Jx1ju4JOYlj/16V4snbB3a48EsR59T9Xhw8uJ5TrzzdrLmlnuJbGaAAAAABJRU5ErkJggg=="/>
-                                                <div>적용대상</div>
-                                            </div>
-                                            <div style="font-weight: 400;">면제 대상 : 좌석을 점유하지 않는 유아 항공권</div>
-                                        </div>
-                                        <div class="driver-info-section-condition-bottom">항공편 출발 이전까지 사전 예약 취소 없이 탑승하지
-                                            않거나, 탑승 수속 후 탑승하지 않으면 부과
-                                        </div>
-                                    </div>
+
                                     <div class="driver-info-section-inputs">
                                         <div class="driver-info-section-inputs-text">
                                             <div>이름</div>
                                             <input class="_input_default_pczwv_3 undefined" id="input_name"
                                                    placeholder="이름을 입력해주세요."
-                                                   style="margin-bottom: 2px;" value="">
+                                                   style="margin-bottom: 2px;" value="" disabled=false>
                                         </div>
-                                        <div class="driver-info-section-inputs-text">
-                                            <div>생년월일</div>
-                                            <input class="_input_default_pczwv_3 undefined" id="input_birth"
-                                                   pattern="^\d{6}$"
-                                                   placeholder="YYMMDD"
-                                                   style="margin-bottom: 2px;" type="tel"
-                                                   value="">
-                                            <div class="warning" id="warning">
-                                                '-' 을 제외한 생년월일 6자리를 입력하세요
-                                            </div>
-                                        </div>
+
                                         <div class="driver-info-section-inputs-text">
                                             <div>휴대폰번호</div>
                                             <div class="driver-info-section-inputs-text-phone">
@@ -188,6 +105,21 @@
                                                         id="verifyBtn"
                                                         type="button">
                                                     인증번호
+                                                </button>
+                                            </div>
+                                            <div class="driver-info-section-inputs-text-phone auth hideClass"
+                                                 id="verify">
+                                                <div style="flex: 1 1 0%;">
+                                                    <input class="_input_default_pczwv_3 StylesInpuWithBottomText-gVruQj cwqtNt"
+                                                           id="input_auth"
+                                                           pattern="^010\d{7,8}$" placeholder="인증번호를 입력해주세요."
+                                                           style="margin-bottom: 2px;"
+                                                           type="tel" value=""/>
+                                                </div>
+                                                <button class="_button_default_1vx5o_3 StyledDriverInfoButton-doWmhM byxCxk hover:cursor-not-allowed"
+                                                        id="verifyConfirmBtn"
+                                                        type="button">
+                                                    인증확인
                                                 </button>
                                             </div>
                                         </div>
@@ -217,7 +149,7 @@
                                                 <div _ngcontent-ior-c37="" class="forms">
                                                     <select _ngcontent-ior-c37="" formcontrolname="nation"
                                                             class="ng-untouched ng-pristine ng-valid"
-                                                            id="sel-nation-ADT-0">
+                                                            id="sel-nation-ADT-0" name="selectBox">
                                                         <option _ngcontent-ior-c37="" value="">선택하세요.</option><!---->
                                                         <!---->
                                                         <option _ngcontent-ior-c37="" value="KOR"
@@ -1104,10 +1036,89 @@
                                 </section>
                             </div>
                             <div class="sections-con">
+                                <section class="prod-info-section1">
+                                    <div class="prod-option">항공권 변경</div>
+                                    <div class="prod-option-info">
+                                        <div class="prod-option-count">
+                                            <div class="item-box">
+                                                <div class="item-box-left">
+                                                    <label class="label-cbx">
+                                                        <div>변경 안내</div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="prod-option-info-detail">구매처에 따라 항공권 운임 차액 및 변경 규정이 다를 수 있습니다.
+                                            대한항공 홈페이지에서 구매한 항공권은 홈페이지, 앱 또는 서비스 센터에서 변경할 수 있습니다.
+                                            항공권 구매처가 대한항공이 아닌 경우에는 해당 구매처를 통해 문의해 주시기 바랍니다.
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="prod-info-section2">
+                                    <div class="prod-option">
+                                        <div>적용 규정</div>
+                                        <div class="sub-title">항공권 구매 후 변경 시 운임 규정 확인이 필요합니다.<img class="icon"
+                                                                                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAJFBMVEVHcEyqqqqrq6uvr6+qqqqqqqqqqqqqqqqnp6erq6uqqqqqqqqzWaB7AAAAC3RSTlMAwDYQ0lvtgCBwl9YmRtEAAAFZSURBVDjLjVQrT8RAEJ4ruXAEc6drmhMIMCd4hCARiDWXIBDnOENSc8kdqqaKBEeCQWNrWNhrge/PsW3Z3eljCSOa6Xwzs/Mm+qWdm4lQk/sZtegxREXypSk/g6V1Qx4DV9MomG6AnCEjAXldsychVGqBA6i54Ycxbi0PPDnzPcBoLZxObb+tmYB7rV+MKuYBl83Yj3FXpSzyVrqjWJWSXby3y3CElf6e2pCGkQ1sqb9JbhQzabi40A5NcEQA2QRSbTa2espwA+1+YPOkw1dXizFdoNMbnQI+aKGoh8SWkqIP0NLQpXf+7FKUHMi+OSA+7V8oHaAIb33APvxA7HPFHueA9APZVx+gE2QlYYAuCSuiA8oisrI7oCw7a5QDykax1jqgbC0l9nUXoCga4xM0x8c7cHpE086I+oZ6+fcaeBens2r5vHc5BbNvrfPMcwBW/zkZ/iPTPUs/xvenV5RBgJoAAAAASUVORK5CYII=">
+                                        </div>
+                                    </div>
+                                    <div class="prod-option-info">
+                                        <div class="prod-option-count">
+                                            <div class="item-box">
+                                                <div class="item-box-left">
+                                                    <label class="label-cbx">
+                                                        <div>대여 조건 및 주의상항</div>
+                                                    </label>
+                                                </div>
+                                                <div id="checkbox_value">수수료 및 차액</div>
+                                            </div>
+                                        </div>
+                                        <div class="prod-option-info-bottom">
+                                            <div class="precautions-con">
+                                                <div class="precautions-con-detail">
+                                                    <div class="precautions-con-detail-textBox"></div>
+                                                    <div>항공권을 구매하고 받으신 e-티켓 확인증(Itinerary & Receipt)에서 운임규정을 확인할 수
+                                                        있습니다.
+                                                    </div>
+                                                </div>
+                                                <div class="precautions-con-detail">
+                                                    <div class="precautions-con-detail-textBox"></div>
+                                                    <div>홈페이지(PC, 모바일), 앱에서 구매한 항공권의 경우, 예약 상세조회 후, [예약 변경]을 진행하시면 변경
+                                                        규정, 운임 차액 등을 확인할 수 있습니다.
+                                                    </div>
+                                                </div>
+                                                <div class="precautions-con-detail">
+                                                    <div class="precautions-con-detail-textBox"></div>
+                                                    <div>대한항공 서비스센터 , 시내/공항지점에서 항공권 구매 또는 변경하는 경우 항공권 서비스 수수료가 부과됩니다.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </section>
                                 <section>
-                                    <div class="insurance-title">보험 안내</div>
+                                    <div class="prod-option">
+                                        <div>예약부도위약금</div>
+                                        <div class="sub-title">위약금 안내<img class="icon"
+                                                                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAJFBMVEVHcEyqqqqrq6uvr6+qqqqqqqqqqqqqqqqnp6erq6uqqqqqqqqzWaB7AAAAC3RSTlMAwDYQ0lvtgCBwl9YmRtEAAAFZSURBVDjLjVQrT8RAEJ4ruXAEc6drmhMIMCd4hCARiDWXIBDnOENSc8kdqqaKBEeCQWNrWNhrge/PsW3Z3eljCSOa6Xwzs/Mm+qWdm4lQk/sZtegxREXypSk/g6V1Qx4DV9MomG6AnCEjAXldsychVGqBA6i54Ycxbi0PPDnzPcBoLZxObb+tmYB7rV+MKuYBl83Yj3FXpSzyVrqjWJWSXby3y3CElf6e2pCGkQ1sqb9JbhQzabi40A5NcEQA2QRSbTa2espwA+1+YPOkw1dXizFdoNMbnQI+aKGoh8SWkqIP0NLQpXf+7FKUHMi+OSA+7V8oHaAIb33APvxA7HPFHueA9APZVx+gE2QlYYAuCSuiA8oisrI7oCw7a5QDykax1jqgbC0l9nUXoCga4xM0x8c7cHpE086I+oZ6+fcaeBens2r5vHc5BbNvrfPMcwBW/zkZ/iPTPUs/xvenV5RBgJoAAAAASUVORK5CYII=">
+                                        </div>
+                                    </div>
+                                    <div class="driver-info-section-condition">
+                                        <div class="driver-info-section-condition-top">
+                                            <div class="driver-info-section-condition-top-title">
+                                                <img class="driver-info-section-condition-top-title-img"
+                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAS1BMVEVHcEwbYOUYX+oZX+YUXvIbYOQcYOQcX+QcX+QbYOUcX+QcYOMdX+QcYOUcX+UdYOT///+Mr/Le6fwvbebx9v6qxPW5zvepw/VjkuzHPR81AAAAD3RSTlMAPhUdCoLV9+xsv7ijWJB/IO4VAAABM0lEQVRIx61WW2KDMAzL+w2hhLa7/0kXBu1asMHppk+QsGMLO4xtobhOwVhrQtJcsRNIH21+gY1eHtBF/8ZeNVogdKUB+iIBM5MmozBAXtzlAzi+5ft8DNu18Sv8Wz72XGBfspIuE+CeJ1cmk2Ae1dWZCL32d59QuU/DveyTWkL0+0/dhoorEkIAFZr5wwRUSiAtwAQ/zYiZnlKOtaZQz8ptGq4F6p5iXW4CpzfhUafUJkgsgM8v4/gFvggM9FGpRRphPzHQqJe5rLBl2wWmTWDgQ+OCAJcVFyTI3EeCHrYGLuhg86GCaj7Q3qggIj8QKph/INkiEMiUwby0zBnlqG5dxwxlEm/mcaDxw+9uow1j8fm4Jx1ju4JOYlj/16V4snbB3a48EsR59T9Xhw8uJ5TrzzdrLmlnuJbGaAAAAABJRU5ErkJggg=="/>
+                                                <div>적용대상</div>
+                                            </div>
+                                            <div style="font-weight: 400;">면제 대상 : 좌석을 점유하지 않는 유아 항공권</div>
+                                        </div>
+                                        <div class="driver-info-section-condition-bottom">항공편 출발 이전까지 사전 예약 취소 없이 탑승하지
+                                            않거나, 탑승 수속 후 탑승하지 않으면 부과
+                                        </div>
+                                    </div>
+                                    <div class="insurance-title">변경 및 환불</div>
                                     <div class="insurance-title-explanation">
-                                        이용 중 사고 시 아래와 같이 보장됩니다.
+                                        항공권 변경과 환불에 필요한 정보를 안내해 드립니다.
                                     </div>
                                     <div class="insurance-locations">
                                         <div class="inland locationClick">징수 금액 (편도 기준)</div>
@@ -1322,28 +1333,25 @@
                     <section class="payment-info-section">
                         <!--                        가격정보 불러와서 합하고 표시하기-->
                         <div class="payment-info-title">
-                            결제 정보
+                            항공 운송료
                         </div>
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
-                                <div>대여료</div>
-                                <div>156,480</div>
-                            </div>
-                            <div class="priceWarp">
-                                <div>보험 (일반 자차)</div>
-                                <div>-136,350</div>
+                                <div>운임</div>
+                                <div th:text="${ticket.ticFee} + 원">156,480</div>
                             </div>
                         </div>
                         <div class="totalPrice">
                             <div class="totalPrice-text">
-                                <div class="emphasis"> 총 결제 금액</div>
-                                <div class="emphasis-price">20,130원</div>
+                                <div class="emphasis"> 총액</div>
+                                <!--                                총액 가져오기-->
+                                <div class="emphasis-price" th:text="${ticket.ticFee} + 원">20,130원</div>
                             </div>
                         </div>
                         <!--                        컨트롤러 임시 호출 결제시 totalPrice데이터 넘기기-->
                         <button class="_button_default_1vx5o_3 StyledPaymentButton-bNriOy jLwBLr hover:cursor-not-allowed"
                                 disabled=true id="btnKakaoPay">
-                            20,130원 바로 결제하기
+                            결제하기
                         </button>
                     </section>
                 </div>
@@ -1377,7 +1385,7 @@
                                                         <div class="ttta">
                                                             <div class="table -y ">
                                                                 <table>
-                                                                    <table class="insurance-info showTale">
+                                                                    <table class="insurance-info-modalTable">
                                                                         <thead class="table__thead">
                                                                         <tr class="thead__tr">
                                                                             <th scope="col" class="thead__th">구입처</th>
@@ -1460,6 +1468,91 @@
         </div>
     </div>
 </div>
+<div>
 
+    <input type="hidden" id="ticketId" th:value="${ticket.ticTicketId}">
+    <input type="hidden" id="departureDate" th:value="${ticket.ticFlightDepartureDate}">
+    <input type="hidden" id="arrivalDate" th:value="${ticket.ticFlightArrivalDate}">
+    <input type="hidden" id="seatGrade" th:value="${ticket.ticSeatGrade}">
+    <input type="hidden" id="airlineName" th:value="${ticket.ticAirlineName}">
+    <input type="hidden" id="fromLocation" th:value="${ticket.ticFromLocation}">
+    <input type="hidden" id="totalPrice" th:value="${ticket.ticFee}">
+    <input type="hidden" id="toLocation" th:value="${ticket.ticToLocation}">
+    <input type="hidden" id="vehicleId" th:value="${ticket.ticVihicleId}">
+    <input type="hidden" id="userId" th:value="${user.userId}">
+    <input type="hidden" id="userName" th:value="${user.userName}">
+</div>
+<script defer th:inline="javascript">
+    /*<![CDATA[*/
+    // 출발, 도착시간 날짜 슬라이싱
+    const departureInputValue = [[${ticket.ticFlightDepartureDate}]];
+    const departureYear = departureInputValue.slice(0, 4);
+    const departureMonth = departureInputValue.slice(4, 6);
+    const departureDay = departureInputValue.slice(6, 8);
+    const departureHour = departureInputValue.slice(8, 10);
+    const departureMinute = departureInputValue.slice(10);
+
+    const arrivalInputValue = [[${ticket.ticFlightArrivalDate}]];
+    const arrivalYear = arrivalInputValue.slice(0, 4);
+    const arrivalMonth = arrivalInputValue.slice(4, 6);
+    const arrivalDay = arrivalInputValue.slice(6, 8);
+    const arrivalHour = arrivalInputValue.slice(8, 10);
+    const arrivalMinute = arrivalInputValue.slice(10);
+
+    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
+    // 해당 날짜의 요일 구하기
+    const departureDate = new Date(departureYear, departureMonth - 1, departureDay);
+    const departureDayIndex = departureDate.getDay();
+    const departureDayOfWeekString = daysOfWeek[departureDayIndex];
+
+    const arrivalDate = new Date(arrivalYear, arrivalMonth - 1, arrivalDay);
+    const arrivalDayIndex = arrivalDate.getDay();
+    const arrivalDayOfWeekString = daysOfWeek[arrivalDayIndex];
+
+    // 구한 날짜와 시간 표현
+    const formattedDepartureDate = `${departureYear}년 ${departureMonth}월 ${departureDay}일 (${departureDayOfWeekString}) ${departureHour}:${departureMinute}`;
+    const formattedArrivalDate = `${arrivalHour}:${arrivalMinute}`;
+
+    // 출발 날짜와 도착 날짜가 1일 이상일시 표시하기
+    const oneDayMilliseconds = 24 * 60 * 60 * 1000;
+    const daysDifference = Math.floor((arrivalDate - departureDate) / oneDayMilliseconds);
+    const daysDifferenceString = daysDifference > 0 ? `+(${daysDifference}일)` : '';
+
+    // 최종 표시할 형식
+    const flightDateInfo = `${formattedDepartureDate} - ${formattedArrivalDate} ${daysDifferenceString}`;
+
+    // HTML 요소에 표시
+    var FlightDateInfoElement = document.getElementById("flightDateInfo");
+    FlightDateInfoElement.innerText = flightDateInfo;
+
+    // 유저 이름, 핸드폰 번호 가져오기
+    const defaultUserName = [[${user.userName}]];
+    const defaultUserPhoneNum = [[${user.userPhone}]];
+
+    var defaultUserNameElement = document.getElementById("input_name");
+    var defaultUserPhoneNumElement = document.getElementById("input_phone");
+
+    defaultUserNameElement.value = defaultUserName;
+    defaultUserPhoneNumElement.value = defaultUserPhoneNum;
+
+    if (![[${user.userName}]] === '' || ![[${user.userPhone}]] === '') {
+        defaultUserNameElement.disabled = ture;
+        defaultUserNameElement.backgroundColor = rgb(246, 246, 246);
+    }
+
+    // 유저 성별 정보 가져오기
+    const userGender = [[${user.userGender}]];
+
+    var radioMale = document.getElementById("rad-gender-M-ADT-0");
+    var radioFemale = document.getElementById("rad-gender-F-ADT-0");
+
+    if (userGender === "M") {
+        radioMale.checked = true;
+    } else if (userGender === "F") {
+        radioFemale.checked = true;
+    }
+    /*]]>*/
+</script>
 </body>
 </html>

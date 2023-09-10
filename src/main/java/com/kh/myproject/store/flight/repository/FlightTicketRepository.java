@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface FlightTicketRepository extends JpaRepository<FlightTicketInfo, Long> {
     List<FlightTicketInfo> findByUser_UserNumber(Long userNumber);
+
+//    @Query("SELECT t FROM FlightTicketInfo t WHERE t.status = :status AND t.user.userId = :userId")
+//    List<FlightTicketInfo> findByStatusAndUserId(int status, String userId);
+
 }
