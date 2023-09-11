@@ -2,16 +2,16 @@ package com.kh.myproject.store.flight.controller;
 
 import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.service.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @SessionAttributes("user")
 @Slf4j
 public class FlightController {

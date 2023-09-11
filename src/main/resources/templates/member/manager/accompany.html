@@ -58,7 +58,6 @@
                 <div>작성자</div>
                 <div>글 제목</div>
                 <div>동행인원</div>
-                <div>기간</div>
                 <div>작성시간</div>
                 <div>삭제</div>
             </div>
@@ -84,9 +83,10 @@
                     <div th:text="${aList.ac_num}"></div>
                     <div th:text="${aList.user.userId}"></div>
                     <div th:text="${aList.ac_title}"></div>
-                    <div th:text="${aList.ac_people}"></div>
-                    <div th:text="${aList.ac_startdate}+'-'+${aList.ac_enddate}"></div>
-                    <div th:text="${aList.ac_regdate}"></div>
+                    <div th:text="${aList.ac_people} + '명'"></div>
+
+
+                    <div th:text="${#dates.format(aList.ac_regdate,'yyyy-MM-dd HH:mm')}"></div>
 
 
                     <div class="ml_4 user-del-btn" th:id="${aList.ac_num}" onclick="delAccompany(this)">
