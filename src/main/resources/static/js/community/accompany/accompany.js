@@ -71,7 +71,7 @@ $("#countComment").click((event) => {
 
 
 let dateToggle = false;
-$(".md_search, #md_searchPeriodIcon").click(() => {
+$(".md_searchPeriodIcon, .md_searchPeriod").click(() => {
 
     const periodUI = $(".searchPeriodBox");
 

@@ -1,3 +1,8 @@
+body {
+    margin: 0px;
+    font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
 .choice_post button {
     border: none;
     font-size: 16px;
@@ -707,12 +712,11 @@ button{
     background-color: white;
     z-index: 9999;
     position: absolute;
-    width: 74px;
-    margin-right:1400px;
+    width: 75px;
     margin-top: 11px;
-    border:1px solid #9b9999;
+    border:1px solid #afadad;
     border-radius: 10px;
-    margin-left: -30px;
+    margin-left: -33px;
 }
 
 #allRegion>.sub li{
@@ -791,18 +795,35 @@ button{
 
 
 .searchPeriodBox{
-    margin-top:1%;
+    margin-top: 124px;
+    border-radius: 5px;
     display: none;
+    right: 1px;
     position: absolute;
-    /*overflow: hidden;*/
+    /* overflow: hidden; */
+    height: 45px;
 }
 
 .queryDate{
     display: flex;
 }
-ul, li{
+.searchPeriodBox, .searchPeriodBoxLi{
     list-style-type: none;
+    display: flex;
+    justify-content: center;
 }
-.queryStartdate, queryEnddate{
-    border: 1px solid #d3d5e0;
+.queryStartdate .queryEnddate{
+    width: 128px;
+    height: 18px;
+    font-family: Arial, sans-serif; /* 원하는 글꼴로 변경 */
+    font-size: 16px;
+}
+.searchPeriodBtn{
+    width: 60px;
+    border-radius: 5px;
+}
+.searchPeriodBoxLi{
+    border-radius: 2px;
+    font-family: Arial, sans-serif; /* 원하는 글꼴로 변경 */
+    font-size: 16px;
 }

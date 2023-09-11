@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 
     <!--Bootstrap-->
-    <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 
@@ -156,7 +156,7 @@
 
                                 <div class="add_schedule_div1">
                                     <div class="add_schedule_div2">
-                                        <button class="add_schedule_btn">
+                                        <button class="add_schedule_btn" id="myBtn">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
                                                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                 <style>svg {
@@ -165,7 +165,7 @@
                                                 <path d="M128 32V64H80c-26.5 0-48 21.5-48 48v48H480V112c0-26.5-21.5-48-48-48H384V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H192V32c0-17.7-14.3-32-32-32s-32 14.3-32 32zM480 192H32V464c0 26.5 21.5 48 48 48H432c26.5 0 48-21.5 48-48V192zM256 248c13.3 0 24 10.7 24 24v56h56c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v56c0 13.3-10.7 24-24 24s-24-10.7-24-24V376H176c-13.3 0-24-10.7-24-24s10.7-24 24-24h56V272c0-13.3 10.7-24 24-24z"
                                                       fill="#00b8ff"></path>
                                             </svg>
-                                            <span class="add_schedule_btn2">일정추가</span>
+                                            <span class="add_schedule_btn2" >일정추가</span>
                                         </button>
                                     </div>
                                 </div>
@@ -215,9 +215,9 @@
 
                                             <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
                                             <button id="deleteBtn">삭제</button>
-                                            <p class="bt_container_m_jum">·</p>
-                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>
-                                         </div>
+
+<!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
+                                        </div>
                                     </th:block>
                                     <!--                                    </th:block>-->
                                 </div>
@@ -228,46 +228,67 @@
                                 <form method="post" action="/community/accompany/reWritePro">
                                     <input th:value="${accompany.ac_num}" name="ac_num" id="inputAcNum2" type="hidden">
                                     <th:block th:if="${session.user != null}">
-                                        <div class="bt_com" >
-                                        <div class="bt_com_div">
+                                        <div class="bt_com">
+                                            <div class="bt_com_div">
 
                                             <textarea placeholder="댓글을 입력해주세요." name="co_content"
                                                       class="bt_com_div_text"
                                                       style=""></textarea>
-                                            <button class="bt_com_div_btn">게시</button>
+                                                <button class="bt_com_div_btn">게시</button>
+                                            </div>
                                         </div>
-                                    </div></th:block>
+                                    </th:block>
 
+                                    <div class="comment-block_mini"></div>
 
                                     <div class="comment-block">
                                         <th:block th:each="comment : ${commentList}">
-                                            <div class="sc-5e8de0d6-1 kAbAZt">
-                                                <div class="sc-5e8de0d6-2 cpQiyf">
-                                                    <div class="sc-c9e981f7-0 dendhJ">
-                                                        <div class="sc-c9e981f7-1 ehEcUl">
-                                                            <img src="/img/member/신짱구.png">
+                                            <div class="thCommentBox">
+                                                <div class="commentBox">
+                                                    <div class="commentBox1">
+                                                        <div class="sc-c9e981f7-0 dendhJ">
+                                                            <div class="sc-c9e981f7-1 ehEcUl">
+                                                                <img src="/img/member/신짱구.png">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="sc-5e8de0d6-3 chnpuB">
+                                                    <div class="sc-5e8de0d6-3 chnpuB">
                                                     <span class="sc-5e8de0d6-4 gBUxqr"
                                                           th:text="${comment.user.userName}"></span>
-                                                    <span
-                                                            class="sc-5e8de0d6-5 hotNUk"
-                                                            th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                        <span
+                                                                class="sc-5e8de0d6-5 hotNUk"
+                                                                th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <textarea th:id="'textarea'+${comment.getCo_number()}" th:text="${comment.getCo_content()}" class="commentDelBtn"></textarea>
+                                                <textarea th:id="'textarea'+${comment.getCo_number()}"
+                                                          th:text="${comment.getCo_content()}" class="commentDelBtn"
+                                                          style="font-family: Arial, sans-serif"></textarea>
 
-                                            <p class="sc-5e8de0d6-6 gUqDoq" th:text="${comment.co_content}" ></p>
-                                            <!-- 이부분이 원래 댓글을 보여주는 text 박스-->
+                                                <p class="gotMsg" th:text="${comment.co_content}"></p>
+                                                <!-- 이부분이 원래 댓글을 보여주는 text 박스-->
 
-                                            <div class="sc-5e8de0d6-7 jXMuyg">
-                                                <div class="sc-5e8de0d6-8 fIIDkd">
-                                                    <button class="add_reply_btn">답글 달기</button>
-                                                    <button th:id="${comment.getCo_number()}" type="button" class="add_reply_btnUpdate">등록</button>
-                                                    <button th:id="${comment.getCo_number()}" type="button" class="add_reply_btnEdit">수정</button>
-                                                    <button th:id="${comment.getCo_number()}" type="button" class="add_reply_btnDelete">삭제</button>
+
+                                                <div class="sc-5e8de0d6-7 jXMuyg">
+                                                    <div class="sc-5e8de0d6-8 fIIDkd">
+                                                        <th:block th:if="${session.user != null}">
+                                                            <button class="add_reply_btn">채팅 하기</button>
+                                                        </th:block>
+                                                        <th:block th:if="${comment.user == session.user}">
+                                                            <button th:id="${comment.getCo_number()}" type="button"
+                                                                    class="add_reply_btnUpdate">등록
+                                                            </button>
+                                                        </th:block>
+                                                        <th:block th:if="${comment.user == session.user}">
+                                                            <button th:id="${comment.getCo_number()}" type="button"
+                                                                    class="add_reply_btnEdit">수정
+                                                            </button>
+                                                        </th:block>
+                                                        <th:block th:if="${comment.user == session.user}">
+                                                            <button th:id="${comment.getCo_number()}" type="button"
+                                                                    class="add_reply_btnDelete">삭제
+                                                            </button>
+                                                        </th:block>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </th:block>
@@ -276,9 +297,9 @@
 
                                     <!--                                 ajax안쓸거면 이거로 해야함 -->
 
-<!--                                    <th:block th:if="${eventPtcpPsbOrdData != null && #lists.size(eventPtcpPsbOrdData.eventPtcpOrdInfoList) > 0}">-->
-<!--                                        <input type="hidden" id="ibx_TotalPurAplAmt" th:value="${totalPurAplAmt}"/>-->
-<!--                                    </th:block>-->
+                                    <!--                                    <th:block th:if="${eventPtcpPsbOrdData != null && #lists.size(eventPtcpPsbOrdData.eventPtcpOrdInfoList) > 0}">-->
+                                    <!--                                        <input type="hidden" id="ibx_TotalPurAplAmt" th:value="${totalPurAplAmt}"/>-->
+                                    <!--                                    </th:block>-->
                                     <th:block th:if="${#lists.isEmpty(commentList)}">
                                         <div class="no-comment"> <!-- object-fit : cover ; 깨지지않게 조정-->
 
@@ -293,7 +314,6 @@
 
 
                                 </form>
-
 
 
                                 <!-- an_conatiner 끝-->
@@ -322,8 +342,12 @@
                                                 </p>
                                                 <div class="an_container_two_jum"></div>
 
-                                                <div class="user_agender" th:if="${accompany.user?.userGender == 'M'}">남성</div>
-                                                <div class="user_agender" th:if="${accompany.user?.userGender != 'M'}">여성</div>
+                                                <div class="user_agender" th:if="${accompany.user?.userGender == 'M'}">
+                                                    남성
+                                                </div>
+                                                <div class="user_agender" th:if="${accompany.user?.userGender != 'M'}">
+                                                    여성
+                                                </div>
                                             </div>
 
                                         </div>
@@ -429,6 +453,8 @@
                                 </div>
 
                             </div>
+
+
                         </div>
 
 
@@ -459,124 +485,156 @@
     <!--모달창 시작-->
     <div id="modal" class="modal-overlay">
 
-            <div class="modal-window"><!--dDJVYV-->
-                <div class="content">
-                    <div class="dal_title"> <!--column-->
-                        <div class="dal_title1">
-                            <div class="dal_title1_in">
-                                <div class="an_container_up_div_Icon3"><!--fLHPjX-->
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                         viewBox="0 0 448 512" class="an_container_up_div_Icon3_con">
-                                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                        <style>svg {
+        <div class="modal-window"><!--dDJVYV-->
+            <div class="content">
+                <div class="dal_title"> <!--column-->
+                    <div class="dal_title1">
+                        <div class="dal_title1_in">
+                            <div class="an_container_up_div_Icon3"><!--fLHPjX-->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                     viewBox="0 0 448 512" class="an_container_up_div_Icon3_con">
+                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                    <style>svg {
 
-                                        }</style>
-                                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-                                              fill="#ACADB1"></path>
-                                    </svg>
-
-
-                                    <div class="an_container_up_div_Icon23">
-                                        <span class="an_container_two_13" th:text="${accompany.user.getUserId()}"></span>
+                                    }</style>
+                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                                          fill="#ACADB1"></path>
+                                </svg>
 
 
-                                        <div class="an_container_two3">
-                                            <div class="an_container_two_mini3"><!--nfGsC-->
+                                <div class="an_container_up_div_Icon23">
+                                    <span class="an_container_two_13" th:text="${accompany.user.getUserId()}"></span>
 
-                                                <!-- checkbox icon 끝 -->
-                                                <div class="an_container_two_23">
-                                                    <p class="an_container_two_2_p3" th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></p>
-                                                    <div class="an_container_two_jum3"></div>
-                                                    <p class="an_container_two_2_p3" th:text="${accompany.user.userGender}"></p>
-                                                </div>
 
+                                    <div class="an_container_two3">
+                                        <div class="an_container_two_mini3"><!--nfGsC-->
+
+                                            <!-- checkbox icon 끝 -->
+                                            <div class="an_container_two_23">
+                                                <p class="an_container_two_2_p3"
+                                                   th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></p>
                                                 <div class="an_container_two_jum3"></div>
-                                                <p class="an_container_two_2_b3">한국</p>
-
+                                                <p class="an_container_two_2_p3"
+                                                   th:text="${accompany.user.userGender}"></p>
                                             </div>
+
+                                            <div class="an_container_two_jum3"></div>
+                                            <p class="an_container_two_2_b3">한국</p>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="close-area">X</div>
                         </div>
-
-
-                        <p class="dal_title1p">소개가 없습니다.</p>
-                        <div class="dal_title2">
-                            <button class="dal_title2_boxes">신고하기</button>
-                            <button class="dal_title2_boxes">차단하기</button>
-                        <button class="dal_title2_boxes" id = "chat-btn" th:value = "${accompany.user.userNumber}">1:1 채팅</button>
-                        </div>
-
-                        <div class="dal_title3">
-                            <p>SNS 계정</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
-                                      fill="#00b8ff">
-                                </path>
-                            </svg>
-                            <span>등록된 계정이 없습니다.</span>
-                        </div>
-                        <div class="dal_title4">
-                            <p>나의 여행 관심사</p>
-                            <div class="dal_title4_boxes1">
-                                <div class="dal_title4_boxes2">선택된 관심사가 없어요</div>
-                            </div>
-                        </div>
-
-                    </div><!-- dal_title-->
-
-
-                    <div class="dal_md">
-                        <div class="dal_md_div">
-                            <p class="dal_md_divp">받은 동행 후기
-                                <span>0</span>
-                            </p>
-                            <p class="dal_md_divp2">더보기</p></div>
-                        <div class="dal_md_div2">
-                            <svg width="40" height="40" viewBox="0 0 20 17" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_395_10513)">
-                                    <path d="M13.75 0.5H6.25C2.79822 0.5 0 3.3276 0 6.81562C0 10.3036 2.79822 13.1312 6.25 13.1312H13.75C17.2018 13.1312 20 10.3036 20 6.81562C20 3.3276 17.2018 0.5 13.75 0.5Z"
-                                          fill="#dbdbdb"></path>
-                                    <path d="M7.41035 10.9688L8.90853 7.80971C9.11576 7.6003 9.39682 7.48266 9.68989 7.48266C9.98295 7.48266 10.264 7.6003 10.4712 7.80971L11.9703 10.9679C12.1775 11.1773 12.294 11.4613 12.294 11.7575C12.294 12.0536 12.1775 12.3376 11.9703 12.547L10.4721 15.7097C10.3694 15.8135 10.2475 15.8958 10.1133 15.9519C9.97917 16.008 9.83536 16.0369 9.69015 16.0368C9.54493 16.0367 9.40115 16.0077 9.26704 15.9514C9.13292 15.8952 9.0111 15.8127 8.90853 15.7088L7.41035 12.5497C7.30748 12.446 7.22586 12.3228 7.17017 12.1872C7.11448 12.0515 7.08582 11.9061 7.08582 11.7593C7.08582 11.6124 7.11448 11.467 7.17017 11.3314C7.22586 11.1958 7.30748 11.0725 7.41035 10.9688Z"
-                                          fill="#dbdbdb"></path>
-                                    <path d="M5 8.07898C5.69036 8.07898 6.25 7.51346 6.25 6.81586C6.25 6.11825 5.69036 5.55273 5 5.55273C4.30964 5.55273 3.75 6.11825 3.75 6.81586C3.75 7.51346 4.30964 8.07898 5 8.07898Z"
-                                          fill="white"></path>
-                                    <path d="M10 8.07898C10.6904 8.07898 11.25 7.51346 11.25 6.81586C11.25 6.11825 10.6904 5.55273 10 5.55273C9.30964 5.55273 8.75 6.11825 8.75 6.81586C8.75 7.51346 9.30964 8.07898 10 8.07898Z"
-                                          fill="white"></path>
-                                    <path d="M15 8.07898C15.6904 8.07898 16.25 7.51346 16.25 6.81586C16.25 6.11825 15.6904 5.55273 15 5.55273C14.3096 5.55273 13.75 6.11825 13.75 6.81586C13.75 7.51346 14.3096 8.07898 15 8.07898Z"
-                                          fill="white"></path>
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_395_10513">
-                                        <rect width="20" height="16" fill="white" transform="translate(0 0.5)"></rect>
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <p>동행 후기 내역이 없습니다.</p></div>
-
+                        <div class="close-area">X</div>
                     </div>
 
 
-                    <div class="dal_btm">
-                        <input name="text" placeholder="동행후기를 달아보세요! (50자 이내)"
-                               maxlength="50" class="dal_btm_text" value="">
-                        <button class="dal_btm_btn" disabled="">등록</button>
-
+                    <p class="dal_title1p">소개가 없습니다.</p>
+                    <div class="dal_title2">
+                        <button class="dal_title2_boxes">신고하기</button>
+                        <button class="dal_title2_boxes">차단하기</button>
+                        <button class="dal_title2_boxes" id="chat-btn" th:value="${accompany.user.userNumber}">1:1 채팅
+                        </button>
                     </div>
 
-                </div> <!--content div-->
+                    <div class="dal_title3">
+                        <p>SNS 계정</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                            <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                                  fill="#00b8ff">
+                            </path>
+                        </svg>
+                        <span>등록된 계정이 없습니다.</span>
+                    </div>
+                    <div class="dal_title4">
+                        <p>나의 여행 관심사</p>
+                        <div class="dal_title4_boxes1">
+                            <div class="dal_title4_boxes2">선택된 관심사가 없어요</div>
+                        </div>
+                    </div>
+
+                </div><!-- dal_title-->
 
 
-                <div>
+                <div class="dal_md">
+                    <div class="dal_md_div">
+                        <p class="dal_md_divp">받은 동행 후기
+                            <span>0</span>
+                        </p>
+                        <p class="dal_md_divp2">더보기</p></div>
+                    <div class="dal_md_div2">
+                        <svg width="40" height="40" viewBox="0 0 20 17" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_395_10513)">
+                                <path d="M13.75 0.5H6.25C2.79822 0.5 0 3.3276 0 6.81562C0 10.3036 2.79822 13.1312 6.25 13.1312H13.75C17.2018 13.1312 20 10.3036 20 6.81562C20 3.3276 17.2018 0.5 13.75 0.5Z"
+                                      fill="#dbdbdb"></path>
+                                <path d="M7.41035 10.9688L8.90853 7.80971C9.11576 7.6003 9.39682 7.48266 9.68989 7.48266C9.98295 7.48266 10.264 7.6003 10.4712 7.80971L11.9703 10.9679C12.1775 11.1773 12.294 11.4613 12.294 11.7575C12.294 12.0536 12.1775 12.3376 11.9703 12.547L10.4721 15.7097C10.3694 15.8135 10.2475 15.8958 10.1133 15.9519C9.97917 16.008 9.83536 16.0369 9.69015 16.0368C9.54493 16.0367 9.40115 16.0077 9.26704 15.9514C9.13292 15.8952 9.0111 15.8127 8.90853 15.7088L7.41035 12.5497C7.30748 12.446 7.22586 12.3228 7.17017 12.1872C7.11448 12.0515 7.08582 11.9061 7.08582 11.7593C7.08582 11.6124 7.11448 11.467 7.17017 11.3314C7.22586 11.1958 7.30748 11.0725 7.41035 10.9688Z"
+                                      fill="#dbdbdb"></path>
+                                <path d="M5 8.07898C5.69036 8.07898 6.25 7.51346 6.25 6.81586C6.25 6.11825 5.69036 5.55273 5 5.55273C4.30964 5.55273 3.75 6.11825 3.75 6.81586C3.75 7.51346 4.30964 8.07898 5 8.07898Z"
+                                      fill="white"></path>
+                                <path d="M10 8.07898C10.6904 8.07898 11.25 7.51346 11.25 6.81586C11.25 6.11825 10.6904 5.55273 10 5.55273C9.30964 5.55273 8.75 6.11825 8.75 6.81586C8.75 7.51346 9.30964 8.07898 10 8.07898Z"
+                                      fill="white"></path>
+                                <path d="M15 8.07898C15.6904 8.07898 16.25 7.51346 16.25 6.81586C16.25 6.11825 15.6904 5.55273 15 5.55273C14.3096 5.55273 13.75 6.11825 13.75 6.81586C13.75 7.51346 14.3096 8.07898 15 8.07898Z"
+                                      fill="white"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_395_10513">
+                                    <rect width="20" height="16" fill="white" transform="translate(0 0.5)"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p>동행 후기 내역이 없습니다.</p></div>
+
                 </div>
+
+
+                <div class="dal_btm">
+                    <input name="text" placeholder="동행후기를 달아보세요! (50자 이내)"
+                           maxlength="50" class="dal_btm_text" value="">
+                    <button class="dal_btm_btn" disabled="">등록</button>
+
+                </div>
+
+            </div> <!--content div-->
+
+
+            <div>
             </div>
+        </div>
         </th:block>
     </div> <!--content div-->
 </div>
+
+
+<!-- 일정 추가 모달 창 -->
+
+
+<div id="planModal" class="modal-overlay">
+    <div class="planModal-window">
+        <div class="title">
+            <p>일정 추가하기</p>
+            <div class="planCloseArea">X</div>
+        </div>
+
+        <div class="content" id="idSubject" th:text="${accompany.user.userName} + '님의 여행일정'"></div>
+        <div class="content" id="introAddPlan">
+            <div class="content_sub1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" fill="#00b8ff"></path></svg>
+
+           </div>
+            <p class="sc-f938c304-8 gPQvtL">동행글에 추가할 여행일정을 선택해주세요</p>
+
+
+
+
+        </div>
+        <div class="content">3. 세번째 공지사항</div>
+        <div class="content">4. 네번째 공지사항</div>
+    </div>
+</div>
+<!-- 일정추가 모달창 끝-->
 
 
 </div> <!--모달창 끝-->
@@ -604,6 +662,7 @@
 <script src="/js/header.js"></script>
 <!--<script src="/js/community/accompany/accompanyDetailComment.js"></script>-->
 <script src="/js/community/accompany/accompany_detail_profile.js"></script>
+<script src="/js/community/accompany/accompany_plan.js"></script>
 <script src="/js/community/accompany/accompany_detail.js"></script>
 <script src="/js/community/accompany/comment_write.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

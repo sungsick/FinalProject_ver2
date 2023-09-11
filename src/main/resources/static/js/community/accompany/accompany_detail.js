@@ -2,8 +2,9 @@ $('.add_reply_btnEdit').click(function (event) {
 
     console.log('댓글 수정 버튼 AJAX 실행')
 
+    $('.add_reply_btnEdit').css('display', 'none')
     $('.commentDelBtn').css('display', 'block')
-    $('.gUqDoq').css('display', 'none')
+    $('.gotMsg').css('display', 'none')
     $('.add_reply_btnUpdate').css('display', 'inline-block')
 });
 
@@ -100,4 +101,8 @@ $('#deleteBtn').click(function () {
             Swal.fire('삭제 실패', '작업 수행에 실패하였습니다.', 'error');
         }
     })
+
+
 });
+
+
