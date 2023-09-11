@@ -1,5 +1,6 @@
 package com.kh.myproject.store.flight.controller;
 
+import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.service.FlightService;
@@ -22,7 +23,7 @@ public class FlightController {
     //노선목록
     final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
     private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
-    private FlightTicketDto ticketDto;
+    private PaybillDto ticketDto;
 
     /*@GetMapping("/store/flight/flights")
     public ModelAndView flightMain(ModelAndView mav){
@@ -97,7 +98,7 @@ public class FlightController {
     }
 
     @PostMapping("/store/flight/reservationFlight")
-    public void saveFlight(@RequestBody FlightTicketDto ticket,
+    public void saveFlight(@RequestBody PaybillDto ticket,
                            @ModelAttribute("user") User user) {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보

@@ -221,10 +221,10 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            btnKakaoPay.disabled = true;
-            $("#input_phone").focus();
+                btnKakaoPay.disabled = true;
+                $("#input_phone").focus();
             });
 
         }
@@ -269,17 +269,17 @@ $(function () {
                 icon: 'success',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            auth_check = true;
+                auth_check = true;
 
-            $('#verify').addClass('auth');
-            $('#verifyBtn').addClass('auth');
-            $('#input_phone').val("인증완료");
-            $('#input_phone').css('color', '#0064de');
-            $('#input_phone').css('border-color', '#0064de');
-            $('#input_phone').prop('disabled', true);
-            $("#btnKakaoPay").disabled = false;
+                $('#verify').addClass('auth');
+                $('#verifyBtn').addClass('auth');
+                $('#input_phone').val("인증완료");
+                $('#input_phone').css('color', '#0064de');
+                $('#input_phone').css('border-color', '#0064de');
+                $('#input_phone').prop('disabled', true);
+                $("#btnKakaoPay").disabled = false;
             });
 
         } else {
@@ -289,11 +289,11 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            $('#input_auth').focus();
-            auth_check = false;
-            $("#btnKakaoPay").disabled = ture;
+                $('#input_auth').focus();
+                auth_check = false;
+                $("#btnKakaoPay").disabled = ture;
             });
 
 
@@ -313,7 +313,7 @@ $(function () {
 
 // 시작일과 종료일을 "월. 일. 시간" 형식에서 날짜와 시간으로 분리
     var startDateParts = startDateStr.split('. ');
-    var endDateParts = endDateStr.split( '. ');
+    var endDateParts = endDateStr.split('. ');
 
 // "월. 일" 형식의 날짜를 Date 객체로 변환 (현재 년도 기준으로)
     var startDate = new Date(new Date().getFullYear(), parseInt(startDateParts[0]) - 1, parseInt(startDateParts[1]), parseInt(startDateParts[2]));
@@ -417,7 +417,7 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
                 $("#input_name").focus();
             });
@@ -430,9 +430,9 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            $("#input_phone").focus();
+                $("#input_phone").focus();
             });
 
         } else if (!auth_check) {
@@ -443,9 +443,9 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            $("#input_phone").focus();
+                $("#input_phone").focus();
             });
 
 
@@ -457,9 +457,9 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            $("#input_birth").focus();
+                $("#input_birth").focus();
             });
 
         } else if (!birthpattern.test(query.input_birth)) {
@@ -479,10 +479,10 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            btnKakaoPay.disabled = true;
-            $("input[formcontrolname='gender']:checked").focus();
+                btnKakaoPay.disabled = true;
+                $("input[formcontrolname='gender']:checked").focus();
             });
 
         } else if (query.selectBox === "") {
@@ -493,9 +493,9 @@ $(function () {
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
 
-            $("select[name='selectBox']").focus();
+                $("select[name='selectBox']").focus();
             });
 
         } else {
@@ -518,6 +518,7 @@ $(function () {
                 rentDepartureDate: $('#departureDate').val(),
                 rentArrivalDate: $('#arrivalDate').val(),
                 rentImg: $("#carImg").val(),
+                rentAccommodate: $("#carPeople").val(),
                 checkFlag: checkFlag,
 
             };
