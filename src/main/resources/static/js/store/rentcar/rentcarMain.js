@@ -93,6 +93,58 @@ $(document).ready(function () {
     });
 
 
+    $('form').on('submit', function(e){
+        e.preventDefault();
+        console.log('a');
+        var location = $('#input_location').val();
+        var departDate = $('#depart_date').val();
+        var arriveDate = $('#arrive_date').val();
+        var birth = $('#input_birth').val();
+
+        if(location === ''){
+            Swal.fire({
+                title: '대여 위치를 선택해 주세요.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function(){
+                return;
+            });
+
+        } else if(departDate === ''){
+            Swal.fire({
+                title: '대여 날짜를 선택해 주세요.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function(){
+                return;
+            });
+        } else if(arriveDate === ''){
+            Swal.fire({
+                title: '반납 날짜를 선택해 주세요.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function(){
+                return;
+            });
+        } else if(birth === '') {
+            Swal.fire({
+                title: '생년월일을 입력해 주세요.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function(){
+                return;
+            });
+        } else {
+            $('form').unbind();
+        }
+
+
+    });
+
 });
 
 
@@ -597,4 +649,7 @@ function moveToGyeongju() {
     // rentcarReserve.html 페이지로 이동
     location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
 }
+
+
+
 

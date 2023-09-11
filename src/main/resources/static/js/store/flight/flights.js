@@ -20,7 +20,7 @@ $(function () {
         type: 'get',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+
             var item = data.response.body.items.item;
 
             /* 출발 */
@@ -264,7 +264,7 @@ function appendFlight(item, index) {
     var logo = getLogo(item.airlineNm);
     item.logo = logo;
     var param = JSON.stringify(item);
-    console.log(param);
+
     var startMin = item.depPlandTime.toString().slice(-2);
     var startHour = item.depPlandTime.toString().slice(-4, 10);
     var startTime = startHour + ":" + startMin;
