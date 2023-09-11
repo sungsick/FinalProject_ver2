@@ -3,6 +3,7 @@ package com.kh.myproject.member.manager.controller;
 
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.manager.service.*;
 import com.kh.myproject.member.manager.service.AccompanyServiceM;
@@ -10,9 +11,11 @@ import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.manager.service.QnaServiceM;
 import com.kh.myproject.member.manager.service.UserServiceM;
+import com.kh.myproject.member.manager.service.CommentServiceM;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.member.manager.service.FlightServiceM;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+@Slf4j
 @Controller
 @SessionAttributes("manager")
 public class ManagerController {
@@ -50,6 +55,9 @@ public class ManagerController {
     @Autowired
     PlanServiceM planServiceM;
 
+    @Autowired
+    CommentServiceM commentServiceM;
+
 
     @GetMapping("/manager/home")
     public ModelAndView managerUser(
@@ -71,13 +79,14 @@ public class ManagerController {
             int qnaCount = qnaServiceM.countByQna();
             int countMen = userServiceM.countByUserGender("M");
             int countWomen = userServiceM.countByUserGender("F");
-
+            int userCount = userServiceM.selectUserCount(); // 총회원수..
             // 로그인 체크는 매니저로 하는데 세션 등록은 user로 한다. user에 admin계정을 만들어 놓고
             // 그 유저로 로그인을 시키는 것.
 
             User manager = userServiceM.getUserByManager(check_manager);
 
-            System.out.println("");
+
+            modelAndView.addObject("userCount", userCount);
             modelAndView.addObject("manager", manager);
             modelAndView.addObject("userList", userList);
             modelAndView.addObject("qnaCount", qnaCount);
@@ -144,8 +153,7 @@ public class ManagerController {
         // 외래키로 설정한 테이블의 모든 데이터를 지운다.
         // 동행글, 게시글, 댓글, 렌트카, 항공권
         flightServiceM.deleteTicketByUserNumber(user_number);
-        // accompanyServiceM.deleteByUserNumber(userNumber);
-
+        accompanyServiceM.deleteByUserNumber(user_number);
         System.out.println("accompany삭제 실행?");
 
         userServiceM.deleteUser(user_number);
@@ -483,32 +491,31 @@ public class ManagerController {
         return modelAndView;
     }
 
+
+    // 일정글 삭제
     @ResponseBody
     @PostMapping("/manager/deleteAccompany")
     public void deleteAccompany(@ModelAttribute(name = "userNumber")
-                                String userNumber) {
+                                Long userNumber) {
 
         System.out.println(userNumber);
+        // 게시글에 관련된 댓글을 모두 삭제하고 게시글을 삭제한다.
+        commentServiceM.deleteByUserUserNumber(userNumber);
         accompanyServiceM.deleteByUserNumber(userNumber);
 
-        List<Accompany> aList = accompanyServiceM.findAll();
-
-        System.out.println(aList);
 
     }
 
-//    일정 글
 
+
+//    일정 글 목록
     @GetMapping("/manager/plan")
     public ModelAndView plan(
-//            @ModelAttribute("manager") Manager check_manager,
-            ModelAndView modelAndView,
-            HttpSession session) {
-
+            ModelAndView modelAndView
+            ) {
 
         modelAndView.setViewName("member/manager/plan");
         List<PlanBoardDTO> planList = planServiceM.findAllByOrderByPbNumAsc();
-        System.out.println(planList);
         modelAndView.addObject("planList", planList);
 
 
@@ -518,9 +525,13 @@ public class ManagerController {
     @ResponseBody
     @PostMapping("/manager/deletePlan")
     public void deletePlan(@ModelAttribute(name = "userNumber")
-                           String userNumber) {
+                           Long userNumber) {
 
-        System.out.println(userNumber);
+        // 유저가 가지고 있는 일정 게시글을 모두 불러온다.
+        // 그 일정게시글을 이용해 일정게시글이 가지고 있는 pb_num과 일치하는 detail보드를 모두 삭제한다.
+        List<PlanBoard> planBoardList = planServiceM.getPlanBoardListByUserNumber(userNumber);
+        log.info("planBoardList = ->>>> {}",planBoardList);
+        planServiceM.deletePlanDetailBoard(planBoardList);
         planServiceM.deletePlan(userNumber);
     }
 }

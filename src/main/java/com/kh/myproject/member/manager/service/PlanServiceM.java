@@ -2,8 +2,8 @@ package com.kh.myproject.member.manager.service;
 
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.member.manager.repository.PlanDetailRepositoryM;
 import com.kh.myproject.member.manager.repository.PlanRepositoryM;
-import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,10 @@ public class PlanServiceM {
     @Autowired
     PlanRepositoryM planRepositoryM;
 
+    @Autowired
+    PlanDetailRepositoryM planDetailRepositoryM;
+
+
     public List<PlanBoardDTO> findAllByOrderByPbNumAsc() {
 
 
@@ -31,8 +35,25 @@ public class PlanServiceM {
         }
         return result;
     }
-    public void deletePlan(String userNumber){
+    public void deletePlan(Long userNumber){
 
-        planRepositoryM.deleteById(Long.parseLong(userNumber));
+        planRepositoryM.deleteById(userNumber);
+    }
+
+    public List<PlanBoard> getPlanBoardListByUserNumber(Long userNumber){
+
+        List<PlanBoard> planBoardList = planRepositoryM.findByUserUserNumber(userNumber);
+        return planBoardList;
+    }
+
+
+    public void deletePlanDetailBoard(List<PlanBoard> planBoardList){
+
+        for(int i = 0 ; i < planBoardList.size() ; i++){
+
+            Long pbNum = planBoardList.get(i).getPbNum();
+            planDetailRepositoryM.deleteByPlanBoardPbNum(pbNum);
+
+        }
     }
 }

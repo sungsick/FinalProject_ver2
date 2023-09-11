@@ -61,13 +61,6 @@ $(document).ready(function () {
 
 
 
-    $(function () {
-
-        console.log('hi')
-        $('html').removeClass('no-js');
-
-    });
-
 
 
 
@@ -94,9 +87,14 @@ $(document).ready(function () {
     });
 
 
+    $('.no-js').removeClass('no-js');
 
 
 
 })
+
+
+
+
 
 
