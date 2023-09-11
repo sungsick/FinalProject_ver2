@@ -23,12 +23,11 @@ public class TourController {
 
     @Autowired
     private TourService tourService;
-    final String TOURAPI_URL = "https://apis.data.go.kr/B551011/KorService1/";
+    private final String TOURAPI_URL = "https://apis.data.go.kr/B551011/KorService1/";
+    private final String SERVICE_KEY = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D";
 
-    final String SERVICE_KEY = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D";
-
-    final String LAST_URL = "&MobileOS=ETC&MobileApp=AppTest&_type=json";
-    final String DETAILCOMMON_LAST_URL = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1";
+    private final String LAST_URL = "&MobileOS=ETC&MobileApp=AppTest&_type=json";
+    private final String DETAILCOMMON_LAST_URL = "&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y&numOfRows=10&pageNo=1";
 
 
     @GetMapping("store/home")

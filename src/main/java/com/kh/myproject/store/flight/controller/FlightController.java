@@ -16,20 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class FlightController {
 
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
     //공항리스트
-    final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?";
+    private final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?";
     //노선목록
-    final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
+    private final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
     private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
     private FlightTicketDto ticketDto;
 
-    /*@GetMapping("/store/flight/flights")
-    public ModelAndView flightMain(ModelAndView mav){
 
-        mav.setViewName("store/flight/flights");
-        return mav;
-    }*/
     @GetMapping("/store/flight/flights")
     public ModelAndView flightMain(@RequestParam(value = "startAirport", required = false) String startAirport,
                                    @RequestParam(value = "endAirport", required = false) String endAirport,
@@ -52,18 +47,11 @@ public class FlightController {
 
     @GetMapping("/store/flight/pay/flightPayment")
     public ModelAndView flightTest(ModelAndView mav,
-                                   @ModelAttribute("user") User user,
-                                   @ModelAttribute("ticket") FlightTicketDto ticket) {
+                                   @ModelAttribute("user") User user) {
 
-//        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
-        log.info("ticket={}", ticket);
-//        for (FlightTicketInfo item : list) {
-//            log.info("ticketItem={}", item);
-//        }
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
-//        mav.addObject("ticketList", list); //티켓 리스트
         mav.setViewName("store/pay/flightPaymentPage");
         return mav;
     }
@@ -102,12 +90,8 @@ public class FlightController {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보
         ticket.setUser(user); //dto에 유저정보 저장
-//        mav.addObject("ticket",ticket);
         ticketDto = ticket; //전역변수에 저장
-//        mav.addObject("ticket", ticket);
-        //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
-//        mav.setViewName("/pay/flightPaymentPage");
-        //flightService.saveFlight(ticketInfo); //db에 저장
+
     }
 
     /*@GetMapping("/store/flight/remove")

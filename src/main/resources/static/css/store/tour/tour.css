@@ -721,7 +721,8 @@ h6 > b {
     left: 22px;
     top: 14px;
 }
-.find_to{
+
+.find_to {
     position: absolute;
     bottom: 80px;
     right: 30px;
@@ -735,7 +736,7 @@ h6 > b {
 }
 
 
-.find_to img{
+.find_to img {
     width: 66px;
     height: 66px;
     display: block;
@@ -819,10 +820,11 @@ h6 > b {
     }
 }
 
-.active>.page-link, .page-link.active{
+.active > .page-link, .page-link.active {
     background-color: #00B8FF;
     border-color: #00B8FF;
 }
+
 /*여행상점 메인*/
 
 
@@ -1023,6 +1025,61 @@ h6 > b {
     content: url("https://openimage.interpark.com/tour-desktop/pages/air/main/icon-oneway.png");
 }
 
+.mySwiper img {
+    height: 380px;
+    width: 100%;
+
+}
+
+#visual1 {
+    object-fit: cover;
+    object-position: center;
+}
+
+.visual_wrap {
+
+    position: relative;
+    height: 380px;
+    text-align: center;
+    color: white;
+}
+
+
+.visual_text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
+
+.visual_text strong {
+    font-size: 30px;
+}
+
+.visual_text span {
+    font-size: 18px;
+}
+
+#visual2 {
+    background: url(/img/store/tour/tourmain/main_02.jpg) center no-repeat;
+    background-size: 1200px 380px;
+}
+
+#visual3 {
+    background: url("/img/store/tour/tourmain/main_03.jpg") center no-repeat;
+    background-size: cover;
+}
+
+
+.visual_wrap .visual_title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 333px;
+    height: 317px;
+}
+
 /*지역 페이지*/
 
 .cities_container {
@@ -1177,57 +1234,3 @@ h6 > b {
 }
 
 
-.mySwiper img {
-    height: 380px;
-    width: 100%;
-
-}
-
-#visual1{
-    object-fit: cover;
-    object-position: center;
-}
-
-.visual_wrap{
-
-    position: relative;
-    height: 380px;
-    text-align: center;
-    color: white;
-}
-
-
-.visual_text{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 20px;
-}
-
-.visual_text strong{
-    font-size: 30px;
-}
-
-.visual_text span{
-    font-size: 18px;
-}
-
-#visual2{
-    background: url(/img/store/tour/tourmain/main_02.jpg) center no-repeat;
-    background-size: 1200px 380px;
-}
-
-#visual3{
-    background: url("/img/store/tour/tourmain/main_03.jpg") center no-repeat;
-    background-size: cover;
-}
-
-
-.visual_wrap .visual_title{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 10%;
-    width: 333px;
-    height: 317px;
-}

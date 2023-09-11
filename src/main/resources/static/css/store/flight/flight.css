@@ -1,4 +1,4 @@
-h1, h5, h6{
+h1, h5, h6 {
     font-weight: bold;
 }
 
@@ -18,17 +18,19 @@ h1 {
     position: relative;
 }
 
-.result_container{
+.result_container {
     margin-top: 55px;
 }
+
 .result_container hr {
     margin-top: 25px;
 }
-#total_count{
+
+#total_count {
     color: #00b8ff;
 }
 
-.flight_search_container{
+.flight_search_container {
     margin-top: 150px;
 }
 
@@ -69,9 +71,11 @@ h1 {
     display: inline-block;
     margin: 0 10px 2px 10px;
 }
-#result_flight_date{
+
+#result_flight_date {
     float: right;
 }
+
 .flight_search_form_title {
     border-bottom: 1px solid #e6e6e6;
     height: 60px;
@@ -261,15 +265,15 @@ h1 {
     box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
 }
 
-.none_result_table{
-        text-align: center;
-        /*display: none;*/
-        flex-direction: column;
-        justify-content: center;
-        height: 300px;
+.none_result_table {
+    text-align: center;
+    /*display: none;*/
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
 }
 
-.none_result_table:before{
+.none_result_table:before {
     content: '';
     background-image: url("https://m-flight.naver.com/list-02ee448f930ef566221f52da1d238713.png");
     background-size: 241px auto;
@@ -279,9 +283,11 @@ h1 {
     width: 66px;
     height: 66px;
 }
-.none_result_table p{
+
+.none_result_table p {
     color: #8f8f8f;
 }
+
 .result_table_inner {
     border-bottom: none;
     display: flex;
@@ -374,7 +380,6 @@ h1 {
 }
 
 .hr-sect {
-    /*display: flex;*/
     display: none;
     flex-basis: 100%;
     align-items: center;
@@ -481,7 +486,7 @@ h1 {
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
 }
 
-.loading_wrap{
+.loading_wrap {
     position: fixed;
     display: none;
     width: 100%;

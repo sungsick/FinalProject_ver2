@@ -1,14 +1,3 @@
-/*
-document.addEventListener('DOMContentLoaded', function() {
-    // 세션에서 값 가져오기
-    var arrive_date = document.getElementById("arrive_date").getAttribute("arrive_date");
-
-    // input 태그에 값 넣기
-    var arriveDateInput = document.getElementById("arrive_date");
-    arriveDateInput.value = arrive_date;
-});
-*/
-
 
 $(document).ready(function () {
     mainsearch();

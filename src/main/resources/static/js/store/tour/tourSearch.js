@@ -570,7 +570,13 @@ $('#search_keyword_btn').on('click', function () {
     console.log("keyWord = " + keyWord);
 
     if(keyWord === ''){
-        alert('검색어를 입력하세요.');
+        Swal.fire({
+            title: '검색어를 입력하세요.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        });
+
         return;
     }
 
