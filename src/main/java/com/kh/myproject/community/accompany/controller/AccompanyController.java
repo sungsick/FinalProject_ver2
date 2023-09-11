@@ -79,6 +79,17 @@ public class AccompanyController {
             accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
         }
 
+        else if (startAt != null && endAt != null) {
+                   // 최신순, 조회기간, 지역순
+
+                   accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
+               }
+
+
+
+
+
+
         else {
             accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
         }

@@ -52,11 +52,11 @@ void updateAccompany(@Param("accompany") Accompany accompany);
     List<Accompany> findByAc_numOrderByAc_regdate();
 
 
-    // 시작날짜와 마지막날짜 사이의 게시글을 찾는 쿼리
+    // 조회기간 : 시작날짜와 마지막날짜 사이의 게시글을 찾는 쿼리
     @Query("SELECT a FROM Accompany a WHERE a.ac_startdate BETWEEN :startDate AND :endDate")
     List<Accompany> findByAc_startdateBetween(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-    // 지역 선택하면 해당 지역 게시글만 나오게 쿼리
+    // 모든지역 : 지역 선택하면 해당 지역 게시글만 나오게 쿼리
     @Query("SELECT a FROM Accompany a WHERE a.ac_region LIKE %:ac_region%")
     List<Accompany> findByAc_regionContains(String ac_region);
 
@@ -67,6 +67,16 @@ void updateAccompany(@Param("accompany") Accompany accompany);
         "GROUP BY a.ac_num " +
         "ORDER BY commentCount DESC")
  List<Accompany> findAccompanyWithCommentCount();
+
+
+/* 여기서부터 중복 쿼리 메서드 */
+
+    /*1. 최신순, 조회기간, 모든지역*/
+    @Query("select a from Accompany a  " +
+            "WHERE a.ac_startdate BETWEEN :startDate AND :endDate order by a.ac_regdate")
+    List<Accompany> findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+
 
 }
 

@@ -706,23 +706,24 @@ button{
 
 #allRegion>.sub{
     display:none;
-    height:367px;
+    height:385px;
     list-style:none;
     overflow:hidden;
     background-color: white;
     z-index: 9999;
     position: absolute;
-    width: 75px;
+    width: 117px;
     margin-top: 11px;
     border:1px solid #afadad;
     border-radius: 10px;
     margin-left: -33px;
+    align-items: center;
 }
 
 #allRegion>.sub li{
     background-color: white;
     width: 130px;
-    margin-left: -50px;
+    margin-left: -40px;
     right: 60px;
     border-radius: 9px;
     margin-top: 5px;
@@ -732,7 +733,7 @@ button{
     border: 2px solid rgb(184, 219, 243);
     background-color: rgb(198, 220, 236);
     font-weight: 900;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 #allRegion>.sub li>button{
