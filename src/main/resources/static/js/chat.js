@@ -4,19 +4,26 @@ var roomId = -1;
 var webSocket = null;
 
 
-var url = location.pathname;
-console.log(url);
+var url = location.pathname.split('/');
+
+
+// /로 자르면 이런식으로 잘린다.
+//['','manager','home'];
 
 console.log(userNumber)
+console.log(url[1])
 
-if (url === '/chatTest1') {
+if (url[1] === 'chatTest1') {
     userNumber = 1;
-} else if (url === '/chatTest2') {
+} else if (url[1] === 'chatTest2') {
     userNumber = 2;
-} else if (url === '/chatTest3') {
+} else if (url[1] === 'chatTest3') {
     userNumber = 3;
-} else if (url === '/chatTest4') {
+} else if (url[1] === 'chatTest4') {
     userNumber = 4;
+} else if (url[1] === 'manager') {
+
+    userNumber = 0;
 }
 
 
@@ -49,6 +56,7 @@ $('#quit-chat-btn').click(function () {
     $('.message-block').remove(); // 채팅 메시지 블럭 제거
     $('#back-chat-btn').addClass('disappear'); // 뒤로가기버튼 disappear
     $('.chat-room-info').addClass('disappear');
+    $('.my-message').remove();
     $('#modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
 
     if (webSocket != null) {
@@ -67,6 +75,7 @@ $('#back-chat-btn').click(function () { // 뒤로가기 버튼 클릭시 채팅�
     $('#back-chat-btn').addClass('disappear'); // 뒤로가기버튼 disappear
     $('.chat-room-info').addClass('disappear');
     $('#modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
+    $('.my-message').remove();
     // 현재 열려 있는 채팅방의 소켓을 닫는다.
 
     webSocket.close(); // 이것만으로는 java의 소켓 세션이 종료되지 않는다.
@@ -103,7 +112,8 @@ function showChatRoom() {
 
     if (userNumber == -1) {
 
-        alert("로그인이 필요한 서비스입니다.");
+        Swal.fire('로그인 후 이용해 주세요.', '', 'info')
+
         return;
     }
 
@@ -147,10 +157,8 @@ function addLastMessage(data) {
 
     for (var i = 0; i < roomList.length; i++) {
 
-        var roomId = roomList[i].roomId; // 전역변수 roomId x. 전역변수 roomId는 현재 내 위치가 어디있는지 파악하기 위함이다.
-        // webSocket = new WebSocket('ws://' + location.host + '/ws/' + roomId + '/' + userNumber);
-        // webSocketList[roomId] = webSocket; // webSocketList에 roomId를 키값으로 해서 webSocket을 차례대로 put한다
-        // 즉 위코드는 다음과 같다 Map 객체에 put(key,value)
+        var roomId = roomList[i].roomId;
+
 
         var tmpUser = roomList[i].user1.userNumber != user.userNumber ? roomList[i].user1 : roomList[i].user2;
 
@@ -270,23 +278,53 @@ function addMessageBlock(message) {
 
     if (message.user.userNumber != userNumber) { //발신자와 수신자가 다를떄.
 
-        body = '<div class = "message-block">' +
-            '<div class = "message-img">' +
-            `<img class = "message-img" src="/file/profile_image/${user.userImg}" alt="">` +
-            '</div>' +
-            `<div class = "message-center">` +
-            `<div class = "message-userId">${userId}</div>` +
-            `<div class = "message-content" >${message.content}</div>` +
-            `</div>` +
-            `<div class = "message-time">${formattedDate}</div>` +
-            '</div>'
+
+        // <div className="message-block" style="margin-top: 100px;">
+        //     <div className="message-center">
+        //         <div className="message-img">
+        //             <img className="message-img" src="/img/store/rentcar/celtos.png" alt="">
+        //         </div>
+        //
+        //         <div className="message-userId">${userIsadasdd}</div>
+        //     </div>
+        //     <div className="message-bottom" style="display : flex; padding-left : 15px">
+        //         <div className="message-content"> s</div>
+        //
+        //         <div className="message-time">${formattedDate}</div>
+        //     </div>
+        // </div>
+        //
+        // body = '<div class = "message-block">' +
+        //     '<div class = "message-img">' +
+        //     `<img class = "message-img" src="/file/profile_image/${user.userImg}" alt="">` +
+        //     '</div>' +
+        //     `<div class = "message-center">` +
+        //     `<div class = "message-userId">${userId}</div>` +
+        //     `<div class = "message-content" >${message.content}</div>` +
+        //     `</div>` +
+        //     `<div class = "message-time">${formattedDate}</div>` +
+        //     '</div>'
+
+        body = `
+                  <div class="message-block">
+                    <div class="message-center">
+                      <div class="message-img">
+                             <img class = "message-img" src="/file/profile_image/${user.userImg}" alt=""> 
+                      </div>
+                      <div class="message-userId">${userId}</div>
+                    </div>
+                    <div class="message-bottom">
+                      <div class="message-content">${message.content}</div>
+                      <div class="message-time">${formattedDate}</div>
+                    </div>
+                  </div>`;
 
     } else {
 
-        body = '<div class = "message-block my-message">' +
+        body = '<div class = "my-message">' +
             `<div class = "message-time">${formattedDate}</div>` +
-            `<div class = "message-center ">` +
-            `<div class = "message-content my-message-content" >${message.content}</div>` +
+            `<div class = "my-message-center">` +
+            `<div class = "my-message-content" >${message.content}</div>` +
             `</div>` +
             '</div>'
 

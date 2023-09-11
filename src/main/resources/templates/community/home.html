@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="no-js">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -15,20 +15,36 @@
 
 </head>
 <body>
+<div style="height :200px;"></div>
+<div class="message-block" style="margin-top: 100px;">
+    <div class="message-center">
+        <div class="message-img">
+            <img class="message-img" src="/img/store/rentcar/celtos.png" alt="">
+        </div>
+
+        <div class="message-userId">${userIsadasdd}</div>
+    </div>
+    <div class="message-bottom" style = "display : flex; padding-left : 15px">
+        <div class="message-content"> s</div>
+
+        <div class="message-time">${formattedDate}</div>
+    </div>
+</div>
+
 
 <div class="next">
     <header th:include="/header.html :: header"></header>
     <div class="m">
-        <!--        <div class="carousel">-->
-        <!--            <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"-->
-        <!--                              centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">-->
-        <!--                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>-->
-        <!--                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>-->
-        <!--                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>-->
-        <!--                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>-->
+        <div class="carousel">
+            <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+                              centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
 
-        <!--            </swiper-container>-->
-        <!--        </div>-->
+            </swiper-container>
+        </div>
 
         <div class="main_content1">
 
@@ -136,7 +152,7 @@
                         <div class="test2_content1">
                             <div class="user_profile">
                                 <div class="user_img">
-                                    <img src="/img/member/신짱구.png">
+                                    <img th:src="'/file/profile_image/' + ${plan.user.userImg}">
                                 </div>
                                 <div class="user_info">
                                     <div class="user_nick2" th:text="${plan.user.userName}"></div>
@@ -151,19 +167,22 @@
                                 <div class="trip_info">
                                     <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
                                     </div>
-                                    <div class="trip_date" th:text="${plan.pbStartDate} + '-' + ${plan.pbEndDate}">
+                                    <div class="trip_date"
+                                         th:text="${#strings.substring(plan.pbStartDate,2)} + ' ~ ' + ${#strings.substring(plan.pbEndDate,2)}">
                                         <!--9일 · 10/16-10/24--> </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="map">
 
                             <div th:id="${planStat.count}"
                                  style="width:100%;height:100%;position:relative;overflow:hidden;">
+
+                                <script type="text/javascript"
+                                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769"></script>
+
                                 <script th:inline="javascript">
-
-
-                                    // map.relayout(); // map 사이즈가 달라졌을 경우 지도를 다시 로드해줘야 지도가 불러와지고 좌표쪽으로 포커스가 간다.
 
 
                                     console.log([[${planStat.count}]]);
@@ -228,16 +247,12 @@
                                         }
                                     }
 
-                                    map.relayout(); // map 사이즈가 달라졌을 경우 지도를 다시 로드해줘야 지도가 불러와지고 좌표쪽으로 포커스가 간다.
+                                    // map.relayout(); // map 사이즈가 달라졌을 경우 지도를 다시 로드해줘야 지도가 불러와지고 좌표쪽으로 포커스가 간다.
 
 
                                 </script>
 
                             </div>
-
-                            <script type="text/javascript"
-                                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769"></script>
-
 
 
                         </div>
@@ -412,8 +427,6 @@
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769&libraries=services,clusterer,drawing"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-
-
 
 
 </body>

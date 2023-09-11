@@ -1,5 +1,6 @@
+
 body{
-  zoom: 1.1;
+    zoom: 1.1;
 }
 .main_container{
     width: 1200px;
@@ -819,43 +820,6 @@ textarea{
     background: #00B8FF;
 }
 
-
-
-
-
-
-/*여행일정*/
-.main_content2 {
-    display: flex;
-    flex-direction: column;
-    margin: 50px 0px;
-}
-
-.main_content1_text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.mct_1 {
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.mct_2 {
-    font-size: 14px;
-    color: #00b8ff;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.main_content1_box {
-    margin: 30px 0px;
-    display: flex;
-    /*justify-content: space-between;*/
-    flex-wrap: wrap;
-}
-
 .test2 {
     position: relative;
     box-sizing: border-box;
@@ -868,7 +832,6 @@ textarea{
     border-radius: 14px;
     box-shadow: rgba(25, 25, 25, 0.2) 0px 6px 10px;
     transition: all 0.15s ease-out 0s;
-    margin-right: 18px;
 }
 
 .test2_content1 {
@@ -889,13 +852,6 @@ textarea{
     top: 8px;
     left: 8px;
     z-index: 3;
-}
-
-.user_profile, .trip_profile {
-    width: 44%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .user_img {
@@ -923,7 +879,7 @@ textarea{
 
 .user_agender2 {
     font-size: 11px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: 60px;
 }
@@ -979,16 +935,15 @@ textarea{
 .test2_area {
     margin-top: 190px;
     font-size: 15px;
-    color: #588fee;
+    color: #00B8FF;
     font-weight: 600;
     width: auto;
     background-color: ghostwhite;
 }
-
 .area_text {
     margin-left: 10px;
     padding: 10px 0px;
-    border-bottom: 2px #588fee;
+    border-bottom: 2px #00B8FF;
 }
 
 .area_text i {
@@ -1094,14 +1049,6 @@ svg:not(:root) {
     outline: none;
 }
 
-
-
-
-
-
-
-
-
 /*여행지*/
 .test2_place {
     box-sizing: border-box;
@@ -1124,46 +1071,6 @@ svg:not(:root) {
     border: 1px dashed rgb(233, 233, 233);
     border-radius: 10px;
 }
-
-
-
-
-.swiper {
-    width: 100%;
-    height: 100%;
-}
-
-.swiper-slide {
-    text-align: center;
-    font-size: 15px;
-    background: #fff;
-    font-weight: bold;
-
-    /* Center slide text vertically */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-
-
 
 /*일정담기, 일정상세보기 버튼*/
 .test2_button {
@@ -1209,26 +1116,134 @@ svg:not(:root) {
     height: 24px;
 }
 
-
-
-/*카카오맵*/
-/*카카오맵*/
-.map_wrap, .map_wrap * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-    font-size: 12px;
+.question_q{
+    cursor: pointer;
 }
-
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active {
-    color: #000;
-    text-decoration: none;
+.hide{
+    display: none;
 }
+.qna_div{
+    display: flex;
+    align-items: center;
 
-.map_wrap {
-    position: relative;
+}
+.my_question_list{
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+}
+.mql_title{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    padding: 12px 0px;
+    box-sizing: border-box;
+    background-color: rgb(248, 248, 248);
+    border-top: 1px solid gray;
+}
+.mql_list{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 12px 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gainsboro;
+    cursor: pointer;
+}
+.mql_list_new{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 12px 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid gainsboro;
+    cursor: pointer;
+}
+.mql_answer{
+    width: 100%;
+    height: auto;
+    padding: 12px 0px;
+    box-sizing: border-box;
+    padding-left: 20px;
+}
+.mql_title div, .mql_list div, .mql_list_new div{
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mql_answer div{
+    font-size: 13px;
+    margin-left: 20px;
+    font-weight: 600;
+}
+.mql_answer div i{
+    margin-right: 8px;
+}
+.mql_title div{
+    font-weight: bold;
+}
+
+.mt_1, .ml_1{
+    width: 105px;
+}
+.mt_2, .ml_2{
+    width: 210px;
+    max-width: 210px;
+}
+.mt_3, .ml_3{
+    width: 280px;
+    max-width: 280px;
+}
+.mt_4, .ml_4{
+    width: 105px;
+}
+.ml_4{
+    font-size: 10px !important;
+}
+.qna_status{
+    border-radius: 10px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    min-width: 80px;
+    height: 27px;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: rgb(252, 112, 112);
+    color: rgb(241, 249, 246);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+.qna_status2{
+    border-radius: 10px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    min-width: 80px;
+    height: 27px;
+    font-weight: 500;
+    font-size: 13px;
+    background-color: rgb(56, 224, 66);
+    color: rgb(241, 249, 246);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+}
+.answer_content{
+    display: flex;
+    align-items: center;
+    max-width: 600px;
 }
 
 

@@ -1,26 +1,17 @@
 package com.kh.myproject.member.manager.service;
 
 
-import com.kh.myproject.member.manager.repository.ManagerRepository;
-import com.kh.myproject.member.user.model.entity.Qna;
-import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.user.repository.QnaRepository;
+import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.manager.repository.UserRepositoryM;
+import com.kh.myproject.member.user.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,6 +118,12 @@ public class UserServiceM {
         int count = userRepository.countByUserGender(gender);
 
         return count;
+    }
+
+    public User getUserByManager(Manager manager){
+
+        return userRepository.findByUserIdAndUserPassword(manager.getManagerId(),manager.getManagerPassword());
+
     }
 
 

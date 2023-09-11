@@ -1,7 +1,7 @@
-package com.kh.myproject.member.chat2.repository;
+package com.kh.myproject.member.chat.repository;
 
-import com.kh.myproject.member.chat2.model.entity.ChatMessage;
-import com.kh.myproject.member.chat2.model.entity.ChatRoom;
+import com.kh.myproject.member.chat.model.entity.ChatMessage;
+import com.kh.myproject.member.chat.model.entity.ChatRoom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

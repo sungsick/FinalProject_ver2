@@ -57,10 +57,12 @@ public class ManagerController {
             ModelAndView modelAndView,
             HttpSession session) {
 
-        System.out.println(check_manager);
+        System.out.println("managerHome메서드입니다" + check_manager);
+        System.out.println(session.getAttribute("manager") + "manager값");
 
         if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
             //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+            // 첫번째 조건은 첫 로그인이고 두번쨰 조건은 로그인 이후 세션 등록한 조건이다.
 
 
             modelAndView.setViewName("/member/manager/home");
@@ -70,8 +72,12 @@ public class ManagerController {
             int countMen = userServiceM.countByUserGender("M");
             int countWomen = userServiceM.countByUserGender("F");
 
+            // 로그인 체크는 매니저로 하는데 세션 등록은 user로 한다. user에 admin계정을 만들어 놓고
+            // 그 유저로 로그인을 시키는 것.
 
-            modelAndView.addObject("manager", check_manager);
+            User manager = userServiceM.getUserByManager(check_manager);
+
+            modelAndView.addObject("manager", manager);
             modelAndView.addObject("userList", userList);
             modelAndView.addObject("qnaCount", qnaCount);
             modelAndView.addObject("countMen", countMen);
@@ -92,12 +98,13 @@ public class ManagerController {
     }
 
     @GetMapping("/manager/logout")
-    public String flightList(SessionStatus sessionStatus) {
+    public String logout(SessionStatus sessionStatus) {
 
         sessionStatus.setComplete(); // 매니저 세션을 죽인다.
 
         return "redirect:/";
     }
+
     @PostMapping("/test/getUserChart")
     @ResponseBody
     public Map<String, Object> getUserChart() {
@@ -187,9 +194,6 @@ public class ManagerController {
         List<User> userList = new ArrayList<>();
 
 
-        System.out.println("search_wod" + search_word);
-        System.out.println("search_option" + search_option);
-
         if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
 
             userCount = userServiceM.selectUserCount();
@@ -277,7 +281,6 @@ public class ManagerController {
         model.addAttribute("search_option", search_option);
         model.addAttribute("search_word", search_word);
 
-        System.out.println(userList);
 
         return "member/manager/user";
     }
@@ -288,27 +291,16 @@ public class ManagerController {
             ModelAndView modelAndView,
             HttpSession session) {
 
-        Manager check_manager = (Manager) session.getAttribute("manager");
 
-        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
-            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+        modelAndView.setViewName("member/manager/qna");
+        List<Qna> qnaList = qnaServiceM.getAllQna();
 
-            modelAndView.setViewName("member/manager/qna");
-            List<Qna> qnaList = qnaServiceM.getAllQna();
+        modelAndView.addObject("qnaList", qnaList);
 
-            modelAndView.addObject("manager", check_manager);
-            modelAndView.addObject("qnaList", qnaList);
+        // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
+        // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
+        // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
 
-            // 렌트카 테이블에서 상위 예약정보 몇개를 빼온다.
-            // 항공편 테이블에서 상위 예약정보 몇개를 빼온다.
-            // 게시글 목록에서 각 카ㅌ고리별 상위 게시글 1개씩 빼온다.
-
-        } else {
-
-            // url로 접속했을 경우 에러페이지로 이동시킨다.
-            modelAndView.setViewName("redirect:/errorPage");
-
-        }
 
         return modelAndView;
     }
@@ -447,22 +439,13 @@ public class ManagerController {
             ModelAndView modelAndView,
             HttpSession session) {
 
-        Manager check_manager = (Manager) session.getAttribute("manager");
-
-        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
-            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
-
-            modelAndView.setViewName("member/manager/rentcar");
-            List<RentReservationInfo> rentList = rentServiceM.getAllRent();
-            modelAndView.addObject("rentList", rentList);
+        User check_manager = (User) session.getAttribute("manager");
 
 
-        } else {
+        modelAndView.setViewName("member/manager/rentcar");
+        List<RentReservationInfo> rentList = rentServiceM.getAllRent();
+        modelAndView.addObject("rentList", rentList);
 
-            // url로 접속했을 경우 에러페이지로 이동시킨다.
-            modelAndView.setViewName("redirect:/errorPage");
-
-        }
 
         return modelAndView;
     }
@@ -489,23 +472,12 @@ public class ManagerController {
             ModelAndView modelAndView,
             HttpSession session) {
 
-        Manager check_manager = (Manager) session.getAttribute("manager");
 
-        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
-            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+        modelAndView.setViewName("member/manager/accompany");
+        List<Accompany> aList = accompanyServiceM.findAll();
+        System.out.println(aList);
+        modelAndView.addObject("aList", aList);
 
-            modelAndView.setViewName("member/manager/accompany");
-            List<Accompany> aList = accompanyServiceM.findAll();
-            System.out.println(aList);
-            modelAndView.addObject("aList", aList);
-
-
-        } else {
-
-            // url로 접속했을 경우 에러페이지로 이동시킨다.
-            modelAndView.setViewName("redirect:/errorPage");
-
-        }
 
         return modelAndView;
     }
@@ -532,23 +504,12 @@ public class ManagerController {
             ModelAndView modelAndView,
             HttpSession session) {
 
-        Manager check_manager = (Manager) session.getAttribute("manager");
 
-        if (check_manager.getManagerId() != null || session.getAttribute("manager") != null) {
-            //세션값이 있거나 userCOntroller에서 로그인 요청이 들어왔다면
+        modelAndView.setViewName("member/manager/plan");
+        List<PlanBoardDTO> planList = planServiceM.findAllByOrderByPbNumAsc();
+        System.out.println(planList);
+        modelAndView.addObject("planList", planList);
 
-            modelAndView.setViewName("member/manager/plan");
-            List<PlanBoardDTO> planList = planServiceM.findAllByOrderByPbNumAsc();
-            System.out.println(planList);
-            modelAndView.addObject("planList", planList);
-
-
-        } else {
-
-            // url로 접속했을 경우 에러페이지로 이동시킨다.
-            modelAndView.setViewName("redirect:/errorPage");
-
-        }
 
         return modelAndView;
     }

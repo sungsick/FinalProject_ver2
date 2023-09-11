@@ -200,6 +200,12 @@
 
 
                                 <div class="bt_container">
+
+                                    <div class="bt_container_m">
+
+                                        <p th:text = "${#dates.format(accompany.ac_regdate,'yyyy년 MM월 dd일')}"></p>
+                                    </div>
+
                                     <div class="bt_container_m">
                                         <p class="bt_container_m_view">조회수
                                             <span th:text="${accompany.ac_viewcount}"></span>

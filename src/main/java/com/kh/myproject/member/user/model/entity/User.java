@@ -56,6 +56,8 @@ public class User {
     @Column
     private LocalDateTime userRegdate; // 유저 가입날짜
 
+
+
     public User(Long userNumber, String userId, String userName, String userPassword, String userPhone, String userGender, Date userDate, String userMbti, String userImg, LocalDateTime userRegdate) {
         this.userNumber = userNumber;
         this.userId = userId;

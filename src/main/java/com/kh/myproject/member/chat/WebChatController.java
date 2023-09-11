@@ -1,10 +1,10 @@
-package com.kh.myproject.member.chat2;
+package com.kh.myproject.member.chat;
 
 
-import com.kh.myproject.member.chat2.model.entity.ChatMessage;
-import com.kh.myproject.member.chat2.model.entity.ChatRoom;
-import com.kh.myproject.member.chat2.service.ChatMessageService;
-import com.kh.myproject.member.chat2.service.ChatRoomService;
+import com.kh.myproject.member.chat.model.entity.ChatMessage;
+import com.kh.myproject.member.chat.model.entity.ChatRoom;
+import com.kh.myproject.member.chat.service.ChatMessageService;
+import com.kh.myproject.member.chat.service.ChatRoomService;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;

@@ -6,6 +6,7 @@ import com.kh.myproject.api.sensapi.service.SmsService;
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.member.chat.service.ChatRoomService;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.QnaForm;
 import com.kh.myproject.member.user.model.dto.UserForm;
@@ -48,6 +49,9 @@ public class UserController {
 
     @Autowired
     SmsService smsService;
+
+    @Autowired
+    ChatRoomService chatRoomService;
 
 
     @GetMapping("/")
@@ -127,6 +131,7 @@ public class UserController {
         String msg = "";
 
         if(check_manager instanceof Manager){
+            System.out.println("인스턴스 타입은 매니저입니다");
 
             modelAndView.setViewName("redirect:/manager/home"); // 로그인확인시 매니저라면 바로 매니저페이지로 이동.
             ra.addFlashAttribute("check_manager",check_manager);
@@ -270,15 +275,22 @@ public class UserController {
 
         User user = userForm.toEntity();
 
-        int join_result = userService.joinUser(user); // 회원가입 결과.
-
-        String msg = join_result == 1 ? "회원가입이 완료됐습니다" : "아이디가 중복 됐습니다.";
-
-//        modelAndView.setViewName("index");
-//        modelAndView.addObject("msg",msg);
+        User join_result = userService.joinUser(user); // 회원가입 결과.
 
 
-//        return "redirect:/joinSuccess?msg="+msg;
+
+        // 처음 가입시켰을 때 매니저와 연동되는 채팅방을 개설해놓는다.
+
+        if(join_result != null){
+
+            System.out.println("join_result결과" + join_result);
+            chatRoomService.addChatRoom(Long.valueOf(0),join_result.getUserNumber());
+        }
+
+
+
+
+
         return "community/home";
     }
 

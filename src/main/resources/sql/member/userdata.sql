@@ -16,6 +16,17 @@ VALUES
     ('user8@example.com', 'UserEight', 'userpass8', '01088888888', 'M', '2023-08-21', 'INTJ', 'default1.png', NOW()),
     ('user9@example.com', 'UserNine', 'userpass9', '01099999999', 'F', '2023-08-21', 'ISFP', 'default2.png', NOW());
 
+
+
+INSERT INTO `user` ( `user_number`, `user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`, `user_regdate`)
+VALUES
+    (0,'admin', 'admin', 'admin', '01000000000', 'M', '1900-01-01', 'ENTJ', 'manager.png', '2023-08-21 12:34:56');
+
+update finalproject.user
+set user_number = 0 where user_id = 'admin';
+
+
+
 INSERT INTO `manager` (`manager_id`, `manager_password`)
 VALUES ('admin', 'admin');
 
@@ -86,7 +97,7 @@ INSERT INTO accompany (user_number, ac_regdate, ac_title, ac_text, ac_people, ac
                        ac_status, ac_picture, ac_viewcount, ac_travelstyle, ac_personalhash)
 VALUES (1, '2023-09-03', '가을 나들이 동행자 찾아요', '가을에 함께 나들이를 가실 분을 찾습니다. 어느 지역이든 좋아요.', 2, '서울', '2023-10-15', '2023-10-30',
         '', 'acc1.png', 0, '', ''),
-       (2, '2023-09-04', '경주 여행 가고 싶어요', '경주로 여행을 계획 중이에요. 함께 가실 분 찾아요.', 1, '경주', '2023-11-05', '2023-11-15', '', 'acc2.jpeg',
+       (2, '2023-09-04', '경주 여행 가고 싶어요', '경주로 여행을 계획 중이에요. 함께 가실 분 찾아요.', 1, '경주', '2023-11-05', '2023-11-15', '', 'acc2.jpg',
         0, '', ''),
        (3, '2023-09-06', '소박한 마을 여행 동행자 구합니다', '한국의 소박한 마을을 여행하려고 합니다. 함께 가실 분 찾아요.', 2, '전라북도', '2023-10-10',
         '2023-10-25', '', 'acc3.jpeg', '0', '', ''),

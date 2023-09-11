@@ -1,7 +1,12 @@
 // 유효성 검사 실시. 나중
 $(document).ready(function () {
 
+    console.log($('#kakao_user_email').val());
 
+    if($('#kakao_user_email').val() != ''){
+
+        Swal.fire('회원 정보가 없어 카카오 계정을 통해 가입을 진행합니다.', '', 'info')
+    }
     //월선택에 따른 일자 출력 변경
 
     $('#user_month').on('change',function () {
@@ -45,21 +50,6 @@ $(document).ready(function () {
 
 
 
-        // 로직처리.
-
-        // switch(month){
-        //
-        //     case 1,3,5,7,8,10,12:
-        //         console.log("31일");
-        //         break;
-        //     case 2:
-        //         console.log('28일');
-        //         break;
-        //
-        //     case 4,6,11:
-        //         break;
-        //         console.log('30일');
-        // }
     })
 
 
@@ -289,8 +279,6 @@ $(document).ready(function () {
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형식검사 정규 표현식
 
         var user_value = $("#user_id").val();
-        console.log('check')
-        console.log($("#user_id").val())
 
         if (emailPattern.test(user_value)) { // 이메일형식이 맞으면 db와 아이디 중복 검사를 한다.
 
@@ -304,7 +292,7 @@ $(document).ready(function () {
 
                     if (id_check) {
 
-                        $('#id_check').text("사용가능한 이메일입니다.");
+                        $('#id_check').text("사용 가능한 이메일입니다.");
                         $('#id_check').css("color", "green");
 
                     } else {

@@ -1,4 +1,4 @@
-package com.kh.myproject.member.chat2.model.entity;
+package com.kh.myproject.member.chat.model.entity;
 
 
 import com.kh.myproject.member.user.model.entity.User;

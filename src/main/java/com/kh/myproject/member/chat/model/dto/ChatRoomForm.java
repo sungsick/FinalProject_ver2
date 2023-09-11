@@ -1,7 +1,7 @@
-package com.kh.myproject.member.chat2.model.dto;
+package com.kh.myproject.member.chat.model.dto;
 
 
-import com.kh.myproject.member.chat2.model.entity.ChatRoom;
+import com.kh.myproject.member.chat.model.entity.ChatRoom;
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
 

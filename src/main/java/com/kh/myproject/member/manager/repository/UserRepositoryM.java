@@ -48,4 +48,6 @@ public interface UserRepositoryM extends JpaRepository<User, Long> {
 
     int countByUserGender(String gender);
 
+    User findByUserIdAndUserPassword(String user_id, String user_password);
+
 }

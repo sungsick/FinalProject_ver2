@@ -54,12 +54,12 @@ public class UserService {
 
     }
 
-    public int joinUser(User user) {
+    public User joinUser(User user) {
 
 
         // 유효성 검사는 자바스크립트에서 실시한다.
 
-        int result = 0; // 반환할 리턴값
+        User result = null;
         System.out.println("service에서 받은user :" + user);
 
 
@@ -68,8 +68,8 @@ public class UserService {
         // 자바 스크립트에서 유효성 검사를 했지만 한번더 결과값 출력을 하기위해 유효성 검사를 실행한다.
 
         if (result_user == null) {
-            userRepository.save(user);
-            result = 1;
+           result  =  userRepository.save(user);
+
         }
 
         return result;

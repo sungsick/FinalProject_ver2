@@ -1,6 +1,6 @@
-package com.kh.myproject.member.chat2.repository;
+package com.kh.myproject.member.chat.repository;
 
-import com.kh.myproject.member.chat2.model.entity.ChatRoom;
+import com.kh.myproject.member.chat.model.entity.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

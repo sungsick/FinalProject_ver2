@@ -1,10 +1,10 @@
-package com.kh.myproject.member.chat2;
+package com.kh.myproject.member.chat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.kh.myproject.member.chat2.model.entity.ChatMessage;
-import com.kh.myproject.member.chat2.service.ChatMessageService;
-import com.kh.myproject.member.chat2.service.ChatRoomService;
+import com.kh.myproject.member.chat.model.entity.ChatMessage;
+import com.kh.myproject.member.chat.service.ChatMessageService;
+import com.kh.myproject.member.chat.service.ChatRoomService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -121,6 +121,8 @@ public class MyHandler extends TextWebSocketHandler {
 
 
             String content = (String) jsonObject.get("content");
+            System.out.println("메시지 내용 content : " + content);
+            System.out.println("content길이 " + content.length());
             ChatMessage chatMessage = chatMessageService.saveMessage(roomId, userNumber, content);// 저장 한 후의 message content를 가지고 온다.
 
             //반환할때는 메시지에 대한 전체 내용이 담긴 chatMessage객체를 전달한다.

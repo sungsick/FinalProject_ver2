@@ -1,4 +1,4 @@
-package com.kh.myproject.member.chat2;
+package com.kh.myproject.member.chat;
 
 
 import org.springframework.stereotype.Service;
