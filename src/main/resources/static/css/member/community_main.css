@@ -157,7 +157,7 @@ swiper-slide img {
 
 }
 .user_profile, .trip_profile {
-    width: 44%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,8 +192,8 @@ swiper-slide img {
 }
 
 .trip_date {
-    font-size: 11px;
-    color: #588fee;
+    font-size: 12px;
+    color: forestgreen;
     font-weight: 600;
 }
 

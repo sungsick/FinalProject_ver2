@@ -283,7 +283,7 @@
                             <div class="test2_content1">
                                 <div class="user_profile">
                                     <div class="user_img">
-                                        <img src="/img/member/신짱구.png">
+                                        <img th:src="'/file/profile_image/' + ${plan.user.userImg}">
                                     </div>
                                     <div class="user_info">
                                         <div class="user_nick2" th:text="${plan.user.userName}"></div>

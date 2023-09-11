@@ -13,38 +13,24 @@
     <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
 
 
+
+
 </head>
 <body>
-<div style="height :200px;"></div>
-<div class="message-block" style="margin-top: 100px;">
-    <div class="message-center">
-        <div class="message-img">
-            <img class="message-img" src="/img/store/rentcar/celtos.png" alt="">
-        </div>
-
-        <div class="message-userId">${userIsadasdd}</div>
-    </div>
-    <div class="message-bottom" style = "display : flex; padding-left : 15px">
-        <div class="message-content"> s</div>
-
-        <div class="message-time">${formattedDate}</div>
-    </div>
-</div>
-
 
 <div class="next">
     <header th:include="/header.html :: header"></header>
     <div class="m">
-        <div class="carousel">
-            <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
-                              centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                <div class="carousel">
+                    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+                                      centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
+                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
 
-            </swiper-container>
-        </div>
+                    </swiper-container>
+                </div>
 
         <div class="main_content1">
 
@@ -101,7 +87,7 @@
 
                                         <div class="trip_date"
                                              th:text="${acclist.ac_enddate.getTime()/1000/60/60/24 - acclist.ac_startdate.getTime()/1000/60/60/24} + '일 '"></div>
-
+                                        &nbsp
                                         <div class="trip_date"
                                              th:text="${#dates.format(acclist.ac_startdate,'MM-dd')}"></div>
                                         ~
@@ -167,8 +153,7 @@
                                 <div class="trip_info">
                                     <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
                                     </div>
-                                    <div class="trip_date"
-                                         th:text="${#strings.substring(plan.pbStartDate,2)} + ' ~ ' + ${#strings.substring(plan.pbEndDate,2)}">
+                                    <div class="trip_date" th:text="${plan.pbStartDate} + ' - ' + ${plan.pbEndDate}">
                                         <!--9일 · 10/16-10/24--> </div>
                                 </div>
                             </div>
@@ -183,6 +168,8 @@
                                         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769"></script>
 
                                 <script th:inline="javascript">
+
+
 
 
                                     console.log([[${planStat.count}]]);
@@ -253,6 +240,9 @@
                                 </script>
 
                             </div>
+
+
+
 
 
                         </div>
@@ -427,6 +417,8 @@
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769&libraries=services,clusterer,drawing"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+
+
 
 
 </body>
