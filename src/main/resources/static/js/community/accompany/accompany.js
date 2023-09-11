@@ -20,7 +20,7 @@ $("#viewcount").click(() => {
 let regionChoice = true;
 
 /* 모든 지역 클릭하면 슬라이드다운 */
-$("#allRegion").click(() => {
+$("#allRegion, #allRegionIcon").click(() => {
     const regionUl = $(".sub"); // .sub 클래스를 가진 ul 요소 선택
 
 
@@ -55,23 +55,38 @@ $("#countComment").click((event) => {
 })
 
 
-let dateToggle = true;
-$(".searchDate").click(() => {
+
+// /* 모든 지역 클릭하면 슬라이드다운 */
+// $("#allRegion, #allRegionIcon").click(() => {
+//     const regionUl = $(".sub"); // .sub 클래스를 가진 ul 요소 선택
+//
+//
+//     if (regionChoice) {
+//         regionUl.slideDown(1000);
+//     } else {
+//         regionUl.slideUp(1000);
+//     }
+//     regionChoice = !regionChoice;
+// });
+
+
+let dateToggle = false;
+$(".md_search, #md_searchPeriodIcon").click(() => {
+
+    const periodUI = $(".searchPeriodBox");
+
     if (dateToggle) {
-        $(".queryStartdate").slideDown(1000);
-        $(".queryEnddate").slideDown(1000);
+        periodUI.slideDown(1000);
     } else {
-        $(".queryStartdate").slideDown(1000);
-        $(".queryEnddate").slideDown(1000);
+        periodUI.slideUp(1000);
     }
     dateToggle = !dateToggle;
-
-
 })
 
 
 // 시작 날짜, 마지막 날짜 선택하면  해당 날짜 게시글만 쿼리됨
 $(".searchPeriodBtn").click(() => {
+
 
     const startdate = $(".queryStartdate").val();
     const enddate = $(".queryEnddate").val();
