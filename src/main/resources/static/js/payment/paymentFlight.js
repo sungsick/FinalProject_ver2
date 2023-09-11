@@ -367,6 +367,7 @@ $(function () {
                 ticFromLocation: $("#fromLocation").val(),
                 ticToLocation: $("#toLocation").val(),
                 ticVihicleId: $("#vehicleId").val(),
+                ticAirlineLogo: $("#ticketLogo").val(),
                 checkFlag: checkFlag,
             };
 

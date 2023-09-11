@@ -3,8 +3,6 @@
 settings.gradle,0\5\05efc8b1657769a27696d478ded1e95f38737233
 †
 Vsrc/main/java/com/kh/myproject/community/accompany/controller/AccompanyController.java,5\6\56f6afecddb0c9cf00be1e7e8b390bdeb748f7b4
-y
-Isrc/main/java/com/kh/myproject/member/user/controller/UserController.java,c\4\c4c40a9f509f974c927580d9bcd43bde8e3df597
 s
 Csrc/main/java/com/kh/myproject/api/kakaoPay/model/dto/AmountVO.java,7\6\76150305cf0cdc63fddaaf9fb41a9c88a6b6411d
 }
@@ -13,14 +11,10 @@ v
 Fsrc/main/java/com/kh/myproject/store/flight/service/FlightService.java,0\9\0979f1b3b5ed5ebb21749e78e5f008a2a6e1bf18
 ‚
 Rsrc/main/java/com/kh/myproject/store/flight/repository/FlightTicketRepository.java,e\f\ef2ff495e5eca72ed0301ef6f56cc5a14c8081f3
-|
-Lsrc/main/java/com/kh/myproject/store/flight/controller/FlightController.java,e\d\ed37e0922c6ba84d212daf4b5580a9f6d0035244
 ~
 Nsrc/main/java/com/kh/myproject/store/flight/model/entity/FlightTicketInfo.java,9\2\923cb198f0894333f7256403420b541a924ba66c
 z
 Jsrc/main/java/com/kh/myproject/api/kakaoPay/model/dto/KakaoPayReadyVO.java,9\b\9bced52924a5e9c251af487ce7c3b75bbb88205b
-z
-Jsrc/main/java/com/kh/myproject/store/flight/model/dto/FlightTicketDto.java,9\f\9f0c93ac8d4c5e70806b8929dc340a86d9b768bf
 d
 4src/main/java/com/kh/myproject/api/example/News.java,e\4\e4ae7570055ae30ba1a83bb582918b2dad1faaac
 {
@@ -39,10 +33,6 @@ w
 Gsrc/main/java/com/kh/myproject/store/rentcar/model/dto/CrawlingDto.java,6\d\6d3f4a73bb6e29b433f100789e79c2b35ebc66ea
 z
 Jsrc/main/java/com/kh/myproject/api/kakaoPay/service/SeleniumComponent.java,a\d\ad583395e648b529c95036c104548e441d7293ca
-s
-Csrc/main/java/com/kh/myproject/api/kakaoPay/service/PayService.java,0\9\098b38dc3fed011e1151baf72878c69ae1914ae5
-y
-Isrc/main/java/com/kh/myproject/api/kakaoPay/controller/PayController.java,c\2\c284de7cc843c3fee68a0500ba6000f8c4cbbe83
 y
 Isrc/main/java/com/kh/myproject/member/user/config/SessionInterceptor.java,a\6\a693c1a1bb4714f1870d145f4b9c0a97fb43edee
 x
@@ -67,7 +57,3 @@ Fsrc/main/java/com/kh/myproject/store/rentcar/model/RentcarInfoDTO.java,6\7\672
 Vsrc/main/java/com/kh/myproject/store/rentcar/repository/RentReservationRepository.java,e\3\e3e61427c6f57bc55a42fd2bda79b6d1be1aab9c
 ‚
 Rsrc/main/java/com/kh/myproject/store/rentcar/model/entity/RentReservationInfo.java,d\a\da4a2f8a398deb41de22a2ec87acfe44cb2234e0
-~
-Nsrc/main/java/com/kh/myproject/store/rentcar/model/dto/RentReservationDto.java,1\9\19fe4271e1dae53d514fea2b18be7179b063dc1d
-u
-Esrc/main/java/com/kh/myproject/api/kakaoPay/model/dto/PaybillDto.java,2\1\216d1b68d0c33c1d5efb8f6ab0d5e87d1bba8b49
