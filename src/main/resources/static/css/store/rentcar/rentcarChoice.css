@@ -4,6 +4,7 @@
     min-height: calc(100vh - 246px);
     height: auto;
     padding: 0px 0px 60px;
+    margin-top: 149px;
 }
 
 .search_bar_wrap {
@@ -30,7 +31,6 @@
 }
 
 
-
 .search_bar_box {
     display: flex;
     width: 100%;
@@ -44,7 +44,6 @@
 
 .search_bar_input_box {
     display: grid;
-    grid-template-columns: 1fr 110px;
     gap: 20px;
     height: 90px;
     margin-top: 150px;
@@ -63,9 +62,8 @@
 }
 
 
-
 .search_input_round {
-    width: 100%;
+    width: 50%;
     height: 46px;
     padding: 15px;
     font-size: 14px;
@@ -85,10 +83,6 @@
     margin-top: 10px;
     text-overflow: ellipsis;
 }
-
-
-
-
 
 
 .input_title_and_detail {
@@ -146,8 +140,6 @@
     font-size: 20px;
     box-shadow: 1px 1px 5px #00000026;
 }
-
-
 
 
 /*서치바 하단 */
@@ -211,7 +203,6 @@
     color: rgb(170, 170, 170);
     display: inline-block;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 
@@ -256,7 +247,6 @@
 }
 
 
-
 /*오른쪽 업체선택 */
 
 .carCompanyinfo_wrap {
@@ -274,6 +264,18 @@
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    padding-top: 28px;
+    margin-left: 2px;
+}
+
+
+.miniTitle{
+
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(40, 40, 40);
+
+
 }
 
 /*검색결과 나열 카테고리 */
@@ -283,7 +285,6 @@
     -webkit-box-align: center;
     align-items: center;
 }
-
 
 
 .categoryOn {
@@ -324,6 +325,7 @@
     border-radius: 8px;
     padding: 25px 30px;
     cursor: pointer;
+    margin-top: 40px;
 }
 
 .company_item_box {
@@ -364,7 +366,7 @@
     align-items: center;
 }
 
-.company_text_detail {
+.company_text_detail_line {
     background-color: rgb(215, 215, 215);
     width: 1px;
     height: 12px;

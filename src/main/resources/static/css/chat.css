@@ -259,7 +259,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-
+    /*width: 10px;*/
     border: none;
     border-radius: 16px;
     background: #00B8FF;
@@ -279,7 +279,7 @@
 .chat-room-block{
 
     width: 100%;
-    border-bottom : 1px solid black;
+    border-bottom : 1px solid gainsboro;
     height: 70px;
     display : flex;
     padding : 10px;

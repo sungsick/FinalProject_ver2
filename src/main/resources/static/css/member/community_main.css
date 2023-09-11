@@ -110,10 +110,10 @@ swiper-slide img {
     object-fit: cover;
 }
 
-.carousel {
-    width: auto;
-    height: 350px;
-}
+/*.carousel {*/
+/*    width: auto;*/
+/*    height: 350px;*/
+/*}*/
 
 .user_img {
     display: flex;
@@ -165,7 +165,7 @@ swiper-slide img {
 
 .user_nick {
 
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .user_agender {
@@ -583,3 +583,62 @@ svg:not(:root) {
 }
 
 
+/*캐러셀 이미지*/
+
+.mySwiper img {
+    height: 380px;
+    width: 100%;
+
+}
+
+#visual1 {
+    object-fit: cover;
+    object-position: center;
+}
+
+.visual_wrap {
+
+    position: relative;
+    height: 380px;
+    text-align: center;
+    color: white;
+}
+
+
+.visual_text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+}
+
+.visual_text strong {
+    font-size: 30px;
+}
+
+.visual_text span {
+    font-size: 18px;
+}
+
+#visual2 {
+    background: url(/img/store/tour/tourmain/main_02.jpg) center no-repeat;
+    width: 1200px;
+    background-size : 1200px 380px;
+
+}
+
+#visual3 {
+    background: url("/img/store/tour/tourmain/main_03.jpg") center no-repeat;
+    background-size: cover;
+    width: 1200px;
+}
+
+
+.visual_wrap .visual_title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 317px;
+    height: 317px;
+}

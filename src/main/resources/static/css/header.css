@@ -1,7 +1,16 @@
 body {
     margin: 0px;
 
+
 }
+
+*{
+    font-family: 'Hahmlet', serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+/* font 적용. */
+
+
 body{-ms-overflow-style:none; }
 body::-webkit-scrollbar { display:none; }
 /* 스크롤바 제거 css */

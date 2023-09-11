@@ -21,6 +21,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 //         혹은 UserController에서 처음부터 session을 설정하고 넘겨도 된다.
         if (requestURI.contains("/manager") && !requestURI.contains("/manager/home")) { // 특정 페이지 경로를 검사한다.
 
+            System.out.println("인터셉터 접속.");
             // 인터셉터 처음 감지시에는 세션값이 없기 때문에 감지시에는 당연히 세션값이 없을 것이다.
             User manager = (User) request.getSession().getAttribute("manager");
 

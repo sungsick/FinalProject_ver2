@@ -1,5 +1,6 @@
 package com.kh.myproject.store.flight.controller;
 
+import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.store.flight.model.dto.FlightTicketDto;
 import com.kh.myproject.store.flight.service.FlightService;
@@ -16,24 +17,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class FlightController {
 
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
     //공항리스트
-    final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?";
+    private final String airportUrl = "https://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getArprtList?";
     //노선목록
-    final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
+    private final String flightOpratInfoUrl = "http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList?";
     private final String serviceKey = "serviceKey=ZgRTKBFIJGjeIJ14VHOZrP9UMtis8xSBTJvnPqQIigzUQ4aIL8V03y5XCVZ5B8GAKHaJX%2FOz2UpnX%2FvgKqv38w%3D%3D&";
-    private FlightTicketDto ticketDto;
+    private PaybillDto ticketDto;
 
 
-
-
-
-    /*@GetMapping("/store/flight/flights")
-    public ModelAndView flightMain(ModelAndView mav){
-
-        mav.setViewName("store/flight/flights");
-        return mav;
-    }*/
     @GetMapping("/store/flight/flights")
     public ModelAndView flightMain(@RequestParam(value = "startAirport", required = false) String startAirport,
                                    @RequestParam(value = "endAirport", required = false) String endAirport,
@@ -54,21 +46,14 @@ public class FlightController {
         return mav;
     }
 
-    @GetMapping("/pay/flightPayment")
+    @GetMapping("/store/flight/pay/flightPayment")
     public ModelAndView flightTest(ModelAndView mav,
-                                   @ModelAttribute("user") User user,
-                                   @ModelAttribute("ticket") FlightTicketDto ticket) {
+                                   @ModelAttribute("user") User user) {
 
-//        List<FlightTicketInfo> list = flightService.getTicketList(user.getUserNumber());
         log.info("ticketDto={}", ticketDto);
-        log.info("ticket={}", ticket);
-//        for (FlightTicketInfo item : list) {
-//            log.info("ticketItem={}", item);
-//        }
 
         mav.addObject("ticket", ticketDto); //결제페이지에서 보여줄거
-//        mav.addObject("ticketList", list); //티켓 리스트
-        mav.setViewName("pay/flightPaymentPage");
+        mav.setViewName("store/pay/flightPaymentPage");
         return mav;
     }
 
@@ -79,7 +64,7 @@ public class FlightController {
         return ResponseEntity.ok(flightService.getFlightList(url));
     }
 
-    @GetMapping("/tour/flight/searchFlight")
+    @GetMapping("/store/flight/searchFlight")
     public ResponseEntity<?> searchFlight(@RequestParam("startAirport") String startAirport,
                                           @RequestParam("endAirport") String endAirport,
                                           @RequestParam("startDate") String startDate,
@@ -101,34 +86,23 @@ public class FlightController {
     }
 
     @PostMapping("/store/flight/reservationFlight")
-    public void saveFlight(@RequestBody FlightTicketDto ticket,
-                           @ModelAttribute("user") User user/*,
-                           ModelAndView mav*/) {
+    public void saveFlight(@RequestBody PaybillDto ticket,
+                           @ModelAttribute("user") User user) {
         log.info("ticket={}", ticket); //티켓 정보
         log.info("user={}", user.getUserId()); //로긴한 유저 정보
         ticket.setUser(user); //dto에 유저정보 저장
-//        mav.addObject("ticket",ticket);
         ticketDto = ticket; //전역변수에 저장
-//        mav.addObject("ticket", ticket);
-        //FlightTicketInfo ticketInfo = ticketDto.toEntity(); //dto를 entity로 변경
-//        mav.setViewName("/pay/flightPaymentPage");
-        //flightService.saveFlight(ticketInfo); //db에 저장
-
-
-
-
-
 
     }
 
-    @GetMapping("/store/flight/remove")
+    /*@GetMapping("/store/flight/remove")
     public ModelAndView removeTicket(@RequestParam("ticketId")Long ticketId,
                                      ModelAndView mav){
         flightService.removeTicket(ticketId);
 
         mav.setViewName("tourMain");
         return mav;
-    }
+    }*/
 
 
 }

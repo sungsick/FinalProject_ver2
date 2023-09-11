@@ -3,7 +3,7 @@
 /*}*/
 
 
-@media screen and (max-width: 1199px)
+/*@media screen and (max-width: 1199px)*/
 
 ._next {
     overflow: hidden;
@@ -65,12 +65,13 @@
 }
 
 .content {
+
     position: relative;
     width: 588px;
     height: auto;
-
     flex: 1;
     margin-left: 20px;
+
 }
 
 .article {

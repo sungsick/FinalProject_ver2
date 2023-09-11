@@ -41,6 +41,8 @@ public class RentReservationInfo {
     private String rentYear;
     @Column
     private String rentOil;
+    @Column
+    private String tid;
     @ManyToOne()
     @JoinColumn(name = "userNumber")
     private User user;
@@ -59,6 +61,7 @@ public class RentReservationInfo {
                 .rentAccommodate(rentAccommodate)
                 .rentYear(rentYear)
                 .rentOil(rentOil)
+                .tid(tid)
                 .user(user)
                 .build();
     }

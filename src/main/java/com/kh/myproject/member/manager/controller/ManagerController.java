@@ -65,7 +65,7 @@ public class ManagerController {
             // 첫번째 조건은 첫 로그인이고 두번쨰 조건은 로그인 이후 세션 등록한 조건이다.
 
 
-            modelAndView.setViewName("/member/manager/home");
+            modelAndView.setViewName("member/manager/home");
             List<User> userList = userServiceM.findAllUser();
 
             int qnaCount = qnaServiceM.countByQna();
@@ -77,6 +77,7 @@ public class ManagerController {
 
             User manager = userServiceM.getUserByManager(check_manager);
 
+            System.out.println("");
             modelAndView.addObject("manager", manager);
             modelAndView.addObject("userList", userList);
             modelAndView.addObject("qnaCount", qnaCount);

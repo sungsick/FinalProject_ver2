@@ -13,6 +13,7 @@ $(document).ready(function () {
     var url = window.location.pathname;
     var url_list = url.substring(1).split("/");
 
+
     if(url_list[0] === ''){
         $(".home").addClass('menu_underline');
     }
@@ -21,6 +22,7 @@ $(document).ready(function () {
 
     var context_path = url_list[0]; // store/community
     var menu = url_list[1]; // 세부적으로 나뉘는 서브 메뉴
+
 
     if (context_path === "community") {
         //스타일 처리

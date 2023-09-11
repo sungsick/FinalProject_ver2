@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,8 +25,10 @@ public class RentReservationDto {
     private Long rentAccommodate;
     private String rentYear;
     private String rentOil;
+    private String tid;
     private User user;
-    public RentReservationInfo toEntity(){
+
+    public RentReservationInfo toEntity() {
         return RentReservationInfo.builder()
                 .rentReservationId(rentReservationId)
                 .rentName(rentName)
@@ -42,6 +42,7 @@ public class RentReservationDto {
                 .rentAccommodate(rentAccommodate)
                 .rentYear(rentYear)
                 .rentOil(rentOil)
+                .tid(tid)
                 .user(user)
                 .build();
     }

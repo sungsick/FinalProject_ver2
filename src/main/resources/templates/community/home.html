@@ -8,11 +8,8 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/member/community_main.css">
-    <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
-    <script src="https://kit.fontawesome.com/9647b4736a.js" crossorigin="anonymous"></script>
-
-
 
 
 </head>
@@ -21,16 +18,36 @@
 <div class="next">
     <header th:include="/header.html :: header"></header>
     <div class="m">
-                <div class="carousel">
-                    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
-                                      centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-                        <swiper-slide><img src="/img/member/carousel1.jpg" alt=""></swiper-slide>
-
-                    </swiper-container>
-                </div>
+        <div class="carousel">
+            <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+                              centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+                <swiper-slide><a href="/store/rentcar/rentcarMain">
+                    <img src="/img/store/tour/tourmain/main_01.png"
+                         alt="" id="visual1">
+                </a></swiper-slide>
+                <swiper-slide><a href="https://www.101hongfestival.co.kr/" target="_blank">
+                    <div class="visual_wrap" id="visual2">
+                        <img class="visual_title" src="/img/store/tour/tourmain/main_text.png">
+                    </div>
+                </a>
+                </swiper-slide>
+                <swiper-slide>
+                    <a href="https://seodong.iksan.go.kr/main/inner.php?sMenu=main#" target="_blank">
+                        <div class="visual_wrap" id="visual3">
+                            <div class="visual_text">
+                                <strong>2023 익산 서동축제<br>
+                                    용감하고 씩씩한 서동!
+                                </strong>
+                                <br><br><br><br><br><br><br><br>
+                                <span>
+                                    축제 기간 : 2023년 9월 15일(금) ~ 9월 17일(일)
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </swiper-slide>
+            </swiper-container>
+        </div>
 
         <div class="main_content1">
 
@@ -170,8 +187,6 @@
                                 <script th:inline="javascript">
 
 
-
-
                                     console.log([[${planStat.count}]]);
                                     /*[# th:each="plandetail : ${planDetailList}"
                                                th:if="${plan.pbNum} == ${plandetail.planBoard.pbNum}"]*/
@@ -240,9 +255,6 @@
                                 </script>
 
                             </div>
-
-
-
 
 
                         </div>
@@ -417,8 +429,6 @@
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c012367ce50cd5f2e93814481c3cf769&libraries=services,clusterer,drawing"></script>
 <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-
-
 
 
 </body>

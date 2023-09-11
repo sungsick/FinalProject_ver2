@@ -2,6 +2,13 @@ body{
     margin: 0px;
     background-color: rgb(220, 233, 245);
 }
+
+*{
+    font-family: 'Hahmlet', serif;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
 .micon{
     font-weight: 700;
     font-size: 38px;
