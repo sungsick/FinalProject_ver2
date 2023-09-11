@@ -1,5 +1,5 @@
 body{
-  zoom: 1.1;
+    zoom: 1.1;
 }
 .main_container{
     width: 1200px;
@@ -822,8 +822,6 @@ textarea{
 
 
 
-
-
 /*여행일정*/
 .main_content2 {
     display: flex;
@@ -1230,9 +1228,3 @@ svg:not(:root) {
     width: 100%;
     height: 100%;
 }
-
-
-
-
-
-
