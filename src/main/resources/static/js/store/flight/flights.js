@@ -168,7 +168,7 @@ function searchFlight(pageNo, numOfRows) {
             } else {
                 for (var i = 0; i < itemList.length; i++) {
                     item = itemList[i];
-                    appendFlight(item, i);
+                    appendFlight(item);
 
                 }
             }
@@ -259,7 +259,7 @@ function getUrl(airlineName) {
 }
 
 /* 검색 결과 생성 */
-function appendFlight(item, index) {
+function appendFlight(item) {
 
     var logo = getLogo(item.airlineNm);
     item.logo = logo;
@@ -307,7 +307,7 @@ function appendFlight(item, index) {
     }
 
     var content = `
-                            <div class="result_table" onclick='dataTest(${param})'>
+                            <div class="result_table" onclick='resFlight(${param})'>
                             <div class="result_table_inner">
                             <div class="result_schedule">
                             <div class="schedule_item">
@@ -324,7 +324,7 @@ function appendFlight(item, index) {
 
 }
 
-function dataTest(param) {
+function resFlight(param) {
 
 
     if (param.economyCharge === undefined) {
