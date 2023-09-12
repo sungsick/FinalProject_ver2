@@ -1,7 +1,7 @@
 $(function () {
 
     const currentUrl = window.location.href;
-    console.log(currentUrl);
+
 
 
     let word = currentUrl.split('=');
@@ -77,15 +77,11 @@ $(function () {
     }
 
 
-    let accompanyQueryBtn = document.querySelectorAll(".accompanyQuery")
-
-
     /* 최근 글 순으로 정렬*/
     $("#recent").click(() => {
         const recent = "recent"
 
         window.location.href = `/community/accompany?orderby=${recent}`;
-
 
     });
 
@@ -133,18 +129,6 @@ $(function () {
 
 
 // /* 모든 지역 클릭하면 슬라이드다운 */
-// $("#allRegion, #allRegionIcon").click(() => {
-//     const regionUl = $(".sub"); // .sub 클래스를 가진 ul 요소 선택
-//
-//
-//     if (regionChoice) {
-//         regionUl.slideDown(1000);
-//     } else {
-//         regionUl.slideUp(1000);
-//     }
-//     regionChoice = !regionChoice;
-// });
-
 
     let dateToggle = false;
     $(".md_searchPeriodIcon, .md_searchPeriod").click(() => {
@@ -163,7 +147,6 @@ $(function () {
 // 시작 날짜, 마지막 날짜 선택하면  해당 날짜 게시글만 쿼리됨
     $(".searchPeriodBtn").click(() => {
 
-
         const startdate = $(".queryStartdate").val();
         const enddate = $(".queryEnddate").val();
 
@@ -171,41 +154,57 @@ $(function () {
         console.log(enddate)
         window.location.href = `/community/accompany?startAt=${startdate}&endAt=${enddate}`;
     })
-
-
 })
 
 
-// var startdate = $('.queryStartdate').val()
-// var enddate = $('.queryEnddate').val()
-// var query = JSON.stringify({
-//     ac_startdate : startdate,
-//     ac_enddate : enddate
-// })
-// console.log('date choice query ajax 실행중');
-//
-// $.ajax({
-//     url:'/community/accompany/filter1=startdate&filter'
-//
-//
-//
-// })
+/* 중복 쿼리 하는중....*/
+
+function updateURL(params) {
 
 
-// })
-//
-// });
+    const queryString = '/community/accompany';
+    const newURL = new URLSearchParams(queryString.search);
 
-//
-// .$("#countComment").click(function () {
-//
-//     console.log('댓글 많은 순으로 정렬')
-//     console.log(event)
-//
-//     $.ajax({
-//
-//         url:/community/accompany/
-//
-//     })
-//
-// })
+}
+
+/* 지역 선택 해서 동행글 쿼리 */
+$(".regionAt").click((event) => {
+    const id = event.target.name;
+    // 여기서는 `name` 속성을 사용하여 선택한 지역 값을 가져옵니다.
+    console.log("id값은 " + id);
+    // URL에 선택한 지역 값을 추가합니다.
+    const regionURL = `/community/accompany?regionAt=${id}`;
+    window.location.href = regionURL;
+});
+
+$(".searchPeriodBtn").click(() => {
+    const startdate = $(".queryStartdate").val();
+    const enddate = $(".queryEnddate").val();
+    console.log(startdate);
+    console.log(enddate);
+    window.location.href = `/community/accompany?startAt=${startdate}&endAt=${enddate}`;
+});
+
+$("#recent, .regionAt").click((event) => {
+    const params = {};
+    // 여기서 필요한 파라미터를 추가
+    params["startAt"] = $(".queryStartdate").val();
+    params["endAt"] = $(".queryEnddate").val();
+
+    if (event.target.id === "recent") {
+        params["orderby"] = "recent"; // 최신 순 정렬
+    } else if (event.target.classList.contains("regionAt")) {
+        const id = event.target.name;
+        params["regionAt"] = id; // 지역 선택
+    }
+
+    // URL을 생성할 때 쿼리 파라미터를 추가합니다.
+    const queryString = Object.keys(params)
+        .map((key) => key + "=" + params[key])
+        .join("&");
+    console.log('hi')
+    const newURL = `/community/accompgany?${queryString}`;
+    window.location.href = newURL;
+
+});
+/* hi*/

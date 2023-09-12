@@ -705,18 +705,18 @@ button{
 }
 
 #allRegion>.sub{
-    display:none;
-    height:385px;
-    list-style:none;
-    overflow:hidden;
+    display: none;
+    height: 385px;
+    list-style: none;
+    overflow: hidden;
     background-color: white;
     z-index: 9999;
     position: absolute;
-    width: 117px;
+    width: 116px;
     margin-top: 11px;
-    border:1px solid #afadad;
+    border: 1px solid #afadad;
     border-radius: 10px;
-    margin-left: -33px;
+    margin-left: -30px;
     align-items: center;
 }
 
@@ -812,19 +812,29 @@ button{
     list-style-type: none;
     display: flex;
     justify-content: center;
+    width: auto;
+    right: 20px;
 }
 .queryStartdate .queryEnddate{
-    width: 128px;
+    width: 145px;
     height: 18px;
     font-family: Arial, sans-serif; /* 원하는 글꼴로 변경 */
     font-size: 16px;
 }
 .searchPeriodBtn{
-    width: 60px;
+    width: 67px;
     border-radius: 5px;
+
 }
 .searchPeriodBoxLi{
     border-radius: 2px;
     font-family: Arial, sans-serif; /* 원하는 글꼴로 변경 */
     font-size: 16px;
+    width: auto;
+}
+.queryStartdate{
+}
+.queryEnddate{
+    margin-left: 20px;
+    margin-right: 20px;
 }

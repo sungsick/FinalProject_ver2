@@ -52,7 +52,6 @@ public class AccompanyController {
                                      @RequestParam(required = false, name = "endAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endAt,
                                      @RequestParam(required = false, name = "regionAt") String regionAt
         ) {
-
         System.out.println("컨트롤러의 ");
         // 목록보기
 
@@ -64,7 +63,6 @@ public class AccompanyController {
         } else if (orderby != null && orderby.equals("viewcount")) {
             accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
         }
-
         else if (orderby != null && orderby.equals("countComment")) {
             accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
             System.out.println("accompanyEntity값을 넣어줌" + accompanyEntity);
@@ -75,31 +73,23 @@ public class AccompanyController {
         }
         else if (regionAt != null) {
             // 지역 선택하면 해당 지역 게시글만 검색
-
             accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
         }
-
-        else if (startAt != null && endAt != null) {
-                   // 최신순, 조회기간, 지역순
-
-                   accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
-               }
-
-
-
-
-
+//            else if (orderby != null && startAt != null && endAt != null) {
+//            // 최신순, 조회orderby != null &&기간, 지역순 중복쿼리
+//            accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
+//        }
 
         else {
             accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
         }
-
 
         model.addAttribute("accompanyList", accompanyEntity);
 
 
         return "community/accompany/accompany";
     }
+
 
 
 //        Accompany ac = accompanyEntity.get(0);
@@ -131,7 +121,7 @@ public class AccompanyController {
             AccompanyForm form,
             @RequestParam(value = "start_date", defaultValue = "") String start_date,
             @RequestParam(value = "end_date", defaultValue = "") String end_date,
-            @RequestParam(value = "ac_region", defaultValue = "") String ac_regionp,
+            @RequestParam(value = "ac_region", defaultValue = "") String ac_region,
             @RequestParam("ac_title") String ac_title,
             @RequestParam("ac_text") String ac_text,
             @RequestParam("ac_people") String ac_people,
@@ -205,9 +195,7 @@ public class AccompanyController {
 
         model.addAttribute("commentList", commentEntity);
 
-
         model.addAttribute("accompany", accompanyEntity);
-
 
         return "community/accompany/accompany_detail";
 
@@ -317,15 +305,16 @@ public class AccompanyController {
 
         // 삭제할 데이터를 가져온다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
+        List <Comment>  commentEntities = commentRepository.findAllByAccompany_Acnum(ac_num);
         System.out.println(accompanyEntity.toString());
+        System.out.println(commentEntities);
 
         //데이터 삭제
-        if (accompanyEntity != null) {
+
+                commentRepository.deleteAll(commentEntities);
             accompanyRepository.delete(accompanyEntity);
 
             rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
-        }
-
         return "redirect:/community/accompany";
     }
 

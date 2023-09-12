@@ -122,8 +122,6 @@ $('.writebtn').click(function () {
 
     console.log("accompany update submit_btn 클릭!")
 
-
-
     var query = JSON.stringify({
         ac_num: $('input[name=ac_num]').val(),
         user_number: $('input[name=user_number]').val(),
@@ -136,7 +134,6 @@ $('.writebtn').click(function () {
         ac_text: $('textarea[name=ac_text]').val() // 변수명 수정
     });
         console.log($('input[name=ac_text]').val())
-
     $.ajax({
         url: '/community/accompany/update',
         type: 'POST',
@@ -145,17 +142,12 @@ $('.writebtn').click(function () {
         success : function (data) {
 
             Swal.fire('수정이 완료됐습니다', '', 'success').then((result) => {
-
                 location.href = '/community/accompany';
-
             })
-
     },
         error: function () {
-
         alert("code: ajax 통신 에러")
     },
-
     })
 })
 
