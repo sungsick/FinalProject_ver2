@@ -300,6 +300,8 @@ public class AccompanyController {
         form.setUser(user);
 
         Accompany saved = form.toEntity();
+        List<Comment> comments = commentRepository.findAllByAccompany_Acnum(saved.getAc_num());
+        saved.setComments(comments);
         accompanyService.saveAccompany(saved);
 
         // 수정한 글 1건만 보여주고 싶을 때는

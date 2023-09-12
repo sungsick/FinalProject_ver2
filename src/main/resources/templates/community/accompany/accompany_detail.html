@@ -206,28 +206,28 @@
                                         <div class="bt_container_m">
 
                                             <p th:text="${#dates.format(accompany.ac_regdate,'yyyy년 MM월 dd일')}"></p>
+                                            <p class="bt_container_m_view">조회수
+                                                <span th:text="${accompany.ac_viewcount}"></span>
+                                            </p>
                                         </div>
 
-                                        <p class="bt_container_m_view">조회수
-                                            <span th:text="${accompany.ac_viewcount}"></span>
-                                        </p>
                                     </div>
-                                    <!--    <th:block th:if = "${accompany.user_number() != user.user_number}">-->
-                                    <th:block th:if="${accompany.user.userNumber == session.user.userNumber}">
-                                        <div class="bt_container_m">
-                                            <button class="bt_container_m_btn">
-                                                <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
-                                                   style="color: rgb(154, 154, 154)">수정</a>
-                                            </button>
-                                            <p class="bt_container_m_jum">·</p>
+                                    <th:block th:if="${session.user != null}">
+                                        <th:block th:if="${accompany.user.userNumber == session.user.userNumber}">
+                                            <div class="bt_container_m">
+                                                <button class="bt_container_m_btn">
+                                                    <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
+                                                       style="color: rgb(154, 154, 154)">수정</a>
+                                                </button>
+                                                <p class="bt_container_m_jum">·</p>
 
-                                            <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
-                                            <button id="deleteBtn">삭제</button>
+                                                <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
+                                                <button id="deleteBtn">삭제</button>
 
-                                            <!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
-                                        </div>
+                                                <!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
+                                            </div>
+                                        </th:block>
                                     </th:block>
-                                    <!--                                    </th:block>-->
                                 </div>
 
 
@@ -278,23 +278,27 @@
 
                                                 <div class="sc-5e8de0d6-7 jXMuyg">
                                                     <div class="sc-5e8de0d6-8 fIIDkd">
+                                                        <button class="add_reply_btn">채팅 하기</button>
                                                         <th:block th:if="${session.user != null}">
-                                                            <button class="add_reply_btn">채팅 하기</button>
-                                                        </th:block>
-                                                        <th:block th:if="${comment.user.userNumber == session.user.userNumber}">
-                                                            <button th:id="${comment.getCo_number()}" type="button"
-                                                                    class="add_reply_btnUpdate">등록
-                                                            </button>
-                                                        </th:block>
-                                                        <th:block th:if="${comment.user.userNumber == session.user.userNumber}">
-                                                            <button th:id="${comment.getCo_number()}" type="button"
-                                                                    class="add_reply_btnEdit">수정
-                                                            </button>
-                                                        </th:block>
-                                                        <th:block th:if="${comment.user.userNumber == session.user.userNumber}">
-                                                            <button th:id="${comment.getCo_number()}" type="button"
-                                                                    class="add_reply_btnDelete">삭제
-                                                            </button>
+
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnUpdate">등록
+                                                                </button>
+                                                            </th:block>
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnEdit">수정
+                                                                </button>
+                                                            </th:block>
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnDelete">삭제
+                                                                </button>
+                                                            </th:block>
                                                         </th:block>
                                                     </div>
                                                 </div>
@@ -365,7 +369,7 @@
                                     <div class="click_profile_box">
                                         <div class="click_profile_box_div">
                                             <img class="icon-img"
-                                                        th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
+                                                 th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
                                             <p class="sc-6916464b-10 hgFpaM">프로필 사진을 클릭해보세요!</p>
                                         </div>
 

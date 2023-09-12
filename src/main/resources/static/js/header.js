@@ -62,6 +62,9 @@ $(document).ready(function () {
 
 
     })
+
+    //로그인 안하고 글 작성 클릭시
+    //동행
     $('.accompanyWriteBtn').click(() => {
         console.log('작성하기 클릭함')
 
@@ -83,8 +86,30 @@ $(document).ready(function () {
         } else {
             location.href = '/community/accompany/write';
         }
+    });
 
+    //일정
+    $('.planWriteBtn').click(() => {
+        console.log('작성하기 클릭함')
 
+        if ($('.login_btn').text() === '로그인') {
+
+            Swal.fire({
+                title: '로그인 하시겠습니까?',
+                icon: 'warning',
+                showDenyButton: true,
+                confirmButtonText: '로그인하러 가기',
+                denyButtonText: `취소`,
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    window.location.href = '/member/login';
+                }
+            })
+        } else {
+            location.href = '/community/plan/write';
+        }
     });
 
 
