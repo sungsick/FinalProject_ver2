@@ -15,11 +15,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<form action="/community/accompany/writePro" method="post" enctype="multipart/form-data">
 
-    <div class="next">
-        <header th:include="header.html :: header"></header>
+<div class="next">
+    <header th:include="header.html :: header"></header>
 
+    <form action="/community/accompany/writePro" method="post" enctype="multipart/form-data">
         <div class="top_img">
             <img src="/img/community/accompany/accompanyIntro.PNG">
         </div>
@@ -154,7 +154,7 @@
 
                 3. 원하는 여행 코스가 있다면 알려주세요!
 
-                (1000자 이내) " ></textarea>
+                (1000자 이내) "></textarea>
             </div>
 
 
@@ -166,12 +166,11 @@
 
         </div>
 
-    </div>
-    </div>
-</form>
+    </form>
+</div>
 
 
-<div th:include="/footer.html :: footer"></div>
+<footer th:include="/footer.html :: footer"></footer>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>

@@ -42,11 +42,11 @@ public interface AccompanyRepository extends JpaRepository<Accompany, Long> {
 
     // 동행글을 최근 날짜별로 쿼리
     @Query("select a from Accompany a order by a.ac_viewcount desc")
-    List<Accompany> findByAc_numOrderByAc_regdateDesc();
+    List<Accompany> findByAc_numOrderByAc_viewcountDesc();
 
     // 동행글을 최근 날짜별로 쿼리
-    @Query("select a from Accompany a order by a.ac_regdate")
-    List<Accompany> findByAc_numOrderByAc_regdate();
+    @Query("select a from Accompany a order by a.ac_regdate desc ")
+    List<Accompany> findByAc_numOrderByAc_regdateDesc();
 
     // 조회기간 : 시작날짜와 마지막날짜 사이의 게시글을 찾는 쿼리
     @Query("SELECT a FROM Accompany a WHERE a.ac_startdate BETWEEN :startDate AND :endDate")

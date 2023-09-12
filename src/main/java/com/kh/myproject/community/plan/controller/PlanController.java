@@ -156,6 +156,10 @@ public class PlanController {
         // 1. Dto user 정보 저장
         boardDTO.setUser(user);
 
+        if(boardDTO.getPbTitle().equals("")){
+            boardDTO.setPbTitle(user.getUserName()+"님의 여행일정");
+        }
+
         // 2. service에서 db에 저장할때 필요한거 다 넘겨줌
         planBoardService.savePlanBoard(boardDTO, planDetailTemporalList);
 
