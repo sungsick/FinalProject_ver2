@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>accompany.html</title>
     <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/community/accompany/accompany.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -33,61 +35,76 @@
                             </svg>
                         </div>
 
-
-
-                            <div class="">
-                                    <input placeholder="어디로 여행가시나요?" id = "search-bar" class="sc-cfa28f78-3 iRtETS" value="">
-                            </div>
-
-
+                        <div class="">
+                            <input placeholder="어디로 여행가시나요?" class="sc-cfa28f78-3 iRtETS" value="">
+                        </div>
 
                     </div>
                 </div>
             </div>
+
             <div class="sc-50c338b6-0 flYSGk">
                 <div class="sc-50c338b6-1 ljbcoF">
                     <div class="sc-fe318b44-0 bPOjyX">
-                        <button class="sc-fe318b44-1 eTYLaQ">최신 순</button>
-                        <button class="sc-fe318b44-1 diPORg">조회수 순</button>
-                        <button class="sc-fe318b44-1 diPORg" id="countComment">댓글 순</button>
-                        <button class="sc-fe318b44-1 diPORg">모집중</button>
-                        <button class="sc-fe318b44-1 diPORg">모집완료</button>
+                        <button class="accompanyQuery" name="recent" id="recent">최신 순</button>
+                        <button class="accompanyQuery" name="viewcount" id="viewcount">조회수 순</button>
+                        <button class="accompanyQuery" name="countComment" id="countComment">댓글 순</button>
+
                     </div>
                 </div>
 
 
-<!--                조회기간, 모든국가-->
-                <div class="sc-758baf56-0 lcwauR">
-                    <div class="sc-758baf56-1 dunNSc">
-                        <i class="fa-solid fa-sliders"></i>
-                        <span class="sc-758baf56-2 dxggeT">조회기간</span></div>
-                    <div class="sc-758baf56-3 ezRbfq">
-                        <i class="fa-solid fa-sliders"></i>
-                        <div class="sc-758baf56-4 hCYEIH" id="allRegion">모든 국가
-                        <ul class="sub">
-                            <li>
-                                <button class="allRegionBtn" id="seoul">서울</button>
-                                <!-- db에서 가져와서 th 로 지역값 바꾸기-->
-                            </li>
-                            <li>
-                                <button class="allRegionBtn" id="gyeongi">경기도</button>
-                            </li>
-                            <li>
-                                <button class="allRegionBtn" id="gyeongs">경상도</button>
-                            </li>
-                            <li>
-                                <button class="allRegionBtn" id="junla">전라도</button>
-                            </li>
-                            <li>
-                                <button class="allRegionBtn" id="choongc">충청도</button>
-                            </li>
-                            <li>
-                                <button class="allRegionBtn" id="jeju">제주도</button>
-                            </li>
+                <!--                조회기간, 모든국가-->
+                <div class="queryBox">
 
+                    <div class="md_search">
+                        <i class="fa-solid fa-sliders" id="md_searchPeriodIcon"></i>
+                        <div class="md_searchPeriod">조회 기간</div>
+
+
+                        <ul class="searchPeriodBox" style="display: none;">
+                            <li  class="searchPeriodBoxLi">
+                                <input type="date" style="font-family: Arial, sans-serif; border: 1px solid rgb(213, 213, 213); width: 150px; border-radius: 4px;" name="startAt" class="queryStartdate">
+                                <input type="date" style="font-family: Arial, sans-serif; border: 1px solid rgb(213, 213, 213); width: 150px; border-radius: 4px;" name="endAt" class="queryEnddate" placeholder="출발 날짜">
+                                <button class="searchPeriodBtn">검색</button>
+                            </li>
                         </ul>
 
+                    </div>
 
+
+                    <div class="dunNSc">
+                        <i class="fa-solid fa-sliders" id="allRegionIcon"></i>
+                        <div id="allRegion">모든 지역
+                            <!--                            class="placeholder"-->
+                            <ul class="sub" style="display: none;">
+                                <li>
+                                    <button class="regionAt" name="서울">서울</button>
+                                    <!-- db에서 가져와서 th 로 지역값 바꾸기-->
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="경기도">경기도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="강원도">강원도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="충청도">충청도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="경상도">경상도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="전라도">전라도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="제주도">제주도</button>
+                                </li>
+                                <li>
+                                    <button class="regionAt" name="기타">기타</button>
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -101,29 +118,36 @@
             </div>
 
 
-            <div class="main_content1_box" >
-                <th:block th:each="accompany : ${accompanyList}" >
-                <div class="test1" th:onclick="'location.href=\'/community/accompany/detail?ac_num='+ @{${accompany.ac_num}} + '\''"> <!-- 여기가 한 박스-->
-                    <!--                                        <a th:href="@{/board/view/{id}(id = ${board.id})}">글 상세보기</a>-->
-                        <div class="test1_content1" >
+            <div class="main_content1_box">
+                <th:block th:each="accompany : ${accompanyList}">
+                    <div class="test1"
+                         th:onclick="'location.href=\'/community/accompany/detail?ac_num='+ @{${accompany.ac_num}} + '\''">
+                        <!-- 여기가 한 박스-->
+
+                        <!--                                        <a th:href="@{/board/view/{id}(id = ${board.id})}">글 상세보기</a>-->
+
+
+                        <div class="test1_content1">
                             <div class="user_profile">
                                 <div class="user_img">
 
 
-
-                                    <div class="mypage"><img th:src="'/file/profile_image/' + ${accompany.user?.userImg}" alt="" class = "profile_img"
-                                                             onclick="window.location.href='/member/mypage'"></div>
+                                    <div class="mypage"><img
+                                            th:src="'/file/profile_image/' + ${accompany.user?.userImg}" alt=""
+                                            class="profile_img"
+                                            onclick="window.location.href='/member/mypage'"></div>
 
                                 </div>
                                 <div class="user_info">
-                                    <div class="user_nick" th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></div>
-<!--                                    <div class="user_agender" th:text="${user.userDate}">20대</div>-->
+                                    <div class="user_nick" th:text="${accompany.user?.userName}"></div>
+                                    <!--                                    <div class="user_agender" th:text="${user.userDate}">20대</div>-->
 
-                                    <div class = "user_info_bottom">
-                                    <div class="ml_4" th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></div>
+                                    <div class="user_info_bottom">
+                                        <div class="ml_4"
+                                             th:text="${#strings.substring(((2023 - (accompany.user.userDate?.getYear()+1900))),0,1)}+'0대'"></div>
                                         <div class="two_jum"></div>
                                         <div class="user_gender4" th:if="${accompany.user?.userGender == 'M'}">남성</div>
-                                    <div class="user_gender4" th:if="${accompany.user?.userGender == 'F'}">여성</div>
+                                        <div class="user_gender4" th:if="${accompany.user?.userGender == 'F'}">여성</div>
                                     </div>
                                 </div>
                             </div>
@@ -135,19 +159,21 @@
                                     <div class="trip_len"><i class="fa-solid fa-calendar" style="color: #9a9a9a;"></i>여행기간
                                     </div>
 
-<!--                                    <div class="ml_4" th:text="${#dates.format(user.userDate, 'yyyy년 MM월 dd일')}"></div>-->
+                                    <!--                                    <div class="ml_4" th:text="${#dates.format(user.userDate, 'yyyy년 MM월 dd일')}"></div>-->
 
 
+                                    <div class="trip_info_bottom">
+                                        <!-- 총 여행일자 -->
+                                        <!--                                    <div class ="total_date" th:text = "${accompany.ac_enddate - accompany.ac_startdate}"></div>-->
 
-                                    <div class = "trip_info_bottom">
-                                    <!-- 총 여행일자 -->
-<!--                                    <div class ="total_date" th:text = "${accompany.ac_enddate - accompany.ac_startdate}"></div>-->
+                                        <div class="trip_date"
+                                             th:text="${accompany.ac_enddate.getTime()/1000/60/60/24 - accompany.ac_startdate.getTime()/1000/60/60/24} + '일 '"></div>
 
-                                        <div class="trip_date" th:text="${accompany.ac_enddate.getTime()/1000/60/60/24 - accompany.ac_startdate.getTime()/1000/60/60/24} + '일 '"></div>
-
-                                    <div class="trip_date" th:text="${#dates.format(accompany.ac_startdate,'MM-dd')}"></div>
-                                        <div class="trip_date"> ~ </div>
-                                    <div class="trip_date" th:text="${#dates.format(accompany.ac_enddate, 'MM-dd')}"></div>
+                                        <div class="trip_date"
+                                             th:text="${#dates.format(accompany.ac_startdate,'MM-dd')}"></div>
+                                        <div class="trip_date"> ~</div>
+                                        <div class="trip_date"
+                                             th:text="${#dates.format(accompany.ac_enddate, 'MM-dd')}"></div>
 
                                     </div>
                                 </div>
@@ -173,38 +199,44 @@
                         </div>
                     </div>
                 </th:block>
-                </div> <!-- 여기까지 test1 -->
+            </div> <!-- 여기까지 test1 -->
 
 
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-            <!-- Swiper JS -->
-            <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
-            <script src="/jq/jquery-3.7.0.min.js"></script>
-            <script src="/js/header.js"></script>
-        <script src="/js/community/accompany/accompany.js"></script>
 
         </div>
-    <footer th:include="/footer.html :: footer"></footer>
-    </div>
 
+
+        <div th:include="/footer.html :: footer"></div>
+
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+        <script src="/jq/jquery-3.7.0.min.js"></script>
+        <script src="/js/header.js"></script>
+        <script src="/js/community/accompany/accompany.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    </div>
+</div>
+</div>
 </body>
 
 </html>

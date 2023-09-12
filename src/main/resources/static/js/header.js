@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
 
@@ -13,16 +12,13 @@ $(document).ready(function () {
     var url = window.location.pathname;
     var url_list = url.substring(1).split("/");
 
-
-    if(url_list[0] === ''){
+    if (url_list[0] === '') {
         $(".home").addClass('menu_underline');
     }
 
 
-
     var context_path = url_list[0]; // store/community
     var menu = url_list[1]; // 세부적으로 나뉘는 서브 메뉴
-
 
     if (context_path === "community") {
         //스타일 처리
@@ -50,35 +46,59 @@ $(document).ready(function () {
 
     }
 
-    $('#write_btn').click(()=>{
+    $('#write_btn').click(() => {
         if (choice_post.classList.contains("disappear")) {
             choice_post.classList.remove("disappear");
         } else {
             choice_post.classList.add("disappear");
         }
-
     })
 
+    $(function () {
+
+        console.log('hi')
+        $('html').removeClass('no-js');
 
 
 
+    })
+    $('.accompanyWriteBtn').click(() => {
+        console.log('작성하기 클릭함')
+
+        if ($('.login_btn').text() === '로그인') {
+
+            Swal.fire({
+                title: '로그인 하시겠습니까?',
+                showDenyButton: true,
+                confirmButtonText: '로그인하러 가기',
+                denyButtonText: `취소`,
+
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    window.location.href = '/member/login';
+                }
+            })
+        }
+
+    });
 
 
     //헤더의 동행을 찾아보세요 서치바 검색 기능.
 
-    $('#search_bar').on('keydown',function(e){
+    $('#search_bar').on('keydown', function (e) {
 
         console.log(e);
         console.log(e.key)
-        if(e.key === "Enter"){ // 엔터 입력시
+        if (e.key === "Enter") { // 엔터 입력시
 
-            if(this.value === ""){
+            if (this.value === "") {
                 // Swal.fire('검색어를 입력해주세요.','', 'info')
                 alert('검색어를 입력해주세요.');
-            }else{
+            } else {
 
                 var query = this.value;
-                window.location.href = "/community/accompany?searchName="+query;
+                window.location.href = "/community/accompany?searchName=" + query;
 
 
             }
@@ -87,14 +107,6 @@ $(document).ready(function () {
     });
 
 
-    $('.no-js').removeClass('no-js');
-
-
-
 })
-
-
-
-
 
 

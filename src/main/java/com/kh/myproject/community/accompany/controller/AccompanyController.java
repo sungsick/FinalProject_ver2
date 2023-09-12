@@ -7,9 +7,10 @@ import com.kh.myproject.community.accompany.repository.AccompanyRepository;
 import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,55 +34,69 @@ public class AccompanyController {
     @Autowired
     AccompanyService accompanyService;
 
-    @Autowired
-    UserService userService;
+//    //여행커뮤니티 홈(메인페이지 병합 전 삭제)
+//    @GetMapping("/community/home") //http://localhost:8070/community/home
+//    public String communityhome() {
+//
+//        System.out.println("communityhome 테스트..");
+//
+//        return "community/home";
+//    }
 
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
     public String communityAccompany(Model model,
                                      @RequestParam(required = false, name = "orderby") String orderby,
-                                     @RequestParam(name = "searchName", defaultValue = "") String searchName) {
-
+                                     @RequestParam(required = false, name = "startAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startAt,
+                                     @RequestParam(required = false, name = "endAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endAt,
+                                     @RequestParam(required = false, name = "regionAt") String regionAt
+        ) {
         System.out.println("컨트롤러의 ");
         // 목록보기
 
-
+        // db에서 정보를 가져오는 locig을 짜야함
         List<Accompany> accompanyEntity;
-        if (searchName.equals("")) {
-            if (orderby != null && orderby.equals("recent")) {
-                accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_regdate"));
-            } else if (orderby != null && orderby.equals("viewcount")) {
-                accompanyEntity = accompanyRepository.findAll(Sort.by(Sort.Direction.DESC, "ac_viewcount"));
-            }
+        if (orderby != null && orderby.equals("recent")) {
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
 
-//        else if (orderby != null && orderby.equals("co_count")) {
-//            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount(); }
-
-            else if (orderby != null && orderby.equals("in_period")) {
-                accompanyEntity = accompanyRepository.findByAc_startdateIsBetweenAndAc_enddate();
-
-            } else if (orderby != null && orderby.equals("out_of_period")) {
-                accompanyEntity = accompanyRepository.findByAc_startdateIsFalseBetweenAndAc_enddate();
-            } else {
-                accompanyEntity = accompanyRepository.findAll();
-            }
-        } else {
-            accompanyEntity = accompanyService.selectBySearchName(searchName);
+        } else if (orderby != null && orderby.equals("viewcount")) {
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
         }
+        else if (orderby != null && orderby.equals("countComment")) {
+            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
+            System.out.println("accompanyEntity값을 넣어줌" + accompanyEntity);
+        }
+        else if (startAt != null && endAt != null) {
+            // 시작 날짜와 종료 날짜 사이의 게시글 검색
+            accompanyEntity = accompanyRepository.findByAc_startdateBetween(startAt, endAt);
+        }
+        else if (regionAt != null) {
+            // 지역 선택하면 해당 지역 게시글만 검색
+            accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
+        }
+//            else if (orderby != null && startAt != null && endAt != null) {
+//            // 최신순, 조회orderby != null &&기간, 지역순 중복쿼리
+//            accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
+//        }
 
-//        Accompany ac = accompanyEntity.get(0);
-//
-//
-//        User acUser = ac.getUser();
-//        System.out.println(acUser);
-
+        else {
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
+        }
 
         model.addAttribute("accompanyList", accompanyEntity);
 
 
         return "community/accompany/accompany";
     }
+
+
+
+//        Accompany ac = accompanyEntity.get(0);
+//
+//
+//        User acUser = ac.getUser();
+//        System.out.println(acUser);
 
 
     //동행 글 쓰기
@@ -179,6 +194,7 @@ public class AccompanyController {
         System.out.println("commentEntity 값 " + commentEntity);
 
         model.addAttribute("commentList", commentEntity);
+
         model.addAttribute("accompany", accompanyEntity);
 
         return "community/accompany/accompany_detail";
@@ -231,70 +247,38 @@ public class AccompanyController {
 
     }
 
-//    // 글 번호를 가지고 수정하는 메서드
-//    @RequestMapping(value = "/community/accompany/update", produces="text/plain;charset=UTF-8")
-//    public String accompanyUpdate(HttpServletRequest request, AccompanyForm form){
-//        System.out.println("컨트롤러 update() 메서드 실행");
-//        System.out.println(form.toString());
-//
-//        System.out.println(form.getUser_number());
-//        System.out.println(form.getAc_region());
-//
-//        // 수정한 글 1건만 보여주고 싶을 때는
-//        return "redirect://community/accompany";
-//    }
-
 
     // 글 번호를 가지고 수정하는 메서드
     // http://localhost:8070/community/accompany/update
+    @ResponseBody
     @PostMapping("/community/accompany/update")
     public String Accompanyupdate(
             Model model, //모델
-            @RequestParam("enddate")String enddate,
-            @RequestParam("startdate")String startdate,
-            @RequestParam("accompany_image")MultipartFile multipartFile,
-            @RequestParam("user_number")Long user_number,
-            @RequestParam("ac_num")Long ac_num,
-            AccompanyForm form
+            @RequestBody AccompanyForm form,
+            HttpSession session
     ) {
+        System.out.println("컨트롤러 update() 메서드 실행");
+        System.out.println("form 이야" + form);
 
-        User user = userService.getUserByNumber(user_number);
-        Accompany accompany = accompanyService.getAccompany(ac_num);
-
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date ac_startdate = new Date();
-        Date ac_enddate = new Date();
-        try {
-            ac_startdate = sdf.parse(startdate);
-            ac_enddate = sdf.parse(enddate);
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-
-
-        // image명은 현재 accompany게시글의 최대값 +1 + .확장자명으로 지정한다.
-        int ac_max = accompanyService.getMaxAcNum();
-        String ac_picture
-                = accompanyService.saveAccompanyImage(String.valueOf("acc" + (ac_max + 1)), multipartFile);
-
-        // Repository에게 Entity를 데이터베이스에 저장하게 한다
-        // id 가 자동으로 증가된다.
-
-        form.setAc_regdate(accompany.getAc_regdate());
-        form.setAc_viewcount(accompany.getAc_viewcount());
-        form.setAc_status(accompany.getAc_status());
-        form.setAc_travelstyle(accompany.getAc_travelstyle());
-        form.setAc_personalhash(accompany.getAc_personalhash());
-        form.setAc_picture(ac_picture); // 파일명 수정
-        form.setAc_startdate(ac_startdate); // 동행시작일
-        form.setAc_enddate(ac_enddate); // 동행 종료일
+        User user = (User) session.getAttribute("user");
+        Long getUserNumber = user.getUserNumber();
         form.setUser(user);
+        form.getUser().setUserNumber(getUserNumber);
+//        // 유저 넘버 가져옴
 
-        Accompany saved = form.toEntity();
-        accompanyService.saveAccompany(saved);
+
+        // DTO의 데이터를 Entity로 변환한다.
+        form.setAc_picture(form.getAc_picture());
+        // DTO -> Entity 로 변환한다.
+        Accompany accompany = form.toEntity();
+//        Date date = new Date();
+
+        Accompany result = accompanyService.updateAccompany(accompany);
+
+        model.addAttribute("accompany", result);
+
+        System.out.println(accompany);
+        System.out.println(result);
 
         // 수정한 글 1건만 보여주고 싶을 때는
         return "redirect:/community/accompany";
@@ -321,15 +305,16 @@ public class AccompanyController {
 
         // 삭제할 데이터를 가져온다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
+        List <Comment>  commentEntities = commentRepository.findAllByAccompany_Acnum(ac_num);
         System.out.println(accompanyEntity.toString());
+        System.out.println(commentEntities);
 
         //데이터 삭제
-        if (accompanyEntity != null) {
+
+                commentRepository.deleteAll(commentEntities);
             accompanyRepository.delete(accompanyEntity);
 
             rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
-        }
-
         return "redirect:/community/accompany";
     }
 
