@@ -65,6 +65,9 @@ public class UserServiceM {
     }
 
 
+
+    // 페이징 처리 관련 메서드  ------
+
     public int selectUserCount(){
 
         int count = userRepository.selectUserCount();
@@ -112,6 +115,10 @@ public class UserServiceM {
 
         return result;
     }
+    // 페이징 처리 관련 메서드 끝 -------
+
+
+
 
     public int countByUserGender(String gender){
 

@@ -23,9 +23,9 @@
 
 <div class="section">
     <div class="main_content">
-        <h4 class="content_title">
-            동행 글 관리
-        </h4>
+        <h2 class="content_title">
+            일정 글 관리
+        </h2>
 
         <div class="usertable" id="usertable">
 
@@ -70,7 +70,7 @@
                         <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/>
                     </svg>
                 </div>
-                <div class="warning-title">표시할 유저 정보가 없습니다.</div>
+                <div class="warning-title">작성된 일정 글이 없습니다.</div>
             </div>
 
 
@@ -110,7 +110,53 @@
 
                 </div>
             </th:block>
-        </div>
+
+
+
+            <th:block th:if="${!noList}">
+                <div class="page-block">
+
+                    <th:block th:if="${pageEndNo > 10}">
+                        <div class="page-number-block" id="first-page"
+                             onclick="pageChange(this)"
+                             th:id="${1}"> 처음
+
+                        </div>
+                        <div class="page-number-block" id="left-page"
+                             onclick="pageChange(this)"
+                             th:id="${pageStartNo}-1"> 이전
+                        </div>
+                    </th:block>
+
+
+                    <div th:each="page : ${#numbers.sequence(pageStartNo, pageEndNo)}"
+                         class="page-number-block page-select-btn"
+                         onclick="pageChange(this)"
+                         th:id="${page}">
+
+
+                        <p th:text="${page}"></p>
+                    </div>
+
+                    <th:block th:if="${lastPageCheck}">
+                        <div onclick="pageChange(this)"
+                             th:id="${pageEndNo+1}"
+                             class="page-number-block" id="right-page"> 다음
+                        </div>
+                        <div onclick="pageChange(this)"
+                             th:id="${totalPage}"
+                             class="page-number-block" id="end-page"> 끝
+                        </div>
+                    </th:block>
+
+
+                    <input type="hidden" id="search_option" th:value="${search_option}">
+                    <input type="hidden" id="search_word" th:value="${search_word}">
+                    <input hidden id="selected-btn" th:value="${pageNo}">
+
+
+                </div>
+            </th:block>
 
     </div>
 </div>

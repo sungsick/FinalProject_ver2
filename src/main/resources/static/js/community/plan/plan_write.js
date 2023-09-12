@@ -159,9 +159,12 @@ $('.complete_write_btn').on('click', function () {
         data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
         success: function (data) {
             console.log('성공');
-            alert("일정이 저장되었습니다.");
+            Swal.fire('일정이 저장되었습니다.', '', 'info').then((result)=>{
+
+                location.href = "/community/plan";
+
+            })
             // 서버 응답에 대한 처리
-            location.href = "/community/plan";
         },
         error: function (data) {
             console.log('실패');
