@@ -43,7 +43,7 @@ public class RentReservationInfo {
     private String rentOil;
     @Column
     private String tid;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "userNumber")
     private User user;
 

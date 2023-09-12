@@ -15,14 +15,19 @@ public class AccompanyServiceM {
     @Autowired
     AccompanyRepositoryM accompanyRepository;
 
-    public void deleteByUserNumber(Long userNumber){
+    public void deleteAccompanyByUserUserNumber(Long userNumber){
 
-        accompanyRepository.deleteById(userNumber);
+        accompanyRepository.deleteAccompanyByUserUserNumber(userNumber);
     }
 
     public List<Accompany> findAll(){
 
         return accompanyRepository.findAll();
+    }
+
+    public void deleteById(Long acNum){
+
+        accompanyRepository.deleteById(acNum);
     }
 
 }

@@ -143,7 +143,7 @@
         <div class="main_content2">
             <div class="main_content1_text">
                 <div class="mct_1">여행 일정 게시판</div>
-                <div class="mct_2">여행 일정 구경하기</div>
+                <div class="mct_2" onclick="window.location.href='/community/plan'">여행 일정 구경하기</div>
             </div>
 
             <div class="main_content1_box">
@@ -339,8 +339,8 @@
                                     </th:block>
 
                                 </div>
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+<!--                                <div class="swiper-button-next"></div>-->
+<!--                                <div class="swiper-button-prev"></div>-->
                                 <div class="swiper-pagination"></div>
                             </div>
 
@@ -349,7 +349,7 @@
 
                         <!--일정담기, 일정상세보기 버튼-->
                         <div class="test2_button">
-                            <button class="test2_btn1">
+                            <button class="test2_btn1"id="test2_btn1" href="javascript:;">
                             <span class="test2_btn1_span">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                      xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd"
@@ -359,7 +359,7 @@
                                         d="M7.99988 2H6C3.79086 2 2 3.79086 2 6V18C2 20.2091 3.79086 22 6 22H18C20.2091 22 22 20.2091 22 18V6C22 5.98946 22 5.97894 21.9999 5.96842V14.0001H20.5V18C20.5 19.3807 19.3807 20.5 18 20.5H6C4.61929 20.5 3.5 19.3807 3.5 18V6C3.5 4.61929 4.61929 3.5 6 3.5H7.99988V2Z"
                                         fill="#00CE7C"></path></svg>
                             </span>
-                                "일정 담기"
+                                "일정 공유"
                             </button>
                             <button class="test2_btn2"
                                     th:onclick="|location.href='@{/community/plan/detail(pbNum=${plan.pbNum})}'|">
@@ -404,6 +404,15 @@
 <script src="/jq/jquery-3.7.0.min.js"></script>
 <script src="/js/header.js"></script>
 
+<!--카카오 일정공유-->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+        integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH"
+        crossorigin="anonymous"></script>
+<script>
+    Kakao.init('c012367ce50cd5f2e93814481c3cf769'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+
+
 <!-- Initialize Swiper -->
 <script>
     var swiper = new Swiper(".mySwiper", {
@@ -422,6 +431,44 @@
             prevEl: ".swiper-button-prev",
         },
     });
+
+    const shareBtnList = document.querySelectorAll('.test2_btn1');
+
+    for(var i = 0; i < shareBtnList.length; i++){
+
+        Kakao.Share.createDefaultButton({
+            container: shareBtnList[i],
+            objectType: 'location',
+            address: '경기 성남시 분당구 판교역로 166 3층',
+            addressTitle: '카카오 판교아지트 카페톡',
+            content: {
+                title: '여행시그널에서 메시지를 보냈어요.',
+                description: '일정 공유가 도착했습니다.',
+                imageUrl:
+                // 'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
+                    'https://img.freepik.com/free-photo/turquoise-water-palm-trees-luxury-vacation-destination-generated-by-ai_188544-10577.jpg?w=1380&t=st=1694499044~exp=1694499644~hmac=a9ee32e6274414ead23c50d35798e84e8738dcb8f94d3e1688919e61f6f9ac1c',
+                link: {
+                    // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+                    mobileWebUrl: 'https://developers.kakao.com',
+                    webUrl: 'https://developers.kakao.com',
+                },
+            },
+            social: {
+                likeCount: 286,
+                commentCount: 45,
+                sharedCount: 845,
+            },
+            buttons: [
+                {
+                    title: '웹으로 보기',
+                    link: {
+                        mobileWebUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://developers.kakao.com',
+                    },
+                },
+            ],
+        });
+    }
 
 </script>
 

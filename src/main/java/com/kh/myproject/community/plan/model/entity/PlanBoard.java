@@ -3,10 +3,8 @@ package com.kh.myproject.community.plan.model.entity;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.member.user.model.entity.User;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +41,8 @@ public class PlanBoard {
     @Column
     private int pbViewCount;  //조회수
 
-    @ManyToOne()
     @JoinColumn(name = "user_number")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private User user;  //유저번호
 
     @OneToMany(mappedBy = "planBoard", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
