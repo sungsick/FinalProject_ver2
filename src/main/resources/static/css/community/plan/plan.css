@@ -328,7 +328,7 @@ button{
 }
 
 .user_profile, .trip_profile {
-    width: 44%;
+    width: 40%;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -35,9 +35,9 @@ public class PlanServiceM {
         }
         return result;
     }
-    public void deletePlan(Long userNumber){
+    public void deleteByUserUserNumber(Long userNumber){
 
-        planRepositoryM.deleteById(userNumber);
+        planRepositoryM.deleteByUserUserNumber(userNumber);
     }
 
     public List<PlanBoard> getPlanBoardListByUserNumber(Long userNumber){
@@ -45,6 +45,12 @@ public class PlanServiceM {
         List<PlanBoard> planBoardList = planRepositoryM.findByUserUserNumber(userNumber);
         return planBoardList;
     }
+
+    public void deletePlan(Long pbNum){
+
+        planRepositoryM.deleteById(pbNum);
+    }
+
 
 
     public void deletePlanDetailBoard(List<PlanBoard> planBoardList){

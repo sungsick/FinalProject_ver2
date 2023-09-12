@@ -18,8 +18,8 @@ public class RentServiceM {
 
         return rentRepositoryM.findAll();
     }
-    public void deleteRent(String userNumber){
+    public void deleteRent(Long userNumber){
 
-        rentRepositoryM.deleteById(Long.parseLong(userNumber));
+        rentRepositoryM.deleteByUserUserNumber(userNumber);
     }
 }

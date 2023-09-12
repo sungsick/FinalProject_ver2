@@ -3,17 +3,11 @@ package com.kh.myproject.member.manager.controller;
 
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
-import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.manager.service.*;
-import com.kh.myproject.member.manager.service.AccompanyServiceM;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.manager.service.QnaServiceM;
-import com.kh.myproject.member.manager.service.UserServiceM;
-import com.kh.myproject.member.manager.service.CommentServiceM;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
-import com.kh.myproject.member.manager.service.FlightServiceM;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +51,12 @@ public class ManagerController {
 
     @Autowired
     CommentServiceM commentServiceM;
+
+    @Autowired
+    ChatRoomServiceM chatRoomServiceM;
+
+    @Autowired
+    ChatMessageServiceM chatMessageServiceM;
 
 
     @GetMapping("/manager/home")
@@ -148,13 +148,24 @@ public class ManagerController {
                                  Long user_number) {
 
 
-        System.out.println(user_number);
+        // 프록시 객체 생성 후 직렬화 시 문제 발생해서 추가한 코드.
 
-        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
-        // 동행글, 게시글, 댓글, 렌트카, 항공권
-        flightServiceM.deleteTicketByUserNumber(user_number);
-        accompanyServiceM.deleteByUserNumber(user_number);
-        System.out.println("accompany삭제 실행?");
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+//        System.out.println(user_number);
+//
+//        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+//        // 동행글, 게시글, 댓글, 렌트카, 항공권
+//        flightServiceM.deleteTicketByUserNumber(user_number);
+//        rentServiceM.deleteRent(user_number);
+//        commentServiceM.deleteByUserUserNumber(user_number);
+//        accompanyServiceM.deleteAccompanyByUserUserNumber(user_number);
+//        planServiceM.deleteByUserUserNumber(user_number);
+//
+//        // 채팅방을 삭제하면 메시지도 삭제된다.
+//        chatRoomServiceM.deleteChatRoom(user_number);
+//
+//        System.out.println("accompany삭제 실행?");
 
         userServiceM.deleteUser(user_number);
 
@@ -462,7 +473,7 @@ public class ManagerController {
     @ResponseBody
     @PostMapping("/manager/deleteRent")
     public void deleteRent(@ModelAttribute(name = "userNumber")
-                           String userNumber) {
+                           Long userNumber) {
 
         System.out.println(userNumber);
         rentServiceM.deleteRent(userNumber);
@@ -495,13 +506,12 @@ public class ManagerController {
     // 일정글 삭제
     @ResponseBody
     @PostMapping("/manager/deleteAccompany")
-    public void deleteAccompany(@ModelAttribute(name = "userNumber")
-                                Long userNumber) {
+    public void deleteAccompany(@ModelAttribute(name = "acNum")
+                                Long acNum) {
 
-        System.out.println(userNumber);
         // 게시글에 관련된 댓글을 모두 삭제하고 게시글을 삭제한다.
-        commentServiceM.deleteByUserUserNumber(userNumber);
-        accompanyServiceM.deleteByUserNumber(userNumber);
+//        commentServiceM.deleteById(acNum);
+        accompanyServiceM.deleteById(acNum);
 
 
     }
@@ -524,14 +534,13 @@ public class ManagerController {
 
     @ResponseBody
     @PostMapping("/manager/deletePlan")
-    public void deletePlan(@ModelAttribute(name = "userNumber")
-                           Long userNumber) {
+    public void deletePlan(@ModelAttribute(name = "pbNum")
+                           Long pbNum) {
 
-        // 유저가 가지고 있는 일정 게시글을 모두 불러온다.
-        // 그 일정게시글을 이용해 일정게시글이 가지고 있는 pb_num과 일치하는 detail보드를 모두 삭제한다.
-        List<PlanBoard> planBoardList = planServiceM.getPlanBoardListByUserNumber(userNumber);
-        log.info("planBoardList = ->>>> {}",planBoardList);
-        planServiceM.deletePlanDetailBoard(planBoardList);
-        planServiceM.deletePlan(userNumber);
+
+
+        // 캐스케이드 설정으로 planBoard를 지우면 planBoardDetail도 함께 삭제된다
+
+        planServiceM.deletePlan(pbNum);
     }
 }

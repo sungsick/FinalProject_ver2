@@ -1,16 +1,27 @@
 package com.kh.myproject.member.user.model.entity;
 
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kh.myproject.community.accompany.entity.Accompany;
+import com.kh.myproject.community.accompany.entity.Comment;
+import com.kh.myproject.community.plan.model.entity.PlanBoard;
+import com.kh.myproject.member.chat.model.entity.ChatRoom;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
+import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Setter
 @Getter
-@ToString
 //@AllArgsConstructor // 모든 멤버 변수를 초기화하는 생성자
 @NoArgsConstructor // 기본 생성자.
 @EqualsAndHashCode // equa
@@ -55,6 +66,44 @@ public class User {
 
     @Column
     private LocalDateTime userRegdate; // 유저 가입날짜
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PlanBoard> planBoard = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FlightTicketInfo> flightTicketInfoList = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RentReservationInfo> rentReservationInfoList  = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user1", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ChatRoom> user1   = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user2", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ChatRoom> user2   = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Accompany> accompanyList   = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> commentList   = new ArrayList<>();
+
+
+
+
+
 
 
 

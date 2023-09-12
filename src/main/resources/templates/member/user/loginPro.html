@@ -20,9 +20,19 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        var test = [[${msg}]];
+        var check = [[${check}]]
+        var msg = [[${msg}]];
+        var type = ''
+        if(check){
+            type = 'success'
 
-        Swal.fire(`${test}`, '', 'success').then((result) => {
+        }else{
+
+
+            type = 'info'
+        }
+
+        Swal.fire(`${msg}`, '', `${type}`).then((result) => {
 
             location.href = "/"
 

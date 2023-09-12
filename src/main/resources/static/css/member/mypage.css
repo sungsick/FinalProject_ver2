@@ -1095,7 +1095,7 @@ svg:not(:root) {
     align-items: center;
     opacity: 0.7;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 19px;
     color: rgb(0, 206, 124);
     background-color: rgb(255, 255, 255);

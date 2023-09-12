@@ -1,6 +1,6 @@
 function delPlan(element) {
 
-    userNumber = element.id;
+    var pbNum = element.id;
 
     console.log("삭제버튼 클릭");
     // Swal.fire('비밀번호가 변경됐습니다', '', 'success').then((result) => {
@@ -27,8 +27,10 @@ function delPlan(element) {
         if (result.isConfirmed) {
 
             var query = {
-                userNumber:userNumber
+                pbNum:pbNum
             }
+
+            console.log(query);
 
             $.ajax({
 
