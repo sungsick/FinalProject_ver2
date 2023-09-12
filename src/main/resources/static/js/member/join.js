@@ -1,7 +1,8 @@
 // 유효성 검사 실시. 나중
 $(document).ready(function () {
 
-    console.log($('#kakao_user_email').val());
+
+    var msg = '';
 
     if($('#kakao_user_email').val() != ''){
 
@@ -77,7 +78,9 @@ $(document).ready(function () {
 
         } else {
 
-            alert("올바른 휴대폰 번호를 입력하세요.");
+
+            console.log('check')
+            msg = '올바른 휴대폰 번호를 입력하세요.';
 
         }
 
@@ -103,7 +106,13 @@ $(document).ready(function () {
             });
         } else {
 
-            alert("이미 인증이 완료됐습니다.");
+            msg = "이미 인증이 완료됐습니다.";
+        }
+
+        if(msg !== ''){
+
+            Swal.fire(`${msg}`, '', 'info')
+            msg = '';
         }
     })
 
@@ -114,7 +123,7 @@ $(document).ready(function () {
         if (auth_num === $('#auth_num').val() || auth_check) { // 처음 눌렸을 경우에는 난수와 input.val()의 입력값을 비교하고(첫번째조건)
             // 이후부터는 input.val()의 값이 바뀌기 ㅈ때문에 인증이 완료된 check값(auth_check)를 이용한다.
 
-            alert('인증이 완료됐습니다.');
+            msg = '인증이 완료됐습니다.';
             auth_check = true;
             $('#auth_num').val("인증완료");
             $('#auth_num').prop('disabled', true);
@@ -123,8 +132,17 @@ $(document).ready(function () {
 
 
         } else {
-            alert('인증번호를 확인해주세요.');
+            msg = '인증번호를 확인해주세요.';
         }
+
+
+        if(msg !== ''){
+
+            Swal.fire(`${msg}`, '', 'info')
+            msg = '';
+        }
+
+
 
     })
 
@@ -359,7 +377,6 @@ $(document).ready(function () {
         if ($('#user_img').val() != "" && $('#user_img').val() != null) {
 
             user_img = $('#user_img').val();
-            console.log("img있음.")
         }
 
 
@@ -378,6 +395,7 @@ $(document).ready(function () {
 
 
         };
+        console.log('유저 연도' + query.user_year);
 
         console.log(query)
 
@@ -392,66 +410,62 @@ $(document).ready(function () {
 
         if (query.user_id === "") {
 
-            alert("아이디를 입력하세요.");
+            msg = "아이디를 입력하세요.";
 
             check = false;
 
         } else if (!emailPattern.test(query.user_id)) { // 이메일 형식에 맞게 작성되지 않았다면
 
-            alert("이메일 형식에 맞게 아이디를 작성해주세요.(ex : kh1234@naver.com");
+            msg = "이메일 형식에 맞게 아이디를 작성해주세요.\n(ex : kh1234@naver.com";
             check = false;
 
         } else if (!id_check) {
-            alert("중복되는 아이디입니다. 다른 아이디를 사용해주세요.");
+            msg = "중복되는 아이디입니다. 다른 아이디를 사용해주세요."
             check = false;
         } else if (query.user_password === "") {
-            alert("비밀번호를 입력하세요.");
+            msg = "비밀번호를 입력하세요.";
             check = false;
 
         } else if (query.user_password.length < 8 || query.user_password.length > 16) { // 비밀번호가 8자미만, 12자 초과일떄
 
-            alert("비밀번호는 8자 이상 16자 이하여야합니다.");
+            msg = "비밀번호는 8자 이상 16자 이하여야합니다."
             check = false;
         } else if (!pwd_pattern.test(query.user_password)) { // 비밀번호가 8자미만, 12자 초과일떄
 
-            alert("비밀번호는 영문, 숫자, 특수문자의 조합으로 이루어져야 합니다.");
+            msg = "비밀번호는 영문, 숫자, 특수문자의 조합으로 이루어져야 합니다."
             check = false;
         } else if (query.user_name === "") {
-            alert("성함을 입력해주세요.");
+            msg = "성함을 입력해주세요."
             check = false;
 
         } else if (query.user_phone === "") {
-            alert("휴대폰 번호를 입력해주세요.");
+            msg = "휴대폰 번호를 입력해주세요."
             check = false;
 
         } else if (!phoneNumberPattern.test(query.user_phone)) {
-            alert("휴대폰 번호를 올바르게 입력해주세요.");
+            msg = "휴대폰 번호를 올바르게 입력해주세요."
             check = false;
 
         } else if (query.user_gender === "") {
-            alert("성별을 선택해주세요.");
+            msg = "성별을 선택해주세요."
             check = false;
 
         } else if (query.user_year === "" || query.user_month === "" || query.user_day === "") {
-            alert("생년월일을 입력해주세요.");
+            msg = "생년월일을 입력해주세요.";
             check = false;
-        } else if (query.user_year.length < 4 || query.user_year.value > 2023) {
-            alert("연도를 올바르게 입력해주세요");
+        } else if (query.user_year.length < 4 || query.user_year > 2010) {
+            msg = "연도를 올바르게 입력해주세요."
             check = false;
         } else if (mbti_result.length < 4) { // mbti를 선택한 버튼이 4개 미만이라면
 
-
-            alert("mbti를 선택해주세요.");
+            msg = "mbti를 선택해주세요.";
             check = false;
 
 
         } else if (!auth_check) {
 
-            alert("휴대폰 인증을 완료해주세요.");
+            msg = "휴대폰 인증을 완료해주세요.";
         }
-
-
-        console.log(auth_check);
 
 
         if (check && auth_check) { // 유효성 검사를 실시한 후에 이상이 없을 경우에 아래 ajax통신을 실시한다.
@@ -463,16 +477,20 @@ $(document).ready(function () {
                 data: query,
                 success: function (data) {
 
-                    console.log("ajax통신 성공")
                     window.location.href = "/";
 
                 },
                 error: function () {
-                    console.log("ajax통신 실패")
                 }
             });
 
 
+        }
+
+        if(msg !== ''){
+
+            Swal.fire(`${msg}`, '', `info`);
+            msg = '';
         }
     });
 

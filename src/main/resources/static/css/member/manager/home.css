@@ -11,7 +11,10 @@ table{
     box-sizing: border-box;
 }
 
+.content-text{
 
+    width: 100px;
+}
 #goqna:hover{
     cursor:pointer;
 }

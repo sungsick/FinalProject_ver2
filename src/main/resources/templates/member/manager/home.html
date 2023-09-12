@@ -29,9 +29,10 @@
             <div class="content_box">
                 <div class="content_box_inner">
 
-                    <h2>오늘 가입한 회원 수</h2>
+                    <h2>총 회원 수</h2>
 
-                    <h3>20명</h3>
+                    <h3 th:text = "${userCount} + '명'"></h3>
+                    <span class = "content-text" onclick="location.href = '/manager/user'" id="goqna">회원 관리 ></span>
                 </div>
 
 
@@ -41,7 +42,7 @@
 
                     <h2>문의 대기 글 수</h2>
                     <h3 th:text = "${qnaCount}+'개'"></h3>
-                    <h4 onclick="location.href = '/manager/qna'" id="goqna">답변하러가기 ></h4>
+                    <span class = "content-text" onclick="location.href = '/manager/qna'" id="goqna">답변하러가기 ></span>
                 </div>
             </div>
             <div class="content_box">

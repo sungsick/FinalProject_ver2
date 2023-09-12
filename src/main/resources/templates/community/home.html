@@ -18,7 +18,7 @@
 <div class="next">
     <header th:include="/header.html :: header"></header>
     <div class="m">
-        <div class="carousel">
+        <div class="carousel no-js">
             <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
                               centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
                 <swiper-slide><a href="/store/rentcar/rentcarMain">
@@ -143,7 +143,7 @@
         <div class="main_content2">
             <div class="main_content1_text">
                 <div class="mct_1">여행 일정 게시판</div>
-                <div class="mct_2">여행 일정 구경하기</div>
+                <div class="mct_2" onclick="window.location.href='/community/plan'">여행 일정 구경하기</div>
             </div>
 
             <div class="main_content1_box">

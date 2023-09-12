@@ -4,7 +4,6 @@ package com.kh.myproject.member.manager.model.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Setter
