@@ -1,5 +1,21 @@
 $(function () {
 
+    const photoDiv = document.querySelector('.photo');
+    const fileInput = document.getElementById('fileInput');
+
+    photoDiv.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const selectedImage = event.target.files[0];
+
+        if (selectedImage) {
+            const imageUrl = URL.createObjectURL(selectedImage);
+            photoDiv.style.backgroundImage = `url(${imageUrl})`;
+        }
+    });
+
     let choiceRegion = document.getElementById("region").value;
     let editRegion = document.querySelectorAll(".C-nav-btn")
 
@@ -11,10 +27,14 @@ $(function () {
         let editRegionValue = editRegion[i].innerText;
         console.log(editRegionValue)
         if (choiceRegion === editRegionValue) {
-            editRegion[i].style.backgroundColor = "#00b8ff";
+            console.log('감지')
+            console.log(editRegion[i])
+            editRegion[i].classList.add('regionCliked');
+
+            /*editRegion[i].style.backgroundColor = "#00b8ff";
             editRegion[i].style.border = "none";
             editRegion[i].style.color = "ffffff";
-            editRegion[i].style.fontWeight = "500";
+            editRegion[i].style.fontWeight = "500";*/
         }
         editRegion[i].addEventListener("click", function () {
             editRegion[i].style.backgroundColor = "";
@@ -118,7 +138,7 @@ $(function () {
     };
 
 
-$('.writebtn').click(function () {
+/*$('.writebtn').click(function () {
 
     console.log("accompany update submit_btn 클릭!")
 
@@ -149,7 +169,7 @@ $('.writebtn').click(function () {
         alert("code: ajax 통신 에러")
     },
     })
-})
+})*/
 
 
 

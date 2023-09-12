@@ -1,5 +1,3 @@
-
-
 $('#deleteBtn').click(function () {
     console.log('delAccompany ajax 메서드 실행');
 
@@ -30,8 +28,10 @@ $('#deleteBtn').click(function () {
                 if (result.isConfirmed) {
                     Swal.fire('삭제',
                         '삭제되었습니다.',
-                        'success')
-                    window.location.href = '/community/accompany/'
+                        'success').then(function () {
+
+                        window.location.href = '/community/accompany/'
+                    });
                 }
             });
         },
@@ -42,8 +42,6 @@ $('#deleteBtn').click(function () {
 
 
 });
-
-
 
 
 const coWriteBtn = document.querySelector('.bt_com_div_btn');

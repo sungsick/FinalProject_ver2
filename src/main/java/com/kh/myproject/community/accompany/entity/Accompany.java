@@ -24,7 +24,7 @@ public class Accompany {
     @Column(name = "ac_num")
     private Long ac_num;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "userNumber")
     private User user;
 

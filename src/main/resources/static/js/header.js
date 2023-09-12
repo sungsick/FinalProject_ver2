@@ -69,6 +69,7 @@ $(document).ready(function () {
 
             Swal.fire({
                 title: '로그인 하시겠습니까?',
+                icon: 'warning',
                 showDenyButton: true,
                 confirmButtonText: '로그인하러 가기',
                 denyButtonText: `취소`,
@@ -79,7 +80,10 @@ $(document).ready(function () {
                     window.location.href = '/member/login';
                 }
             })
+        } else {
+            location.href = '/community/accompany/write';
         }
+
 
     });
 

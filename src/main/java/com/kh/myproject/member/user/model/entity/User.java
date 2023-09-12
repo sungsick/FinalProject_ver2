@@ -8,10 +8,7 @@ import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.chat.model.entity.ChatRoom;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
