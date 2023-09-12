@@ -18,8 +18,6 @@ public class SessionManager {
     // 그러면 한쪽만 소켓 연결이 돼있더라도 나머지 한쪽은 다음번 접속시에 메시지를 수신할 수 있을 것이고
     // 접속했다면 실시간으로 통신이 가능한 것이다.
 
-    private final Map<Long, WebSocketSession> sessions = new HashMap<>();
-    private final Map<Long, Map<Long, WebSocketSession>> roomList = new HashMap<>();
 
 
     // 소켓을 어떻게 담을까
@@ -30,10 +28,19 @@ public class SessionManager {
     // 이때 내가 추가하고자하는 userNumber의 값으로 socket을 sessions에 추가한다.
     // 그리고 해당 sessions를 추가한다.
 
+
+
+
+
+
+
+
+
+
+    private final Map<Long, WebSocketSession> sessions = new HashMap<>();
+    private final Map<Long, Map<Long, WebSocketSession>> roomList = new HashMap<>();
+
     public void addSession(Long roomId, Long userNumber, WebSocketSession session) {
-
-
-
 
         Map<Long, WebSocketSession> sessions = new HashMap<>(); // 세션은 그때그떄 다른 걸 넣어줘야한다.
 
