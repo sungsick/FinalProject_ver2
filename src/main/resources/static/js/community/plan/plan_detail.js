@@ -173,9 +173,16 @@ $('.complete_write_btn').on('click', function () {
         data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
         success: function (data) {
             console.log('성공');
-            alert("일정이 저장되었습니다.");
+            Swal.fire({
+                title: '일정이 저장되었습니다.',
+                icon: 'success',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인',
+            }).then(function () {
+
             // 서버 응답에 대한 처리
-            location.href = "/community/plan";
+                location.href = "/community/plan";
+            });
         },
         error: function (data) {
             console.log('실패');
@@ -224,9 +231,15 @@ $('.complete_delete_btn').on('click', function () {
         data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
         success: function (data) {
             console.log('성공');
-            alert("일정이 삭제되었습니다.");
-            // 서버 응답에 대한 처리
-            location.href = "/community/plan";
+            Swal.fire({
+                title: '일정이 삭제되었습니다.',
+                icon: 'success',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인',
+            }).then(function () {
+                // 서버 응답에 대한 처리
+                location.href = "/community/plan";
+            });
         },
         error: function (data) {
             console.log('실패');
