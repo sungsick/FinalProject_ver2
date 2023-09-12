@@ -68,8 +68,7 @@ public class FlightController {
     public ResponseEntity<?> searchFlight(@RequestParam("startAirport") String startAirport,
                                           @RequestParam("endAirport") String endAirport,
                                           @RequestParam("startDate") String startDate,
-                                          @RequestParam("pageNo") int pageNo,
-                                          Model model) {
+                                          @RequestParam("pageNo") int pageNo) {
 
         log.info("startAirport={}", startAirport);
         log.info("endAirport={}", endAirport);

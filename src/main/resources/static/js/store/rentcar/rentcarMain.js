@@ -65,10 +65,46 @@ $(document).ready(function () {
     });
 
     $("#arrive_date_booking").click(function () {
+
+        var departDate = $('#depart_date').val();
+        var arriveDate = $("#arrive_date_check").text();
+        var departDateStr = departDate.split('. ');
+        var arriveDateStr = arriveDate.split('. ');
+
+        var departYear = $('#depart_datepicker .ui-datepicker-year').text();
+        var departMonth = departDateStr[0];
+        var departDay = departDateStr[1];
+        var departTime = departDateStr[2];
+
+        var arriveYear = $('#arrive_datepicker .ui-datepicker-year').text();
+        var arriveMonth = arriveDateStr[0];
+        var arriveDay = arriveDateStr[1];
+        var arriveTime = arriveDateStr[2];
+
+        var depart = new Date(departYear + '-' + departMonth + '-' + departDay + ' ' + departTime);
+        var arrive = new Date(arriveYear + '-' + arriveMonth + '-' + arriveDay + ' ' + arriveTime);
+
+        const diffMSec = Math.abs(depart.getTime() - arrive.getTime());
+        const diffHour = diffMSec / (60 * 60 * 1000);
+
+        console.log('시간 차이 : ' + diffHour);
+
+        if (diffHour < 24) {
+            Swal.fire({
+                title: '최소 24시간 이상 대여 가능합니다.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function () {
+                return;
+            });
+        } else {
+            $("#arrive_date").val(arriveDate); // 입력란에 선택한 날짜와 시간 적용
+        }
+
         if ($("#result_arrive_date").is(":visible")) {
             $("#result_arrive_date").hide();
         }
-
 
     });
 
@@ -77,69 +113,76 @@ $(document).ready(function () {
 
     $('#qnaBtn1').addClass('active');
 
-    $('#qnaBtn1').click(function() {
+    $('#qnaBtn1').click(function () {
         $(this).addClass('active');
         $('#qnaBtn2, #qnaBtn3').removeClass('active');
     });
 
-    $('#qnaBtn2').click(function() {
+    $('#qnaBtn2').click(function () {
         $(this).addClass('active');
         $('#qnaBtn1, #qnaBtn3').removeClass('active');
     });
 
-    $('#qnaBtn3').click(function() {
+    $('#qnaBtn3').click(function () {
         $(this).addClass('active');
         $('#qnaBtn1, #qnaBtn2').removeClass('active');
     });
 
 
-    $('form').on('submit', function(e){
+    // 서치바 유효성검사
+
+    $('form').on('submit', function (e) {
+
         e.preventDefault();
-        console.log('a');
+
         var location = $('#input_location').val();
+        var birth = $('#input_birth').val();
         var departDate = $('#depart_date').val();
         var arriveDate = $('#arrive_date').val();
-        var birth = $('#input_birth').val();
 
-        if(location === ''){
+
+        if (location === '') {
             Swal.fire({
                 title: '대여 위치를 선택해 주세요.',
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
                 return;
             });
 
-        } else if(departDate === ''){
+        } else if (departDate === '') {
             Swal.fire({
                 title: '대여 날짜를 선택해 주세요.',
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
                 return;
             });
-        } else if(arriveDate === ''){
+        } else if (arriveDate === '') {
             Swal.fire({
                 title: '반납 날짜를 선택해 주세요.',
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
                 return;
             });
-        } else if(birth === '') {
+        } else if (birth === '') {
             Swal.fire({
                 title: '생년월일을 입력해 주세요.',
                 icon: 'error',
                 confirmButtonColor: '#00b8ff',
                 confirmButtonText: '확인'
-            }).then(function(){
+            }).then(function () {
                 return;
             });
         } else {
+
             $('form').unbind();
+            $('form').submit();
+
         }
 
 
@@ -191,7 +234,7 @@ $(function () {
 
         , nextText: ">"
 
-        ,prevText: "<"
+        , prevText: "<"
 
         , inline: true
 
@@ -222,7 +265,6 @@ $(function () {
         , maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 
 
-
     });
 
     $("#depart_datepicker").on("change", function () {
@@ -247,7 +289,7 @@ $(function () {
 
         , nextText: ">"
 
-        ,prevText: "<"
+        , prevText: "<"
 
         , inline: true
 
@@ -255,11 +297,11 @@ $(function () {
 
         , showMonthAfterYear: true //년도 먼저 나오고, 뒤에 월 표시
 
-      /*  , changeYear: true //콤보박스에서 년 선택 가능
+        /*  , changeYear: true //콤보박스에서 년 선택 가능
 
-        , changeMonth: true //콤보박스에서 월 선택 가능
+          , changeMonth: true //콤보박스에서 월 선택 가능
 
-        ,selectOtherMonths: ture // 다른 달도 선택가능 */
+          ,selectOtherMonths: ture // 다른 달도 선택가능 */
 
 
         , yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
@@ -273,7 +315,7 @@ $(function () {
 
         , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
 
-        ,minDate: 0 //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+        , minDate: 0 //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
 
         , maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
 
@@ -337,8 +379,44 @@ $(function () {
 
     // 버튼 클릭 시 선택한 날짜와 시간을 입력란에 적용
     $("#arrive_date_booking").click(function () {
-        const selectedDateTime = $("#arrive_date_check").text();
-        $("#arrive_date").val(selectedDateTime); // 입력란에 선택한 날짜와 시간 적용
+
+        /*var departDate = $('#depart_date').val();
+        var arriveDate = $('#arrive_date').val();
+
+        var departDateStr = departDate.split('. ');
+        var arriveDateStr = arriveDate.split('. ');
+
+        var departYear = $('#depart_datepicker .ui-datepicker-year').text();
+        var departMonth = departDateStr[0];
+        var departDay = departDateStr[1];
+        var departTime = departDateStr[2];
+
+        var arriveYear = $('#arrive_datepicker .ui-datepicker-year').text();
+        var arriveMonth = arriveDateStr[0];
+        var arriveDay = arriveDateStr[1];
+        var arriveTime = arriveDateStr[2];
+
+        var depart = new Date(departYear + '-' + departMonth + '-' + departDay + ' ' + departTime);
+        var arrive = new Date(arriveYear + '-' + arriveMonth + '-' + arriveDay + ' ' + arriveTime);
+
+        const diffMSec = Math.abs(depart.getTime() - arrive.getTime());
+        const diffHour = diffMSec / (60 * 60 * 1000);
+
+        if (diffHour < 24) {
+            Swal.fire({
+                title: '최소 24시간 이상 대여 가능합니다.',
+                icon: 'error',
+                confirmButtonColor: '#00b8ff',
+                confirmButtonText: '확인'
+            }).then(function () {
+                return;
+            });
+        } else {
+            const selectedDateTime = $("#arrive_date_check").text();
+            $("#arrive_date").val(selectedDateTime); // 입력란에 선택한 날짜와 시간 적용
+
+        }*/
+
     });
 
     function updateArriveDateTimeDisplay() {
@@ -355,48 +433,39 @@ $(function () {
     }
 
 
-
     $('#ui-datepicker-div').remove(); //기본생성되는? datepicker 삭제
 
 
+    /*
+    //컨트롤러에 연결되는 Ajax
 
-/*
-//컨트롤러에 연결되는 Ajax
+        $("#main_rentcar_search").click(function() {
+            var location = $("#input_location").val();
+            var departDate = $("#depart_date").val();
+            var arriveDate = $("#arrive_date").val();
+            var birthDate = $("#input_birth").val();
 
-    $("#main_rentcar_search").click(function() {
-        var location = $("#input_location").val();
-        var departDate = $("#depart_date").val();
-        var arriveDate = $("#arrive_date").val();
-        var birthDate = $("#input_birth").val();
-
-        $.ajax({
-            url: "/store/rentcar/rentcarMainSearch",
-            type: "get",
-            data: {
-                location: location,
-                departDate: departDate,
-                arriveDate: arriveDate,
-                birthDate: birthDate
-            },
-            success: function(data) {
-                // 페이지 이동
-               window.location.href = "/store/rentcar/thTest";
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            $.ajax({
+                url: "/store/rentcar/rentcarMainSearch",
+                type: "get",
+                data: {
+                    location: location,
+                    departDate: departDate,
+                    arriveDate: arriveDate,
+                    birthDate: birthDate
+                },
+                success: function(data) {
+                    // 페이지 이동
+                   window.location.href = "/store/rentcar/thTest";
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
-    });
-*/
+    */
 
 });
-
-
-
-
-
-
-
 
 
 /*qna 카테고리별 게시글 변경 자바스크립트*/
@@ -438,14 +507,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-
-
-
-
-
-
-
 //제주 버튼 눌렀을 때 이동하는 js
 
 function moveToJeju() {
@@ -458,9 +519,9 @@ function moveToJeju() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
-  //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
+    //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
     // 하루 뒤의 날짜를 계산
     currentDate.setDate(currentDate.getDate() + 1);
@@ -469,15 +530,15 @@ function moveToJeju() {
     var nextDay = ('0' + currentDate.getDate()).slice(-2);
 
     // arrive_date 세션 값 설정
-  //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
+    //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
-console.log(input_location);
+    console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
 
 
@@ -491,7 +552,7 @@ function moveToSeoul() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
     //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
@@ -504,13 +565,13 @@ function moveToSeoul() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
 
 
@@ -525,7 +586,7 @@ function moveToGangneung() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
     //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
@@ -538,15 +599,14 @@ function moveToGangneung() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
-
 
 
 //부산 버튼 눌렀을 때 이동
@@ -560,7 +620,7 @@ function moveToBusan() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
     //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
@@ -573,13 +633,13 @@ function moveToBusan() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
 
 
@@ -594,7 +654,7 @@ function moveToYeosu() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
     //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
@@ -607,13 +667,13 @@ function moveToYeosu() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
 
 
@@ -628,7 +688,7 @@ function moveToGyeongju() {
     var currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2);
     var currentDay = ('0' + currentDate.getDate()).slice(-2);
 
-    var depart_date = currentMonth + ". " + currentDay + "."+ "" + " 08:00";
+    var depart_date = currentMonth + ". " + currentDay + "." + "" + " 08:00";
 
     //  sessionStorage.setItem("depart_date", currentMonth + "." + currentDay + ","+ " 08:00");
 
@@ -641,13 +701,13 @@ function moveToGyeongju() {
     // arrive_date 세션 값 설정
     //  sessionStorage.setItem("arrive_date",nextMonth + "." + nextDay+ "." + " 16:00");
 
-    var arrive_date = nextMonth + ". " + nextDay+ "." + " 16:00";
+    var arrive_date = nextMonth + ". " + nextDay + "." + " 16:00";
 
     console.log(input_location);
     console.log(input_birth);
 
     // rentcarReserve.html 페이지로 이동
-    location.href = "/store/rentcar/rentcarReserve?input_location="+input_location+"&depart_date="+depart_date+"&arrive_date="+arrive_date+"&input_birth="+input_birth;
+    location.href = "/store/rentcar/rentcarReserve?input_location=" + input_location + "&depart_date=" + depart_date + "&arrive_date=" + arrive_date + "&input_birth=" + input_birth;
 }
 
 

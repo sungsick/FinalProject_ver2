@@ -51,7 +51,6 @@ public class FlightService {
             }
             br.close();
             conn.disconnect();
-            System.out.println(result);
 
         } catch(Exception e){
             e.printStackTrace();
