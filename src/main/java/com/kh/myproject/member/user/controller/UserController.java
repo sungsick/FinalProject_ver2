@@ -306,7 +306,7 @@ public class UserController {
         return "member/user/logout";
     }
 
-    @GetMapping("member/mypage")
+    @GetMapping("/member/mypage")
     public String mypage(HttpSession session, Model model) {
 
 
