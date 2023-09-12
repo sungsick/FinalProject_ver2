@@ -363,7 +363,7 @@ function resFlight(param) {
                 type: 'post',
                 data: JSON.stringify(parameter),
                 contentType: 'application/json',
-                success: function (data) {
+                success: function () {
                     location.href = '/store/flight/pay/flightPayment';
                 }
             });

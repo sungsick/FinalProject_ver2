@@ -431,9 +431,21 @@ $('#chat-btn').click(function () {
 
     if (userNumber == writerNumber) { // 내가 나한테 채팅을 걸려고 한다면.
 
-        alert("본인에게는 채팅을 거실 수 없습니다.");
+
+        Swal.fire({
+            title: '본인에게는 채팅을 거실 수 없습니다.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        });
+
     } else if (userNumber == -1) {
-        alert("로그인 후 채팅하실 수 있습니다.")
+        Swal.fire({
+            title: '로그인 후 채팅하실 수 있습니다.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        });
 
     } else if (userNumber != -1) { // 현재 가지고 있는 userNumber값이 없을때만 채팅방을 생성한다.
         $.ajax({

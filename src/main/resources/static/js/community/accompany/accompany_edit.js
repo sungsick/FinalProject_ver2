@@ -27,12 +27,14 @@ $(function () {
         let editRegionValue = editRegion[i].innerText;
         console.log(editRegionValue)
         if (choiceRegion === editRegionValue) {
-
             console.log('감지')
             console.log(editRegion[i])
             editRegion[i].classList.add('regionCliked');
 
-
+            /*editRegion[i].style.backgroundColor = "#00b8ff";
+            editRegion[i].style.border = "none";
+            editRegion[i].style.color = "ffffff";
+            editRegion[i].style.fontWeight = "500";*/
         }
         editRegion[i].addEventListener("click", function () {
             editRegion[i].style.backgroundColor = "";
@@ -135,51 +137,40 @@ $(function () {
         updateSliderValue();
     };
 
-//
-// $('.writebtn').submit(function () {
-//
-//     console.log("accompany update submit_btn 클릭!")
-//
-//
-//
-//
-//
-//     // var query = JSON.stringify({
-//     //     ac_num: $('input[name=ac_num]').val(),
-//     //     user_number: $('input[name=user_number]').val(),
-//     //     ac_region: $('input[name=ac_region]').val(), // 변수명 수정
-//     //     ac_startdate: $('input[name=ac_startdate]').val(), // 변수명 수정
-//     //     ac_enddate: $('input[name=ac_enddate]').val(), // 변수명 수정
-//     //     ac_people: $('input[name=ac_people]').val(), // 변수명 수정
-//     //     ac_picture: $('input[name=ac_picture]').val(), // 변수명 수정
-//     //     ac_title: $('input[name=ac_title]').val(), // 변수명 수정
-//     //     ac_text: $('textarea[name=ac_text]').val() // 변수명 수정
-//     // });
-//         console.log($('input[name=ac_text]').val())
-//
-//     $.ajax({
-//         url: '/community/accompany/update',
-//         type: 'POST',
-//         data: formData,
-//         contentType: 'application/json',
-//         success : function (data) {
-//
-//             console.log('ho')
-//             Swal.fire('수정이 완료됐습니다', '', 'success').then((result) => {
-//
-//                 location.href = '/community/accompany';
-//
-//             })
-//
-//     },
-//         error: function () {
-//
-//         alert("code: ajax 통신 에러")
-//     },
-//
-//     })
-// })
-//
+
+/*$('.writebtn').click(function () {
+
+    console.log("accompany update submit_btn 클릭!")
+
+    var query = JSON.stringify({
+        ac_num: $('input[name=ac_num]').val(),
+        user_number: $('input[name=user_number]').val(),
+        ac_region: $('input[name=ac_region]').val(), // 변수명 수정
+        ac_startdate: $('input[name=ac_startdate]').val(), // 변수명 수정
+        ac_enddate: $('input[name=ac_enddate]').val(), // 변수명 수정
+        ac_people: $('input[name=ac_people]').val(), // 변수명 수정
+        ac_picture: $('input[name=ac_picture]').val(), // 변수명 수정
+        ac_title: $('input[name=ac_title]').val(), // 변수명 수정
+        ac_text: $('textarea[name=ac_text]').val() // 변수명 수정
+    });
+        console.log($('input[name=ac_text]').val())
+    $.ajax({
+        url: '/community/accompany/update',
+        type: 'POST',
+        data: query,
+        contentType: 'application/json',
+        success : function (data) {
+
+            Swal.fire('수정이 완료됐습니다', '', 'success').then((result) => {
+                location.href = '/community/accompany';
+            })
+    },
+        error: function () {
+        alert("code: ajax 통신 에러")
+    },
+    })
+})*/
+
 
 
 

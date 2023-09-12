@@ -157,7 +157,7 @@
 
                                 <div class="add_schedule_div1">
                                     <div class="add_schedule_div2">
-                                        <button class="add_schedule_btn">
+                                        <button class="add_schedule_btn" id="myBtn">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
                                                 <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                 <style>svg {
@@ -200,33 +200,34 @@
 
 
                                 <div class="bt_container">
-
                                     <div class="bt_container_m">
 
-                                        <p th:text="${#dates.format(accompany.ac_regdate,'yyyy년 MM월 dd일')}"></p>
-                                    </div>
 
-                                    <div class="bt_container_m">
-                                        <p class="bt_container_m_view">조회수
-                                            <span th:text="${accompany.ac_viewcount}"></span>
-                                        </p>
-                                    </div>
-                                    <!--    <th:block th:if = "${accompany.user_number() != user.user_number}">-->
-                                    <th:block th:if="${accompany.user == session.user}">
                                         <div class="bt_container_m">
-                                            <button class="bt_container_m_btn">
-                                                <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
-                                                   style="color: rgb(154, 154, 154)">수정</a>
-                                            </button>
-                                            <p class="bt_container_m_jum">·</p>
 
-                                            <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
-                                            <button id="deleteBtn">삭제</button>
-                                            <p class="bt_container_m_jum">·</p>
-                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>
+                                            <p th:text="${#dates.format(accompany.ac_regdate,'yyyy년 MM월 dd일')}"></p>
+                                            <p class="bt_container_m_view">조회수
+                                                <span th:text="${accompany.ac_viewcount}"></span>
+                                            </p>
                                         </div>
+
+                                    </div>
+                                    <th:block th:if="${session.user != null}">
+                                        <th:block th:if="${accompany.user.userNumber == session.user.userNumber}">
+                                            <div class="bt_container_m">
+                                                <button class="bt_container_m_btn">
+                                                    <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
+                                                       style="color: rgb(154, 154, 154)">수정</a>
+                                                </button>
+                                                <p class="bt_container_m_jum">·</p>
+
+                                                <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
+                                                <button id="deleteBtn">삭제</button>
+
+                                                <!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
+                                            </div>
+                                        </th:block>
                                     </th:block>
-                                    <!--                                    </th:block>-->
                                 </div>
 
 
@@ -246,44 +247,60 @@
                                         </div>
                                     </th:block>
 
+                                    <div class="comment-block_mini"></div>
 
                                     <div class="comment-block">
                                         <th:block th:each="comment : ${commentList}">
-                                            <div class="sc-5e8de0d6-1 kAbAZt">
-                                                <div class="sc-5e8de0d6-2 cpQiyf">
-                                                    <div class="sc-c9e981f7-0 dendhJ">
-                                                        <div class="sc-c9e981f7-1 ehEcUl">
-                                                            <img src="/img/member/신짱구.png">
+                                            <div class="thCommentBox">
+                                                <div class="commentBox">
+                                                    <div class="commentBox1">
+                                                        <div class="sc-c9e981f7-0 dendhJ">
+                                                            <div class="sc-c9e981f7-1 ehEcUl">
+                                                                <img src="/img/member/신짱구.png">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="sc-5e8de0d6-3 chnpuB">
+                                                    <div class="sc-5e8de0d6-3 chnpuB">
                                                     <span class="sc-5e8de0d6-4 gBUxqr"
                                                           th:text="${comment.user.userName}"></span>
-                                                    <span
-                                                            class="sc-5e8de0d6-5 hotNUk"
-                                                            th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                        <span
+                                                                class="sc-5e8de0d6-5 hotNUk"
+                                                                th:text="${#temporals.format(#temporals.createDateTime(comment.co_regdate,'yyyy-MM-dd HH:mm:ss'), 'yyyy-MM-dd HH:mm:ss')}"></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <textarea th:id="'textarea'+${comment.getCo_number()}"
-                                                      th:text="${comment.getCo_content()}"
-                                                      class="commentDelBtn"></textarea>
+                                                <textarea th:id="'textarea'+${comment.getCo_number()}"
+                                                          th:text="${comment.getCo_content()}" class="commentDelBtn"
+                                                          style="font-family: Arial, sans-serif"></textarea>
 
-                                            <p class="sc-5e8de0d6-6 gUqDoq" th:text="${comment.co_content}"></p>
-                                            <!-- 이부분이 원래 댓글을 보여주는 text 박스-->
+                                                <p class="gotMsg" th:text="${comment.co_content}"></p>
+                                                <!-- 이부분이 원래 댓글을 보여주는 text 박스-->
 
-                                            <div class="sc-5e8de0d6-7 jXMuyg">
-                                                <div class="sc-5e8de0d6-8 fIIDkd">
-                                                    <button class="add_reply_btn">답글 달기</button>
-                                                    <button th:id="${comment.getCo_number()}" type="button"
-                                                            class="add_reply_btnUpdate">등록
-                                                    </button>
-                                                    <button th:id="${comment.getCo_number()}" type="button"
-                                                            class="add_reply_btnEdit">수정
-                                                    </button>
-                                                    <button th:id="${comment.getCo_number()}" type="button"
-                                                            class="add_reply_btnDelete">삭제
-                                                    </button>
+
+                                                <div class="sc-5e8de0d6-7 jXMuyg">
+                                                    <div class="sc-5e8de0d6-8 fIIDkd">
+                                                        <button class="add_reply_btn">채팅 하기</button>
+                                                        <th:block th:if="${session.user != null}">
+
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnUpdate">등록
+                                                                </button>
+                                                            </th:block>
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnEdit">수정
+                                                                </button>
+                                                            </th:block>
+                                                            <th:block
+                                                                    th:if="${comment.user.userNumber == session.user.userNumber}">
+                                                                <button th:id="${comment.getCo_number()}" type="button"
+                                                                        class="add_reply_btnDelete">삭제
+                                                                </button>
+                                                            </th:block>
+                                                        </th:block>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </th:block>
@@ -323,12 +340,10 @@
                                         <button id="btn_modal" alt="모달 창 열기 버튼">
 
 
-                                            <img class="icon-img"
-                                                 th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
+                                            <img th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
                                         </button>
 
                                         <div class="an_profile_detail">
-
 
                                             <p th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></p>
 
@@ -353,13 +368,8 @@
 
                                     <div class="click_profile_box">
                                         <div class="click_profile_box_div">
-                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
-                                                      fill="#00b8ff"></path>
-                                                <path d="M7.77467 12.9015C7.78623 12.6612 7.86817 12.4295 8.01029 12.2353C8.15241 12.0411 8.34846 11.893 8.57407 11.8093C8.79968 11.7256 9.04491 11.71 9.27931 11.7645C9.5137 11.8189 9.72691 11.9411 9.89247 12.1157C10.058 12.2904 10.1686 12.5098 10.2105 12.7468C10.2524 12.9838 10.2237 13.2278 10.1281 13.4486C10.0324 13.6695 9.87403 13.8573 9.67253 13.9888C9.47102 14.1204 9.23531 14.1898 8.99467 14.1885C8.82916 14.1871 8.66563 14.1523 8.51386 14.0863C8.36209 14.0202 8.22519 13.9243 8.11132 13.8042C7.99745 13.684 7.90896 13.5422 7.85111 13.3871C7.79327 13.232 7.76727 13.0669 7.77467 12.9015ZM8.06967 5.67455L8.00267 3.81055H9.98667L9.91967 5.67455L9.63767 10.6215H8.35167L8.06967 5.67455Z"
-                                                      fill="white"></path>
-                                            </svg>
+                                            <img class="icon-img"
+                                                 th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
                                             <p class="sc-6916464b-10 hgFpaM">프로필 사진을 클릭해보세요!</p>
                                         </div>
 
@@ -376,10 +386,14 @@
                                         <div class="an_container_up_div">
                                             <p class="an_container_up_div_mini">함께하는 동행</p>
                                             <div class="bt_container_up_div_pIcon">
-
-                                                <img class="icon-img"
-                                                     th:src=" '/file/profile_image/'+${accompany.user.userImg}" alt="">
-
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                                     viewBox="0 0 448 512">
+                                                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                    <style>svg {
+                                                    }</style>
+                                                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+                                                          fill="#00b8ff"></path>
+                                                </svg>
 
                                             </div>
                                             <div class="dropdown_menu">
@@ -407,7 +421,6 @@
                                                 </svg>
                                             </div>
                                             <div class="an_container_up_div_Icon_name">
-
 
                                                 <span class="an_container_two_1"
                                                       th:text="${#strings.setSplit(accompany.user.userId,'@')[0]}"></span>
@@ -447,6 +460,8 @@
                                 </div>
 
                             </div>
+
+
                         </div>
 
 
@@ -462,14 +477,20 @@
 
     </div>
 
+
+</div> <!-- another 닫힘 -->
+</div>
+</div>
+
+</div>
 <div id="LoadingContainer"></div>
 <div id="AlertContainer"></div>
 <div id="ModalController"></div>
+<div>
 
 
+    <!--모달창 시작-->
     <div id="modal" class="modal-overlay">
-
-        <!--모달창 시작-->
 
         <div class="modal-window"><!--dDJVYV-->
             <div class="content">
@@ -591,20 +612,58 @@
         </div>
         </th:block>
     </div> <!--content div-->
-    <footer th:include="/footer.html :: footer"></footer>
+</div>
+
+
+<!-- 일정 추가 모달 창 -->
+
+
+<div id="planModal" class="modal-overlay">
+    <div class="planModal-window">
+        <div class="title">
+            <p>일정 추가하기</p>
+            <div class="planCloseArea">X</div>
+        </div>
+
+        <div class="content" id="idSubject" th:text="${accompany.user.userName} + '님의 여행일정'"></div>
+        <div class="content" id="introAddPlan">
+            <div class="content_sub1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                          fill="#00b8ff"></path>
+                </svg>
+
+            </div>
+            <p class="sc-f938c304-8 gPQvtL">동행글에 추가할 여행일정을 선택해주세요</p>
+
+
+        </div>
+        <div class="content">3. 세번째 공지사항</div>
+        <div class="content">4. 네번째 공지사항</div>
+    </div>
+</div>
+<!-- 일정추가 모달창 끝-->
+
+
+</div> <!--모달창 끝-->
+
 
 </div>
-<!-- another 닫힘 -->
 
 
+</div>
 
+</div>
+</div>
 
 
 <!-- Swiper JS -->
 
 
+</script>
 
-
+<div th:include="/footer.html :: footer"></div>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
@@ -612,8 +671,8 @@
 <script src="/js/header.js"></script>
 <!--<script src="/js/community/accompany/accompanyDetailComment.js"></script>-->
 <script src="/js/community/accompany/accompany_detail_profile.js"></script>
+<!--<script src="/js/community/accompany/accompany_plan.js"></script>-->
 <script src="/js/community/accompany/accompany_detail.js"></script>
-<script src="/js/community/accompany/comment_write.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

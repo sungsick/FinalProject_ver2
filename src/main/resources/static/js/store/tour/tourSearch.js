@@ -406,6 +406,19 @@ function getAreaBaseList(pageNum) {
             $('.search_result').prepend(content);
 
 
+            if(totalCount === 0){
+                $('.loading_wrap').css('display', 'none');
+                Swal.fire({
+                    title: '검색결과가 존재하지 않습니다.',
+                    icon: 'error',
+                    confirmButtonColor: '#00b8ff',
+                    confirmButtonText: '확인',
+                }).then(function () {
+                    return;
+                });
+
+            }
+
             for (var i = 0; i < item.length; i++) {
                 var image = item[i].firstimage;
 
@@ -632,6 +645,19 @@ function getSearchKeyword(pageNum) {
 
             var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
             $('.search_result').prepend(content);
+
+            if(totalCount === 0){
+                $('.loading_wrap').css('display', 'none');
+                Swal.fire({
+                    title: '검색결과가 존재하지 않습니다.',
+                    icon: 'error',
+                    confirmButtonColor: '#00b8ff',
+                    confirmButtonText: '확인',
+                }).then(function () {
+                    return;
+                });
+
+            }
 
 
             for (var i = 0; i < item.length; i++) {
