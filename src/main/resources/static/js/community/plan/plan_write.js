@@ -133,7 +133,6 @@ function deletePlan(day, place_name){
 
 //일정작성완료 버튼 클릭 시
 $('.complete_write_btn').on('click', function () {
-    //
     // alert("일정이 저장되었습니다.")
     var pbTitle = $('.art1_div_subject').text();
     var pbStartDate = $('#select_start_date').val();
@@ -141,7 +140,7 @@ $('.complete_write_btn').on('click', function () {
     var pbRegion = $('.form-select_place').val();
     var pbViewCount = 0;
 
-// planBoardDTO 객체 생성 및 값 설정
+    // planBoardDTO 객체 생성 및 값 설정
     var planBoardDTO = {
         // pbNum: pbNum, //게시글번호
         // pbWriteDate: pbWriteDate, //작성일자
@@ -218,7 +217,7 @@ var pbdYElements = document.querySelectorAll('.pbdy');
 // 좌표를 담을 배열
 var positions = [];
 
-// Plan 객체에서 pbdX와 pbdY 값을 추출하여 좌표 배열에 추가합니다
+// Plan 객체에서 pbdX와 pbdY 값을 추출하여 좌표 배열에 추가
 for (var i = 0; i < pbdXElements.length; i++) {
     var pbdX = parseFloat(pbdXElements[i].value); // 숫자로 변환
     var pbdY = parseFloat(pbdYElements[i].value); // 숫자로 변환
