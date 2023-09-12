@@ -129,6 +129,8 @@ $(document).ready(function () {
     });
 
 
+    // 서치바 유효성검사
+
     $('form').on('submit', function (e) {
 
         e.preventDefault();
@@ -177,7 +179,10 @@ $(document).ready(function () {
                 return;
             });
         } else {
+
             $('form').unbind();
+            $('form').submit();
+
         }
 
 
