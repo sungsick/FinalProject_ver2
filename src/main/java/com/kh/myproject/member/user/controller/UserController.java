@@ -7,6 +7,7 @@ import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.service.PlanBoardService;
 import com.kh.myproject.member.chat.service.ChatRoomService;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.QnaForm;
@@ -34,6 +35,7 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +56,9 @@ public class UserController {
 
     @Autowired
     ChatRoomService chatRoomService;
+
+    @Autowired
+    PlanBoardService planBoardService;
 
 
     @GetMapping("/")
@@ -331,11 +336,19 @@ public class UserController {
         List<Accompany> alist = userService.getAccompanyByNum(user.getUserNumber());
         List<PlanBoardDTO> planList = userService.getPlanByNum(user.getUserNumber());
         List<PlanBoardDetailDTO> planDetailList = userService.getPlanDetail();
+        List<Integer> maxDays = new ArrayList<>();
+        for(int i = 0; i < planList.size(); i++){
+            int maxDay = planBoardService.getMaxByPbNum(planList.get(i).getPbNum());
+            System.out.println("maxDay="+maxDay);
+            maxDays.add(maxDay);
+        }
 
         System.out.println(planList);
 //        System.out.println(planDetailList);
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
+        model.addAttribute("maxDays", maxDays);
+
         model.addAttribute("user", newUser);
 
         model.addAttribute("qlist", qlist);

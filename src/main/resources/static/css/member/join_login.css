@@ -144,7 +144,7 @@ body {
     border-radius: 10px;
     color : #2B96EC;
     margin-top: 20px;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 #join_btn:active{
@@ -310,7 +310,7 @@ body {
 
 .phone_block button{
 
-    background-color: #05B6CE;
+    background-color: #00B8FF;
     border : none;
     border-radius: 5px;
     width: 100px;
