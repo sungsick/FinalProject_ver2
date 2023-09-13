@@ -50,6 +50,13 @@ public class PlanController {
         model.addAttribute("planDetailList", planDetailList);
         System.out.println(planDetailList);
 
+        List<Integer> maxDays = new ArrayList<>();
+        for(int i = 0; i < planList.size(); i++){
+            int maxDay = planBoardService.getMaxByPbNum(planList.get(i).getPbNum());
+            System.out.println("maxDay="+maxDay);
+            maxDays.add(maxDay);
+        }
+        model.addAttribute("maxDays", maxDays);
         return "community/plan/plan";
     }
 

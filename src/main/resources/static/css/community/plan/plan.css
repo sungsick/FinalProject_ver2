@@ -486,6 +486,9 @@ button{
     transform: rotate(-30deg);
 }
 
+.day_text{
+    margin-left: 3px;
+}
 svg:not(:root) {
     overflow: initial;
     overflow-clip-margin: content-box;
@@ -508,7 +511,7 @@ svg:not(:root) {
     box-sizing: border-box;
     width: 70px;
     height: 31px;
-    margin-right: 8px;
+    /*margin-right: 8px;*/
     padding: 0px 10px;
     font-size: 13px;
     font-weight: 500;
@@ -520,7 +523,7 @@ svg:not(:root) {
 
 .test2_day_button_selected, .test2_day_button_unselected{
     text-transform: none;
-    margin: 0px;
+    margin-right: 5px;
     font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
     line-height: 1.15;
     overflow: visible;
