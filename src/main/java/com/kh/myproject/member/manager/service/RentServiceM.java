@@ -23,7 +23,7 @@ public class RentServiceM {
     }
     public void deleteRent(Long userNumber){
 
-        rentRepositoryM.deleteByUserUserNumber(userNumber);
+        rentRepositoryM.deleteByRentReservationId(userNumber);
     }
 
 

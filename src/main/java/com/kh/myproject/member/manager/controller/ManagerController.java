@@ -633,12 +633,10 @@ public class ManagerController {
         List<Accompany> aList = new ArrayList<>();
 
 
-        if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
 
             accompanyCount = accompanyServiceM.selectAcoompanyCount();
             aList = accompanyServiceM.findAccompanyByPage(pageNo);
 
-        }
             totalPgae = accompanyCount % 10 > 0 && accompanyCount != 0 ? accompanyCount / 10 + 1 : accompanyCount / 10;
 
             if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리

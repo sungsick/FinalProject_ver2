@@ -17,7 +17,7 @@ public interface AccompanyRepositoryM extends JpaRepository<Accompany,Long> {
     @Query("select count(*) from Accompany a")
     int selectAccompanyCount();
 
-
+    @Query("select a from Accompany a order by a.ac_regdate desc")
     Page<Accompany> findAll(Pageable pageable);
 //    int countByAc_titleLike(String user_name);
 //    int countByAc(String user_id);

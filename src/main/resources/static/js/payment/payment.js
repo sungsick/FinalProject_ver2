@@ -80,7 +80,7 @@ $(function () {
                     map.setCenter(coords);
 
                     // div 요소에서 텍스트를 가져옴
-                    var textFromDiv = document.getElementById('companyName').textContent;
+                    var textFromDiv = document.getElementById('companyAddress').textContent;
 
                     // 링크를 생성하고 텍스트 값을 URL에 추가
                     var link = document.querySelector('.kakaoMap-direct');

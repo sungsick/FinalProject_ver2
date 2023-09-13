@@ -1,5 +1,5 @@
 # CREATE DATABASE if not exists finalproject;
-# 어차피 db연결값이 finalproject라 의미없음
+
 
 use finalproject;
 

@@ -12,7 +12,7 @@ public interface RentRepositoryM extends JpaRepository<RentReservationInfo, Long
 
     @Modifying
     @Transactional
-    void deleteByUserUserNumber(Long userNumber);
+    void deleteByRentReservationId(Long userNumber);
 
 
 
