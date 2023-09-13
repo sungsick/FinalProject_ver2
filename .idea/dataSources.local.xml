@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-232.8660.185">
-<<<<<<< HEAD
     <data-source name="finalproject@localhost" uuid="3f8d8ed5-8687-48d4-b003-e47e1582eb45">
       <database-info product="MySQL" version="8.0.33" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
@@ -43,11 +42,6 @@
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
-=======
-    <data-source name="finalproject@localhost" uuid="4d632ee9-414a-41fa-82da-e77fcceb7d7e">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
->>>>>>> cf4ec4eaf294e899964e46143699fb443ea58fb7
     </data-source>
   </component>
 </project>
