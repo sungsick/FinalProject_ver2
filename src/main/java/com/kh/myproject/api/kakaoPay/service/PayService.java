@@ -1,12 +1,12 @@
 package com.kh.myproject.api.kakaoPay.service;
 
 
-import com.kh.myproject.api.kakaoPay.model.dto.AmountVO;
-import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
-import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
-import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
+import com.kh.myproject.api.kakaoPay.model.dto.*;
+import com.kh.myproject.api.kakaoPay.model.entity.CrawlingEntity;
+import com.kh.myproject.api.kakaoPay.repository.CrawlingRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,16 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class PayService {
+
+    @Autowired
+    private CrawlingRepository crawlingRepository;
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
 
@@ -128,5 +134,18 @@ public class PayService {
 
         return kakaoPayApprovalVO;
 
+    }
+
+    public List<CrawlingDto> getAllCrawlingData() {
+
+        List<CrawlingEntity> entityList = crawlingRepository.findAllCrawlingData();
+        List<CrawlingDto> dtoList = new ArrayList<>();
+
+        for (CrawlingEntity entity : entityList) {
+            CrawlingDto dto = entity.toDto(); // 엔티티를 DTO로 변환
+            dtoList.add(dto);
+        }
+
+        return dtoList;
     }
 }

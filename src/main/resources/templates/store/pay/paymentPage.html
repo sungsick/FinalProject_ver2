@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Rentcar</title>
+    <title>rentcarReservation</title>
     <link th:href="@{/css/payment/payment.css}" rel="stylesheet" type="text/css">
     <link href="/css/header.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
                                     </div>
                                     <!--                                    차 가격 넣기-->
                                     <div class="prodPrice total_count" th:id="car-price"
-                                         th:text="|${dto.car_discount}원|">
+                                         th:text="|${dto.car_price}원|">
 
                                     </div>
                                 </div>
@@ -581,7 +581,7 @@
                                 <section class="review">
                                     <div class="review-title prod-option">리뷰</div>
                                     <!--여기서 부터 포문-->
-                                    <div class="review-content">
+                                    <div class="review-content" th:each="crawl : ${crawlList}">
                                         <div style="display: flex">
                                             <div style="display: flex; align-items: center;">
                                                 <div style="display: flex; margin-right: 12px;">
@@ -597,143 +597,147 @@
                                                         <img alt="start"
                                                              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
                                                     </div>
-                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>
-
+                                                    <div style="font-size: 14px; font-weight: 500;"
+                                                         th:text="${crawl.rating}">5.0
+                                                    </div>
                                                 </div>
-                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">
+                                                <div style="color: rgb(170, 170, 170); font-size: 13px;"
+                                                     th:text="${crawl.ratingDetail}">
                                                     차량상태 5.0 | 이용안내 5.0 | 친절 5.0
                                                 </div>
                                             </div>
-                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">
+                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;"
+                                                 th:text="${crawl.date}">
                                                 2023.08.22
                                             </div>
                                         </div>
-                                        <div style="word-break: break-word; margin: 15px 0px;"></div>
+                                        <div style="word-break: break-word; margin: 15px 0px;"
+                                             th:text="${crawl.reviewText}"></div>
                                     </div>
-                                    <div class="review-content">
-                                        <div style="display: flex">
-                                            <div style="display: flex; align-items: center;">
-                                                <div style="display: flex; margin-right: 12px;">
-                                                    <div style="margin-right: 5px;">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                    </div>
-                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>
+                                    <!--                                    <div class="review-content">-->
+                                    <!--                                        <div style="display: flex">-->
+                                    <!--                                            <div style="display: flex; align-items: center;">-->
+                                    <!--                                                <div style="display: flex; margin-right: 12px;">-->
+                                    <!--                                                    <div style="margin-right: 5px;">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>-->
 
-                                                </div>
-                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">
-                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0
-                                                </div>
-                                            </div>
-                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">
-                                                2023.08.22
-                                            </div>
-                                        </div>
-                                        <div style="word-break: break-word; margin: 15px 0px;"></div>
-                                    </div>
-                                    <div class="review-content">
-                                        <div style="display: flex">
-                                            <div style="display: flex; align-items: center;">
-                                                <div style="display: flex; margin-right: 12px;">
-                                                    <div style="margin-right: 5px;">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                    </div>
-                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>
+                                    <!--                                                </div>-->
+                                    <!--                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">-->
+                                    <!--                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">-->
+                                    <!--                                                2023.08.22-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div style="word-break: break-word; margin: 15px 0px;"></div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="review-content">-->
+                                    <!--                                        <div style="display: flex">-->
+                                    <!--                                            <div style="display: flex; align-items: center;">-->
+                                    <!--                                                <div style="display: flex; margin-right: 12px;">-->
+                                    <!--                                                    <div style="margin-right: 5px;">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>-->
 
-                                                </div>
-                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">
-                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0
-                                                </div>
-                                            </div>
-                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">
-                                                2023.08.22
-                                            </div>
-                                        </div>
-                                        <div style="word-break: break-word; margin: 15px 0px;"></div>
-                                    </div>
-                                    <div class="review-content">
-                                        <div style="display: flex">
-                                            <div style="display: flex; align-items: center;">
-                                                <div style="display: flex; margin-right: 12px;">
-                                                    <div style="margin-right: 5px;">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                    </div>
-                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>
+                                    <!--                                                </div>-->
+                                    <!--                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">-->
+                                    <!--                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">-->
+                                    <!--                                                2023.08.22-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div style="word-break: break-word; margin: 15px 0px;"></div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="review-content">-->
+                                    <!--                                        <div style="display: flex">-->
+                                    <!--                                            <div style="display: flex; align-items: center;">-->
+                                    <!--                                                <div style="display: flex; margin-right: 12px;">-->
+                                    <!--                                                    <div style="margin-right: 5px;">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                    <div style="font-size: 14px; font-weight: 500;">5.0</div>-->
 
-                                                </div>
-                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">
-                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0
-                                                </div>
-                                            </div>
-                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">
-                                                2023.08.22
-                                            </div>
-                                        </div>
-                                        <div style="word-break: break-word; margin: 15px 0px;"></div>
-                                    </div>
-                                    <div class="review-content">
-                                        <div style="display: flex">
-                                            <div style="display: flex; align-items: center;">
-                                                <div style="display: flex; margin-right: 12px;">
-                                                    <div style="margin-right: 5px;">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">
-                                                        <img alt="start"
-                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">
-                                                    </div>
-                                                    <div style="font-size: 14px; font-weight: 500;">1.3</div>
-                                                </div>
-                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">
-                                                    차량상태 2.0 | 이용안내 1.0 | 친절 1.0
-                                                </div>
-                                            </div>
-                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">
-                                                2023.08.22
-                                            </div>
-                                        </div>
-                                        <div style="word-break: break-word; margin: 15px 0px;">여행첫날의 기분을 확
-                                            잡쳐버렸네요.카카오
-                                            대여비용이 더 저렴해서 인가..사무실 여직원도 계약서에 대해 설명하시는 분도 완전 불친철! 다시는 이용하고 싶지않은 렌트카업체
-                                            발리!
-                                            즐거운 여행 첫날을 이분들 때문에 기분 나쁘게 시작 했네요. 제주도 사람들 친절하던데 이분들은 완전 불친절! 다시는 가고싶지 않은
-                                            렌트카
-                                            발리 였네요..쪕 ..싼차량을 대여해서 인가.. 사람취급도 안하는 느낌..정말 기분 나쁜 회사입니다!
-                                        </div>
-                                    </div>
+                                    <!--                                                </div>-->
+                                    <!--                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">-->
+                                    <!--                                                    차량상태 5.0 | 이용안내 5.0 | 친절 5.0-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">-->
+                                    <!--                                                2023.08.22-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div style="word-break: break-word; margin: 15px 0px;"></div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="review-content">-->
+                                    <!--                                        <div style="display: flex">-->
+                                    <!--                                            <div style="display: flex; align-items: center;">-->
+                                    <!--                                                <div style="display: flex; margin-right: 12px;">-->
+                                    <!--                                                    <div style="margin-right: 5px;">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEz9skP9s0L/s0P9s0L/t0D9s0L/r0D8skP9tEL8skL9s0L/tUD9s0PD/nEKAAAADXRSTlMA8IBAoCDgELBwYNAwyfR2TgAAAGFJREFUCNdjYEACLA5QRuxVKEP3EpQhew1Eshqp3L3rpBzAwHgXDAQYuCCMBQwMhiBaGKiIR/bu3YsHQMr33r17G0Szg6RADOa7F2XvGgAZTHfbK+4qABmcyQwMZhMQTgAAprwmK8sExeUAAAAASUVORK5CYII=">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">-->
+                                    <!--                                                        <img alt="start"-->
+                                    <!--                                                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAKlBMVEVHcEzNzc3MzMzPz8/Ly8vNzc3Nzc3MzMzPz8/MzMzMzMzMzMzMzMzMzMySXarjAAAADXRSTlMAPPAggH9o4BCgsJ/QHxLJlAAAAGBJREFUCNdjYEACnBOgDNvLUIbvFShD9zqIZBaNvnt3a6ABA9NdMFBgYIMwEhgYhEC0IlARo+7du5cEQMrP3r17B0RzgKRADMa7l3TvgqRY7q7ouusAZLAVMjCIJyCcAADdXyZO0ICnVwAAAABJRU5ErkJggg==">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                    <div style="font-size: 14px; font-weight: 500;">1.3</div>-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div style="color: rgb(170, 170, 170); font-size: 13px;">-->
+                                    <!--                                                    차량상태 2.0 | 이용안내 1.0 | 친절 1.0-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+                                    <!--                                            <div style="font-size: 13px; color: rgb(170, 170, 170); flex: 1 1 0%; text-align: end;">-->
+                                    <!--                                                2023.08.22-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div style="word-break: break-word; margin: 15px 0px;">여행첫날의 기분을 확-->
+                                    <!--                                            잡쳐버렸네요.카카오-->
+                                    <!--                                            대여비용이 더 저렴해서 인가..사무실 여직원도 계약서에 대해 설명하시는 분도 완전 불친철! 다시는 이용하고 싶지않은 렌트카업체-->
+                                    <!--                                            발리!-->
+                                    <!--                                            즐거운 여행 첫날을 이분들 때문에 기분 나쁘게 시작 했네요. 제주도 사람들 친절하던데 이분들은 완전 불친절! 다시는 가고싶지 않은-->
+                                    <!--                                            렌트카-->
+                                    <!--                                            발리 였네요..쪕 ..싼차량을 대여해서 인가.. 사람취급도 안하는 느낌..정말 기분 나쁜 회사입니다!-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
                                     <!--리뷰 더 불러오기 기능-->
-                                    <button class="_button_default_1vx5o_3 moreReviews"
+                                    <button class="_button_default_1vx5o_3 moreReviews" id="moreReviews"
                                             type="button">리뷰 더보기
                                     </button>
                                 </section>
@@ -750,7 +754,7 @@
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
                                 <div>대여료</div>
-                                <div th:id="car-price2" th:text="${dto.car_discount}">156,480</div>
+                                <div th:id="car-price2" th:text="${dto.car_price}">156,480</div>
                             </div>
                             <div class="priceWarp">
                                 <div>보험 (일반 자차)</div>

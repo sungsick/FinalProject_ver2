@@ -1,5 +1,6 @@
 package com.kh.myproject.api.kakaoPay.controller;
 
+import com.kh.myproject.api.kakaoPay.model.dto.CrawlingDto;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayApprovalVO;
 import com.kh.myproject.api.kakaoPay.model.dto.KakaoPayReadyVO;
 import com.kh.myproject.api.kakaoPay.model.dto.PaybillDto;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -49,11 +52,17 @@ public class PayController {
 
     // retcar 예약 페이지
     @GetMapping("/store/rentcar/pay/rentcarPaymentPage")
-    public ModelAndView rentcarPaymentPage(@RequestParam("Car_info_id") Long Car_info_id, ModelAndView mav) {
+    public ModelAndView rentcarPaymentPage(@RequestParam("Car_info_id") Long Car_info_id,
+                                           ModelAndView mav) {
+
+        List<CrawlingDto> crawlList = payService.getAllCrawlingData();
+        log.info("crawlList{}", crawlList);
 
         RentcarInfoDTO dto = rentcarService.rentcarPay(Car_info_id);
 
         mav.addObject("dto", dto);
+        mav.addObject("crawlList", crawlList);
+
 
         mav.setViewName("store/pay/paymentPage");
 
