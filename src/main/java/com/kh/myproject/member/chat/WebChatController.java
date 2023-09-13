@@ -228,6 +228,7 @@ public class WebChatController {
         System.out.println("userNUmber : " + userNumber);
 
 
+
         List<ChatRoom> roomList = null;
         List<String> lastMessageList = null;
         Map<String, Object> userInfo = new HashMap<>();

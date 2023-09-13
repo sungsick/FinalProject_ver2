@@ -7,24 +7,7 @@ var webSocket = null;
 var url = location.pathname.split('/');
 
 
-// /로 자르면 이런식으로 잘린다.
-//['','manager','home'];
 
-console.log(userNumber)
-console.log(url[1])
-
-if (url[1] === 'chatTest1') {
-    userNumber = 1;
-} else if (url[1] === 'chatTest2') {
-    userNumber = 2;
-} else if (url[1] === 'chatTest3') {
-    userNumber = 3;
-} else if (url[1] === 'chatTest4') {
-    userNumber = 4;
-} else if (url[1] === 'manager') {
-
-    userNumber = 0;
-}
 
 
 $.ajax({
@@ -42,10 +25,33 @@ $.ajax({
         userNumber = data;
         console.log(userNumber + "userNumber값");
 
+        if (url[1] === 'chatTest1') {
+            userNumber = 1;
+        } else if (url[1] === 'chatTest2') {
+            userNumber = 2;
+        } else if (url[1] === 'chatTest3') {
+            userNumber = 3;
+        } else if (url[1] === 'chatTest4') {
+            userNumber = 4;
+        } else if (url[1] === 'manager') {
+
+            userNumber = 0;
+        }
+
     }, error: function () {
 
     }
 })
+
+
+
+
+
+console.log(userNumber)
+
+
+
+
 
 
 //클릭관련 이벤트 함수는 위쪽 배치. 실제 실행되는 함수는 아래쪽 배치.
