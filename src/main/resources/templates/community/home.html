@@ -11,6 +11,10 @@
     <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 
 </head>
 <body>
@@ -21,7 +25,7 @@
         <div class="carousel no-js">
             <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
                               centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-                <swiper-slide><a href="/store/rentcar/rentcarMain">
+                <swiper-slide ><a href="/store/rentcar/rentcarMain">
                     <img src="/img/store/tour/tourmain/main_01.png"
                          alt="" id="visual1">
                 </a></swiper-slide>
@@ -302,7 +306,9 @@
                         <div class="test2_day_buttonarea">
                             <div class="test2_day_buttonarea_2">
                                 <div class="test2_day_buttons">
-                                    <button class="test2_day_button_selected">
+                                    <th:block th:each="maxDay : ${maxDays}" th:if="${planStat.index == maxDayStat.index}">
+                                        <th:block th:each="num : ${#numbers.sequence(1, maxDay)}">
+                                            <button class="test2_day_button_selected" th:if="${numStat.index == 0}">
                                         <span class="sc-20343a87-3 cZhUke"><svg width="15" height="15"
                                                                                 viewBox="0 0 24 24" fill="none"
                                                                                 xmlns="http://www.w3.org/2000/svg"
@@ -310,18 +316,20 @@
                                                 fill-rule="evenodd" clip-rule="evenodd"
                                                 d="M21.5143 12.7857C22.1619 12.462 22.1619 11.538 21.5143 11.2143L3.2715 2.09388C2.68733 1.80182 2 2.22657 2 2.87962L2 9.63235C2 10.1346 2.3726 10.559 2.87068 10.624L13.4216 12L2.87068 13.376C2.3726 13.441 2 13.8654 2 14.3676L2 21.1204C2 21.7734 2.68733 22.1982 3.2715 21.9061L21.5143 12.7857Z"
                                                 fill="#fff"></path></svg></span>
-                                        Day1
-                                    </button>
-                                    <button class="test2_day_button_unselected">
-                                        Day2
-                                    </button>
-                                    <button class="test2_day_button_unselected">
-                                        Day3
-                                    </button>
-                                    <button class="test2_day_button_unselected">
-                                        Day4
-                                    </button>
+                                                <span th:text="Day+${numStat.count}" class="day_text"></span>
+                                            </button>
+                                            <button class="test2_day_button_unselected" th:if="${numStat.index != 0}" th:text="Day+${numStat.count}">
+                                                Day2
+                                            </button>
+                                        </th:block>
+                                    </th:block>
                                 </div>
+                                <!--<button class="test2_day_button_unselected">
+                                    Day3
+                                </button>
+                                <button class="test2_day_button_unselected">
+                                    Day4
+                                </button>-->
                             </div>
                         </div>
                         <!--여행지 -->
@@ -399,8 +407,7 @@
 
 
 <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 <script src="/jq/jquery-3.7.0.min.js"></script>
 <script src="/js/header.js"></script>
 

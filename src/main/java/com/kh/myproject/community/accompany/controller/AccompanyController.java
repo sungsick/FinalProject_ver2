@@ -8,6 +8,7 @@ import com.kh.myproject.community.accompany.repository.CommentRepository;
 import com.kh.myproject.community.accompany.service.AccompanyService;
 import com.kh.myproject.member.user.model.entity.User;
 import com.kh.myproject.member.user.service.UserService;
+import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,50 +52,122 @@ public class AccompanyController {
 
     //동행 리스트(동행 메인)
     @GetMapping("/community/accompany") // http://localhost:8070/community/accompany
-    public String communityAccompany(Model model,
-                                     @RequestParam(required = false, name = "orderby") String orderby,
-                                     @RequestParam(required = false, name = "startAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startAt,
-                                     @RequestParam(required = false, name = "endAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endAt,
-                                     @RequestParam(required = false, name = "regionAt") String regionAt
-        ) {
-        System.out.println("컨트롤러의 ");
-        // 목록보기
+    public String communityAccompany(
 
-        // db에서 정보를 가져오는 locig을 짜야함
-        List<Accompany> accompanyEntity;
+            Model model,
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            @RequestParam(required = false, name = "orderby") String orderby,
+            @RequestParam(required = false, name = "startAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startAt,
+            @RequestParam(required = false, name = "endAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endAt,
+            @RequestParam(required = false, name = "regionAt") String regionAt
+
+
+    ) {
+
+
+        int totalPgae = 0;
+        int startNo = 0;
+        int endNo = 0;
+        int pageStartNo = 0;
+        int pageEndNo = 0;
+        boolean lastPageCheck = true;
+        int accompanyCount = 0;
+        boolean noList = false;
+
+
+        List<Accompany> aList = new ArrayList<>();
+
+
         if (orderby != null && orderby.equals("recent")) {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
+            aList = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
 
         } else if (orderby != null && orderby.equals("viewcount")) {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_viewcountDesc();
+            aList = accompanyRepository.findByAc_numOrderByAc_viewcountDesc();
         }
         else if (orderby != null && orderby.equals("countComment")) {
-            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
-            System.out.println("accompanyEntity값을 넣어줌" + accompanyEntity);
+            aList = accompanyRepository.findAccompanyWithCommentCount();
+        }else if(orderby == null){
+
+            accompanyCount = accompanyService.selectAcoompanyCount();
+            aList = accompanyService.findAccompanyByPage(pageNo);
+
         }
-        else if (startAt != null && endAt != null) {
-            // 시작 날짜와 종료 날짜 사이의 게시글 검색
-            accompanyEntity = accompanyRepository.findByAc_startdateBetween(startAt, endAt);
+
+
+        totalPgae = accompanyCount % 12 > 0 && accompanyCount != 0 ? accompanyCount / 12 + 1 : accompanyCount / 12;
+
+        if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+            pageNo = 1;
         }
-        else if (regionAt != null) {
-            // 지역 선택하면 해당 지역 게시글만 검색
-            accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
+
+
+        pageStartNo = pageNo / 10 * 10 + 1;
+        pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+        pageEndNo = ((pageNo / 10 + 1) * 10);
+        pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo;
+        if (totalPgae <= pageEndNo) { // 현재 보여주고 있는 페이지라인이(ex 1~10, 11~20 pageEndNo가 totlaPage보다 크거나 같을 경우. 다음과 끝은 보여주면 안된다.
+
+
+            pageEndNo = accompanyCount / 12;
+            pageEndNo = accompanyCount % 12 > 0 ? pageEndNo + 1 : pageEndNo;
+            lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
         }
-//            else if (orderby != null && startAt != null && endAt != null) {
-//            // 최신순, 조회orderby != null &&기간, 지역순 중복쿼리
-//            accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
+
+        // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
+        // 마지막페이지 값
+
+        noList = accompanyCount == 0 ? true : false;
+
+        // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+        model.addAttribute("noList", noList);
+        model.addAttribute("totalPage", totalPgae);
+        model.addAttribute("lastPageCheck", lastPageCheck);
+        model.addAttribute("pageStartNo", pageStartNo);
+        model.addAttribute("pageEndNo", pageEndNo);
+//            model.addAttribute("accompanyList", accompanyList);
+        model.addAttribute("pageNo", pageNo);
+
+
+
+        // 예슬님 코드 시작
+
+//        System.out.println("컨트롤러의 ");
+//        // 목록보기
+//
+//        // db에서 정보를 가져오는 locig을 짜야함
+//        List<Accompany> accompanyEntity;
+//        if (orderby != null && orderby.equals("recent")) {
+//            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
+//
+//        } else if (orderby != null && orderby.equals("viewcount")) {
+//            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_viewcountDesc();
+//        }
+//        else if (orderby != null && orderby.equals("countComment")) {
+//            accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
+//            System.out.println("accompanyEntity값을 넣어줌" + accompanyEntity);
+//        }
+//        else if (startAt != null && endAt != null) {
+//            // 시작 날짜와 종료 날짜 사이의 게시글 검색
+//            accompanyEntity = accompanyRepository.findByAc_startdateBetween(startAt, endAt);
+//        }
+//        else if (regionAt != null) {
+//            // 지역 선택하면 해당 지역 게시글만 검색
+//            accompanyEntity = accompanyRepository.findByAc_regionContains(regionAt);
+//        }
+////            else if (orderby != null && startAt != null && endAt != null) {
+////            // 최신순, 조회orderby != null &&기간, 지역순 중복쿼리
+////            accompanyEntity = accompanyRepository.findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(startAt, endAt);
+////        }
+//
+//        else {
+//            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
 //        }
 
-        else {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
-        }
-
-        model.addAttribute("accompanyList", accompanyEntity);
+        model.addAttribute("accompanyList", aList);
 
 
         return "community/accompany/accompany";
     }
-
 
 
 //        Accompany ac = accompanyEntity.get(0);
@@ -256,11 +330,11 @@ public class AccompanyController {
     @PostMapping("/community/accompany/update")
     public String Accompanyupdate(
             Model model, //모델
-            @RequestParam("enddate")String enddate,
-            @RequestParam("startdate")String startdate,
-            @RequestParam("accompany_image")MultipartFile multipartFile,
-            @RequestParam("user_number")Long user_number,
-            @RequestParam("ac_num")Long ac_num,
+            @RequestParam("enddate") String enddate,
+            @RequestParam("startdate") String startdate,
+            @RequestParam("accompany_image") MultipartFile multipartFile,
+            @RequestParam("user_number") Long user_number,
+            @RequestParam("ac_num") Long ac_num,
             AccompanyForm form
     ) {
 
@@ -329,19 +403,18 @@ public class AccompanyController {
 
         // 삭제할 데이터를 가져온다.
         Accompany accompanyEntity = accompanyRepository.findById(ac_num).orElse(null);
-        List <Comment>  commentEntities = commentRepository.findAllByAccompany_Acnum(ac_num);
+        List<Comment> commentEntities = commentRepository.findAllByAccompany_Acnum(ac_num);
         System.out.println(accompanyEntity.toString());
         System.out.println(commentEntities);
         accompanyEntity.setComments(commentEntities);
         //데이터 삭제
 
-            /*commentRepository.deleteAll(commentEntities);*/
-            accompanyRepository.delete(accompanyEntity);
+        /*commentRepository.deleteAll(commentEntities);*/
+        accompanyRepository.delete(accompanyEntity);
 
-            rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
+        rttr.addFlashAttribute("msg", ac_num + "번 글 삭제 완료!");
         return "redirect:/community/accompany";
     }
-
 
 
 }

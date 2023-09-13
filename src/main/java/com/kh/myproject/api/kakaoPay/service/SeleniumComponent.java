@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,9 @@ public class SeleniumComponent {
     }
 
 //    private CrawlingDto crawlingDto;
-
+// /Users/kim/Downloads/chromedriver-mac-x64
     public static String WEB_DRIVER_ID = "webdriver.chrome.driver"; // Properties 설정
-    public static String WEB_DRIVER_PATH = "\\Users\\user1\\Desktop\\chromedriver-win64\\chromedriver.exe"; // WebDriver 경로
+    public static String WEB_DRIVER_PATH = "chromedriver"; // WebDriver 경로
 
     private WebDriver driver;
 //    private final List<CrawlingDto> reviewList = new ArrayList<>();
@@ -118,8 +119,15 @@ public class SeleniumComponent {
         Thread.sleep(500);
         log.info("selectStore 클릭");
 
+        WebElement selectRentcar;
+        try{
+            selectRentcar = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/div/div/div[2]/div[2]/div[2]/div[2]/div/div[3]"));
+        }catch (BeanCreationException e){
+            log.info("에러떴다.");
+            selectRentcar = driver.findElement(By.xpath("//*[@id=\"root\"]/div[2]/div[2]/div/div[2]/div[2]/div/div[1]/div[2]"));
 
-        WebElement selectRentcar = driver.findElement(By.xpath("//*[@id=\"__next\"]/div[1]/div/div/div[2]/div[2]/div[2]/div[2]/div/div[3]"));
+
+        }
         selectRentcar.click();
         Thread.sleep(500);
         log.info("selectRentcar 클릭");

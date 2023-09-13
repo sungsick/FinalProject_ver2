@@ -515,18 +515,18 @@
 }
 
 .place_add_btn, .memo_add_btn {
-    width: 110px;
-    height: 35px;
+    width: 250px;
+    height: 38px;
     margin: 0px 5px;
     background-color: #00b8ff;
-    border-radius: 14px;
+    border-radius: 25px;
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
-    /*align-items: center;*/
+    /* align-items: center; */
     font-weight: 500;
-    font-size: 13px;
+    font-size: 18px;
     line-height: 35px;
     border: transparent;
     color: #ffffff;

@@ -1,6 +1,8 @@
 package com.kh.myproject.community.accompany.repository;
 
 import com.kh.myproject.community.accompany.entity.Accompany;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -73,5 +75,12 @@ public interface AccompanyRepository extends JpaRepository<Accompany, Long> {
     List<Accompany> findByAc_startdateWithinAndAc_enddateOrderByAc_regdateDesc(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 
+
+    // 페이징 처리를ㄹ 위한 메서드
+    @Query("select count(*) from Accompany a")
+    int selectAccompanyCount();
+
+
+    Page<Accompany> findAll(Pageable pageable);
 }
 

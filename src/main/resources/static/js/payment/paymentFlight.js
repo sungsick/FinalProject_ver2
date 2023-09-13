@@ -190,7 +190,7 @@ $(function () {
             });
         }
 
-        if (!auth_check) { // 인증완료가 아직 안됐을 경우.
+       if (!auth_check) { // 인증완료가 아직 안됐을 경우.
 
             $.ajax({
                 url: '/member/joinAuth',

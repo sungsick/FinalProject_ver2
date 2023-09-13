@@ -59,6 +59,7 @@ $(document).ready(function () {
         console.log('hi')
         $('html').removeClass('no-js');
 
+        $('.carousel').removeClass('no-js');
 
 
     })
@@ -123,7 +124,7 @@ $(document).ready(function () {
 
             if (this.value === "") {
                 // Swal.fire('검색어를 입력해주세요.','', 'info')
-                alert('검색어를 입력해주세요.');
+                Swal.fire('검색어를 입력해주세요.', '', 'info')
             } else {
 
                 var query = this.value;

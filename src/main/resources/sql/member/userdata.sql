@@ -10,11 +10,11 @@ VALUES
     ('user2@example.com', 'UserTwo', 'userpass2', '01022222222', 'M', '1978-08-21', 'ESTP', 'default1.png', '2023-08-26 16:15:55'),
     ('user3@example.com', 'UserThree', 'userpass3', '01033333333', 'F', '1956-08-21', 'ENFP', 'default2.png', '2023-08-26 22:10:45'),
     ('user4@example.com', 'UserFour', 'userpass4', '01044444444', 'M', '1999-08-21', 'ISTJ', 'default1.png', '2023-08-29 11:05:30'),
-    ('user5@example.com', 'UserFive', 'userpass5', '01055555555', 'F', '2023-08-21', 'ESFP', 'default2.png', '2023-08-30 19:20:15'),
-    ('user6@example.com', 'UserSix', 'userpass6', '01066666666', 'M', '2023-08-21', 'INTJ', 'default1.png', '2023-08-31 12:00:00'),
-    ('user7@example.com', 'UserSeven', 'userpass7', '01077777777', 'F', '2023-08-21', 'ESFP', 'default2.png', NOW()),
-    ('user8@example.com', 'UserEight', 'userpass8', '01088888888', 'M', '2023-08-21', 'INTJ', 'default1.png', NOW()),
-    ('user9@example.com', 'UserNine', 'userpass9', '01099999999', 'F', '2023-08-21', 'ISFP', 'default2.png', NOW());
+    ('user5@example.com', 'UserFive', 'userpass5', '01055555555', 'F', '1970-08-21', 'ESFP', 'default2.png', '2023-08-30 19:20:15'),
+    ('user6@example.com', 'UserSix', 'userpass6', '01066666666', 'M', '2004-08-21', 'INTJ', 'default1.png', '2023-08-31 12:00:00'),
+    ('user7@example.com', 'UserSeven', 'userpass7', '01077777777', 'F', '2001-08-21', 'ESFP', 'default2.png', NOW()),
+    ('user8@example.com', 'UserEight', 'userpass8', '01088888888', 'M', '2002-08-21', 'INTJ', 'default1.png', NOW()),
+    ('user9@example.com', 'UserNine', 'userpass9', '01099999999', 'F', '1996-08-21', 'ISFP', 'default2.png', NOW());
 
 
 INSERT INTO `user` ( `user_number`, `user_id`, `user_name`, `user_password`, `user_phone`, `user_gender`, `user_date`, `user_mbti`, `user_img`, `user_regdate`)
@@ -356,6 +356,11 @@ VALUES ('공항', '1', '김포국제공항 국내선', '126.80286551968986', '37
 INSERT INTO chat_room (`user_number1`, `user_number2`)
 VALUES
     (1, 2),
+    (1, 5),
+    (1, 6),
+    (1, 7),
+    (1, 8),
+    (1, 9),
     (1, 3),
     (1, 4),
     (2, 3);

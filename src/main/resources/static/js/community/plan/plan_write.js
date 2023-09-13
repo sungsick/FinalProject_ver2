@@ -82,12 +82,12 @@ function addTable() {
     placeButton.value = dayValue.toString();
     buttonsDiv.appendChild(placeButton);
 
-    // "메모 추가" 버튼 추가
-    var memoButton = document.createElement('button');
-    memoButton.className = 'memo_add_btn';
-    memoButton.textContent = '메모 추가';
-    buttonsDiv.appendChild(memoButton);
-    // buttonsDiv를 tableContainer에 추가
+    // // "메모 추가" 버튼 추가
+    // var memoButton = document.createElement('button');
+    // memoButton.className = 'memo_add_btn';
+    // memoButton.textContent = '메모 추가';
+    // buttonsDiv.appendChild(memoButton);
+    // // buttonsDiv를 tableContainer에 추가
 
     // 새로운 테이블을 컨테이너에 추가
     var table_area = document.createElement('div');

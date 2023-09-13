@@ -31,6 +31,8 @@ option1_btn.addEventListener("click",(e)=>{
     option3.classList.add("disappear");
     option4.classList.add("disappear");
     option5.classList.add("disappear");
+
+    window.scroll(0,0);
 })
 
 option2_btn.addEventListener("click",(e)=>{
@@ -45,6 +47,8 @@ option2_btn.addEventListener("click",(e)=>{
     option3.classList.add("disappear");
     option4.classList.add("disappear");
     option5.classList.add("disappear");
+
+    window.scroll(0,0);
 })
 
 option3_btn.addEventListener("click",(e)=>{
@@ -59,6 +63,8 @@ option3_btn.addEventListener("click",(e)=>{
     option3.classList.remove("disappear");
     option4.classList.add("disappear");
     option5.classList.add("disappear");
+
+    window.scroll(0,0);
 })
 
 option4_btn.addEventListener("click",(e)=>{
@@ -73,6 +79,8 @@ option4_btn.addEventListener("click",(e)=>{
     option3.classList.add("disappear");
     option4.classList.remove("disappear");
     option5.classList.add("disappear");
+
+    window.scroll(0,0);
 })
 
 option5_btn.addEventListener("click",(e)=>{
@@ -87,6 +95,8 @@ option5_btn.addEventListener("click",(e)=>{
     option3.classList.add("disappear");
     option4.classList.add("disappear");
     option5.classList.remove("disappear");
+
+    window.scroll(0,0);
 })
 
 $('.write_btn').click(()=>{

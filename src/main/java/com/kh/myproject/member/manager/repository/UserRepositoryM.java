@@ -33,18 +33,21 @@ public interface UserRepositoryM extends JpaRepository<User, Long> {
             "ORDER BY age_group DESC", nativeQuery = true)
     List<Object[]> getUserAgeCount();
 
+
+    // 페이징 처리 관련 쿼리
     @Query("select count(*) from User u")
     int selectUserCount();
 
 
     Page<User> findAll(Pageable pageable);
+    int countByUserNameLike(String user_name);
+    int countByUserIdLike(String user_id);
 
 
+    // 검색어에 해당하는 User정보 불러온다.
     Page<User> findByUserNameLike(Pageable pageable,String user_name);
     Page<User> findByUserIdLike(Pageable pageable,String user_id);
 
-    int countByUserNameLike(String user_name);
-    int countByUserIdLike(String user_id);
 
     int countByUserGender(String gender);
 

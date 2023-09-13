@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 @Controller
 @SessionAttributes("user")
@@ -33,11 +34,18 @@ public class HomeController {
         System.out.println("planBoardList다" + planList);
 
         List<PlanBoardDetailDTO> planDetailList = planBoardService.getAllPlanBoardDetailList();
+        List<Integer> maxDays = new ArrayList<>();
+        for(int i = 0; i < planList.size(); i++){
+            int maxDay = planBoardService.getMaxByPbNum(planList.get(i).getPbNum());
+            System.out.println("maxDay="+maxDay);
+            maxDays.add(maxDay);
+        }
         List<Accompany> accompanyRecent = homeService.findTop8byOrderByRegdateAsc();
 
 
 
 
+        model.addAttribute("maxDays", maxDays);
         model.addAttribute("planList", planList);
         model.addAttribute("planDetailList", planDetailList);
         model.addAttribute("accompanyList", accompanyRecent);

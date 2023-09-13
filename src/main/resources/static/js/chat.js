@@ -7,24 +7,7 @@ var webSocket = null;
 var url = location.pathname.split('/');
 
 
-// /로 자르면 이런식으로 잘린다.
-//['','manager','home'];
 
-console.log(userNumber)
-console.log(url[1])
-
-if (url[1] === 'chatTest1') {
-    userNumber = 1;
-} else if (url[1] === 'chatTest2') {
-    userNumber = 2;
-} else if (url[1] === 'chatTest3') {
-    userNumber = 3;
-} else if (url[1] === 'chatTest4') {
-    userNumber = 4;
-} else if (url[1] === 'manager') {
-
-    userNumber = 0;
-}
 
 
 $.ajax({
@@ -42,22 +25,45 @@ $.ajax({
         userNumber = data;
         console.log(userNumber + "userNumber값");
 
+        if (url[1] === 'chatTest1') {
+            userNumber = 1;
+        } else if (url[1] === 'chatTest2') {
+            userNumber = 2;
+        } else if (url[1] === 'chatTest3') {
+            userNumber = 3;
+        } else if (url[1] === 'chatTest4') {
+            userNumber = 4;
+        } else if (url[1] === 'manager') {
+
+            userNumber = 0;
+        }
+
     }, error: function () {
 
     }
 })
 
 
+
+
+
+console.log(userNumber)
+
+
+
+
+
+
 //클릭관련 이벤트 함수는 위쪽 배치. 실제 실행되는 함수는 아래쪽 배치.
 $('#quit-chat-btn').click(function () {
-    $('.modal').css('display', 'none');
+    $('.chat-modal').css('display', 'none');
     $('.chat-room-block').remove(); // 메시지를 모두 지운다.
     $('#message-input').addClass('disappear'); // 채팅입력하는 채팅창 disappear
     $('.message-block').remove(); // 채팅 메시지 블럭 제거
     $('#back-chat-btn').addClass('disappear'); // 뒤로가기버튼 disappear
     $('.chat-room-info').addClass('disappear');
     $('.my-message').remove();
-    $('#modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
+    $('#chat-modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
 
     if (webSocket != null) {
 
@@ -74,7 +80,7 @@ $('#back-chat-btn').click(function () { // 뒤로가기 버튼 클릭시 채팅�
     $('.message-block').remove(); // 채팅 메시지 블럭 제거
     $('#back-chat-btn').addClass('disappear'); // 뒤로가기버튼 disappear
     $('.chat-room-info').addClass('disappear');
-    $('#modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
+    $('#chat-modal-content').removeClass('show-chat-room-info'); //  패딩 탑 속성 제거.
     $('.my-message').remove();
     // 현재 열려 있는 채팅방의 소켓을 닫는다.
 
@@ -130,7 +136,7 @@ function showChatRoom() {
 
             userNumber = user.userNumber;
 
-            $('.modal').css('display', 'block');
+            $('.chat-modal').css('display', 'block');
 
 
             addLastMessage(data); // roomList정보에 맞게 소켓정보를 추가해준다.
@@ -174,7 +180,7 @@ function addLastMessage(data) {
             `</div>`
     }
 
-    $('.modal-content').append(body);
+    $('.chat-modal-content').append(body);
 
 }
 
@@ -213,7 +219,7 @@ function sendMessage(e) {
         $('.message-input').val(''); // 빈칸으로 만들어준다.
 
 
-        var scroll = document.getElementById('modal-content'); // content의 스크롤 아래로 이동.
+        var scroll = document.getElementById('chat-modal-content'); // content의 스크롤 아래로 이동.
         scroll.scrollTop = scroll.scrollHeight;
 
 
@@ -331,7 +337,7 @@ function addMessageBlock(message) {
     }
 
 
-    $('.modal-content').append(body); // 채팅창에 메시지를 추가한다.
+    $('.chat-modal-content').append(body); // 채팅창에 메시지를 추가한다.
 
 }
 
@@ -354,7 +360,7 @@ function joinChatRoom(element) {
     // // 채팅방을 접속하고 나면 대화목록을 모두 불러와야 한다.
 
 
-    $('.chat-modal-content').remove(); // 채팅방 목록을 제거한다.
+    $('.chat-chat-modal-content').remove(); // 채팅방 목록을 제거한다.
     $('#back-chat-btn').removeClass('disappear'); // 뒤로가기 버튼을 생성한다.
 
     $.ajax({
@@ -385,16 +391,16 @@ function joinChatRoom(element) {
             ``
             // 이전 대화내용을 모두 불러온다.
             // userNumber는 전역변수로 선언돼있다.
-            $('.modal-content').append(body);
+            $('.chat-modal-content').append(body);
             $('.modal-btn').remove(); // 모달 나가기 버튼 없애기
             $('.message-input').removeClass('disappear');
             $('.chat-room-info').removeClass('disappear');
-            $('.modal-content').addClass('show-chat-room-info')//패딩 탑 추가ㅏ
+            $('.chat-modal-content').addClass('show-chat-room-info')//패딩 탑 추가ㅏ
 
             var chatRoomInfo = document.getElementById("chat-room-info"); //채팅방 타이틀바
             chatRoomInfo.innerText = tmpUser.userId.split('@')[0];
 
-            var scroll = document.getElementById('modal-content');
+            var scroll = document.getElementById('chat-modal-content');
             scroll.scrollTop = scroll.scrollHeight;
 
 

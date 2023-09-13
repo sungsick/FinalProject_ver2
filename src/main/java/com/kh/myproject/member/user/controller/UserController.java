@@ -3,9 +3,11 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
+import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
+import com.kh.myproject.community.plan.service.PlanBoardService;
 import com.kh.myproject.member.chat.service.ChatRoomService;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.user.model.dto.QnaForm;
@@ -33,8 +35,10 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -52,6 +56,9 @@ public class UserController {
 
     @Autowired
     ChatRoomService chatRoomService;
+
+    @Autowired
+    PlanBoardService planBoardService;
 
 
     @GetMapping("/")
@@ -90,6 +97,7 @@ public class UserController {
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
 
+        modelAndView.addObject("check",true);
         modelAndView.addObject("msg", msg);
         modelAndView.addObject("user", user); // 세션을 설정한다.
         modelAndView.setViewName("member/user/loginPro"); // msg출력을 위한 html 파일 거치기
@@ -144,16 +152,18 @@ public class UserController {
         }
 
 
+        boolean check;
         if (result != null) {
             msg = String.format("반갑습니다 %s님", result.getUserName());
             modelAndView.addObject("user", result); // 세션을 설정한다.
-            modelAndView.addObject("check", true); // 세션을 설정한다.
+            check = true;
 
         } else {
             msg = "아이디 혹은 비밀번호를 확인해주세요.";
-            modelAndView.addObject("check", false);
+            check = false;
         }
         modelAndView.addObject("msg", msg);
+        modelAndView.addObject("check", check);
         modelAndView.setViewName("member/user/loginPro"); // msg출력을 위한 html 파일 거치기
 
         return modelAndView;
@@ -192,34 +202,22 @@ public class UserController {
     public String joinAuth(@ModelAttribute("user_phone") String user_phone) {
 
 
-//        Map<String, Object> result = smsService.authUser(user_phone);
-//        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
-//        String ran_num = "";
-//
-//        if (ssrd.getStatusCode().equals("202")) {
-//
-//            ran_num = (String)result.get(ran_num);
-//
-//        } else {
-//
-//            ran_num = "fail";
-//
-//        }
-
-
+        Map<String, Object> result = smsService.authUser(user_phone);
+        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
         String ran_num = "";
-        int i = 0;
+        System.out.println("resi;lt값" + result);
 
-        while(i < 6){
+        if (ssrd.getStatusCode().equals("202")) {
 
-            int ran = (int)(Math.random()*10);// 난수 생성.
-            if(!ran_num.contains(ran+"")){
+            ran_num = (String)result.get("ran_num");
+            System.out.println("성공시의 " + ran_num);
 
-                ran_num += ran+"";
-                i++;
-            }
+        } else {
+
+            ran_num = "fail";
 
         }
+
 
 
         return ran_num;
@@ -338,11 +336,19 @@ public class UserController {
         List<Accompany> alist = userService.getAccompanyByNum(user.getUserNumber());
         List<PlanBoardDTO> planList = userService.getPlanByNum(user.getUserNumber());
         List<PlanBoardDetailDTO> planDetailList = userService.getPlanDetail();
+        List<Integer> maxDays = new ArrayList<>();
+        for(int i = 0; i < planList.size(); i++){
+            int maxDay = planBoardService.getMaxByPbNum(planList.get(i).getPbNum());
+            System.out.println("maxDay="+maxDay);
+            maxDays.add(maxDay);
+        }
 
         System.out.println(planList);
 //        System.out.println(planDetailList);
         // session 정보를 최신화 해준다.
         // 세션에서 현재 가지고 있는 user값을 업데이트해준다.
+        model.addAttribute("maxDays", maxDays);
+
         model.addAttribute("user", newUser);
 
         model.addAttribute("qlist", qlist);

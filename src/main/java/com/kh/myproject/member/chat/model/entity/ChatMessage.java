@@ -25,7 +25,7 @@ public class ChatMessage {
     private Long messageId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn( name = "room_id")
     private ChatRoom chatRoom;
 
@@ -36,7 +36,7 @@ public class ChatMessage {
     @Column
     private Date sendTime; // 전송 시각
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "sender_id")
     private User user; // 해당 메시지의 발신자  (테이블 컬럼명 : sender_id)
 

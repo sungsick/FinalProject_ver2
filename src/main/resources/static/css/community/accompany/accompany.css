@@ -1,9 +1,7 @@
 body {
-    margin: 0px;
-    font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif;
+    font-family: NotoSansKR, "Noto Sans CJK KR", sans-serif ;
     -webkit-font-smoothing: subpixel-antialiased;
 }
-
 .choice_post button {
     border: none;
     font-size: 16px;
@@ -53,7 +51,8 @@ body {
 
 .m {
     width: 1200px;
-    margin: 130px auto;
+    margin: 0px auto;
+    margin-top: 130px;
 }
 
 .main_content1_text {
@@ -77,6 +76,7 @@ body {
 }
 
 .main_content1_box {
+    padding-bottom: 30px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -622,7 +622,6 @@ button {
 }
 
 .dunNSc {
-    margin-right: 15px;
     padding: 8px 14px;
     position: relative;
     width: 120px;
@@ -741,12 +740,11 @@ button {
     background-color: white;
     z-index: 9999;
     position: absolute;
-    width: 116px;
+    width: 119px;
     margin-top: 11px;
     border: 1px solid #afadad;
     border-radius: 10px;
-    margin-left: -30px;
-    align-items: center;
+    margin-left: -36px;
 }
 
 #allRegion > .sub li {
@@ -759,10 +757,7 @@ button {
 }
 
 #allRegion > .sub li:hover {
-    border: 2px solid rgb(184, 219, 243);
     background-color: rgb(198, 220, 236);
-    font-weight: 900;
-    font-size: 17px;
 }
 
 #allRegion > .sub li > button {
@@ -874,4 +869,48 @@ button {
 .queryEnddate {
     margin-left: 20px;
     margin-right: 20px;
+}
+
+
+
+
+
+/* 페이징 처리를 위한 css*/
+
+
+
+.page-block{
+
+    display : flex;
+    width: 60%;
+    margin : 0 auto;
+    height: 40px;
+    justify-content: center;
+}
+
+.page-number-block{
+
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border : 1px solid #2B96EC;
+    border-radius: 2px;
+    text-align: center;
+    display :flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color : #2B96EC;
+
+}
+
+.page-number-block:hover{
+
+    cursor:pointer;
+}
+
+.page-number-block:active{
+
+    background-color:#E7F4FD;
+    cursor: pointer;
 }
