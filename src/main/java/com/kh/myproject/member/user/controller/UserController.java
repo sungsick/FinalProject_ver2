@@ -3,6 +3,7 @@ package com.kh.myproject.member.user.controller;
 
 import com.kh.myproject.api.kakaoapi.vo.MemberVO;
 import com.kh.myproject.api.sensapi.service.SmsService;
+import com.kh.myproject.api.sensapi.vo.SendSmsResponseDto;
 import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.dto.PlanBoardDetailDTO;
@@ -35,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes("user")
@@ -195,34 +197,22 @@ public class UserController {
     public String joinAuth(@ModelAttribute("user_phone") String user_phone) {
 
 
-//        Map<String, Object> result = smsService.authUser(user_phone);
-//        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
-//        String ran_num = "";
-//
-//        if (ssrd.getStatusCode().equals("202")) {
-//
-//            ran_num = (String)result.get(ran_num);
-//
-//        } else {
-//
-//            ran_num = "fail";
-//
-//        }
-
-
+        Map<String, Object> result = smsService.authUser(user_phone);
+        SendSmsResponseDto ssrd = (SendSmsResponseDto) result.get("ssrd");
         String ran_num = "";
-        int i = 0;
+        System.out.println("resi;lt값" + result);
 
-        while(i < 6){
+        if (ssrd.getStatusCode().equals("202")) {
 
-            int ran = (int)(Math.random()*10);// 난수 생성.
-            if(!ran_num.contains(ran+"")){
+            ran_num = (String)result.get("ran_num");
+            System.out.println("성공시의 " + ran_num);
 
-                ran_num += ran+"";
-                i++;
-            }
+        } else {
+
+            ran_num = "fail";
 
         }
+
 
 
         return ran_num;

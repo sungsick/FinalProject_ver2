@@ -56,13 +56,17 @@
     /* margin: 8px; */
     height: 100%;
     padding: 15px;
-}
 
-.contentBox {
     transform-origin: 216.5px 845px;
     border-radius: 10px;
     width: 430px !important;
 }
+
+/*.chatcontentBox {*/
+/*    transform-origin: 216.5px 845px;*/
+/*    border-radius: 10px;*/
+/*    width: 430px !important;*/
+/*}*/
 
 .contentBox .ant-chat-modal-content {
 

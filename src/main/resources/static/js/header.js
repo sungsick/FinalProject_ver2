@@ -59,6 +59,7 @@ $(document).ready(function () {
         console.log('hi')
         $('html').removeClass('no-js');
 
+        $('.carousel').removeClass('no-js');
 
 
     })

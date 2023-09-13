@@ -5,6 +5,9 @@ import com.kh.myproject.community.accompany.entity.Accompany;
 import com.kh.myproject.community.accompany.repository.AccompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -135,5 +138,27 @@ public class AccompanyService {
 
         return accompanyRepository.save(accompany);
     }
+
+
+
+
+    public int selectAcoompanyCount(){
+
+        int count = accompanyRepository.selectAccompanyCount();
+        return count;
+    }
+
+    public List<Accompany> findAccompanyByPage(int pageNo){
+
+//        accompanyRepository.findUserByPage(startNo,endNo);
+        Pageable pageable = PageRequest.of(pageNo-1,12);
+        Page<Accompany> pageList = accompanyRepository.findAll(pageable);
+        List<Accompany> accompanyList = pageList.getContent();
+
+        return accompanyList;
+    }
+
+
+
 
 }

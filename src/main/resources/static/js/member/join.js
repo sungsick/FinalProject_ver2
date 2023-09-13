@@ -124,6 +124,7 @@ $(document).ready(function () {
             // 이후부터는 input.val()의 값이 바뀌기 ㅈ때문에 인증이 완료된 check값(auth_check)를 이용한다.
 
             msg = '인증이 완료됐습니다.';
+            type = 'success';
             auth_check = true;
             $('#auth_num').val("인증완료");
             $('#auth_num').prop('disabled', true);
@@ -133,12 +134,13 @@ $(document).ready(function () {
 
         } else {
             msg = '인증번호를 확인해주세요.';
+            type = 'info'
         }
 
 
         if(msg !== ''){
 
-            Swal.fire(`${msg}`, '', 'info')
+            Swal.fire(`${msg}`, '', type);
             msg = '';
         }
 
