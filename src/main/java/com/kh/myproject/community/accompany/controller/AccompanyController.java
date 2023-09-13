@@ -62,10 +62,10 @@ public class AccompanyController {
         // db에서 정보를 가져오는 locig을 짜야함
         List<Accompany> accompanyEntity;
         if (orderby != null && orderby.equals("recent")) {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
 
         } else if (orderby != null && orderby.equals("viewcount")) {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_viewcountDesc();
         }
         else if (orderby != null && orderby.equals("countComment")) {
             accompanyEntity = accompanyRepository.findAccompanyWithCommentCount();
@@ -85,7 +85,7 @@ public class AccompanyController {
 //        }
 
         else {
-            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdate();
+            accompanyEntity = accompanyRepository.findByAc_numOrderByAc_regdateDesc();
         }
 
         model.addAttribute("accompanyList", accompanyEntity);

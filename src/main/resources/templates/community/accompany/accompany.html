@@ -180,11 +180,14 @@
                             </div>
 
                         </div>
-                        <div class="test1_content2">
-                            <img th:src="'/file/accompany_image/'+${accompany.ac_picture}">
-                            <div class="img_area" th:text="${accompany.ac_region}">
-                                <i class="fa-solid fa-location-dot"
-                                   style="color: #008ff6;"></i></div>
+                        <div class="test1_content2_box">
+                            <div class="test1_content2">
+                                <img th:src="'/file/accompany_image/'+${accompany.ac_picture}" class="test1_content2_img">
+                                <div class="img_area" th:text="${accompany.ac_region}">
+                                    <i class="fa-solid fa-location-dot"
+                                       style="color: #008ff6;"></i>
+                                </div>
+                            </div>
                         </div>
                         <div class="test1_content3">
                             <div class="text_title" th:text="${accompany.ac_title}">
@@ -224,7 +227,7 @@
         </div>
 
 
-        <div th:include="/footer.html :: footer"></div>
+        <footer th:include="/footer.html :: footer"></footer>
 
 
         <!-- Swiper JS -->

@@ -211,23 +211,23 @@
                                             </p>
                                         </div>
 
-                                    </div>
-                                    <th:block th:if="${session.user != null}">
-                                        <th:block th:if="${accompany.user.userNumber == session.user.userNumber}">
-                                            <div class="bt_container_m">
-                                                <button class="bt_container_m_btn">
-                                                    <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
-                                                       style="color: rgb(154, 154, 154)">수정</a>
-                                                </button>
-                                                <p class="bt_container_m_jum">·</p>
+                                        <th:block th:if="${session.user != null}">
+                                            <th:block th:if="${accompany.user.userNumber == session.user.userNumber}">
+                                                <div class="bt_container_m">
+                                                    <button class="bt_container_m_btn">
+                                                        <a th:href="@{/community/accompany/edit(ac_num = ${accompany.ac_num})}"
+                                                           style="color: rgb(154, 154, 154)">수정</a>
+                                                    </button>
+                                                    <p class="bt_container_m_jum">·</p>
 
-                                                <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
-                                                <button id="deleteBtn">삭제</button>
+                                                    <input th:value="${accompany.ac_num}" id="inputAcNum" type="hidden">
+                                                    <button id="deleteBtn">삭제</button>
 
-                                                <!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
-                                            </div>
+                                                    <!--                                            <button class="bt_container_m_btn" style="color:#872020">끌어올리기</button>-->
+                                                </div>
+                                            </th:block>
                                         </th:block>
-                                    </th:block>
+                                    </div>
                                 </div>
 
 
@@ -278,7 +278,7 @@
 
                                                 <div class="sc-5e8de0d6-7 jXMuyg">
                                                     <div class="sc-5e8de0d6-8 fIIDkd">
-                                                        <button class="add_reply_btn">채팅 하기</button>
+                                                        <button type="button" class="add_reply_btn chat-btn" th:value="${comment.user.userNumber}">채팅 하기</button>
                                                         <th:block th:if="${session.user != null}">
 
                                                             <th:block
@@ -541,7 +541,7 @@
                     <div class="dal_title2">
                         <button class="dal_title2_boxes">신고하기</button>
                         <button class="dal_title2_boxes">차단하기</button>
-                        <button class="dal_title2_boxes" id="chat-btn" th:value="${accompany.user.userNumber}">1:1 채팅
+                        <button class="dal_title2_boxes chat-btn" id="chat-btn" th:value="${accompany.user.userNumber}">1:1 채팅
                         </button>
                     </div>
 

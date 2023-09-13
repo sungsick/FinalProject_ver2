@@ -144,7 +144,7 @@ function deletePlan(day, place_name) {
 $('.complete_write_btn').on('click', function () {
     //
     // alert("일정이 저장되었습니다.")
-    var pbTitle = $('.art1_div_subject').text();
+    var pbTitle = $('.art1_div_subject').val();
     var pbStartDate = $('#select_start_date').val();
     var pbEndDate = $('#select_end_date').val();
     var pbRegion = $('.form-select_place').val();

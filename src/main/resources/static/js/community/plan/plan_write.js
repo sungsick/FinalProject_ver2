@@ -3,12 +3,11 @@
 //일정 작성 완료 버튼 클릭 시 plan(일정 메인)으로 이동    (원래: 마이페이지-내 일정으로 이동)
 const CompleteMySchedule = document.querySelector('.complete_write_btn');
 
-function test(e){
-    if(e.id === "writePlaceAdd"){
+function test(e) {
+    if (e.id === "writePlaceAdd") {
         location.href = `/community/plan/add?day=${e.value}&type=write`;
     }
 }
-
 
 
 var dayValues = document.querySelectorAll('.place_add_btn');
@@ -77,7 +76,9 @@ function addTable() {
     placeButton.className = 'place_add_btn';
     placeButton.textContent = '장소 추가';
     placeButton.id = 'writePlaceAdd';
-    placeButton.onclick = function(){test(this)};
+    placeButton.onclick = function () {
+        test(this)
+    };
     placeButton.value = dayValue.toString();
     buttonsDiv.appendChild(placeButton);
 
@@ -104,7 +105,7 @@ function addTable() {
 }
 
 // 테이블 행 삭제하는 함수
-function deletePlan(day, place_name){
+function deletePlan(day, place_name) {
 
 
     console.log(day);
@@ -114,14 +115,14 @@ function deletePlan(day, place_name){
         url: '/community/plan/deletePlan',
         type: 'post',
         data: {
-            day : day,
-            placeName : place_name
+            day: day,
+            placeName: place_name
         },
         success: function (data) {
             console.log('성공');
             location.reload();
         },
-        error: function(data){
+        error: function (data) {
             console.log('삭제실패');
         }
 
@@ -130,47 +131,81 @@ function deletePlan(day, place_name){
 }
 
 
-
 //일정작성완료 버튼 클릭 시
 $('.complete_write_btn').on('click', function () {
     // alert("일정이 저장되었습니다.")
-    var pbTitle = $('.art1_div_subject').text();
+    var pbTitle = $('.art1_div_subject').val();
     var pbStartDate = $('#select_start_date').val();
     var pbEndDate = $('#select_end_date').val();
     var pbRegion = $('.form-select_place').val();
     var pbViewCount = 0;
 
-    // planBoardDTO 객체 생성 및 값 설정
-    var planBoardDTO = {
-        // pbNum: pbNum, //게시글번호
-        // pbWriteDate: pbWriteDate, //작성일자
-        pbTitle: pbTitle, //글제목
-        pbStartDate: pbStartDate, //시작날짜
-        pbEndDate: pbEndDate, //종료날짜
-        pbRegion: pbRegion, //여행지역
-        pbViewCount: pbViewCount, //조회수
-    };
+    if (pbStartDate === '') {
+        Swal.fire({
+            title: '떠나는 날을 선택해 주세요.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        }).then(function () {
+            return;
+        });
+    } else if (pbEndDate === '') {
+        Swal.fire({
+            title: '돌아오는 날을 선택해 주세요.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        }).then(function () {
+            return;
+        });
+    } else if (pbRegion === '') {
+        Swal.fire({
+            title: '지역을 선택해 주세요.',
+            icon: 'error',
+            confirmButtonColor: '#00b8ff',
+            confirmButtonText: '확인'
+        }).then(function () {
+            return;
+        });
+    } else {
+
+        // planBoardDTO 객체 생성 및 값 설정
+        var planBoardDTO = {
+            // pbNum: pbNum, //게시글번호
+            // pbWriteDate: pbWriteDate, //작성일자
+            pbTitle: pbTitle, //글제목
+            pbStartDate: pbStartDate, //시작날짜
+            pbEndDate: pbEndDate, //종료날짜
+            pbRegion: pbRegion, //여행지역
+            pbViewCount: pbViewCount, //조회수
+        };
 
 // AJAX 요청 설정
-    $.ajax({
-        url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL
-        type: 'post',
-        contentType: 'application/json', // 데이터 형식을 JSON으로 설정
-        data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
-        success: function (data) {
-            console.log('성공');
-            Swal.fire('일정이 저장되었습니다.', '', 'info').then((result)=>{
+        $.ajax({
+            url: '/community/plan/completePlan', // 실제 서버 엔드포인트 URL
+            type: 'post',
+            contentType: 'application/json', // 데이터 형식을 JSON으로 설정
+            data: JSON.stringify(planBoardDTO), // 직렬화된 JSON 데이터를 요청 데이터로 설정
+            success: function (data) {
+                console.log('성공');
+                Swal.fire({
+                    title: '일정이 저장되었습니다.',
+                    icon: 'success',
+                    confirmButtonColor: '#00b8ff',
+                    confirmButtonText: '확인',
+                }).then(function () {
 
-                location.href = "/community/plan";
-
-            })
-            // 서버 응답에 대한 처리
-        },
-        error: function (data) {
-            console.log('실패');
-            // 에러 처리
-        }
-    });
+                    // 서버 응답에 대한 처리
+                    location.href = "/community/plan";
+                });
+                // 서버 응답에 대한 처리
+            },
+            error: function (data) {
+                console.log('실패');
+                // 에러 처리
+            }
+        });
+    }
 });
 
 
@@ -179,7 +214,7 @@ $('.complete_write_btn').on('click', function () {
 
 // 날짜 선택 관련
 // 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
-document.getElementById('select_start_date').addEventListener('change', function() {
+document.getElementById('select_start_date').addEventListener('change', function () {
     // 선택한 날짜 값을 가져옵니다.
     var selectedStartDate = this.value;
 
@@ -188,7 +223,7 @@ document.getElementById('select_start_date').addEventListener('change', function
 });
 
 // 이벤트 리스너를 등록하여 날짜 선택이 변경될 때마다 실행되도록 합니다.
-document.getElementById('select_end_date').addEventListener('change', function() {
+document.getElementById('select_end_date').addEventListener('change', function () {
     // 선택한 날짜 값을 가져옵니다.
     var selectedEndDate = this.value;
 
