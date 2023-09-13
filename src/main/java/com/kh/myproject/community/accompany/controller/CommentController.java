@@ -53,7 +53,6 @@ public class CommentController {
         Comment saved = commentRepository.save(comment);
         System.out.println("form 태그 세터로 세팅 후 comment값" + comment);
 
-
         return "redirect:/community/accompany/detail?ac_num=" + accompany.getAc_num();
         /*"community/accompany/accompany_write";*/
 
@@ -90,8 +89,6 @@ public class CommentController {
         model.addAttribute("comentDelMsg", commentForm.getCo_number() + "번 댓글 삭제 완료!");
 
     }
-
-
 
 }
 

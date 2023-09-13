@@ -1,6 +1,8 @@
 package com.kh.myproject.member.manager.repository;
 
 import com.kh.myproject.member.user.model.entity.Qna;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +29,11 @@ public interface QnaRepositoryM extends JpaRepository<Qna, Long> {
                       @Param("qna_answer")String qnaAnswer);
 
     int countAllBy();
+
+
+
+    Page<Qna> findAll(Pageable pageable);
+
+
+
 }

@@ -46,15 +46,9 @@ public class PlanController {
         model.addAttribute("planList", planList);
         System.out.println(planList);
 
-
-
         List<PlanBoardDetailDTO> planDetailList = planBoardService.getAllPlanBoardDetailList();
-
         model.addAttribute("planDetailList", planDetailList);
         System.out.println(planDetailList);
-
-        // 2.
-
 
         return "community/plan/plan";
     }
@@ -128,7 +122,6 @@ public class PlanController {
         model.addAttribute("day", day);
         model.addAttribute("type", type);
 
-
         return "community/plan/plan_add";
     }
 
@@ -138,12 +131,7 @@ public class PlanController {
     @ResponseBody
     public void move(@RequestBody PlanBoardDetailDTO[] dtoList) {
 
-
-        for (PlanBoardDetailDTO PlanBoardDetailDTO : dtoList) {
-            planDetailTemporalList.add(PlanBoardDetailDTO);
-        }
-
-
+        Collections.addAll(planDetailTemporalList, dtoList);
     }
 
     //일정 삭제하는 컨트롤러(Plan_write에서 삭제버튼 클릭 시)
@@ -165,11 +153,12 @@ public class PlanController {
     @ResponseBody
     public String completePlan(@RequestBody PlanBoardDTO boardDTO,
                                @ModelAttribute("user") User user) {
-
-
-
         // 1. Dto user 정보 저장
         boardDTO.setUser(user);
+
+        if(boardDTO.getPbTitle().equals("")){
+            boardDTO.setPbTitle(user.getUserName()+"님의 여행일정");
+        }
 
         // 2. service에서 db에 저장할때 필요한거 다 넘겨줌
         planBoardService.savePlanBoard(boardDTO, planDetailTemporalList);

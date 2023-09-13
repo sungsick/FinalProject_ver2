@@ -133,6 +133,16 @@ $('#area_confirm_btn').on('click', function () {
 //관광 타입 모달
 $('.search_content_btn').on('click', function () {
     $('.content_type_container').addClass('modal_on');
+
+    cat1 = '';
+    cat1Name = '';
+    cat2 = '';
+    cat2Name = '';
+    cat3 = '';
+    cat3Name = '';
+
+    $('#area_category_code').text('');
+
 });
 $('.modal_btn[name=contentTypeId]').on('click', function () {
     contentTypeId = $(this).val();
@@ -149,11 +159,11 @@ $('#content_type_confirm_btn').on('click', function () {
     closeModal();
 });
 
-$('#content_type_cancel_btn').on('click', function(){
-   contentTypeId = '';
-   contentTypeName = '';
-   insertContentType(contentTypeName);
-   $('.modal_btn[name=contentTypeId]').removeClass('sel');
+$('#content_type_cancel_btn').on('click', function () {
+    contentTypeId = '';
+    contentTypeName = '';
+    insertContentType(contentTypeName);
+    $('.modal_btn[name=contentTypeId]').removeClass('sel');
 });
 
 function insertContentType(contentTypeName) {
@@ -338,11 +348,35 @@ $('.type_btn').on('click', function () {
         $('.type_area').css('display', 'block');
         $('.type_keyword').css('display', 'none');
         $('.type_keyword .search_option_text').text('');
+        areaCode = '';
+        areaName = '';
+        sigunguCode = '';
+        sigunguName = '';
+        contentTypeId = '';
+        contentTypeName = '';
+        cat1 = '';
+        cat1Name = '';
+        cat2 = '';
+        cat2Name = '';
+        cat3 = '';
+        cat3Name = '';
         searchType = '지역별';
     } else {
         $('.type_keyword').css('display', 'block');
         $('.type_area').css('display', 'none');
         $('.type_area .search_option_text').text('');
+        areaCode = '';
+        areaName = '';
+        sigunguCode = '';
+        sigunguName = '';
+        contentTypeId = '';
+        contentTypeName = '';
+        cat1 = '';
+        cat1Name = '';
+        cat2 = '';
+        cat2Name = '';
+        cat3 = '';
+        cat3Name = '';
         searchType = '통합';
     }
 
@@ -405,6 +439,19 @@ function getAreaBaseList(pageNum) {
             var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
             $('.search_result').prepend(content);
 
+
+            if (totalCount === 0) {
+                $('.loading_wrap').css('display', 'none');
+                Swal.fire({
+                    title: '검색결과가 존재하지 않습니다.',
+                    icon: 'error',
+                    confirmButtonColor: '#00b8ff',
+                    confirmButtonText: '확인',
+                }).then(function () {
+                    return;
+                });
+
+            }
 
             for (var i = 0; i < item.length; i++) {
                 var image = item[i].firstimage;
@@ -569,7 +616,7 @@ $('#search_keyword_btn').on('click', function () {
     keyWord = $('input[name=keyword]').val();
     console.log("keyWord = " + keyWord);
 
-    if(keyWord === ''){
+    if (keyWord === '') {
         Swal.fire({
             title: '검색어를 입력하세요.',
             icon: 'error',
@@ -632,6 +679,19 @@ function getSearchKeyword(pageNum) {
 
             var content = `<h6>검색결과 : <b>${totalCount}</b>건</h6>`;
             $('.search_result').prepend(content);
+
+            if (totalCount === 0) {
+                $('.loading_wrap').css('display', 'none');
+                Swal.fire({
+                    title: '검색결과가 존재하지 않습니다.',
+                    icon: 'error',
+                    confirmButtonColor: '#00b8ff',
+                    confirmButtonText: '확인',
+                }).then(function () {
+                    return;
+                });
+
+            }
 
 
             for (var i = 0; i < item.length; i++) {

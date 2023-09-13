@@ -2,18 +2,12 @@ package com.kh.myproject.member.manager.controller;
 
 
 import com.kh.myproject.community.accompany.entity.Accompany;
-import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.manager.model.entity.Manager;
 import com.kh.myproject.member.manager.service.*;
-import com.kh.myproject.member.manager.service.AccompanyServiceM;
 import com.kh.myproject.member.user.model.entity.Qna;
 import com.kh.myproject.member.user.model.entity.User;
-import com.kh.myproject.member.manager.service.QnaServiceM;
-import com.kh.myproject.member.manager.service.UserServiceM;
-import com.kh.myproject.member.manager.service.CommentServiceM;
 import com.kh.myproject.store.flight.model.entity.FlightTicketInfo;
-import com.kh.myproject.member.manager.service.FlightServiceM;
 import com.kh.myproject.store.rentcar.model.entity.RentReservationInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +51,12 @@ public class ManagerController {
 
     @Autowired
     CommentServiceM commentServiceM;
+
+    @Autowired
+    ChatRoomServiceM chatRoomServiceM;
+
+    @Autowired
+    ChatMessageServiceM chatMessageServiceM;
 
 
     @GetMapping("/manager/home")
@@ -148,13 +148,20 @@ public class ManagerController {
                                  Long user_number) {
 
 
-        System.out.println(user_number);
-
-        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
-        // 동행글, 게시글, 댓글, 렌트카, 항공권
-        flightServiceM.deleteTicketByUserNumber(user_number);
-        accompanyServiceM.deleteByUserNumber(user_number);
-        System.out.println("accompany삭제 실행?");
+//        System.out.println(user_number);
+//
+//        // 외래키로 설정한 테이블의 모든 데이터를 지운다.
+//        // 동행글, 게시글, 댓글, 렌트카, 항공권
+//        flightServiceM.deleteTicketByUserNumber(user_number);
+//        rentServiceM.deleteRent(user_number);
+//        commentServiceM.deleteByUserUserNumber(user_number);
+//        accompanyServiceM.deleteAccompanyByUserUserNumber(user_number);
+//        planServiceM.deleteByUserUserNumber(user_number);
+//
+//        // 채팅방을 삭제하면 메시지도 삭제된다.
+//        chatRoomServiceM.deleteChatRoom(user_number);
+//
+//        System.out.println("accompany삭제 실행?");
 
         userServiceM.deleteUser(user_number);
 
@@ -296,13 +303,75 @@ public class ManagerController {
 
     @GetMapping("/manager/qna")
     public ModelAndView qna(
-//            @ModelAttribute("manager") Manager check_manager,
             ModelAndView modelAndView,
-            HttpSession session) {
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            @RequestParam(value = "search_word", defaultValue = "") String search_word,
+            @RequestParam(value = "search_option", defaultValue = "all") String search_option,
+            Model model) {
+
+
+
+
+
+        int totalPgae = 0;
+        int startNo = 0;
+        int endNo = 0;
+        int pageStartNo = 0;
+        int pageEndNo = 0;
+        boolean lastPageCheck = true;
+        int qnaCount = 0;
+        boolean noList = false;
+
+
+        List<Qna> qnaList = new ArrayList<>();
+
+
+        if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
+
+            qnaCount = qnaServiceM.selectQnaCount();
+            qnaList = qnaServiceM.findQnaByPage(pageNo);
+
+        }
+        totalPgae = qnaCount % 10 > 0 && qnaCount != 0 ? qnaCount / 10 + 1 : qnaCount / 10;
+
+        if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+            pageNo = 1;
+        }
+
+
+        startNo = (pageNo - 1) * 10 + 1;
+        pageStartNo = pageNo / 10 * 10 + 1;
+        pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+        pageEndNo = ((pageNo / 10 + 1) * 10);
+        pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+        if (totalPgae <= pageEndNo) { // 현재 보여주고 있는 페이지라인이(ex 1~10, 11~20 pageEndNo가 totlaPage보다 크거나 같을 경우. 다음과 끝은 보여주면 안된다.
+
+
+            pageEndNo = qnaCount / 10;
+            pageEndNo = qnaCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
+            lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
+        }
+
+        // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
+        // 마지막페이지 값
+
+        noList = qnaCount == 0 ? true : false;
+
+        // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+        model.addAttribute("noList", noList);
+        model.addAttribute("totalPage", totalPgae);
+        model.addAttribute("lastPageCheck", lastPageCheck);
+        model.addAttribute("pageStartNo", pageStartNo);
+        model.addAttribute("pageEndNo", pageEndNo);
+//            model.addAttribute("accompanyList", accompanyList);
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("search_option", search_option);
+        model.addAttribute("search_word", search_word);
+
 
 
         modelAndView.setViewName("member/manager/qna");
-        List<Qna> qnaList = qnaServiceM.getAllQna();
 
         modelAndView.addObject("qnaList", qnaList);
 
@@ -444,16 +513,83 @@ public class ManagerController {
 
     @GetMapping("/manager/rentcar")
     public ModelAndView rent(
-//            @ModelAttribute("manager") Manager check_manager,
-            ModelAndView modelAndView,
-            HttpSession session) {
+            Model model,
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            @RequestParam(value = "search_word", defaultValue = "") String search_word,
+            @RequestParam(value = "search_option", defaultValue = "all") String search_option,
+            ModelAndView modelAndView) {
 
-        User check_manager = (User) session.getAttribute("manager");
+
+
+
+        int totalPgae = 0; // 그래서 총 나타내야할 페이지 수.
+        int startNo = 0; // 보여줘야할 페이지 번호의 시작 ex) pageno = 3일 경우 startno = 21, endno = 30
+        int endNo = 0;
+        int pageStartNo = 0; // 페이지 시작돼야할 번호. ex) 글이70개면 1번부터 7번까지, 71개면 1번부터 8번까지.
+        int pageEndNo = 0; // 페이지 끝나야 할 번호. 1페이지면 10페이지가 끝번호고 11페이지면 20페이지가 끝번호고.
+        boolean lastPageCheck = true;
+        int rentCount = 0;
+        boolean noList = false;
+
+
+        List<RentReservationInfo> rentList = new ArrayList<>();
+
+
+        if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
+
+            rentCount = rentServiceM.selectRentCount();
+            rentList = rentServiceM.findRentByPage(pageNo);
+
+        }
+//        else if (!search_word.equals("")) {  // 검색어로 유저 조회했을 경우.
+//
+//
+//            // 페이지 처리에 따라 like문 조회해야한다.
+//            rentList = flightServiceM.selectTicketBySearchWord(pageNo, search_word, search_option);
+//            rentCount = flightServiceM.countBysearchWorld(search_word, search_option);
+//
+//        }
+
+
+        totalPgae = rentCount % 10 > 0 && rentCount != 0 ? rentCount / 10 + 1 : rentCount / 10;
+
+        if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+            pageNo = 1;
+        }
+
+        pageStartNo = pageNo / 10 * 10 + 1;
+        pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+        pageEndNo = ((pageNo / 10 + 1) * 10);
+        pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+
+        if (totalPgae <= pageEndNo) { // 유저가 100보다 크면 10페이지는 무조건 보여주면되고 100보다 작으면 그 몫에 나머지 있으면 +1만큼 보여준다.
+
+
+            pageEndNo = rentCount / 10;
+            pageEndNo = rentCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
+            lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
+        }
+
+
+        noList = rentCount == 0 ? true : false;
+
+        // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+        model.addAttribute("noList", noList);
+        model.addAttribute("totalPage", totalPgae);
+        model.addAttribute("lastPageCheck", lastPageCheck);
+        model.addAttribute("pageStartNo", pageStartNo);
+        model.addAttribute("pageEndNo", pageEndNo);
+        model.addAttribute("rentList", rentList);
+        model.addAttribute("pageNo", pageNo);
+        model.addAttribute("search_option", search_option);
+        model.addAttribute("search_word", search_word);
+
+
 
 
         modelAndView.setViewName("member/manager/rentcar");
-        List<RentReservationInfo> rentList = rentServiceM.getAllRent();
-        modelAndView.addObject("rentList", rentList);
+
 
 
         return modelAndView;
@@ -462,7 +598,7 @@ public class ManagerController {
     @ResponseBody
     @PostMapping("/manager/deleteRent")
     public void deleteRent(@ModelAttribute(name = "userNumber")
-                           String userNumber) {
+                           Long userNumber) {
 
         System.out.println(userNumber);
         rentServiceM.deleteRent(userNumber);
@@ -477,61 +613,180 @@ public class ManagerController {
 
     @GetMapping("/manager/accompany")
     public ModelAndView accompany(
-//            @ModelAttribute("manager") Manager check_manager,
             ModelAndView modelAndView,
-            HttpSession session) {
+            @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+            @RequestParam(value = "search_word", defaultValue = "") String search_word,
+            @RequestParam(value = "search_option", defaultValue = "all") String search_option,
+            Model model) {
 
 
-        modelAndView.setViewName("member/manager/accompany");
-        List<Accompany> aList = accompanyServiceM.findAll();
-        System.out.println(aList);
-        modelAndView.addObject("aList", aList);
+        int totalPgae = 0;
+        int startNo = 0;
+        int endNo = 0;
+        int pageStartNo = 0;
+        int pageEndNo = 0;
+        boolean lastPageCheck = true;
+        int accompanyCount = 0;
+        boolean noList = false;
 
 
-        return modelAndView;
+        List<Accompany> aList = new ArrayList<>();
+
+
+        if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
+
+            accompanyCount = accompanyServiceM.selectAcoompanyCount();
+            aList = accompanyServiceM.findAccompanyByPage(pageNo);
+
+        }
+            totalPgae = accompanyCount % 10 > 0 && accompanyCount != 0 ? accompanyCount / 10 + 1 : accompanyCount / 10;
+
+            if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+                pageNo = 1;
+            }
+
+
+            startNo = (pageNo - 1) * 10 + 1;
+            pageStartNo = pageNo / 10 * 10 + 1;
+            pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+            pageEndNo = ((pageNo / 10 + 1) * 10);
+            pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+            if (totalPgae <= pageEndNo) { // 현재 보여주고 있는 페이지라인이(ex 1~10, 11~20 pageEndNo가 totlaPage보다 크거나 같을 경우. 다음과 끝은 보여주면 안된다.
+
+
+                pageEndNo = accompanyCount / 10;
+                pageEndNo = accompanyCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
+                lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
+            }
+
+            // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
+            // 마지막페이지 값
+
+            noList = accompanyCount == 0 ? true : false;
+
+            // 이전과 처음페이지도 처음과 끝에는 보여주면 안된다.
+            model.addAttribute("noList", noList);
+            model.addAttribute("totalPage", totalPgae);
+            model.addAttribute("lastPageCheck", lastPageCheck);
+            model.addAttribute("pageStartNo", pageStartNo);
+            model.addAttribute("pageEndNo", pageEndNo);
+//            model.addAttribute("accompanyList", accompanyList);
+            model.addAttribute("pageNo", pageNo);
+            model.addAttribute("search_option", search_option);
+            model.addAttribute("search_word", search_word);
+
+
+            modelAndView.setViewName("member/manager/accompany");
+            System.out.println(aList);
+            modelAndView.addObject("aList", aList);
+
+
+            return modelAndView;
+
     }
 
 
-    // 일정글 삭제
-    @ResponseBody
-    @PostMapping("/manager/deleteAccompany")
-    public void deleteAccompany(@ModelAttribute(name = "userNumber")
-                                Long userNumber) {
-
-        System.out.println(userNumber);
-        // 게시글에 관련된 댓글을 모두 삭제하고 게시글을 삭제한다.
-        commentServiceM.deleteByUserUserNumber(userNumber);
-        accompanyServiceM.deleteByUserNumber(userNumber);
 
 
-    }
+        // 일정글 삭제
+        @ResponseBody
+        @PostMapping("/manager/deleteAccompany")
+        public void deleteAccompany (@ModelAttribute(name = "acNum")
+                Long acNum){
 
+            // 게시글에 관련된 댓글을 모두 삭제하고 게시글을 삭제한다.
+//        commentServiceM.deleteById(acNum);
+            accompanyServiceM.deleteById(acNum);
+
+
+        }
 
 
 //    일정 글 목록
-    @GetMapping("/manager/plan")
-    public ModelAndView plan(
-            ModelAndView modelAndView
-            ) {
+        @GetMapping("/manager/plan")
+        public ModelAndView plan (
+                ModelAndView modelAndView,
+                @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+                @RequestParam(value = "search_word", defaultValue = "") String search_word,
+                @RequestParam(value = "search_option", defaultValue = "all") String search_option,
+                Model model
+            ){
 
-        modelAndView.setViewName("member/manager/plan");
-        List<PlanBoardDTO> planList = planServiceM.findAllByOrderByPbNumAsc();
-        modelAndView.addObject("planList", planList);
 
 
-        return modelAndView;
+
+            int totalPgae = 0;
+            int startNo = 0;
+            int endNo = 0;
+            int pageStartNo = 0;
+            int pageEndNo = 0;
+            boolean lastPageCheck = true;
+            int planBoardCount = 0;
+            boolean noList = false;
+
+
+            List<PlanBoard> planList = new ArrayList<>();
+
+
+            if (search_word.equals("")) { // 검색어로 유저 조회중인게 아니고 전체 유저를 조회중일 떄
+
+                planBoardCount = planServiceM.selectPlanBoardCount();
+                planList = planServiceM.findPlanBoardByPage(pageNo);
+
+            }
+            totalPgae = planBoardCount % 10 > 0 && planBoardCount != 0 ? planBoardCount / 10 + 1 : planBoardCount / 10;
+
+            if (pageNo < 1 || totalPgae < pageNo) { // 혹시나 유저가 url로 이상한 값을 입력하고 들어올 경우의 예외처리
+                pageNo = 1;
+            }
+
+
+            startNo = (pageNo - 1) * 10 + 1;
+            pageStartNo = pageNo / 10 * 10 + 1;
+            pageStartNo = pageNo % 10 == 0 ? pageStartNo - 10 : pageStartNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+            pageEndNo = ((pageNo / 10 + 1) * 10);
+            pageEndNo = pageNo % 10 == 0 ? pageEndNo - 10 : pageEndNo; // 21~30을 보여줘야 하는데 30일떄는 startNo이 31이된다.
+
+            if (totalPgae <= pageEndNo) { // 현재 보여주고 있는 페이지라인이(ex 1~10, 11~20 pageEndNo가 totlaPage보다 크거나 같을 경우. 다음과 끝은 보여주면 안된다.
+
+
+                pageEndNo = planBoardCount / 10;
+                pageEndNo = planBoardCount % 10 > 0 ? pageEndNo + 1 : pageEndNo;
+                lastPageCheck = false; // 굳이 얘를 안쓰고 UseCOunt/10과 pageEndNo을 비교해도된다. 같은 뜻임.
+            }
+
+            // 시작 페이지보다 작은 값, 마지막 페이지보다 큰 값이 들어온다면 예외처리한다.
+            // 마지막페이지 값
+
+            noList = planBoardCount == 0 ? true : false;
+
+            model.addAttribute("noList", noList);
+            model.addAttribute("totalPage", totalPgae);
+            model.addAttribute("lastPageCheck", lastPageCheck);
+            model.addAttribute("pageStartNo", pageStartNo);
+            model.addAttribute("pageEndNo", pageEndNo);
+            model.addAttribute("pageNo", pageNo);
+            model.addAttribute("search_option", search_option);
+            model.addAttribute("search_word", search_word);
+
+
+
+            modelAndView.setViewName("member/manager/plan");
+            modelAndView.addObject("planList", planList);
+
+
+            return modelAndView;
+        }
+
+        @ResponseBody
+        @PostMapping("/manager/deletePlan")
+        public void deletePlan (@ModelAttribute(name = "pbNum")
+                Long pbNum){
+
+
+            // 캐스케이드 설정으로 planBoard를 지우면 planBoardDetail도 함께 삭제된다
+
+            planServiceM.deletePlan(pbNum);
+        }
     }
-
-    @ResponseBody
-    @PostMapping("/manager/deletePlan")
-    public void deletePlan(@ModelAttribute(name = "userNumber")
-                           Long userNumber) {
-
-        // 유저가 가지고 있는 일정 게시글을 모두 불러온다.
-        // 그 일정게시글을 이용해 일정게시글이 가지고 있는 pb_num과 일치하는 detail보드를 모두 삭제한다.
-        List<PlanBoard> planBoardList = planServiceM.getPlanBoardListByUserNumber(userNumber);
-        log.info("planBoardList = ->>>> {}",planBoardList);
-        planServiceM.deletePlanDetailBoard(planBoardList);
-        planServiceM.deletePlan(userNumber);
-    }
-}

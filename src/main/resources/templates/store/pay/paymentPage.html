@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rentcar</title>
     <link th:href="@{/css/payment/payment.css}" rel="stylesheet" type="text/css">
     <link href="/css/header.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fb453b869a.js" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
                                     </div>
                                     <!--                                    차 가격 넣기-->
                                     <div class="prodPrice total_count" th:id="car-price"
-                                         th:text="|${dto.car_price}원|">
+                                         th:text="|${dto.car_discount}원|">
 
                                     </div>
                                 </div>
@@ -750,7 +750,7 @@
                         <div class="payment-info-price" style="flex-direction: column; padding: 20px 0px;">
                             <div class="priceWarp">
                                 <div>대여료</div>
-                                <div th:id="car-price2" th:text="${dto.car_price}">156,480</div>
+                                <div th:id="car-price2" th:text="${dto.car_discount}">156,480</div>
                             </div>
                             <div class="priceWarp">
                                 <div>보험 (일반 자차)</div>

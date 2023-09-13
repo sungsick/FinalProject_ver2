@@ -81,7 +81,8 @@ $(document).ready(function () {
                 });
             }
         }else{
-            alert("빈 칸 채워");
+
+            Swal.fire('내용을 입력해주세요.', '', 'warning')
         }
         $('[name=question_title]').val("");
         $('[name=question_content]').val("");

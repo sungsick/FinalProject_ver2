@@ -362,12 +362,14 @@ h6 > b {
 
 .content_container {
     padding-top: 35px;
+    padding-bottom: 80px;
 }
 
 .tour_detail_container {
     margin: 150px auto 0 auto;
     width: 1150px;
     position: relative;
+    padding-bottom: 80px;
 }
 
 .search_type_container {
@@ -827,12 +829,15 @@ h6 > b {
 
 /*여행상점 메인*/
 
-
+.main_container{
+    padding-bottom: 80px;
+}
 .tour_main_container {
     width: 1150px;
 
     margin: 0 auto;
     margin-top: 150px;
+
 }
 
 .tour_main_box, .flight_rank_box {

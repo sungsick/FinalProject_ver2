@@ -507,6 +507,7 @@ img {
     border-radius: 8px;
     border: 0px;
     outline: none;
+    cursor: pointer;
 }
 
 .add_schedule_btn2 {
@@ -774,6 +775,9 @@ img {
     outline: none;
     cursor: pointer;
 }
+.bt_container_m_btn:hover{
+    font-weight: 900;
+}
 
 #deleteBtn {
     font-size: 12px;
@@ -784,6 +788,9 @@ img {
     border: none !important;
     outline: none;
     cursor: pointer;
+}
+#deleteBtn:hover{
+    font-weight: 900;
 }
 
 .bt_com {
@@ -851,7 +858,9 @@ img {
     border: none;
     background-color: transparent;
 }
-
+.add_reply_btn:hover{
+    font-weight: 900;
+}
 
 /* 프로필 모달창  css */
 #container_modal {
@@ -931,9 +940,10 @@ img {
     float: right;
     cursor: pointer;
     text-shadow: 3px 3px 3px #838383;
-    color: white;
+    color: #f6f5f5;
     width: 60px;
     height: 60px;
+    font-size: 27px;
 }
 
 #modal .content {
@@ -1292,23 +1302,27 @@ img {
 .md_personal_checkbox1 p {
     margin-bottom: 10px;
 }
-
+.comment-block_mini{
+    margin-top: 30px;
+    border-bottom: 1px solid rgb(220, 220, 220);
+}
 .comment-block {
-    height: 30px;
+    height: auto;
     border-bottom: 1px solid rgb(220, 220, 220);
     margin-bottom:100px;
 }
 
-.kAbAZt {
+.commentBox {
     display: flex;
     position: relative;
     flex-flow: row;
     height: auto;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 20px;
 }
 
-.cpQiyf {
+.commentBox1 {
     display: flex;
     position: relative;
     border-radius: 50%;
@@ -1316,6 +1330,7 @@ img {
     height: 35px;
     overflow: hidden;
     cursor: pointer;
+    margin-top: 3px;
 }
 
 .dendhJ {
@@ -1357,7 +1372,7 @@ img {
     color: rgb(154, 154, 154);
 }
 
-.gUqDoq {
+.gotMsg {
     font-size: 14px;
     font-weight: 400;
     line-height: 19.24px;
@@ -1365,9 +1380,11 @@ img {
     margin-top: 16px;
     white-space: pre-line;
     word-break: break-all;
+    height: 45px;
+    margin-left: 5px;
 }
 
-.gUqDoq > span:first-child {
+.gotMsg > span:first-child {
     color: rgb(106, 106, 106);
 }
 
@@ -1390,6 +1407,7 @@ img {
     -webkit-box-align: center;
     align-items: center;
     gap: 16px;
+    margin-bottom: 10px;
 }
 
 
@@ -1424,14 +1442,12 @@ img {
     align-items: center;
     flex-direction: column;
     margin-top: 100px;
-
 }
 
 .no-comment-img {
     width: 90px;
     height: 149px;
     object-fit: contain;
-    margin-bottom: 20px;
 }
 
 a {
@@ -1445,17 +1461,157 @@ a {
 .bt_com_div_btn{
     cursor: pointer;
 }
+.bt_com_div_btn:hober{
+    font-weight: 900;
+}
 
 .commentDelBtn{
     display: none;
     width: 800px;
     resize: none;
+    height: 50px;
 }
 .add_reply_btnUpdate{
     display: none;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17.76px;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+.add_reply_btnUpdate:hover{
+    font-weight: 900;
+}
+.thCommentBox{
+    border-bottom: 1px solid #d3d5e0;
+    margin-top: 5px;
+}
+.add_reply_btnEdit{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17.76px;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+.add_reply_btnEdit:hover{
+    font-weight: 900;
+}
+.add_reply_btnDelete{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17.76px;
+    color: rgb(106, 106, 106);
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+.add_reply_btnDelete:hover{
+    font-weight: 900;
 }
 
-.icon-img{
+/* 일정추가 css */
 
-    border-radius: 50px;
+#planModal.modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#planModal .planModal-window {
+    background: white;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 400px;
+    height: 500px;
+    position: relative;
+    top: -100px;
+    padding: 10px;
+}
+#planModal .title {
+    width: 100%;
+    height: 57px;
+    padding: 10px 18px;
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 14px;
+
+}
+#planModal .title p {
+    user-select: none;
+    -webkit-user-drag: none;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgb(147, 147, 147);
+}
+.planCloseArea {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#planModal .content {
+    margin-top: 10px;
+    padding: 0px 10px;
+    text-shadow: 1px 1px 2px gray;
+    color: black;
+}
+#planModal #idSubject {
+    width: 100%;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+    box-sizing: border-box;
+    padding: 0px 18px 16px;
+}
+#introAddPlan{
+    width: calc(100% - 36px);
+    height: 57px;
+    background: rgba(249, 249, 249, 0.8);
+    border-radius: 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 18px 0px;
+    margin: 0px 18px;
+}
+
+.content_sub1{
+    width: 35px;
+    height: 24px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
 }

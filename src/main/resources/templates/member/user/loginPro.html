@@ -17,17 +17,38 @@
 <body>
 
 
+
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        var test = [[${msg}]];
+        var check = [[${check}]]
+        var msg = [[${msg}]];
+        var type = ''
 
-        Swal.fire(`${test}`, '', 'success').then((result) => {
 
-            location.href = "/"
-
-        })
         /*]]>*/
+        if(check){
+
+            console.log('hh')
+
+            Swal.fire(`${msg}`, '', 'success').then((result) => {
+
+                location.href = "/"
+
+            })
+        }else{
+
+
+            Swal.fire(`${msg}`, '', 'info').then((result) => {
+
+                location.href = "/"
+
+            })
+
+        }
+
+
+
     </script>
 
 

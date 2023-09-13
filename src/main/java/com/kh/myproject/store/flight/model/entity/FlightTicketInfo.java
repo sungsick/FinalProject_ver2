@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 public class FlightTicketInfo {
 
@@ -44,7 +43,7 @@ public class FlightTicketInfo {
 
     // 어떤 유저의 ticket인지 user_number FK 설정
     // 한명의 유저가 많은 예약정보를 가질 수 있으니 ManyToOne
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "userNumber")
     private User user;
 

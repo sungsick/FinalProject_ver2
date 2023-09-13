@@ -90,6 +90,7 @@ public class UserController {
         String msg = String.format("반갑습니다 %s님", user.getUserName());
 
 
+        modelAndView.addObject("check",true);
         modelAndView.addObject("msg", msg);
         modelAndView.addObject("user", user); // 세션을 설정한다.
         modelAndView.setViewName("member/user/loginPro"); // msg출력을 위한 html 파일 거치기
@@ -144,14 +145,18 @@ public class UserController {
         }
 
 
+        boolean check;
         if (result != null) {
             msg = String.format("반갑습니다 %s님", result.getUserName());
             modelAndView.addObject("user", result); // 세션을 설정한다.
+            check = true;
 
         } else {
             msg = "아이디 혹은 비밀번호를 확인해주세요.";
+            check = false;
         }
         modelAndView.addObject("msg", msg);
+        modelAndView.addObject("check", check);
         modelAndView.setViewName("member/user/loginPro"); // msg출력을 위한 html 파일 거치기
 
         return modelAndView;
@@ -304,7 +309,7 @@ public class UserController {
         return "member/user/logout";
     }
 
-    @GetMapping("member/mypage")
+    @GetMapping("/member/mypage")
     public String mypage(HttpSession session, Model model) {
 
 

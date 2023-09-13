@@ -32,7 +32,7 @@ function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        Swal.fire('키워드를 입력해주세요.', '', 'warning')
         return false;
     }
 
@@ -53,12 +53,12 @@ function placesSearchCB(data, status, pagination) {
 
     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 
-        alert('검색 결과가 존재하지 않습니다.');
+        Swal.fire('검색결과가 존재하지 않습니다.', '', 'warning')
         return;
 
     } else if (status === kakao.maps.services.Status.ERROR) {
 
-        alert('검색 결과 중 오류가 발생했습니다.');
+        Swal.fire('검색 결과 중 오류가 발생했습니다.', '', 'warning')
         return;
 
     }
@@ -122,7 +122,7 @@ function displayPlaces(places) {
     map.setBounds(bounds);
 }
 
-// 검색결과 항목을 Element로 반환하는 함수입니다
+// 검색결과 항목을 Element로 반환
 function getListItem(index, places) {
 
     var el = document.createElement('li'),
@@ -151,25 +151,25 @@ function getListItem(index, places) {
         //console.log(places.place_name);
     });
 
-    //장소 검색 후 '선택' 클릭 시 콘솔창에 출력 ->
+    //장소 검색 후 '선택' 클릭 시 temp 객체에 값을 저장 ->
     var placebtn = el.querySelector('.select_placebtn');
 
     placebtn.addEventListener('click', function () {
 
 
         temp = {
-            pbdDate : $('#day').val(),
-            pbdPlaceName : places.place_name,
-            pbdCategoryGroupName : places.category_group_name,
-            pbdX : places.x,
-            pbdY : places.y
+            pbdDate: $('#day').val(),
+            pbdPlaceName: places.place_name,
+            pbdCategoryGroupName: places.category_group_name,
+            pbdX: places.x,
+            pbdY: places.y
         };
 
         item.push(temp);
         console.log(item);
 
         // place_name 값을 alert로 출력
-        alert(temp.pbdPlaceName + "선택");
+        Swal.fire(`${temp.pbdPlaceName} 선택`, '', 'info')
 
     });
 
@@ -187,10 +187,10 @@ $('.add_place_btn').on('click', function () {
         data: JSON.stringify(item),
         contentType: 'application/json',
         success: function (data) {
-            if(type === 'detail'){
+            if (type === 'detail') {
                 window.history.go(-1);
-            }else if(type === 'write'){
-            location.href = "/community/plan/write?option=1";
+            } else if (type === 'write') {
+                location.href = "/community/plan/write?option=1";
                 /*window.history.go(-1);*/
             }
 

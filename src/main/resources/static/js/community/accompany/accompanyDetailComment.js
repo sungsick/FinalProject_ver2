@@ -13,7 +13,7 @@ $('.please_leave_msg_btn').click(function(){
 
     if( commentValue === ''){ //댓글 내용이 작성되지 않았다면.
 
-        alert("댓글 내용을 작성해주세요.") // alert는 나중에 수정
+        Swal.fire('댓글 내용을 입력해주세요.', '', 'warning')
 
     }else{
 

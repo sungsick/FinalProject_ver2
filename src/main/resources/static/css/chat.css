@@ -10,7 +10,7 @@
 }
 
 
-.ant-modal-root{
+.ant-chat-modal-root{
 
     position: fixed;
     top: 0;
@@ -24,24 +24,23 @@
 
 
 
-.ant-modal-wrap {
+.ant-chat-modal-wrap {
 
     position: fixed;
     bottom: 100px;
     right: 20px;
-
     border: none;
     border-radius: 16px;
     background: #8fc5f7;
-    padding: 12px;
+    /* padding: 12px; */
     font-weight: bold;
     box-shadow: 0px 5px 15px gray;
     z-index: 9999;
-
-
+    height: 650px;
+    box-sizing: border-box;
 }
 
-.ant-modal {
+.ant-chat-modal {
 
     box-sizing: border-box;
     color: #000000d9;
@@ -54,8 +53,9 @@
     position: relative;
     width: auto;
     max-width: calc(100vw - 16px);
-    margin: 8px;
+    /* margin: 8px; */
     height: 100%;
+    padding: 15px;
 }
 
 .contentBox {
@@ -64,12 +64,13 @@
     width: 430px !important;
 }
 
-.contentBox .ant-modal-content {
+.contentBox .ant-chat-modal-content {
+
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px 0px;
 }
 
-.ant-modal-content {
+.ant-chat-modal-content {
     /*position: relative;*/
     background-color: #fff;
     background-clip: padding-box;
@@ -77,19 +78,20 @@
     border-radius: 2px;
     box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
     pointer-events: auto;
-    /*height: 400px;*/
+    height: 100%;
 }
 
-.ant-modal-body {
+.ant-chat-modal-body {
+
     padding: 24px;
     font-size: 14px;
     line-height: 1.5715;
     word-wrap: break-word;
     padding-bottom : 10px;
-    height: 550px;
+    height: 560px;
 }
 
-.modal-intro-content {
+.chat-modal-intro-content {
     height: auto;
     background: rgb(234, 234, 234);
     padding: 20px;
@@ -99,17 +101,17 @@
     word-break: keep-all;
 }
 
-.modal-content-sections {
+.chat-modal-content-sections {
     margin-bottom: 50px;
 }
 
-.modal-content-sections .title {
+.chat-modal-content-sections .title {
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: 700;
 }
 
-.modal-content-sections .img {
+.chat-modal-content-sections .img {
     display: flex;
     flex: 1 1 0%;
     margin: 15px 0px;
@@ -120,39 +122,39 @@
     -webkit-box-align: center;
     align-items: center;
 }
-.modal-content{
+.chat-modal-content{
 
     overflow : scroll;
     border : none;
-    height: 450px;
+    height: 550px;
     padding-right: 10px;
 
 }
-.modal-content-sections .sub-description {
+.chat-modal-content-sections .sub-description {
     font-size: 13px;
     color: rgb(146, 146, 146);
     margin-top: 10px;
 }
 
-.modal-content-sections .img img {
+.chat-modal-content-sections .img img {
     width: 100%;
     height: 100%;
 }
 
-.modal-content-sections .description {
+.chat-modal-content-sections .description {
     font-size: 14px;
 }
 
-.modal {
+.chat-modal {
     display: none;
 }
 
-.modal-content-sections:last-child img {
+.chat-modal-content-sections:last-child img {
     width: 228px;
     height: 218px;
 }
 
-.modal-content-sections .description .list {
+.chat-modal-content-sections .description .list {
     display: flex;
     flex-wrap: wrap;
     -webkit-box-align: center;
@@ -160,12 +162,12 @@
     margin-bottom: 12px;
 }
 
-.modal-content-sections .imgsmaller img {
+.chat-modal-content-sections .imgsmaller img {
     width: 49%;
     height: 100%;
 }
 
-.modal-content-sections .imgsmaller img:nth-child(2) {
+.chat-modal-content-sections .imgsmaller img:nth-child(2) {
     margin-left: 5px;
 }
 
@@ -240,14 +242,14 @@
     width: 500px !important;
 }
 
-.modal-open {
+.chat-modal-open {
     overflow: hidden;
     padding-right: 15px; /* 스크롤바의 너비 만큼 패딩 추가 */
     /*position: fixed;*/
     width: 100%;
 }
 
-.modal-content::-webkit-scrollbar {
+.chat-modal-content::-webkit-scrollbar {
 
     display: none;
 }
@@ -259,7 +261,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    /*width: 10px;*/
+    min-width: 130px;
+    width: auto;
+    font-size : 16px;
     border: none;
     border-radius: 16px;
     background: #00B8FF;
@@ -427,7 +431,7 @@
     display : none;
 }
 
-.modal-top-box{
+.chat-modal-top-box{
 
     padding : 0px 10px;
     padding-top : 10px;
@@ -437,12 +441,12 @@
     justify-content: space-between;
 }
 
-.modal-top-box svg{
+.chat-modal-top-box svg{
     fill: rgb(160,160,160);
     height: 25px;
 }
 
-.modal-top-box div:hover{
+.chat-modal-top-box div:hover{
 
     cursor:pointer;
 
@@ -485,6 +489,7 @@
     margin-left: 10px;
     font-weight: 450;
     max-width: 250px;
+
     width: auto;
 }
 
@@ -495,7 +500,7 @@
     font-size: 18px;
     padding-left: 10px;
     background-color: white;
-    width: 380px;
+    width: 350px;
     border-bottom : 1px solid rgb(230,230,230);
     /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); !* 가로, 세로, 번짐, 색상 설정 *!*/
 }
@@ -503,6 +508,7 @@
 
     box-sizing: border-box;
     padding-top: 60px;
+    height: 450px;
 }
 
 .disappear{

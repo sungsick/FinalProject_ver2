@@ -14,6 +14,7 @@ import java.util.Date;
 //@AllArgsConstructor // 모든 멤버 변수를 초기화하는 생성자
 @NoArgsConstructor // 기본 생성자.
 @EqualsAndHashCode // equa
+
 public class ChatMessage {
 
 
@@ -24,8 +25,8 @@ public class ChatMessage {
     private Long messageId;
 
 
-    @ManyToOne
-    @JoinColumn( name = "roomId")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn( name = "room_id")
     private ChatRoom chatRoom;
 
 
@@ -35,7 +36,7 @@ public class ChatMessage {
     @Column
     private Date sendTime; // 전송 시각
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "sender_id")
     private User user; // 해당 메시지의 발신자  (테이블 컬럼명 : sender_id)
 

@@ -1,14 +1,15 @@
 package com.kh.myproject.member.manager.service;
 
-import com.kh.myproject.community.plan.model.dto.PlanBoardDTO;
 import com.kh.myproject.community.plan.model.entity.PlanBoard;
 import com.kh.myproject.member.manager.repository.PlanDetailRepositoryM;
 import com.kh.myproject.member.manager.repository.PlanRepositoryM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -22,38 +23,25 @@ public class PlanServiceM {
     PlanDetailRepositoryM planDetailRepositoryM;
 
 
-    public List<PlanBoardDTO> findAllByOrderByPbNumAsc() {
+    public void deletePlan(Long pbNum){
 
-
-        List<PlanBoardDTO> result = new ArrayList<>();
-
-        List<PlanBoard> list = planRepositoryM.findAllByOrderByPbNumAsc();
-
-        for(int i = 0; i < list.size(); i++){
-            PlanBoardDTO boardDTO = list.get(i).toDto();
-            result.add(boardDTO);
-        }
-        return result;
-    }
-    public void deletePlan(Long userNumber){
-
-        planRepositoryM.deleteById(userNumber);
+        planRepositoryM.deleteById(pbNum);
     }
 
-    public List<PlanBoard> getPlanBoardListByUserNumber(Long userNumber){
+    public int selectPlanBoardCount(){
 
-        List<PlanBoard> planBoardList = planRepositoryM.findByUserUserNumber(userNumber);
+        int count = planRepositoryM.selectPlanBoardCount();
+        return count;
+    }
+
+    public List<PlanBoard> findPlanBoardByPage(int pageNo){
+
+        Pageable pageable = PageRequest.of(pageNo-1,10);
+        Page<PlanBoard> pageList = planRepositoryM.findAll(pageable);
+        List<PlanBoard> planBoardList = pageList.getContent();
+
         return planBoardList;
     }
 
 
-    public void deletePlanDetailBoard(List<PlanBoard> planBoardList){
-
-        for(int i = 0 ; i < planBoardList.size() ; i++){
-
-            Long pbNum = planBoardList.get(i).getPbNum();
-            planDetailRepositoryM.deleteByPlanBoardPbNum(pbNum);
-
-        }
-    }
 }
